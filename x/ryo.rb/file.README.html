@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/0x1eef.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h2 id="about">About</h2>
+
+<p>Ryo implements prototype-based inheritance, in Ruby.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="prototypes">Prototypes</h3>
+
+<h4 id="point-object">Point object</h4>
+
+<p>The following example demonstrates how prototype-based inheritance is
+implemented in Ryo. The example introduces three objects to form a
+single point object with the properties, &quot;x&quot; and &quot;y&quot;. The
+<a href="https://0x1eef.github.io/x/ryo.rb/top-level-namespace.html#Ryo-instance_method">Ryo()</a>
+method seen in the example returns an instance of
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo/Object.html">Ryo::Object</a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point_x'>point_x</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>5</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_y'>point_y</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>10</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_x'>point_x</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='rbracket'>]</span>
+
+<span class='comment'>##
+</span><span class='comment'># [5, 10]
+</span></code></pre>
+
+<h4 id="ryo-fn">Ryo.fn</h4>
+
+<p>The following example demonstrates a Ryo function.
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo/Keywords.html#function-instance_method"><code>Ryo.fn</code></a>
+will bind its <code>self</code> to the Ryo object it is assigned to, and when the function
+is called it will have access to the properties of the Ryo object:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point_x'>point_x</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>5</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_y'>point_y</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>10</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_x'>point_x</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>multiply:</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fn'><span class='object_link'><a href="Ryo/Keywords.html#fn-instance_method" title="Ryo::Keywords#fn (method)">fn</a></span></span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_x'>x</span> <span class='op'>*</span> <span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>*</span> <span class='id identifier rubyid_m'>m</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_multiply'>multiply</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+
+<span class='comment'>##
+</span><span class='comment'># [10, 20]
+</span></code></pre>
+
+<h4 id="ryo-memo">Ryo.memo</h4>
+
+<p>The following example demonstrates
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#memo-class_method"><code>Ryo.memo</code></a>.
+<code>Ryo.memo</code> returns a value that becomes memoized after a property is
+accessed for the first time. It is similar to a Ryo function:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point_x'>point_x</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_memo'><span class='object_link'><a href="Ryo.html#memo-class_method" title="Ryo.memo (method)">memo</a></span></span> <span class='lbrace'>{</span> <span class='int'>5</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_y'>point_y</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_memo'><span class='object_link'><a href="Ryo.html#memo-class_method" title="Ryo.memo (method)">memo</a></span></span> <span class='lbrace'>{</span> <span class='int'>10</span> <span class='rbrace'>}</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_x'>point_x</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>sum:</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_memo'><span class='object_link'><a href="Ryo.html#memo-class_method" title="Ryo.memo (method)">memo</a></span></span> <span class='lbrace'>{</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>+</span> <span class='id identifier rubyid_y'>y</span> <span class='rbrace'>}</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_print'>print</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>point.x = </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_print'>print</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>point.y = </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_print'>print</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>point.sum = </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='comment'>##
+</span><span class='comment'># point.x = 5
+</span><span class='comment'># point.y = 10
+</span><span class='comment'># point.sum = 15
+</span></code></pre>
+
+<h3 id="iteration">Iteration</h3>
+
+<h4 id="ryo-each">Ryo.each</h4>
+
+<p>The
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#each-class_method"><code>Ryo.each</code></a>
+method can iterate through the properties of a Ryo object, and
+its prototype(s). Ryo is designed to not mix its implementation
+with the objects it creates -  that&#39;s why
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#each-class_method"><code>Ryo.each</code></a>
+is not implemented directly on a Ryo object.</p>
+
+<p>A demonstration of <a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#each-class_method"><code>Ryo.each</code></a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>20</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'><span class='object_link'><a href="Ryo/Enumerable.html#each-instance_method" title="Ryo::Enumerable#each (method)">each</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+  <span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+
+<span class='comment'>##
+</span><span class='comment'># [&quot;x&quot;, 10]
+</span><span class='comment'># [&quot;y&quot;, 20]
+</span></code></pre>
+
+<h4 id="ryo-map">Ryo.map!</h4>
+
+<p><a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html"><code>Ryo::Enumerable</code></a>
+methods can return a new copy of a Ryo object and its prototypes, or mutate
+a Ryo object and its prototypes in-place. The following example demonstrates
+an in-place map operation on a Ryo object with
+<a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html#map!-instance_method"><code>Ryo.map!</code></a>.
+The counterpart of
+<a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html#map!-instance_method"><code>Ryo.map!</code></a>
+is
+<a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html#map-instance_method"><code>Ryo.map</code></a>,
+and it returns a new copy of a Ryo object and its prototypes.</p>
+
+<p>A demonstration of <a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html#map!-instance_method"><code>Ryo.map!</code></a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point_x'>point_x</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_y'>point_y</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>4</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_x'>point_x</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='rparen'>)</span>
+
+<span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map!'><span class='object_link'><a href="Ryo/Enumerable.html#map!-instance_method" title="Ryo::Enumerable#map! (method)">map!</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>*</span> <span class='int'>2</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point_x'>point_x</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='rbracket'>]</span>
+
+<span class='comment'>##
+</span><span class='comment'># [4, 8]
+</span><span class='comment'># [4, 8]
+</span></code></pre>
+
+<h4 id="ancestors">Ancestors</h4>
+
+<p>All <a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html"><code>Ryo::Enumerable</code></a>
+methods support an optional <code>ancestors</code> option.</p>
+
+<p><code>ancestors</code> is an integer that determines how far up the prototype chain a
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html"><code>Ryo::Enumerable</code></a>
+method can go. 0 covers a Ryo object, and none of the prototypes in its
+prototype chain. 1 covers a Ryo object, and one of the prototypes in its
+prototype chain - and so on.</p>
+
+<p>When the <code>ancestors</code> option is not provided, the default behavior of
+<a href="http://0x1eef.github.io/x/ryo.rb/Ryo/Enumerable.html"><code>Ryo::Enumerable</code></a>
+methods is to traverse the entire prototype chain. The following example
+demonstrates using the <code>ancestors</code> option with
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#find-class_method"><code>Ryo.find</code></a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point_x'>point_x</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>5</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_y'>point_y</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>10</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_x'>point_x</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_p'>p</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'><span class='object_link'><a href="Ryo/Enumerable.html#find-instance_method" title="Ryo::Enumerable#find (method)">find</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='int'>0</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>==</span> <span class='int'>5</span> <span class='rbrace'>}</span>   <span class='comment'># =&gt; nil
+</span><span class='id identifier rubyid_p'>p</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'><span class='object_link'><a href="Ryo/Enumerable.html#find-instance_method" title="Ryo::Enumerable#find (method)">find</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>==</span> <span class='int'>5</span> <span class='rbrace'>}</span>   <span class='comment'># =&gt; nil
+</span><span class='id identifier rubyid_p'>p</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'><span class='object_link'><a href="Ryo/Enumerable.html#find-instance_method" title="Ryo::Enumerable#find (method)">find</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>==</span> <span class='int'>5</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span> <span class='comment'># =&gt; point_x.x
+</span><span class='id identifier rubyid_p'>p</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'><span class='object_link'><a href="Ryo/Enumerable.html#find-instance_method" title="Ryo::Enumerable#find (method)">find</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>==</span> <span class='int'>5</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span> <span class='comment'># =&gt; point_x.x
+</span></code></pre>
+
+<h3 id="recursion">Recursion</h3>
+
+<h4 id="ryo-from">Ryo.from</h4>
+
+<p>The <a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#from-class_method"><code>Ryo.from</code></a> method has
+the same interface as the <a href="https://0x1eef.github.io/x/ryo.rb/top-level-namespace.html#Ryo-instance_method"><code>Ryo</code></a>
+method, but it is implemented to recursively walk a Hash object and create Ryo objects
+from other Hash objects found along the way. Recursion is not the default behavior
+because it has the potential to be slow when given a complex Hash object that&#39;s
+very large - otherwise there shouldn&#39;t be a noticeable performance impact.</p>
+
+<p>The following example demonstrates <a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#from-class_method"><code>Ryo.from</code></a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'><span class='object_link'><a href="Ryo.html#from-class_method" title="Ryo.from (method)">from</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>x:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>0</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>y:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>10</span><span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span>
+
+<span class='comment'>##
+</span><span class='comment'># [0, 10]
+</span></code></pre>
+
+<h4 id="ryo-from-with-an-array">Ryo.from with an Array</h4>
+
+<p>The <a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#from-class_method"><code>Ryo.from</code></a> method can
+walk an Array object, and create Ryo objects from Hash objects found along the way.
+An object that can&#39;t be turned into a Ryo object is left as-is. The following
+example demonstrates how that works in practice:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_points'>points</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'><span class='object_link'><a href="Ryo.html#from-class_method" title="Ryo.from (method)">from</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span>
+  <span class='lbrace'>{</span><span class='label'>x:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foobar</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='lbrace'>{</span><span class='label'>y:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>4</span><span class='rbrace'>}</span><span class='rbrace'>}</span>
+<span class='rbracket'>]</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_points'>points</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_points'>points</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_points'>points</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+
+<span class='comment'>##
+</span><span class='comment'># 2
+</span><span class='comment'># &quot;foobar&quot;
+</span><span class='comment'># 4
+</span></code></pre>
+
+<h4 id="ryo-from-with-openstruct">Ryo.from with OpenStruct</h4>
+
+<p>All methods that can create Ryo objects support turning a Struct, or OpenStruct object
+into a Ryo object. The following example demonstrates how
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#from-class_method"><code>Ryo.from</code></a>
+can recursively turn an OpenStruct object into Ryo objects. The example also assigns
+a prototype to the Ryo object created from the OpenStruct:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ostruct</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'><span class='object_link'><a href="Ryo.html#from-class_method" title="Ryo.from (method)">from</a></span></span><span class='lparen'>(</span>
+  <span class='const'>OpenStruct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>x:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>5</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='comma'>,</span>
+  <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'><span class='object_link'><a href="Ryo.html#from-class_method" title="Ryo.from (method)">from</a></span></span><span class='lparen'>(</span><span class='label'>y:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>10</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span>
+
+<span class='comment'>##
+</span><span class='comment'># [5, 10]
+</span></code></pre>
+
+<h3 id="basicobject">BasicObject</h3>
+
+<h4 id="ryo-basicobject">Ryo::BasicObject</h4>
+
+<p>All of the previous examples have been working with instances of
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo/Object.html">Ryo::Object</a>,
+a subclass of Ruby&#39;s Object class. In comparison, <a href="https://0x1eef.github.io/x/ryo.rb/Ryo/BasicObject.html">Ryo::BasicObject</a> -
+a subclass of Ruby&#39;s BasicObject class, provides an object
+with fewer methods. The following example demonstrates
+how to create an instance of <a href="https://0x1eef.github.io/x/ryo.rb/Ryo/BasicObject.html">Ryo::BasicObject</a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point_x'>point_x</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ryo/BasicObject.html" title="Ryo::BasicObject (class)">BasicObject</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>0</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_y'>point_y</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ryo/BasicObject.html" title="Ryo::BasicObject (class)">BasicObject</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>0</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_x'>point_x</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ryo/BasicObject.html" title="Ryo::BasicObject (class)">BasicObject</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_y'>point_y</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='rbracket'>]</span>
+
+<span class='comment'>##
+</span><span class='comment'># [0, 0]
+</span></code></pre>
+
+<h4 id="ryo-basicobject-from">Ryo::BasicObject.from</h4>
+
+<p><a href="https://0x1eef.github.io/x/ryo.rb/Ryo/BasicObject.html#from-class_method">Ryo::BasicObject.from</a>
+is identical to Ryo.from but rather than returning instance(s) of <a href="https://0x1eef.github.io/x/ryo.rb/Ryo/Object.html">Ryo::Object</a>
+it returns instance(s) of <a href="https://0x1eef.github.io/x/ryo.rb/Ryo/BasicObject.html">Ryo::BasicObject</a>
+instead:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ryo/BasicObject.html" title="Ryo::BasicObject (class)">BasicObject</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'><span class='object_link'><a href="Ryo/BasicObject.html#from-class_method" title="Ryo::BasicObject.from (method)">from</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>x:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>y:</span> <span class='lbrace'>{</span><span class='label'>to_i:</span> <span class='int'>4</span><span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span>
+
+<span class='comment'>##
+</span><span class='comment'># [2, 4]
+</span></code></pre>
+
+<h3 id="collisions">Collisions</h3>
+
+<h4 id="resolution-strategy">Resolution strategy</h4>
+
+<p>When a property and method collide, Ryo tries to find the best resolution. Since Ryo properties
+don&#39;t accept arguments, and methods can - we are able to distinguish a property from a method in
+many cases.</p>
+
+<p>Consider this example, where a property collides with the <code>Kernel#then</code> method. This example
+would work the same for other methods that accept a block and/or arguments:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_ryo'>ryo</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ryo/Object.html" title="Ryo::Object (class)">Object</a></span></span><span class='lparen'>(</span><span class='label'>then:</span> <span class='int'>12</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_ryo'>ryo</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span> <span class='comment'># =&gt; 12
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_ryo'>ryo</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span> <span class='lbrace'>{</span> <span class='int'>34</span> <span class='rbrace'>}</span> <span class='comment'># =&gt; 34
+</span></code></pre>
+
+<h3 id="beyond-hash-objects">Beyond Hash objects</h3>
+
+<h4 id="duck-typing">Duck typing</h4>
+
+<p>The documentation has used simple terms to describe the objects that Ryo works
+with: Hash and Array objects. But in reality, Ryo uses duck typing, so any object
+that implements <code>#each_pair</code> can be treated as a Hash object, and any object that
+implements <code>#each</code> can be treated as an Array object. Note that only
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo.html#from-class_method">Ryo.from</a>,
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo/Object.html#from-class_method">Ryo::Object.from</a>
+and
+<a href="https://0x1eef.github.io/x/ryo.rb/Ryo/BasicObject.html#from-class_method">Ryo::BasicObject.from</a>
+can handle Array/#each objects.</p>
+
+<p>Here&#39;s an example of how to turn your own custom object, which implements
+<code>#each_pair</code>, into a Ryo object:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ryo</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='kw'>class</span> <span class='const'>Point</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='ivar'>@x</span> <span class='op'>=</span> <span class='int'>5</span>
+    <span class='ivar'>@y</span> <span class='op'>=</span> <span class='int'>10</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_each_pair'>each_pair</span>
+    <span class='kw'>yield</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>x</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@x</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>y</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@y</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='const'>Point</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span> <span class='comment'># =&gt; 5
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='comment'># =&gt; 10
+</span></code></pre>
+
+<h2 id="install"><a id='install'>Install</a></h2>
+
+<p><strong>Rubygems.org</strong></p>
+
+<p>Ryo can be installed via rubygems.org.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_ryo'>ryo</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+<li><a href="https://github.com/0x1eef/ryo.rb#readme">GitHub</a></li>
+<li><a href="https://gitlab.com/0x1eef/ryo.rb#about">GitLab</a></li>
+</ul>
+
+<h2 id="thanks">Thanks</h2>
+
+<p>Thanks to
+<a href="https://github.com/awfulcooking">@awfulcooking (mooff)</a>
+for the helpful discussions and advice.</p>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://choosealicense.com/licenses/0bsd/">BSD Zero Clause</a>.
+<br>
+See <a href="./LICENSE">LICENSE</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sun Mar 24 21:31:48 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-3.3.0).
+</div>
+
+    </div>
+  </body>
+</html>
