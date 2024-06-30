@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <TITLE>Filter and map in POSIX shell</TITLE>
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="Filter and map in POSIX shell">
+  <META property="og:description" content=
+  "Documents how to implement filter and map in POSIX shell">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/i/posix-shell-mapfilter/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY>
+  <DIV class="h-full w-full m-auto font-kanit">
+    <HEADER class="flex items-center justify-between m-auto pt-2">
+      <A href="/"><IMG src="/images/favicon-32x32.png" alt="leaf"></A>
+      <UL class="list-none">
+        <LI>
+          <A href="/">Projects</A>
+        </LI>
+        <LI>
+          <A href="/i/">Posts</A>
+        </LI>
+      </UL>
+    </HEADER>
+    <MAIN class="flex place-content-center">
+      <ARTICLE>
+        <H3>Filter and map in POSIX shell</H3>
+        <DIV class="wrapper">
+          <DIV class="body">
+            <P>This post looks at one way you could implement a filter and map
+            operation in POSIX shell with a pipeline, a while loop and the read
+            command. All examples and research has been verified with FreeBSD's
+            <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?sh">sh(1)</A>.</P>
+            <H4 class="rounded-left-accent color-accent mb-2">map</H4>
+            <P>The following example implements a loop that inserts a line
+            number before each line in the response body of a curl request:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="ch">#!/bin/sh</SPAN>
+<SPAN class="nb">set</SPAN><SPAN class="w"> </SPAN>-e
+
+<SPAN class="nv">i</SPAN><SPAN class="o">=</SPAN><SPAN class="m">1</SPAN>
+<SPAN class="nv">url</SPAN><SPAN class="o">=</SPAN><SPAN class=
+"s2">"https://terry.reflectslight.io"</SPAN>
+<SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"</SPAN><SPAN class="k">$(</SPAN>curl<SPAN class="w"> </SPAN><SPAN class=
+"si">${</SPAN><SPAN class="nv">url</SPAN><SPAN class="si">}</SPAN><SPAN class=
+"k">)</SPAN><SPAN class="s2">"</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"p">|</SPAN>
+<SPAN class="k">while</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"nb">read</SPAN><SPAN class="w"> </SPAN>-r<SPAN class=
+"w"> </SPAN>line<SPAN class="p">;</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"k">do</SPAN>
+<SPAN class="w">  </SPAN><SPAN class="nb">echo</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="s2">"L</SPAN><SPAN class="si">${</SPAN><SPAN class=
+"nv">i</SPAN><SPAN class="si">}</SPAN><SPAN class="s2"> </SPAN><SPAN class=
+"si">${</SPAN><SPAN class="nv">line</SPAN><SPAN class="si">}</SPAN><SPAN class=
+"s2">"</SPAN>
+<SPAN class="w">  </SPAN><SPAN class="nv">i</SPAN><SPAN class=
+"o">=</SPAN><SPAN class="k">$(</SPAN>expr<SPAN class="w"> </SPAN><SPAN class=
+"si">${</SPAN><SPAN class="nv">i</SPAN><SPAN class="si">}</SPAN><SPAN class=
+"w"> </SPAN>+<SPAN class="w"> </SPAN><SPAN class="m">1</SPAN><SPAN class=
+"k">)</SPAN>
+<SPAN class="k">done</SPAN>
+
+<SPAN class="c1">##</SPAN>
+<SPAN class="c1"># L1 &lt;!DOCTYPE html&gt;</SPAN>
+<SPAN class="c1"># L2 &lt;HTML lang="en"&gt;</SPAN>
+<SPAN class="c1"># L3 &lt;HEAD&gt;</SPAN>
+<SPAN class="c1"># L4 ...</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">filter + map</H4>
+            <P>The previous loop can serve as the foundation for a filter + map
+            operation that can keep or discard individual lines in a stream of
+            content. The following example selects <CODE>&lt;META&gt;</CODE>
+            tags, and then transforms those lines into lowercase
+            characters:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="ch">#!/bin/sh</SPAN>
+<SPAN class="nb">set</SPAN><SPAN class="w"> </SPAN>-e
+
+<SPAN class="nv">url</SPAN><SPAN class="o">=</SPAN><SPAN class=
+"s2">"https://terry.reflectslight.io"</SPAN>
+<SPAN class="nv">filtered</SPAN><SPAN class="o">=</SPAN><SPAN class=
+"k">$(</SPAN>
+<SPAN class="w">  </SPAN><SPAN class="nb">echo</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="s2">"</SPAN><SPAN class="k">$(</SPAN>curl<SPAN class=
+"w"> </SPAN><SPAN class="si">${</SPAN><SPAN class="nv">url</SPAN><SPAN class=
+"si">}</SPAN><SPAN class="k">)</SPAN><SPAN class="s2">"</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="p">|</SPAN>
+<SPAN class="w">  </SPAN><SPAN class="k">while</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="nb">read</SPAN><SPAN class="w"> </SPAN>-r<SPAN class=
+"w"> </SPAN>line<SPAN class="p">;</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"k">do</SPAN>
+<SPAN class="w">    </SPAN><SPAN class="k">if</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"</SPAN><SPAN class="si">${</SPAN><SPAN class="nv">line</SPAN><SPAN class=
+"si">}</SPAN><SPAN class="s2">"</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"p">|</SPAN>
+<SPAN class="w">       </SPAN>grep<SPAN class="w"> </SPAN><SPAN class=
+"s2">"&lt;META"</SPAN><SPAN class="w"> </SPAN>&gt;<SPAN class=
+"w"> </SPAN>/dev/null<SPAN class="w"> </SPAN><SPAN class=
+"m">2</SPAN>&gt;<SPAN class="p">&</SPAN><SPAN class="m">1</SPAN><SPAN class=
+"p">;</SPAN><SPAN class="w"> </SPAN><SPAN class="k">then</SPAN>
+<SPAN class="w">      </SPAN><SPAN class="nb">echo</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="s2">"</SPAN><SPAN class="si">${</SPAN><SPAN class=
+"nv">line</SPAN><SPAN class="si">}</SPAN><SPAN class="s2">"</SPAN><SPAN class=
+"w"> </SPAN><SPAN class="p">|</SPAN>
+<SPAN class="w">      </SPAN>tr<SPAN class="w"> </SPAN><SPAN class=
+"s1">'[:upper:]'</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s1">'[:lower:]'</SPAN>
+<SPAN class="w">    </SPAN><SPAN class="k">fi</SPAN>
+<SPAN class="w">  </SPAN><SPAN class="k">done</SPAN>
+<SPAN class="k">)</SPAN>
+<SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"</SPAN><SPAN class="si">${</SPAN><SPAN class=
+"nv">filtered</SPAN><SPAN class="si">}</SPAN><SPAN class="s2">"</SPAN>
+
+<SPAN class="c1">##</SPAN>
+<SPAN class="c1"># &lt;meta name="description" ...&gt;</SPAN>
+<SPAN class="c1"># &lt;meta property="og:type" ...&gt;</SPAN>
+<SPAN class="c1"># &lt;meta property="og:title" ...&gt;</SPAN>
+<SPAN class="c1"># ...</SPAN></CODE>
+</PRE>
+          </DIV>
+        </DIV>
+      </ARTICLE>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>

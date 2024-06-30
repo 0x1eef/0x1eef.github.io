@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <TITLE>['#!/bin/sh -e', 'set -e'].sample</TITLE>
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="['#!/bin/sh -e', 'set -e'].sample">
+  <META property="og:description" content=
+  "Documents a subtle difference between #!/bin/sh -e and set -e">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/i/posix-shell-set-e/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY>
+  <DIV class="h-full w-full m-auto font-kanit">
+    <HEADER class="flex items-center justify-between m-auto pt-2">
+      <A href="/"><IMG src="/images/favicon-32x32.png" alt="leaf"></A>
+      <UL class="list-none">
+        <LI>
+          <A href="/">Projects</A>
+        </LI>
+        <LI>
+          <A href="/i/">Posts</A>
+        </LI>
+      </UL>
+    </HEADER>
+    <MAIN class="flex place-content-center">
+      <ARTICLE>
+        <H3>["#!/bin/sh -e", "set -e"].sample</H3>
+        <DIV class="wrapper">
+          <DIV class="body">
+            <P>It wasn't until recently that I learnt of an important, subtle
+            difference between <CODE>#!/bin/sh -e</CODE> and <CODE>set
+            -e</CODE> that encouraged me to switch from the former to the
+            latter. All examples and research has been verified with FreeBSD's
+            <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?sh">sh(1)</A>.</P>
+            <H4 class="rounded-left-accent color-accent mb-2">#!/bin/sh -e</H4>
+            <P>The shebang variant won't stop script execution when a command
+            exits unsuccessfully within a subshell:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="ch">#!/bin/sh -e</SPAN>
+
+<SPAN class="c1"># 'realpath' exits unsuccessfully</SPAN>
+<SPAN class="o">(</SPAN>realpath<SPAN class=
+"w"> </SPAN>/path/does/not/exist<SPAN class="o">)</SPAN>
+
+<SPAN class="c1"># But we reach here anyway</SPAN>
+<SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"reached"</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">set -e</H4>
+            <P>On the other hand, the builtin command <CODE>set -e</CODE> stops
+            script execution when a command exits unsuccessfully within a
+            subshell:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="ch">#!/bin/sh</SPAN>
+<SPAN class="nb">set</SPAN><SPAN class="w"> </SPAN>-e
+
+<SPAN class="c1"># 'realpath' exits unsuccessfully</SPAN>
+<SPAN class="o">(</SPAN>realpath<SPAN class=
+"w"> </SPAN>/path/does/not/exist<SPAN class="o">)</SPAN>
+
+<SPAN class="c1"># And we never reach here</SPAN>
+<SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"unreached"</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent">Conclusion</H4>
+            <P>More than anything I was surprised when I learnt of this
+            difference. It served as a good reminder to study <A target=
+            "_blank" href="https://man.freebsd.org/cgi/man.cgi?sh">sh(1)</A>
+            regularly. When I use the <CODE>-e option</CODE> I prefer that it
+            applies to subshells as well, and that's why I will lean towards
+            using <CODE>set -e</CODE> in the future.</P>
+          </DIV>
+        </DIV>
+      </ARTICLE>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>
