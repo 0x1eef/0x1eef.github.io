@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <TITLE>A quick look at mdo(1)</TITLE>
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="A quick look at mdo(1)">
+  <META property="og:description" content=
+  "Documents the mdo(1) utility on FreeBSD">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/a-quick-look-at-mdo">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY>
+  <DIV class="h-full w-full m-auto font-kanit">
+    <HEADER class="flex items-center justify-between m-auto pt-2">
+      <A href="/"><IMG src="/images/favicon-32x32.png" alt="leaf"></A>
+      <UL class="list-none">
+        <LI>
+          <A href="/">Projects</A>
+        </LI>
+        <LI>
+          <A href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </HEADER>
+    <MAIN class="flex place-content-center">
+      <ARTICLE>
+        <H3>A quick look at mdo(1)</H3>
+        <DIV class="wrapper">
+          <DIV class="body">
+            <P>This post takes a look at <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A> on FreeBSD. I
+            happened to come across it by chance recently, and I wanted to see
+            how compared with <A target="_blank" href=
+            "https://man.openbsd.org/doas">doas(1)</A>. If you're not familiar
+            with <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A> yet then I
+            would describe it as a utility unique to FreeBSD that allows a user
+            (or members of a group) execute a command as another user.</P>
+            <H4 class="rounded-left-accent color-accent mb-2">kldload</H4>
+            <P>Before we start the <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?mac_do">mac_do(4)</A> policy
+            should be loaded into the kernel.<BR>
+            Let's go ahead and do that by loading the <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?mac_do">mac_do(4)</A> policy
+            via <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?kldload">kldload(8)</A>:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh">root@freebsd#<SPAN class=
+"w"> </SPAN>kldload<SPAN class="w"> </SPAN>mac_do</CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">sysctl</H4>
+            <P>Rules define what user or members of a group can execute a
+            command as another user. The rules are managed by sysctl through
+            the MiB <CODE>security.mac.do.rules</CODE>. For our simple example
+            we will permit alice to run commands as bob:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh">root@freebsd#<SPAN class=
+"w"> </SPAN>sysctl<SPAN class="w"> </SPAN>security.mac.do.rules<SPAN class=
+"o">=</SPAN><SPAN class="nv">uid</SPAN><SPAN class="o">=</SPAN><SPAN class=
+"k">$(</SPAN>id<SPAN class="w"> </SPAN>-u<SPAN class=
+"w"> </SPAN>alice<SPAN class="k">)</SPAN>:<SPAN class=
+"k">$(</SPAN>id<SPAN class="w"> </SPAN>-u<SPAN class=
+"w"> </SPAN>bob<SPAN class="k">)</SPAN></CODE>
+</PRE>
+            <P>We could also permit members of the group the
+            <CODE>beatles</CODE> to run commands as bob:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh">root@freebsd#<SPAN class=
+"w"> </SPAN>sysctl<SPAN class="w"> </SPAN>security.mac.do.rules<SPAN class=
+"o">=</SPAN><SPAN class="nv">gid</SPAN><SPAN class="o">=</SPAN><SPAN class=
+"k">$(</SPAN>id<SPAN class="w"> </SPAN>-g<SPAN class=
+"w"> </SPAN>beatles<SPAN class="k">)</SPAN>:<SPAN class=
+"k">$(</SPAN>id<SPAN class="w"> </SPAN>-u<SPAN class=
+"w"> </SPAN>bob<SPAN class="k">)</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">mdo</H4>
+            <P>The final step is for alice to run a command as bob:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh">alice@freebsd$<SPAN class="w"> </SPAN>mdo<SPAN class=
+"w"> </SPAN>-u<SPAN class="w"> </SPAN>bob<SPAN class="w"> </SPAN>whoami
+bob</CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">Conclusion</H4>
+            <P>At least for now <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A> appears less
+            capable than <A target="_blank" href=
+            "https://man.openbsd.org/doas">doas(1)</A>. It will be interesting
+            to see how it evoles.</P>
+          </DIV>
+        </DIV>
+      </ARTICLE>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>

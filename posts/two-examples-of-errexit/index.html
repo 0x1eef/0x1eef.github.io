@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <TITLE>Two examples of errexit</TITLE>
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="Two examples of errexit">
+  <META property="og:description" content=
+  "Presents two different examples of errexit">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/two-examples-of-errexit/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY>
+  <DIV class="h-full w-full m-auto font-kanit">
+    <HEADER class="flex items-center justify-between m-auto pt-2">
+      <A href="/"><IMG src="/images/favicon-32x32.png" alt="leaf"></A>
+      <UL class="list-none">
+        <LI>
+          <A href="/">Projects</A>
+        </LI>
+        <LI>
+          <A href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </HEADER>
+    <MAIN class="flex place-content-center">
+      <ARTICLE>
+        <H3>Two examples of errexit</H3>
+        <DIV class="wrapper">
+          <DIV class="body">
+            <P>This post presents two different examples of the errexit option
+            (also known as the -e option) from the <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?sh">sh(1)</A> shell. Each
+            example exhibits a different behavior, although at a glance you
+            might have thought the two examples were equivalent.</P>
+            <H4 class="rounded-left-accent color-accent mb-2">what is
+            errexit?</H4>
+            <P>In POSIX shell scripts, the errexit option can be used to enter
+            a mode of operation where any "untested command" that exits
+            unsuccessfully will cause the script that spawned the command to
+            exit immediately. In my experience the errexit option can help
+            encourage a low tolerance for unhandled errors but some prefer to
+            handle errors manually.</P>
+            <H4 class="rounded-left-accent color-accent mb-2">sh -e</H4>
+            <P>The first example provides the errexit option to the <A target=
+            "_blank" href="https://man.freebsd.org/cgi/man.cgi?sh">sh(1)</A>
+            executable via the script's shebang line. The script spawns a
+            subshell which will exit unsuccessfully, and perhaps surprisingly
+            script execution continues as normal:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="ch">#!/bin/sh -e</SPAN>
+
+<SPAN class="c1"># 'realpath' exits unsuccessfully</SPAN>
+<SPAN class="o">(</SPAN>realpath<SPAN class=
+"w"> </SPAN>/path/does/not/exist<SPAN class="o">)</SPAN>
+
+<SPAN class="c1"># But we reach here anyway</SPAN>
+<SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"reached"</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">set -e</H4>
+            <P>The second example provides the errexit option via the
+            <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?set">set(1)</A> command. The
+            script spawns a subshell which will exit unsuccessfully, and
+            perhaps as you would have expected, script execution does not
+            proceed past that point:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="ch">#!/bin/sh</SPAN>
+<SPAN class="nb">set</SPAN><SPAN class="w"> </SPAN>-e
+
+<SPAN class="c1"># 'realpath' exits unsuccessfully</SPAN>
+<SPAN class="o">(</SPAN>realpath<SPAN class=
+"w"> </SPAN>/path/does/not/exist<SPAN class="o">)</SPAN>
+
+<SPAN class="c1"># And we never reach here</SPAN>
+<SPAN class="nb">echo</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"s2">"unreached"</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent">Conclusion</H4>
+            <P>We can conclude that the <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?set">set(1)</A> command
+            propagates the errexit option to subshells. The errexit option
+            doesn't propagate when given to the <A target="_blank" href=
+            "https://man.freebsd.org/cgi/man.cgi?sh">sh(1)</A> executable. My
+            default is almost always to set errexit via the <A target="_blank"
+            href="https://man.freebsd.org/cgi/man.cgi?set">set(1)</A>
+            command.</P>
+          </DIV>
+        </DIV>
+      </ARTICLE>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>

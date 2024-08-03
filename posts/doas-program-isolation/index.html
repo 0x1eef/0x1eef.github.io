@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <TITLE>Program isolation with doas</TITLE>
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="Program isolation with doas">
+  <META property="og:description" content=
+  "Documents program isolation with the doas utility">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/doas-program-isolation/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY>
+  <DIV class="h-full w-full m-auto font-kanit">
+    <HEADER class="flex items-center justify-between m-auto pt-2">
+      <A href="/"><IMG src="/images/favicon-32x32.png" alt="leaf"></A>
+      <UL class="list-none">
+        <LI>
+          <A href="/">Projects</A>
+        </LI>
+        <LI>
+          <A href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </HEADER>
+    <MAIN class="flex place-content-center">
+      <ARTICLE>
+        <H3>Program isolation with doas</H3>
+        <DIV class="wrapper">
+          <DIV class="body">
+            <P>This post presents a few easy to follow steps that will show you
+            how to isolate the execution of a program from your main user
+            account with the <A target="_blank" href=
+            "https://man.openbsd.org/doas">doas(1)</A> utility.</P>
+            <H4 class="rounded-left-accent color-accent mb-2">Add user</H4>
+            <P>The first step is to create a user whose sole responsiblity will
+            be the execution of a specific program. In this case the program
+            will be weechat and the username will be <CODE>_weechat</CODE>:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="c1">##</SPAN>
+<SPAN class="c1"># Add user</SPAN>
+<SPAN class="c1"># This command targets FreeBSD</SPAN>
+pw<SPAN class="w"> </SPAN>useradd<SPAN class="w"> </SPAN><SPAN class=
+"se">\</SPAN>
+<SPAN class="w">   </SPAN>-n<SPAN class="w"> </SPAN>_weechat<SPAN class=
+"w"> </SPAN><SPAN class="se">\</SPAN>
+<SPAN class="w">   </SPAN>-d<SPAN class="w"> </SPAN>/home/_weechat<SPAN class=
+"w"> </SPAN><SPAN class="se">\</SPAN>
+<SPAN class="w">   </SPAN>-M<SPAN class="w"> </SPAN><SPAN class=
+"nv">u</SPAN><SPAN class="o">=</SPAN>rwx,g<SPAN class=
+"o">=</SPAN>rx,o<SPAN class="o">=</SPAN><SPAN class="w"> </SPAN><SPAN class=
+"se">\</SPAN>
+<SPAN class="w">   </SPAN>-s<SPAN class="w"> </SPAN>/sbin/nologin<SPAN class=
+"w"> </SPAN><SPAN class="se">\</SPAN>
+<SPAN class="w">   </SPAN>-m<SPAN class="w"> </SPAN><SPAN class="se">\</SPAN>
+<SPAN class="w">   </SPAN>-c<SPAN class="w"> </SPAN><SPAN class=
+"s2">"Runs the weechat program"</SPAN></CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">doas.conf</H4>
+            <P>The second step is to allow the main user account (which we will
+            call <CODE>main</CODE>) execute the weechat program as the
+            <CODE>_weechat</CODE> user. This can be done by updating
+            <CODE><A target="_blank" href=
+            "https://man.openbsd.org/doas.conf">doas.conf(5)</A></CODE>:</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="c1">##</SPAN>
+<SPAN class="c1"># Permit the 'main' user to run weechat as '_weechat'</SPAN>
+permit<SPAN class="w"> </SPAN>nopass<SPAN class="w"> </SPAN>main<SPAN class=
+"w"> </SPAN>as<SPAN class="w"> </SPAN>_weechat<SPAN class=
+"w"> </SPAN>cmd<SPAN class="w"> </SPAN>/usr/local/bin/weechat<SPAN class=
+"w"> </SPAN>args</CODE>
+</PRE>
+            <H4 class="rounded-left-accent color-accent mb-2">Launch
+            program</H4>
+            <P>The third and final step is to login with your main user
+            account, and execute weechat as the <CODE>_weechat</CODE> user. At
+            this point you could repeat these steps but for a different program
+            - maybe FireFox ?</P>
+            <PRE class="whitespace-pre-wrap">
+<CODE class="language-sh"><SPAN class="c1">##</SPAN>
+<SPAN class="c1"># Launch weechat</SPAN>
+$<SPAN class="w"> </SPAN>doas<SPAN class="w"> </SPAN>-u<SPAN class=
+"w"> </SPAN>_weechat<SPAN class="w"> </SPAN>/usr/local/bin/weechat</CODE>
+</PRE>
+          </DIV>
+        </DIV>
+      </ARTICLE>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>
