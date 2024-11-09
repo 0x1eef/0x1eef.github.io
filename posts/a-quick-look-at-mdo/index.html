@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>A quick look at mdo(1)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="A quick look at mdo(1)" />
+    <meta property="og:description" content="Documents the mdo(1) utility from FreeBSD" />
+    <meta property="og:url" content="https://0x1eef.github.com/posts/a-quick-look-at-mdo" />
+    <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  </head>
+  <body>
+    <div class="h-full w-full m-auto">
+      <header class="flex items-center justify-between m-auto pt-2 pb-5 font-sans">
+        <a href="/">
+          <img src="/images/favicon-32x32.png" alt="leaf">
+        </a>
+        <ul class="list-none">
+          <li><a class="" href="/">Projects</a></li>
+          <li><a class="active" href="/posts/">Posts</a></li>
+        </ul>
+      </header>
+      <main class="flex flex-col place-content-center post">
+        <!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE></TITLE>
+</HEAD>
+<BODY>
+  <H1 id="a-quick-look-at-mdo">A quick look at mdo</H1>
+  <P>This post takes a quick look at a recent addition to FreeBSD: <A href=
+  "https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A>. The <A href=
+  "https://cgi.freebsd.org/cgi/man,cgi?do">mdo(1)</A> utility allows one user
+  to run a command as another user, and it is conceptually similar to <A href=
+  "https://man.openbsd.org?doas">doas(1)</A> from OpenBSD. At the same time
+  <A href="https://man.freebsd.org/man.cgi?mdo">mdo(1)</A> has noticeable
+  differences when compared with <A href=
+  "https://man.openbsd.org/doas">doas(1)</A>.</P>
+  <H2 id="kldload">kldload</H2>
+  <P>The <A href="https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A> utility
+  depends on the <A href="https://man.freebsd.org/cgi/man.cgi?mac_do">mdo
+  policy</A> - and the policy must be loaded into the kernel before we can use
+  <A href="https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A> from the command
+  line. The <A href="https://man.freebsd.org/cgi/man.cgi?mac">mac(4)</A> man
+  page provides some larger context about the Mandatory Access Control (mac)
+  framework:</P>
+  <DIV class="sourceCode" id="cb1" data-org-language="sh">
+    <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+    "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex="-1"></A><SPAN class=
+    "ex">root@freebsd#</SPAN> kldload mac_do</SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">root@freebsd#</SPAN> sysctl security.mac.do.enabled=1</SPAN></CODE></PRE>
+  </DIV>
+  <H2 id="sysctl">sysctl</H2>
+  <P>A rule defines what user or member(s) of a group can run a command as
+  another user. Multiple rules are separated by a comma. And rules are stored
+  as kernel state that can be get or set via <A href=
+  "https://man.freebsd.org/sysctl">sysctl(8)</A> and
+  <CODE>security.mac.do.rules</CODE>.</P>
+  <P>If we were to draw a comparison with <A href=
+  "https://man.openbsd.org/doas">doas(1)</A> then
+  <CODE>security.mac.do.rules</CODE> would be equivalent to the
+  <CODE>doas.conf</CODE> configuration file:</P>
+  <DIV class="sourceCode" id="cb2" data-org-language="sh">
+    <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+    "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex="-1"></A><SPAN class=
+    "co">##</SPAN></SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># Permit alice to run commands as bob</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">root@freebsd#</SPAN> sysctl security.mac.do.rules=uid=<SPAN class=
+"va">$(</SPAN><SPAN class="fu">id</SPAN> <SPAN class=
+"at">-u</SPAN> alice<SPAN class="va">)</SPAN>:<SPAN class=
+"va">$(</SPAN><SPAN class="fu">id</SPAN> <SPAN class=
+"at">-u</SPAN> bob<SPAN class="va">)</SPAN></SPAN>
+<SPAN id="cb2-4"><A href="#cb2-4" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb2-5"><A href="#cb2-5" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co">##</SPAN></SPAN>
+<SPAN id="cb2-6"><A href="#cb2-6" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"co"># Permit members of the beatles to run commands as bob</SPAN></SPAN>
+<SPAN id="cb2-7"><A href="#cb2-7" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">root@freebsd#</SPAN> gid=<SPAN class=
+"va">$(</SPAN><SPAN class="fu">getent</SPAN> group beatles <SPAN class=
+"kw">|</SPAN> <SPAN class="fu">awk</SPAN> <SPAN class=
+"at">-F:</SPAN> <SPAN class="st">'{print $3}'</SPAN><SPAN class=
+"va">)</SPAN></SPAN>
+<SPAN id="cb2-8"><A href="#cb2-8" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">root@freebsd#</SPAN> sysctl security.mac.do.rules=gid=<SPAN class=
+"va">${gid}</SPAN>:<SPAN class="va">$(</SPAN><SPAN class=
+"fu">id</SPAN> <SPAN class="at">-u</SPAN> bob<SPAN class="va">)</SPAN></SPAN>
+<SPAN id="cb2-9"><A href="#cb2-9" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb2-10"><A href="#cb2-10" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co">##</SPAN></SPAN>
+<SPAN id="cb2-11"><A href="#cb2-11" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"co"># Permit alice to run commands as anyone</SPAN></SPAN>
+<SPAN id="cb2-12"><A href="#cb2-12" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">root@localhost#</SPAN> sysctl security.mac.do.rules=uid=<SPAN class=
+"va">$(</SPAN><SPAN class="fu">id</SPAN> <SPAN class=
+"at">-u</SPAN> alice<SPAN class="va">)</SPAN>:any</SPAN></CODE></PRE>
+  </DIV>
+  <H2 id="mdo">mdo</H2>
+  <P>With rules and everything else in place, the user alice can run commands
+  as bob through the <A href="https://man.freebsd.org/man.cgi?mdo">mdo(1)</A>
+  utility:</P>
+  <DIV class="sourceCode" id="cb3" data-org-language="sh">
+    <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+    "cb3-1"><A href="#cb3-1" aria-hidden="true" tabindex="-1"></A><SPAN class=
+    "co">##</SPAN></SPAN>
+<SPAN id="cb3-2"><A href="#cb3-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># Launch weechat as the 'weechat' user</SPAN></SPAN>
+<SPAN id="cb3-3"><A href="#cb3-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">main@localhost$</SPAN> mdo <SPAN class=
+"at">-u</SPAN> weechat /usr/local/bin/weechat</SPAN></CODE></PRE>
+  </DIV>
+</BODY>
+</HTML>
+
+      </main>
+    </div>
+  </body>
+</html>

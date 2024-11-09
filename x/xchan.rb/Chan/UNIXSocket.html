@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Chan::UNIXSocket
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Chan::UNIXSocket";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (U)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span>
+     &raquo; 
+    <span class="title">UNIXSocket</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Chan::UNIXSocket
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Chan::UNIXSocket</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/xchan/unix_socket.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>An easy-to-use InterProcess Communication (IPC) library</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#r-instance_method" title="#r (instance method)">#<strong>r</strong>  &#x21d2; UNIXSocket </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a socket used for read operations.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#w-instance_method" title="#w (instance method)">#<strong>w</strong>  &#x21d2; UNIXSocket </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a socket used for write operations.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#s-instance_method" title="#s (instance method)">#<strong>s</strong>  &#x21d2; &lt;#dump, #load&gt; </a>
+    
+
+    
+      (also: #serializer)
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the serializer used by the channel.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Write methods
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send-instance_method" title="#send (instance method)">#<strong>send</strong>(object)  &#x21d2; Object </a>
+    
+
+    
+      (also: #write)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Performs a blocking write.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_nonblock-instance_method" title="#send_nonblock (instance method)">#<strong>send_nonblock</strong>(object)  &#x21d2; Integer<sup>?</sup> </a>
+    
+
+    
+      (also: #write_nonblock)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Performs a non-blocking write.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Read methods
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#recv-instance_method" title="#recv (instance method)">#<strong>recv</strong>  &#x21d2; Object </a>
+    
+
+    
+      (also: #read)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Performs a blocking read.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#recv_nonblock-instance_method" title="#recv_nonblock (instance method)">#<strong>recv_nonblock</strong>  &#x21d2; Object </a>
+    
+
+    
+      (also: #read_nonblock)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Performs a non-blocking read.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Stat methods
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bytes_sent-instance_method" title="#bytes_sent (instance method)">#<strong>bytes_sent</strong>  &#x21d2; Integer </a>
+    
+
+    
+      (also: #bytes_written)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the total number of bytes written to the channel.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bytes_received-instance_method" title="#bytes_received (instance method)">#<strong>bytes_received</strong>  &#x21d2; Integer </a>
+    
+
+    
+      (also: #bytes_read)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the total number of bytes read from the channel.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#size-instance_method" title="#size (instance method)">#<strong>size</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the number of objects waiting to be read.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Wait methods
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wait_writable-instance_method" title="#wait_writable (instance method)">#<strong>wait_writable</strong>(s = nil)  &#x21d2; Chan::UNIXSocket<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Waits for the channel to become writable.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wait_readable-instance_method" title="#wait_readable (instance method)">#<strong>wait_readable</strong>(s = nil)  &#x21d2; Chan::UNIXSocket<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Waits for the channel to become readable.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#closed%3F-instance_method" title="#closed? (instance method)">#<strong>closed?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns true when the channel is closed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close-instance_method" title="#close (instance method)">#<strong>close</strong>  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Closes the channel.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_a-instance_method" title="#to_a (instance method)">#<strong>to_a</strong>  &#x21d2; Array&lt;Object&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the contents of the channel.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#empty%3F-instance_method" title="#empty? (instance method)">#<strong>empty?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns true when the channel is empty.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(s, sock_type: Socket::SOCK_DGRAM, tmpdir: Dir.tmpdir)  &#x21d2; Chan::UNIXSocket </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns an instance of <span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(s, sock_type: Socket::SOCK_DGRAM, tmpdir: Dir.tmpdir)  &#x21d2; <tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns an instance of <span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_ch'>ch</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">UNIXSocket</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:marshal</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ch'>ch</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>2</span><span class='comma'>,</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ch'>ch</span><span class='period'>.</span><span class='id identifier rubyid_recv'>recv</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span> <span class='comment'># =&gt; 3
+</span><span class='id identifier rubyid_ch'>ch</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>s</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>&lt;#dump, #load&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of a serializer</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>sock_type</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>Socket::SOCK_DGRAM</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Type of socket (eg <code>Socket::SOCK_STREAM</code>)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tmpdir</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>Dir.tmpdir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Directory where temporary files can be stored</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='label'>sock_type:</span> <span class='const'>Socket</span><span class='op'>::</span><span class='const'>SOCK_DGRAM</span><span class='comma'>,</span> <span class='label'>tmpdir:</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_tmpdir'>tmpdir</span><span class='rparen'>)</span>
+  <span class='ivar'>@s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='period'>.</span><span class='id identifier rubyid_serializers'><span class='object_link'><a href="../Chan.html#serializers-class_method" title="Chan.serializers (method)">serializers</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_s'>s</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_call'>call</span> <span class='op'>||</span> <span class='id identifier rubyid_s'>s</span>
+  <span class='ivar'>@r</span><span class='comma'>,</span> <span class='ivar'>@w</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>UNIXSocket</span><span class='period'>.</span><span class='id identifier rubyid_pair'>pair</span><span class='lparen'>(</span><span class='id identifier rubyid_sock_type'>sock_type</span><span class='rparen'>)</span>
+  <span class='ivar'>@bytes</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Bytes.html" title="Chan::Bytes (class)">Bytes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bytes.html#initialize-instance_method" title="Chan::Bytes#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_tmpdir'>tmpdir</span><span class='rparen'>)</span>
+  <span class='ivar'>@counter</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Counter.html" title="Chan::Counter (class)">Counter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Counter.html#initialize-instance_method" title="Chan::Counter#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_tmpdir'>tmpdir</span><span class='rparen'>)</span>
+  <span class='ivar'>@lockf</span> <span class='op'>=</span> <span class='const'>Lock</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='period'>.</span><span class='id identifier rubyid_temporary_file'><span class='object_link'><a href="../Chan.html#temporary_file-class_method" title="Chan.temporary_file (method)">temporary_file</a></span></span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>xchan</span><span class='words_sep'> </span><span class='tstring_content'>.lock</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='label'>tmpdir:</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="r-instance_method">
+  
+    #<strong>r</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">UNIXSocket</a></span></tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a socket used for read operations</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">UNIXSocket</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns a socket used for read operations</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 13</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_r'>r</span>
+  <span class='ivar'>@r</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="w-instance_method">
+  
+    #<strong>w</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">UNIXSocket</a></span></tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a socket used for write operations</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">UNIXSocket</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns a socket used for write operations</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_w'>w</span>
+  <span class='ivar'>@w</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="s-instance_method">
+  
+    #<strong>s</strong>  &#x21d2; <tt>&lt;#dump, #load&gt;</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='serializer-instance_method'>serializer</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the serializer used by the channel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;#dump, #load&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the serializer used by the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_s'>s</span>
+  <span class='ivar'>@s</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="wait_writable-instance_method">
+  
+    #<strong>wait_writable</strong>(s = nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Waits for the channel to become writable</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>s</span>
+      
+      
+        <span class='type'>(<tt>Float</tt>, <tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The number of seconds to wait. Waits indefinitely with no arguments.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns self when the channel is writable, otherwise returns nil</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+262
+263
+264</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 262</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_writable'>wait_writable</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@w</span><span class='period'>.</span><span class='id identifier rubyid_wait_writable'>wait_writable</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='kw'>and</span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="closed?-instance_method">
+  
+    #<strong>closed?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true when the channel is closed</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns true when the channel is closed</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
+  <span class='ivar'>@r</span><span class='period'>.</span><span class='id identifier rubyid_closed?'>closed?</span> <span class='kw'>and</span> <span class='ivar'>@w</span><span class='period'>.</span><span class='id identifier rubyid_closed?'>closed?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="close-instance_method">
+  
+    #<strong>close</strong>  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Closes the channel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>IOError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When the channel is closed</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 66</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_lock'>lock</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>channel is closed</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
+  <span class='lbracket'>[</span><span class='ivar'>@r</span><span class='comma'>,</span> <span class='ivar'>@w</span><span class='comma'>,</span> <span class='ivar'>@bytes</span><span class='comma'>,</span> <span class='ivar'>@lockf</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:close</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>IOError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span>
+  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send-instance_method">
+  
+    #<strong>send</strong>(object)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='write-instance_method'>write</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Performs a blocking write</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the number of bytes written to the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>IOError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When the channel is closed</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+89
+90
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 89</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_send_nonblock'>send_nonblock</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitWritable-constant" title="Chan::WaitWritable (constant)">WaitWritable</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitLockable-constant" title="Chan::WaitLockable (constant)">WaitLockable</a></span></span>
+  <span class='kw'>retry</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_nonblock-instance_method">
+  
+    #<strong>send_nonblock</strong>(object)  &#x21d2; <tt>Integer</tt><sup>?</sup> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='write_nonblock-instance_method'>write_nonblock</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Performs a non-blocking write</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the number of bytes written to the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>IOError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When the channel is closed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Chan.html#WaitWritable-constant" title="Chan::WaitWritable (constant)">Chan::WaitWritable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When a write to <span class='object_link'><a href="#w-instance_method" title="Chan::UNIXSocket#w (method)">#w</a></span> blocks</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Chan.html#WaitLockable-constant" title="Chan::WaitLockable (constant)">Chan::WaitLockable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When a write blocks because of a lock held by another process</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 113</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_nonblock'>send_nonblock</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_lock_nonblock'>lock_nonblock</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>channel closed</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
+  <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='ivar'>@w</span><span class='period'>.</span><span class='id identifier rubyid_write_nonblock'>write_nonblock</span><span class='lparen'>(</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@bytes</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span>
+  <span class='ivar'>@counter</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='label'>bytes_written:</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_len'>len</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span> <span class='rbrace'>}</span>
+<span class='kw'>rescue</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='const'>IO</span><span class='op'>::</span><span class='const'>WaitWritable</span><span class='comma'>,</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ENOBUFS</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitWritable-constant" title="Chan::WaitWritable (constant)">WaitWritable</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>EWOULDBLOCK</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitLockable-constant" title="Chan::WaitLockable (constant)">WaitLockable</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="recv-instance_method">
+  
+    #<strong>recv</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='read-instance_method'>read</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Performs a blocking read</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns an object from the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>IOError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When the channel is closed</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+142
+143
+144
+145
+146
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 142</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_recv'>recv</span>
+  <span class='id identifier rubyid_recv_nonblock'>recv_nonblock</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitReadable-constant" title="Chan::WaitReadable (constant)">WaitReadable</a></span></span>
+  <span class='id identifier rubyid_wait_readable'>wait_readable</span>
+  <span class='kw'>retry</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitLockable-constant" title="Chan::WaitLockable (constant)">WaitLockable</a></span></span>
+  <span class='kw'>retry</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="recv_nonblock-instance_method">
+  
+    #<strong>recv_nonblock</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='read_nonblock-instance_method'>read_nonblock</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Performs a non-blocking read</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns an object from the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>IOError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When the channel is closed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Chan.html#WaitReadable-constant" title="Chan::WaitReadable (constant)">Chan::WaitReadable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When a read from <span class='object_link'><a href="#r-instance_method" title="Chan::UNIXSocket#r (method)">#r</a></span> blocks</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Chan.html#WaitLockable-constant" title="Chan::WaitLockable (constant)">Chan::WaitLockable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>When a read blocks because of a lock held by another process</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 166</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_recv_nonblock'>recv_nonblock</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_lock_nonblock'>lock_nonblock</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed channel</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
+  <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='ivar'>@bytes</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
+  <span class='id identifier rubyid_obj'>obj</span> <span class='op'>=</span> <span class='id identifier rubyid_deserialize'>deserialize</span><span class='lparen'>(</span><span class='ivar'>@r</span><span class='period'>.</span><span class='id identifier rubyid_read_nonblock'>read_nonblock</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@counter</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='label'>bytes_read:</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_obj'>obj</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span> <span class='rbrace'>}</span>
+<span class='kw'>rescue</span> <span class='const'>IOError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span>
+  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>IO</span><span class='op'>::</span><span class='const'>WaitReadable</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='ivar'>@bytes</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span>
+  <span class='ivar'>@lockf</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitReadable-constant" title="Chan::WaitReadable (constant)">WaitReadable</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>EAGAIN</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Chan.html" title="Chan (module)">Chan</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Chan.html#WaitLockable-constant" title="Chan::WaitLockable (constant)">WaitLockable</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_a-instance_method">
+  
+    #<strong>to_a</strong>  &#x21d2; <tt>Array&lt;Object&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the contents of the channel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_ch'>ch</span> <span class='op'>=</span> <span class='id identifier rubyid_xchan'>xchan</span><span class='lparen'>(</span><span class='symbol'>:pure</span><span class='rparen'>)</span>
+<span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='int'>4</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_ch'>ch</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_ch'>ch</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span> <span class='comment'># =&gt; &quot;4&quot;</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the contents of the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+196
+197
+198
+199
+200</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 196</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='kw'>do</span>
+    <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='id identifier rubyid__1'>_1</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_recv'>recv</span><span class='rparen'>)</span> <span class='kw'>until</span> <span class='id identifier rubyid_empty?'>empty?</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="empty?-instance_method">
+  
+    #<strong>empty?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true when the channel is empty</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns true when the channel is empty</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+205
+206
+207
+208</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 205</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bytes_sent-instance_method">
+  
+    #<strong>bytes_sent</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='bytes_written-instance_method'>bytes_written</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the total number of bytes written to the channel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the total number of bytes written to the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+216
+217
+218</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 216</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bytes_sent'>bytes_sent</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='lbrace'>{</span> <span class='ivar'>@counter</span><span class='period'>.</span><span class='id identifier rubyid_bytes_written'>bytes_written</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bytes_received-instance_method">
+  
+    #<strong>bytes_received</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='bytes_read-instance_method'>bytes_read</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the total number of bytes read from the channel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the total number of bytes read from the channel</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+224
+225
+226</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 224</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bytes_received'>bytes_received</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='lbrace'>{</span> <span class='ivar'>@counter</span><span class='period'>.</span><span class='id identifier rubyid_bytes_read'>bytes_read</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="size-instance_method">
+  
+    #<strong>size</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the number of objects waiting to be read</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the number of objects waiting to be read</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+232
+233
+234</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 232</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='lbrace'>{</span> <span class='ivar'>@bytes</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wait_readable-instance_method">
+  
+    #<strong>wait_readable</strong>(s = nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Waits for the channel to become readable</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>s</span>
+      
+      
+        <span class='type'>(<tt>Float</tt>, <tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The number of seconds to wait. Waits indefinitely with no arguments.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Chan::UNIXSocket (class)">Chan::UNIXSocket</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns self when the channel is readable, otherwise returns nil</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+250
+251
+252</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/xchan/unix_socket.rb', line 250</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_readable'>wait_readable</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@r</span><span class='period'>.</span><span class='id identifier rubyid_wait_readable'>wait_readable</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='kw'>and</span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sat Nov  9 01:10:14 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-3.2.5).
+</div>
+
+    </div>
+  </body>
+</html>
