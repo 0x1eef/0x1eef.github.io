@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Two examples of errexit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Two examples of errexit" />
+    <meta property="og:description" content="Presents two different examples of errexit" />
+    <meta property="og:url" content="https://0x1eef.github.io/posts/two-examples-of-errexit/" />
+    <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  </head>
+  <body>
+    <div class="h-full w-full m-auto">
+      <header class="flex items-center justify-between m-auto pt-2 pb-5 font-sans">
+        <a href="/">
+          <img src="/images/favicon-32x32.png" alt="leaf">
+        </a>
+        <ul class="list-none">
+          <li><a class="" href="/">Projects</a></li>
+          <li><a class="active" href="/posts/">Posts</a></li>
+        </ul>
+      </header>
+      <main class="flex flex-col place-content-center post">
+        <body>
+
+
+  <meta name="generator" content="HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <title></title>
+
+
+  <h1 id="two-examples-of-errexit">Two examples of errexit</h1>
+  <p>This post presents two different examples of the errexit option from the
+  <a href="https://man.freebsd.org/sh" target="_blank">sh(1)</a> shell. Each example exhibits a
+  different behavior, although at a glance it would be easy to mistake the two
+  examples as being the same.</p>
+  <p>In POSIX shell scripts - the errexit option can be used to enter a mode of
+  operation where any "untested command" that exits unsuccessfully will cause
+  the script that spawned the command to immediately exit as well.</p>
+  <p>There are at least two ways to enter the errexit mode of operation; either
+  via an argument given directly to the <a href="https://man.freebsd.org/sh" target="_blank">sh(1)</a> executable or within a script via the
+  <a href="https://man.freebsd.org/set" target="_blank">set(1)</a> command.</p>
+  <h2 id="example-1">Example 1</h2>
+  <p>The first example provides the errexit option to the <a href="https://man.freebsd.org/sh" target="_blank">sh(1)</a> executable via the script's shebang
+  line.</p>
+  <p>The script spawns a subshell by surrounding a command in parenthesis, and
+  the command exits unsuccessfully. Perhaps surprisingly script execution
+  continues as normal. Keep in mind the script would have exited as expected if
+  a subshell had not been used:</p>
+  <div class="sourceCode" id="cb1" data-org-language="sh">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh -e</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 'realpath' exits unsuccessfully</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">realpath</span> /path/does/not/exist<span class="kw">)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># But we reach here anyway</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"reached"</span></span></code></pre>
+  </div>
+  <h2 id="example-2">Example 2</h2>
+  <p>The second example provides the errexit option via the <a href="https://man.freebsd.org/set" target="_blank">set(1)</a> command. The script spawns a
+  subshell which will exit unsuccessfully, and perhaps as you would have
+  expected, script execution does <strong>not</strong> proceed past that
+  point:</p>
+  <div class="sourceCode" id="cb2" data-org-language="sh">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 'realpath' exits unsuccessfully</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">realpath</span> /path/does/not/exist<span class="kw">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># And we never reach here</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"unreached"</span></span></code></pre>
+  </div>
+  <h2 id="conclusion">Conclusion</h2>
+  <p>We can conclude that the <a href="https://man.freebsd.org/set" target="_blank">set(1)</a>
+  command propagates the errexit option to subshells. The errexit option
+  doesn't propagate when given to the <a href="https://man.freebsd.org/sh" target="_blank">sh(1)</a> executable as an argument. My default
+  is almost always to set errexit via the <a href="https://man.freebsd.org/set" target="_blank">set(1)</a> command for this very reason.</p>
+
+
+</body>
+      </main>
+    </div>
+  </body>
+</html>
