@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h2 id="about">About</h2>
+
+<p>xchan.rb is an easy to use library for InterProcess
+Communication (IPC). The library provides a channel
+that can help facilitate communication between Ruby
+processes who have a parent &lt;=&gt; child relationship.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="serialization">Serialization</h3>
+
+<h4 id="options">Options</h4>
+
+<p>The first argument provided to xchan is the serializer
+that should be used. A channel that will communicate
+purely in strings (in other words: without serialization)
+is available as <code>xchan(:pure)</code> - otherwise a wide range of
+serializers are available by default: <code>xchan(:marshal)</code>,
+<code>xchan(:json)</code>, and <code>xchan(:yaml)</code>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"xchan"</span>
+
+<span class="c1">##</span>
+<span class="c1"># Marshal as the serializer</span>
+<span class="n">ch</span> <span class="o">=</span> <span class="n">xchan</span><span class="p">(</span><span class="ss">:marshal</span><span class="p">)</span>
+<span class="no">Process</span><span class="p">.</span><span class="nf">wait</span> <span class="nb">fork</span> <span class="p">{</span> <span class="n">ch</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">}</span>
+<span class="nb">print</span> <span class="s2">"</span><span class="si">#{</span><span class="n">ch</span><span class="p">.</span><span class="nf">recv</span><span class="si">}</span><span class="s2"> + 7 = 12"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="n">ch</span><span class="p">.</span><span class="nf">close</span>
+
+<span class="c1">##</span>
+<span class="c1"># 5 + 7 = 12</span>
+</code></pre></div></div>
+
+<h3 id="read-operations">Read operations</h3>
+
+<h4 id="recv"><code>#recv</code></h4>
+
+<p>The <code>ch.recv</code> method performs a blocking read. A read
+can block when a lock is held by another process, or
+when a read from
+<a href="https://0x1eef.github,io/x/xchan.rb/Chan/UNIXSocket.html#r-instance_method">Chan::UNIXSocket#r</a>
+blocks. The example performs a read that blocks until
+the parent process writes to the channel:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"xchan"</span>
+
+<span class="n">ch</span> <span class="o">=</span> <span class="n">xchan</span><span class="p">(</span><span class="ss">:marshal</span><span class="p">)</span>
+<span class="nb">fork</span> <span class="k">do</span>
+  <span class="nb">print</span> <span class="s2">"Received a random number (child process): "</span><span class="p">,</span> <span class="n">ch</span><span class="p">.</span><span class="nf">recv</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="nb">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"Send a random number (from parent process)"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="n">ch</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">21</span><span class="p">))</span>
+<span class="n">ch</span><span class="p">.</span><span class="nf">close</span>
+<span class="no">Process</span><span class="p">.</span><span class="nf">wait</span>
+
+<span class="c1">##</span>
+<span class="c1"># Send a random number (from parent process)</span>
+<span class="c1"># Received random number (child process): XX</span>
+</code></pre></div></div>
+
+<h4 id="recv_nonblock"><code>#recv_nonblock</code></h4>
+
+<p>The non-blocking counterpart to <code>#recv</code> is <code>#recv_nonblock</code>.
+The <code>#recv_nonblock</code> method raises <code>Chan::WaitLockable</code> when
+a read blocks because of a lock held by another process, and
+the method raises <code>Chan::WaitReadable</code> when a read from
+<a href="https://0x1eef.github,io/x/xchan.rb/Chan/UNIXSocket.html#r-instance_method">Chan::UNIXSocket#r</a>
+blocks:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"xchan"</span>
+
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+  <span class="n">ch</span><span class="p">.</span><span class="nf">recv_nonblock</span>
+<span class="k">rescue</span> <span class="no">Chan</span><span class="o">::</span><span class="no">WaitReadable</span>
+  <span class="nb">print</span> <span class="s2">"Wait 1 second for channel to be readable"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="n">ch</span><span class="p">.</span><span class="nf">wait_readable</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">retry</span>
+<span class="k">rescue</span> <span class="no">Chan</span><span class="o">::</span><span class="no">WaitLockable</span>
+  <span class="nb">sleep</span> <span class="mf">0.01</span>
+  <span class="k">retry</span>
+<span class="k">end</span>
+<span class="nb">trap</span><span class="p">(</span><span class="s2">"SIGINT"</span><span class="p">)</span> <span class="p">{</span> <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">read</span><span class="p">(</span><span class="n">xchan</span><span class="p">(</span><span class="ss">:marshal</span><span class="p">))</span>
+
+<span class="c1">##</span>
+<span class="c1"># Wait 1 second for channel to be readable</span>
+<span class="c1"># Wait 1 second for channel to be readable</span>
+<span class="c1"># ^C</span>
+</code></pre></div></div>
+
+<h3 id="write-operations">Write operations</h3>
+
+<h4 id="send"><code>#send</code></h4>
+
+<p>The <code>ch.send</code> method performs a blocking write.
+A write can block when a lock is held by another
+process, or when a write to
+<a href="https://0x1eef.github,io/x/xchan.rb/Chan/UNIXSocket.html#w-instance_method">Chan::UNIXSocket#w</a>
+blocks. The example fills the send buffer:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"xchan"</span>
+
+<span class="n">ch</span> <span class="o">=</span> <span class="n">xchan</span><span class="p">(</span><span class="ss">:marshal</span><span class="p">,</span> <span class="ss">sock: </span><span class="no">Socket</span><span class="o">::</span><span class="no">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">sndbuf</span> <span class="o">=</span> <span class="n">ch</span><span class="p">.</span><span class="nf">w</span><span class="p">.</span><span class="nf">getsockopt</span><span class="p">(</span><span class="no">Socket</span><span class="o">::</span><span class="no">SOL_SOCKET</span><span class="p">,</span> <span class="no">Socket</span><span class="o">::</span><span class="no">SO_SNDBUF</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">ch</span><span class="p">.</span><span class="nf">bytes_sent</span> <span class="o"><=</span> <span class="n">sndbuf</span><span class="p">.</span><span class="nf">int</span>
+  <span class="n">ch</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="send_nonblock"><code>#send_nonblock</code></h4>
+
+<p>The non-blocking counterpart to <code>#send</code> is
+<code>#send_nonblock</code>. The <code>#send_nonblock</code> method raises
+<code>Chan::WaitLockable</code> when a write blocks because of
+a lock held by another process, and the method raises
+<code>Chan::WaitWritable</code> when a write to
+<a href="https://0x1eef.github,io/x/xchan.rb/Chan/UNIXSocket.html#w-instance_method">Chan::UNIXSocket#w</a>
+blocks. The example frees space on the send buffer:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"xchan"</span>
+
+<span class="k">def</span> <span class="nf">send_nonblock</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span>
+  <span class="n">ch</span><span class="p">.</span><span class="nf">send_nonblock</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">Chan</span><span class="o">::</span><span class="no">WaitWritable</span>
+  <span class="nb">print</span> <span class="s2">"Blocked - free send buffer"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="n">ch</span><span class="p">.</span><span class="nf">recv</span>
+  <span class="k">retry</span>
+<span class="k">rescue</span> <span class="no">Chan</span><span class="o">::</span><span class="no">WaitLockable</span>
+  <span class="nb">sleep</span> <span class="mf">0.01</span>
+  <span class="k">retry</span>
+<span class="k">end</span>
+
+<span class="n">ch</span> <span class="o">=</span> <span class="n">xchan</span><span class="p">(</span><span class="ss">:marshal</span><span class="p">,</span> <span class="ss">sock: </span><span class="no">Socket</span><span class="o">::</span><span class="no">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">sndbuf</span> <span class="o">=</span> <span class="n">ch</span><span class="p">.</span><span class="nf">w</span><span class="p">.</span><span class="nf">getsockopt</span><span class="p">(</span><span class="no">Socket</span><span class="o">::</span><span class="no">SOL_SOCKET</span><span class="p">,</span> <span class="no">Socket</span><span class="o">::</span><span class="no">SO_SNDBUF</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">ch</span><span class="p">.</span><span class="nf">bytes_sent</span> <span class="o"><=</span> <span class="n">sndbuf</span><span class="p">.</span><span class="nf">int</span>
+  <span class="n">send_nonblock</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1">##</span>
+<span class="c1"># Blocked - free send buffer</span>
+</code></pre></div></div>
+
+<h3 id="socket">Socket</h3>
+
+<h4 id="options-1">Options</h4>
+
+<p>A channel has one socket for read operations and another
+socket for write operations.
+<a href="https://0x1eef.github,io/x/xchan.rb/Chan/UNIXSocket.html#r-instance_method">Chan::UNIXSocket#r</a>
+returns the socket used for read operations, and
+<a href="https://0x1eef.github,io/x/xchan.rb/Chan/UNIXSocket.html#w-instance_method">Chan::UNIXSocket#w</a>
+returns the socket used for write operations:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"xchan"</span>
+<span class="n">ch</span> <span class="o">=</span> <span class="n">xchan</span><span class="p">(</span><span class="ss">:marshal</span><span class="p">)</span>
+
+<span class="c1">##</span>
+<span class="c1"># Print the value of SO_RCVBUF</span>
+<span class="n">rcvbuf</span> <span class="o">=</span> <span class="n">ch</span><span class="p">.</span><span class="nf">r</span><span class="p">.</span><span class="nf">getsockopt</span><span class="p">(</span><span class="no">Socket</span><span class="o">::</span><span class="no">SOL_SOCKET</span><span class="p">,</span> <span class="no">Socket</span><span class="o">::</span><span class="no">SO_RCVBUF</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"The read buffer can contain a maximum of: "</span><span class="p">,</span> <span class="n">rcvbuf</span><span class="p">.</span><span class="nf">int</span><span class="p">,</span> <span class="s2">" bytes.</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="c1">##</span>
+<span class="c1"># Print the value of SO_SNDBUF</span>
+<span class="n">sndbuf</span> <span class="o">=</span> <span class="n">ch</span><span class="p">.</span><span class="nf">w</span><span class="p">.</span><span class="nf">getsockopt</span><span class="p">(</span><span class="no">Socket</span><span class="o">::</span><span class="no">SOL_SOCKET</span><span class="p">,</span> <span class="no">Socket</span><span class="o">::</span><span class="no">SO_SNDBUF</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"The maximum size of a single message is: "</span><span class="p">,</span> <span class="n">sndbuf</span><span class="p">.</span><span class="nf">int</span><span class="p">,</span> <span class="s2">" bytes.</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="c1">##</span>
+<span class="c1"># The read buffer can contain a maximum of: 16384 bytes.</span>
+<span class="c1"># The maximum size of a single message is: 2048 bytes.</span>
+</code></pre></div></div>
+
+<h2 id="documentation">Documentation</h2>
+
+<p>A complete API reference is available at
+<a href="https://0x1eef.github.io/x/xchan.rb/">0x1eef.github.io/x/xchan.rb</a></p>
+
+<h2 id="install">Install</h2>
+
+<p>xchan.rb can be installed via rubygems.org:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_xchan'>xchan</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+  <li><a href="https://github.com/0x1eef/xchan.rb#readme">GitHub</a></li>
+  <li><a href="https://gitlab.com/0x1eef/xchan.rb#about">GitLab</a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://choosealicense.com/licenses/0bsd/">BSD Zero Clause</a>
+<br />
+See <a href="./share/xchan.rb/LICENSE">share/xchan.rb/LICENSE</a></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sun Mar  2 15:05:01 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>
