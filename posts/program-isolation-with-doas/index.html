@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>Program isolation with doas(1)</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="Program isolation with doas(1)">
+  <META property="og:description" content=
+  "Documents program isolation with doas(1)">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/doas-program-isolation/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="font-sans text-base">
+  <HEADER class="flex flex-row items-center justify-between h-12 text-sm">
+    <DIV class="flex flex-row justify-between m-auto w-full">
+      <A class="flex" href="/"><IMG width="24" height="24" src=
+      "/images/favicon-32x32.png"></A>
+      <UL class="list-none p-0 m-0 flex">
+        <LI>
+          <A class="" href="/">Projects</A>
+        </LI>
+        <LI>
+          <A class="active" href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto pt-5">
+    <MAIN class=
+    "flex flex-col place-content-center post flex flex-col mb-5 mt-5">
+      <H1 id="program-isolation-with-doas">Program isolation with doas</H1>
+      <P>This post presents a few simple steps that can effectively isolate the
+      execution of a program from your "main" user account by using the
+      <A href="https://man.openbsd.org/doas" target="_blank">doas(1)</A>
+      utility and a separate user account.</P>
+      <P>The <A href="https://man.openbsd.org/doas" target="_blank">doas(1)</A>
+      utility from the <A href="https://openbsd.org" target="_blank">OpenBSD
+      project</A> allows one user to execute a command as another user. There
+      are multiple <A href="https://man.openbsd.org/doas" target=
+      "_blank">doas(1)</A> ports to choose from on platforms other than
+      OpenBSD.</P>
+      <H2 id="useradd">useradd</H2>
+      <P>The first step is to create a user whose sole responsibility will be
+      the execution of a specific program. For the purposes of this post we
+      will choose the <CODE>weechat</CODE> program, and we will create a user
+      with the <CODE>weechat</CODE> username:</P>
+      <DIV class="sourceCode" id="cb1" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="co"># FreeBSD: add user</SPAN></SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">root@localhost#</SPAN> pw useradd <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb1-3"><A href="#cb1-3" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-n</SPAN> weechat <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb1-4"><A href="#cb1-4" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-d</SPAN> /home/weechat <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb1-5"><A href="#cb1-5" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-M</SPAN> 750 <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb1-6"><A href="#cb1-6" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-s</SPAN> /sbin/nologin <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb1-7"><A href="#cb1-7" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-m</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb1-8"><A href="#cb1-8" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-c</SPAN> <SPAN class=
+"st">"Runs the weechat program"</SPAN></SPAN>
+<SPAN id="cb1-9"><A href="#cb1-9" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb1-10"><A href="#cb1-10" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># OpenBSD: add user</SPAN></SPAN>
+<SPAN id="cb1-11"><A href="#cb1-11" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">root@localhost#</SPAN> useradd <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb1-12"><A href="#cb1-12" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-d</SPAN> /home/weechat <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb1-13"><A href="#cb1-13" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-s</SPAN> /sbin/nologin <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb1-14"><A href="#cb1-14" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-m</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb1-15"><A href="#cb1-15" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">-v</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb1-16"><A href="#cb1-16" aria-hidden="true" tabindex=
+"-1"></A>  weechat</SPAN>
+<SPAN id="cb1-17"><A href="#cb1-17" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">root@localhost#</SPAN> chmod 750 /home/weechat</SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="doas.conf">doas.conf</H2>
+      <P>The second step is to <STRONG>permit</STRONG> the <CODE>main</CODE>
+      user account to execute the weechat program as the <CODE>weechat</CODE>
+      user. This can be done by updating <A href=
+      "https://man.openbsd.org/doas.conf" target="_blank">doas.conf(5)</A>. On
+      OpenBSD - <A href="https://man.openbsd.org/doas.conf" target=
+      "_blank">doas.conf(5)</A> can be found at <CODE>/etc/doas.conf</CODE> and
+      on FreeBSD it can be found at <CODE>/usr/local/etc/doas.conf</CODE>:</P>
+      <DIV class="sourceCode" id="cb2" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class=
+        "co"># Permit the 'main' user to run the 'weechat' program as the 'weechat' user</SPAN></SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># Do not require a password</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">permit</SPAN> nopass main as weechat cmd /usr/local/bin/weechat args</SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="doas">doas</H2>
+      <P>The third and final step is to login with the <CODE>main</CODE> user
+      account, and execute weechat as the <CODE>weechat</CODE> user via
+      <A href="https://man.openbsd.org/doas" target="_blank">doas(1)</A>. At
+      this point we could repeat these steps but for a different program -
+      maybe FireFox ?</P>
+      <DIV class="sourceCode" id="cb3" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb3-1"><A href="#cb3-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class=
+        "co"># Launch weechat as the 'weechat' user</SPAN></SPAN>
+<SPAN id="cb3-2"><A href="#cb3-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">main@localhost$</SPAN> doas <SPAN class=
+"at">-u</SPAN> weechat /usr/local/bin/weechat</SPAN></CODE></PRE>
+      </DIV>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>

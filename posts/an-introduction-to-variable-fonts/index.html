@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>An introduction to variable fonts</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="An introduction to variable fonts">
+  <META property="og:description" content=
+  "Documents the benefits of variable fonts for websites">
+  <META property="og:url" content=
+  "https://0x1eef.github.com/posts/an-introduction-to-variable-fonts">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="font-sans text-base">
+  <HEADER class="flex flex-row items-center justify-between h-12 text-sm">
+    <DIV class="flex flex-row justify-between m-auto w-full">
+      <A class="flex" href="/"><IMG width="24" height="24" src=
+      "/images/favicon-32x32.png"></A>
+      <UL class="list-none p-0 m-0 flex">
+        <LI>
+          <A class="" href="/">Projects</A>
+        </LI>
+        <LI>
+          <A class="active" href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto pt-5">
+    <MAIN class=
+    "flex flex-col place-content-center post flex flex-col mb-5 mt-5">
+      <H1 id="an-introduction-to-variable-fonts">An introduction to variable
+      fonts</H1>
+      <P>This post provides an introduction to "variable" fonts, and explains
+      how they are different from "static" fonts .</P>
+      <H2 id="background">Background</H2>
+      <P>Both "variable" and "static" fonts are easy to find on popular font
+      websites like <A href="https://fonts.google.com" target=
+      "_blank">fonts.google.com</A> and <A href="https://fonts.adobe.com"
+      target="_blank">fonts.adobe.com</A> – and both font types can be deployed
+      on websites through the <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face" target=
+      "_blank">@font-face</A> CSS rule.</P>
+      <P>The primary difference between the two is that variable fonts allow
+      properties such as the weight and slant of a font to be configured
+      dynamically through the CSS properties <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings"
+      target="_blank">font-variation-settings</A>, <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight" target=
+      "_blank">font-weight</A>, and <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target=
+      "_blank">font-style</A>.</P>
+      <P>In comparison, static fonts have fixed properties that are harder to
+      change, even with properties like <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight" target=
+      "_blank">font-weight</A> and <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target=
+      "_blank">font-style</A>. The <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings"
+      target="_blank">font-variation-settings</A> property does not support
+      static fonts and it is specifically designed for variable fonts.</P>
+      <P>Another key difference is that a variable font is distributed as a
+      single file, whereas a static font typically includes multiple files –
+      each representing a different style or weight.</P>
+      <P>With a variable font, the browser only needs to download a single file
+      instead of multiple files for different styles or weights, and that can
+      help improve page load time.</P>
+      <H2 id="css">CSS</H2>
+      <P>A variable font can be included on a website through the <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face" target=
+      "_blank">@font-face</A> CSS rule. The following example uses a variable
+      variant of the "Noto Sans" font. This version of the font allows the
+      weight and width of the font to be adjusted.</P>
+      <P>We will define a single <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face" target=
+      "_blank">@font-face</A> rule for the "Noto Sans" font – and then define
+      three different font weights as separate CSS classes (regular, bold, and
+      extra-bold).</P>
+      <P>Generally it is recommended to use the <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight" target=
+      "_blank">font-weight</A> property to set the font weight of a variable
+      font. Based on my personal experiences I have decided to use the <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings"
+      target="_blank">font-variation-settings</A> property instead because it
+      gives full control over all font properties (weight, width, slant, and so
+      on).</P>
+      <P>A single <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face" target=
+      "_blank">@font-face</A> rule is used rather than three separate rules for
+      each style to ensure only one request is made to the server to download
+      the font file:</P>
+      <DIV class="sourceCode" id="cb1">
+        <PRE class="sourceCode css"><CODE class="sourceCode css"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="im">@font-face</SPAN> {</SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-family</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"Noto Sans"</SPAN><SPAN class=
+"op">;</SPAN></SPAN>
+<SPAN id="cb1-3"><A href="#cb1-3" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">src</SPAN><SPAN class="ch">:</SPAN> <SPAN class=
+"fu">url(</SPAN><SPAN class=
+"st">"/fonts/NotoSans-VariableFont_wdth,wght.ttf"</SPAN><SPAN class=
+"fu">)</SPAN> <SPAN class="fu">format(</SPAN><SPAN class=
+"st">"truetype"</SPAN><SPAN class="fu">)</SPAN><SPAN class="op">;</SPAN></SPAN>
+<SPAN id="cb1-4"><A href="#cb1-4" aria-hidden="true" tabindex=
+"-1"></A>}</SPAN></CODE></PRE>
+      </DIV>
+      <P>With our <A href=
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face" target=
+      "_blank">@font-face</A> rule defined, we can now define the CSS classes
+      for the different font weights:</P>
+      <DIV class="sourceCode" id="cb2">
+        <PRE class="sourceCode css"><CODE class="sourceCode css"><SPAN id=
+        "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="fu">.noto-sans-regular</SPAN> {</SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-family</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"Noto Sans"</SPAN><SPAN class=
+"op">;</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-variation-settings</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"wght"</SPAN> <SPAN class=
+"dv">400</SPAN><SPAN class="op">;</SPAN></SPAN>
+<SPAN id="cb2-4"><A href="#cb2-4" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="co">/* font-weight: 400; */</SPAN></SPAN>
+<SPAN id="cb2-5"><A href="#cb2-5" aria-hidden="true" tabindex="-1"></A>}</SPAN>
+<SPAN id="cb2-6"><A href="#cb2-6" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="fu">.noto-sans-bold</SPAN> {</SPAN>
+<SPAN id="cb2-7"><A href="#cb2-7" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-family</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"Noto Sans"</SPAN><SPAN class=
+"op">;</SPAN></SPAN>
+<SPAN id="cb2-8"><A href="#cb2-8" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-variation-settings</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"wght"</SPAN> <SPAN class=
+"dv">700</SPAN><SPAN class="op">;</SPAN></SPAN>
+<SPAN id="cb2-9"><A href="#cb2-9" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="co">/* font-weight: 700; */</SPAN></SPAN>
+<SPAN id="cb2-10"><A href="#cb2-10" aria-hidden="true" tabindex=
+"-1"></A>}</SPAN>
+<SPAN id="cb2-11"><A href="#cb2-11" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="fu">.noto-sans-extra-bold</SPAN> {</SPAN>
+<SPAN id="cb2-12"><A href="#cb2-12" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-family</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"Noto Sans"</SPAN><SPAN class=
+"op">;</SPAN></SPAN>
+<SPAN id="cb2-13"><A href="#cb2-13" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="kw">font-variation-settings</SPAN><SPAN class=
+"ch">:</SPAN> <SPAN class="st">"wght"</SPAN> <SPAN class=
+"dv">900</SPAN><SPAN class="op">;</SPAN></SPAN>
+<SPAN id="cb2-14"><A href="#cb2-14" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="co">/* font-weight: 900; */</SPAN></SPAN>
+<SPAN id="cb2-15"><A href="#cb2-15" aria-hidden="true" tabindex=
+"-1"></A>}</SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="conclusion">Conclusion</H2>
+      <P>Going forward I plan to default to using variable fonts. I used static
+      fonts before then – mostly because I didn't fully understand variable
+      fonts, but over time I learnt they're the better choice. I hope this post
+      was helpful.</P>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>
