@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>Improve Firefox's file dialog on OpenBSD</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="Improve Firefox's file dialog on OpenBSD">
+  <META property="og:description" content=
+  "Documents how to improve Firefox's file dialog">
+  <META property="og:url" content=
+  "https://0x1eef.github.com/posts/improve-firefox-file-dialog-on-openbsd">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="text-base font-sans">
+  <HEADER class="flex flex-row items-center justify-between h-12 text-sm">
+    <DIV class="flex flex-row justify-between m-auto w-full">
+      <A class="flex" href="/"><IMG width="24" height="24" src=
+      "/images/favicon-32x32.png"></A>
+      <UL class="list-none p-0 m-0 flex">
+        <LI>
+          <A class="" href="/">Projects</A>
+        </LI>
+        <LI>
+          <A class="active" href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto pt-5">
+    <MAIN class=
+    "flex flex-col place-content-center post flex flex-col mb-5 mt-5">
+      <H1 id="improve-firefoxs-file-dialog-on-openbsd">Improve Firefox's file
+      dialog on OpenBSD</H1>
+      <P>This post shares how I have optimized the Firefox file dialog that is
+      common for both file uploads and downloads on OpenBSD.</P>
+      <H2 id="background">Background</H2>
+      <P>For those unfamiliar, OpenBSD secures Firefox (and Chromium) through
+      its <A href="https://man.openbsd.org/unveil" target=
+      "_blank">unveil(2)</A> feature and as a result each type of Firefox
+      process is limited to being able to access a select number of files and
+      directories.</P>
+      <P>For the everyday user this means both <CODE>~/Downloads</CODE> and
+      <CODE>/tmp</CODE> are available for file downloads and uploads by
+      default, and the rest of the filesystem remains off limits.</P>
+      <P>The files referenced by <CODE>/etc/firefox/unveil.*</CODE> provide a
+      complete list of the files and directories available to each Firefox
+      process, and these same set of files can be edited to further restrict or
+      expand filesystem access.</P>
+      <P>Overall this is great and one of the reasons I choose to use OpenBSD
+      on the desktop, but because the file dialog used for both file uploads
+      and downloads is limited to a select few locations it can be frustrating
+      to use without some additional configuration.</P>
+      <H2 id="bookmarks">Bookmarks</H2>
+      <P>Thankfully the file dialog can be improved by pinning file locations
+      we know <A href="https://man.openbsd.org/unveil" target=
+      "_blank">unveil(2)</A> allows access to. This can be done by editing the
+      <CODE>bookmarks</CODE> file used by GTK file dialogs to show pinned file
+      locations. It can be found at
+      <CODE>${HOME}/.config/gtk-3.0/bookmarks</CODE>.</P>
+      <P>The following is a copy of my <CODE>bookmarks</CODE> file, the first
+      location is the user's downloads directory that's made available by
+      default, and the second location is a custom directory that was manually
+      added to <CODE>/etc/firefox/unveil.{main,content}</CODE> by myself.</P>
+      <P>Also keep in mind that the <CODE>_firefox</CODE> user runs Firefox on
+      my system, and that might not be the case on your system:</P>
+      <DIV class="sourceCode" id="cb1" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class=
+        "ex">$</SPAN> cat /home/_firefox/.config/gtk-3.0/bookmarks</SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">file:///home/_firefox/Downloads</SPAN> Downloads</SPAN>
+<SPAN id="cb1-3"><A href="#cb1-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class=
+"ex">file:///mnt/browser-extensions</SPAN> Extensions</SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="conclusion">Conclusion</H2>
+      <P>With the bookmarks file in place, the file dialog now shows both
+      <CODE>Downloads</CODE> and <CODE>Extensions</CODE> as pinned file
+      locations that are easy to navigate to (see the attached screenshot).
+      With this small change we can solve a minor frustration with the default
+      behavior, where often there was no straight forward way to navigate to a
+      desired file location.</P><A target="_blank" href=
+      "/images/improving-firefox-file-dialog-on-openbsd/filedialog.png"><IMG src="/images/improving-firefox-file-dialog-on-openbsd/filedialog.png"
+      alt="file dialog"></A>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>Two examples of errexit</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="Two examples of errexit">
+  <META property="og:description" content=
+  "Documents two different examples of errexit">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/two-examples-of-errexit/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="text-base font-sans">
+  <HEADER class="flex flex-row items-center justify-between h-12 text-sm">
+    <DIV class="flex flex-row justify-between m-auto w-full">
+      <A class="flex" href="/"><IMG width="24" height="24" src=
+      "/images/favicon-32x32.png"></A>
+      <UL class="list-none p-0 m-0 flex">
+        <LI>
+          <A class="" href="/">Projects</A>
+        </LI>
+        <LI>
+          <A class="active" href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto pt-5">
+    <MAIN class=
+    "flex flex-col place-content-center post flex flex-col mb-5 mt-5">
+      <H1 id="two-examples-of-errexit">Two examples of errexit</H1>
+      <P>This post presents two different examples of the errexit option from
+      the <A href="https://man.freebsd.org/sh" target="_blank">sh(1)</A> shell.
+      Each example exhibits a different behavior, although at a glance it would
+      be easy to mistake the two examples as being the same.</P>
+      <H2 id="background">Background</H2>
+      <P>In POSIX shell scripts - the errexit option can be used to enter a
+      mode of operation where any "untested command" that exits unsuccessfully
+      will cause the script that spawned the command to immediately exit as
+      well.</P>
+      <P>There are at least two ways to enter the errexit mode of operation:
+      either via an argument given directly to the <A href=
+      "https://man.freebsd.org/sh" target="_blank">sh(1)</A> executable or
+      within a script via the <A href="https://man.freebsd.org/set" target=
+      "_blank">set(1)</A> command.</P>
+      <H2 id="shebang">Shebang</H2>
+      <P>The first example provides the errexit option to the <A href=
+      "https://man.freebsd.org/sh" target="_blank">sh(1)</A> executable via the
+      script's shebang line.</P>
+      <P>The script spawns a subshell by surrounding a command in parenthesis,
+      and the command exits unsuccessfully. Perhaps surprisingly script
+      execution continues as normal. Keep in mind the script would have exited
+      as expected if a subshell had not been used:</P>
+      <DIV class="sourceCode" id="cb1" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="co">#!/bin/sh -e</SPAN></SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb1-3"><A href="#cb1-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># 'realpath' exits unsuccessfully</SPAN></SPAN>
+<SPAN id="cb1-4"><A href="#cb1-4" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="kw">(</SPAN><SPAN class=
+"fu">realpath</SPAN> /path/does/not/exist<SPAN class="kw">)</SPAN></SPAN>
+<SPAN id="cb1-5"><A href="#cb1-5" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb1-6"><A href="#cb1-6" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># But we reach here anyway</SPAN></SPAN>
+<SPAN id="cb1-7"><A href="#cb1-7" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="bu">echo</SPAN> <SPAN class=
+"st">"reached"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="set">Set</H2>
+      <P>The second example provides the errexit option via the <A href=
+      "https://man.freebsd.org/set" target="_blank">set(1)</A> command. The
+      script spawns a subshell which will exit unsuccessfully, and perhaps as
+      you would have expected, script execution does <STRONG>not</STRONG>
+      proceed past that point:</P>
+      <DIV class="sourceCode" id="cb2" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="co">#!/bin/sh</SPAN></SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="bu">set</SPAN> <SPAN class="at">-e</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb2-4"><A href="#cb2-4" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># 'realpath' exits unsuccessfully</SPAN></SPAN>
+<SPAN id="cb2-5"><A href="#cb2-5" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="kw">(</SPAN><SPAN class=
+"fu">realpath</SPAN> /path/does/not/exist<SPAN class="kw">)</SPAN></SPAN>
+<SPAN id="cb2-6"><A href="#cb2-6" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb2-7"><A href="#cb2-7" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># And we never reach here</SPAN></SPAN>
+<SPAN id="cb2-8"><A href="#cb2-8" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="bu">echo</SPAN> <SPAN class=
+"st">"unreached"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="conclusion">Conclusion</H2>
+      <P>We can conclude that the <A href="https://man.freebsd.org/set" target=
+      "_blank">set(1)</A> command propagates the errexit option to subshells.
+      The errexit option doesn't propagate when given to the <A href=
+      "https://man.freebsd.org/sh" target="_blank">sh(1)</A> executable as an
+      argument. My default is almost always to set errexit via the <A href=
+      "https://man.freebsd.org/set" target="_blank">set(1)</A> command for this
+      very reason.</P>
+    </MAIN>
+  </DIV>
+</BODY>
+</HTML>
