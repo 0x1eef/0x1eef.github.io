@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h2 id="about">About</h2>
+
+<p>nanoc-tidy.rb is a
+<a href="https://nanoc.app">nanoc</a>
+filter that adds
+<a href="https://github.com/htacg/tidy-html5">tidy-html5</a>
+support to nanoc. <br />
+The filter can format and validate HTML produced
+during the
+<a href="https://nanoc.app">nanoc</a>
+build process.</p>
+
+<h2 id="examples">Examples</h2>
+
+<p><strong>Defaults</strong></p>
+
+<p>The following example executes tidy with the default settings. <br />
+See <a href="https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method">Nanoc::Tidy.default_argv</a>
+for more details:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1"># Rules</span>
+<span class="nb">require</span> <span class="s2">"nanoc-tidy"</span>
+<span class="n">compile</span> <span class="s2">"/index.html.erb"</span> <span class="k">do</span>
+  <span class="n">layout</span><span class="p">(</span><span class="s2">"/default.*"</span><span class="p">)</span>
+  <span class="n">filter</span><span class="p">(</span><span class="ss">:erb</span><span class="p">)</span>
+  <span class="n">filter</span><span class="p">(</span><span class="ss">:tidy</span><span class="p">)</span>
+  <span class="n">write</span><span class="p">(</span><span class="s2">"/index.html"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><strong>Option: argv</strong></p>
+
+<p>The argv option forwards command line arguments directly to
+the tidy-html5 executable. <br />
+<a href="https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method">Nanoc::Tidy.default_argv</a>
+returns the default command line arguments forwarded to
+tidy-html5:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1"># Rules</span>
+<span class="nb">require</span> <span class="s2">"nanoc-tidy"</span>
+<span class="n">compile</span> <span class="s2">"/index.html.erb"</span> <span class="k">do</span>
+  <span class="n">layout</span><span class="p">(</span><span class="s2">"/default.*"</span><span class="p">)</span>
+  <span class="n">filter</span><span class="p">(</span><span class="ss">:erb</span><span class="p">)</span>
+  <span class="n">filter</span><span class="p">(</span><span class="ss">:tidy</span><span class="p">,</span> <span class="ss">argv: </span><span class="p">[</span><span class="s2">"-upper"</span><span class="p">])</span>
+  <span class="n">write</span><span class="p">(</span><span class="s2">"/index.html"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><strong>Option: exe</strong></p>
+
+<p>The “exe” option can be used to change the default executable
+from “tidy5” to something else, the most common alternative
+might be “tidy”:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1"># Rules</span>
+<span class="nb">require</span> <span class="s2">"nanoc-tidy"</span>
+<span class="n">compile</span> <span class="s2">"/index.html.erb"</span> <span class="k">do</span>
+  <span class="n">layout</span><span class="p">(</span><span class="s2">"/default.*"</span><span class="p">)</span>
+  <span class="n">filter</span><span class="p">(</span><span class="ss">:erb</span><span class="p">)</span>
+  <span class="n">filter</span><span class="p">(</span><span class="ss">:tidy</span><span class="p">,</span> <span class="ss">exe: </span><span class="s2">"tidy"</span><span class="p">)</span>
+  <span class="n">write</span><span class="p">(</span><span class="s2">"/index.html"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="install">Install</h2>
+
+<p>nanoc-tidy.rb can be installed via rubygems.org:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_nanoc'>nanoc</span><span class='op'>-</span><span class='id identifier rubyid_tidy'>tidy</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+  <li><a href="https://github.com/0x1eef/nanoc-tidy.rb#readme">GitHub</a></li>
+  <li><a href="https://gitlab.com/0x1eef/nanoc-tidy.rb#about">GitLab</a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://choosealicense.com/licenses/0bsd/">BSD Zero Clause</a>
+<br />
+See <a href="./LICENSE">LICENSE</a></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Wed Apr  2 04:27:22 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>
