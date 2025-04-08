@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h2 id="about">About</h2>
+
+<p>llm.rb is a lightweight library that provides a common interface
+and set of functionality for multiple Large Language Models (LLMs). It
+is designed to be simple, flexible, and easy to use.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="providers">Providers</h3>
+
+<h4 id="llmprovider">LLM::Provider</h4>
+
+<p>All providers inherit from <a href="https://0x1eef.github.io/x/llm/LLM/Provider.html">LLM::Provider</a> –
+they share a common interface and set of functionality. Each provider can be instantiated
+using an API key (if required) and an optional set of configuration options via
+<a href="https://0x1eef.github.io/x/llm/LLM.html">the singleton methods of LLM</a>. For example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="s2">"yourapikey"</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">gemini</span><span class="p">(</span><span class="s2">"yourapikey"</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">anthropic</span><span class="p">(</span><span class="s2">"yourapikey"</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">ollama</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="completions">Completions</h3>
+
+<h4 id="conversation">Conversation</h4>
+
+<p>The
+<a href="https://0x1eef.github.io/x/llm/LLM/Provider.html#chat-instance_method">LLM::Provider#chat</a>
+method returns a lazy-variant of a
+<a href="https://0x1eef.github.io/x/llm/LLM/Conversation.html">LLM::Conversation</a>
+object, and it allows for a “lazy” conversation where messages are batched and
+sent to the provider only when necessary. The non-lazy counterpart is available via the
+<a href="https://0x1eef.github.io/x/llm/LLM/Provider.html#chat!-instance_method">LLM::Provider#chat!</a>
+method.</p>
+
+<p>Both lazy and non-lazy conversations maintain a message thread that can
+be reused as context throughout a conversation. For the sake of brevity the system
+prompt is loaded from
+<a href="./share/llm/prompts/system.txt">a file</a>
+in the following example – all other prompts are “user” prompts –
+and a single request is made to the provider when iterating over the messages
+belonging to a lazy conversation:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">convo</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">chat</span> <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s2">"./share/llm/prompts/system.txt"</span><span class="p">),</span> <span class="ss">:system</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Tell me the answer to 5 + 15"</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Tell me the answer to (5 + 15) * 2"</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Tell me the answer to ((5 + 15) * 2) / 10"</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">"[</span><span class="si">#{</span><span class="n">_1</span><span class="p">.</span><span class="nf">role</span><span class="si">}</span><span class="s2">] "</span><span class="p">,</span> <span class="n">_1</span><span class="p">.</span><span class="nf">content</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">}</span>
+
+<span class="c1">##</span>
+<span class="c1"># [system] You are my math assistant.</span>
+<span class="c1">#          I will provide you with (simple) equations.</span>
+<span class="c1">#          You will provide answers in the format "The answer to <equation> is <answer>".</span>
+<span class="c1">#          I will provide you a set of messages. Reply to all of them.</span>
+<span class="c1">#          A message is considered unanswered if there is no corresponding assistant response.</span>
+<span class="c1">#</span>
+<span class="c1"># [user] Tell me the answer to 5 + 15</span>
+<span class="c1"># [user] Tell me the answer to (5 + 15) * 2</span>
+<span class="c1"># [user] Tell me the answer to ((5 + 15) * 2) / 10</span>
+<span class="c1">#</span>
+<span class="c1"># [assistant] The answer to 5 + 15 is 20.</span>
+<span class="c1">#             The answer to (5 + 15) * 2 is 40.</span>
+<span class="c1">#             The answer to ((5 + 15) * 2) / 10 is 4.</span>
+</code></pre></div></div>
+
+<h4 id="prompts">Prompts</h4>
+
+<p>Both lazy and non-lazy conversations accept text as a prompt.
+Depending on the provider, they may also accept a
+<a href="https://docs.ruby-lang.org/en/master/URI.html">URI</a>
+or
+<a href="https://0x1eef.github.io/x/llm/LLM/File.html">LLM::File</a>
+object. Generally a
+<a href="https://docs.ruby-lang.org/en/master/URI.html">URI</a>
+object is used to reference an image on the web, and an
+<a href="https://0x1eef.github.io/x/llm/LLM/File.html">LLM::File</a>
+object is used to reference a file on the local filesystem.
+The following list shows the types of prompts that each
+provider accepts:</p>
+
+<ul>
+  <li>OpenAI       =&gt;   String, URI</li>
+  <li>Gemini        =&gt;   String, LLM::File</li>
+  <li>Anthropic   =&gt;   String, URI</li>
+  <li>Ollama        =&gt;   String, URI</li>
+</ul>
+
+<h3 id="embeddings">Embeddings</h3>
+
+<h4 id="text">Text</h4>
+
+<p>The
+<a href="https://0x1eef.github.io/x/llm/LLM/Provider.html#embed-instance_method"><code>LLM::Provider#embed</code></a>
+method generates a vector representation of one or more chunks
+of text. Embeddings capture the semantic meaning of text –
+a common use-case for them is to store chunks of text in a
+vector database, and then to query the database for <em>semantically
+similar</em> text. These chunks of similar text can then support the
+generation of a prompt that is used to query a large language model,
+which will go on to generate a response.</p>
+
+<p>For example, a user query might find similar text that adds important
+context to the prompt that informs the large language model in how to respond.
+The chunks of text may also carry metadata that can be used to further filter
+and contextualize the search results. This technique is popularly known as
+retrieval-augmented generation (RAG). Embeddings can also be used for
+other purposes as well – RAG is just one of the most popular use-cases.</p>
+
+<p>Let’s take a look at an example that generates a couple of vectors
+for two chunks of text:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">embed</span><span class="p">([</span><span class="s2">"programming is fun"</span><span class="p">,</span> <span class="s2">"ruby is a programming language"</span><span class="p">])</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">class</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">embeddings</span><span class="p">.</span><span class="nf">size</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">embeddings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">size</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="c1">##</span>
+<span class="c1"># LLM::Response::Embedding</span>
+<span class="c1"># 2</span>
+<span class="c1"># 1536</span>
+</code></pre></div></div>
+
+<h3 id="llm">LLM</h3>
+
+<h4 id="timeouts">Timeouts</h4>
+
+<p>When running the ollama provider locally it might take a while for
+the language model to reply – depending on hardware and the
+size of the model. The following example demonstrates how to wait
+a longer period of time for a response through the use of the
+<code>timeout</code> configuration option with the <code>qwq</code> model. The following
+example waits up to 15 minutes for a response:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">ollama</span><span class="p">(</span><span class="kp">nil</span><span class="p">,</span> <span class="ss">timeout: </span><span class="mi">60</span><span class="o">*</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">llm</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"What is the meaning of life ?"</span><span class="p">,</span> <span class="ss">model: </span><span class="s2">"qwq"</span>
+<span class="n">llm</span><span class="p">.</span><span class="nf">last_message</span><span class="p">.</span><span class="nf">tap</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">"[assistant] "</span><span class="p">,</span> <span class="n">_1</span><span class="p">.</span><span class="nf">content</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="models">Models</h4>
+
+<p>Generally each Large Language Model provides multiple models to choose
+from, and each model has its own set of capabilities and limitations.
+The following example demonstrates how to query the list of models
+through the
+<a href="http://0x1eef.github.io/x/llm/LLM/Provider.html#models-instance_method">LLM::Provider#models</a>
+method – the example happens to use the ollama provider but
+this can be done for any provider:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="c1">##</span>
+<span class="c1"># List models</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">ollama</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span>
+<span class="n">llm</span><span class="p">.</span><span class="nf">models</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">"</span><span class="si">#{</span><span class="n">_2</span><span class="p">.</span><span class="nf">name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">_2</span><span class="p">.</span><span class="nf">description</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">}</span>
+
+<span class="c1">##</span>
+<span class="c1"># Select a model</span>
+<span class="n">llm</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Hello, world!"</span><span class="p">,</span> <span class="ss">model: </span><span class="n">llm</span><span class="p">.</span><span class="nf">models</span><span class="p">[</span><span class="s2">"qwq"</span><span class="p">]</span>
+
+<span class="c1">##</span>
+<span class="c1"># This also works</span>
+<span class="n">llm</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Hello, world!"</span><span class="p">,</span> <span class="ss">model: </span><span class="s2">"qwq"</span>
+</code></pre></div></div>
+<h2 id="providers-1">Providers</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://www.anthropic.com/">Anthropic</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://platform.openai.com/docs/overview">OpenAI</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://ai.google.dev/gemini-api/docs">Gemini</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://github.com/ollama/ollama#readme">Ollama</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Hugging Face</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Cohere</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />AI21 Labs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Replicate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Mistral AI</li>
+</ul>
+
+<h2 id="documentation">Documentation</h2>
+
+<p>A complete API reference is available at <a href="https://0x1eef.github.io/x/llm">0x1eef.github.io/x/llm</a></p>
+
+<h2 id="install">Install</h2>
+
+<p>llm.rb can be installed via rubygems.org:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_llm'>llm</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
+
+<h2 id="license">License</h2>
+
+<p>MIT. See <a href="LICENSE.txt">LICENSE.txt</a> for more details</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Mon Apr  7 21:33:29 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>
