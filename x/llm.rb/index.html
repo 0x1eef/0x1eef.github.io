@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h2 id="about">About</h2>
+
+<p>llm.rb is a lightweight library that provides a common interface
+and set of functionality for multiple Large Language Models (LLMs). It
+is designed to be simple, flexible, and easy to use – and it has been
+implemented with no dependencies outside Ruby’s standard library.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="providers">Providers</h3>
+
+<h4 id="llmprovider">LLM::Provider</h4>
+
+<p>All providers inherit from <a href="https://0x1eef.github.io/x/llm/LLM/Provider.html">LLM::Provider</a> –
+they share a common interface and set of functionality. Each provider can be instantiated
+using an API key (if required) and an optional set of configuration options via
+<a href="https://0x1eef.github.io/x/llm/LLM.html">the singleton methods of LLM</a>. For example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="s2">"yourapikey"</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">gemini</span><span class="p">(</span><span class="s2">"yourapikey"</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">anthropic</span><span class="p">(</span><span class="s2">"yourapikey"</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">ollama</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="conversations">Conversations</h3>
+
+<h4 id="completions">Completions</h4>
+
+<p>The following example enables lazy mode for a
+<a href="https://0x1eef.github.io/x/llm/LLM/Conversation.html">LLM::Conversation</a>
+object by entering into a “lazy” conversation where messages are buffered and
+sent to the provider only when necessary.  Both lazy and non-lazy conversations
+maintain a message thread that can be reused as context throughout a conversation.
+The example uses the stateless chat completions API that all LLM providers support:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">convo</span> <span class="o">=</span> <span class="no">LLM</span><span class="o">::</span><span class="no">Conversation</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">llm</span><span class="p">).</span><span class="nf">lazy</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s2">"./share/llm/prompts/system.txt"</span><span class="p">),</span> <span class="ss">:system</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Tell me the answer to 5 + 15"</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Tell me the answer to (5 + 15) * 2"</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">chat</span> <span class="s2">"Tell me the answer to ((5 + 15) * 2) / 10"</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">"[</span><span class="si">#{</span><span class="n">_1</span><span class="p">.</span><span class="nf">role</span><span class="si">}</span><span class="s2">] "</span><span class="p">,</span> <span class="n">_1</span><span class="p">.</span><span class="nf">content</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">}</span>
+
+<span class="c1">##</span>
+<span class="c1"># [system] You are my math assistant.</span>
+<span class="c1">#          I will provide you with (simple) equations.</span>
+<span class="c1">#          You will provide answers in the format "The answer to <equation> is <answer>".</span>
+<span class="c1">#          I will provide you a set of messages. Reply to all of them.</span>
+<span class="c1">#          A message is considered unanswered if there is no corresponding assistant response.</span>
+<span class="c1">#</span>
+<span class="c1"># [user] Tell me the answer to 5 + 15</span>
+<span class="c1"># [user] Tell me the answer to (5 + 15) * 2</span>
+<span class="c1"># [user] Tell me the answer to ((5 + 15) * 2) / 10</span>
+<span class="c1">#</span>
+<span class="c1"># [assistant] The answer to 5 + 15 is 20.</span>
+<span class="c1">#             The answer to (5 + 15) * 2 is 40.</span>
+<span class="c1">#             The answer to ((5 + 15) * 2) / 10 is 4.</span>
+</code></pre></div></div>
+
+<h4 id="responses">Responses</h4>
+
+<p>The responses API is a recent addition
+<a href="https://platform.openai.com/docs/guides/conversation-state?api-mode=responses">provided by OpenAI</a>
+that lets a client store message state on their servers – and in turn
+a client can avoid maintaining state manually as well as avoid sending
+the entire conversation with each request that is made. Although it is
+primarily supported by OpenAI at the moment, we might see other providers
+support it in the future. For now
+<a href="https://0x1eef.github.io/x/llm/LLM/OpenAI/Responses.html">llm.rb supports the responses API</a>
+for the OpenAI provider:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">convo</span> <span class="o">=</span> <span class="no">LLM</span><span class="o">::</span><span class="no">Conversation</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">llm</span><span class="p">).</span><span class="nf">lazy</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">respond</span> <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s2">"./share/llm/prompts/system.txt"</span><span class="p">),</span> <span class="ss">:developer</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">respond</span> <span class="s2">"Tell me the answer to 5 + 15"</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">respond</span> <span class="s2">"Tell me the answer to (5 + 15) * 2"</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">respond</span> <span class="s2">"Tell me the answer to ((5 + 15) * 2) / 10"</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">convo</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">"[</span><span class="si">#{</span><span class="n">_1</span><span class="p">.</span><span class="nf">role</span><span class="si">}</span><span class="s2">] "</span><span class="p">,</span> <span class="n">_1</span><span class="p">.</span><span class="nf">content</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">}</span>
+
+<span class="c1">##</span>
+<span class="c1"># [developer] You are my math assistant.</span>
+<span class="c1">#             I will provide you with (simple) equations.</span>
+<span class="c1">#             You will provide answers in the format "The answer to <equation> is <answer>".</span>
+<span class="c1">#             I will provide you a set of messages. Reply to all of them.</span>
+<span class="c1">#             A message is considered unanswered if there is no corresponding assistant response.</span>
+<span class="c1">#</span>
+<span class="c1"># [user] Tell me the answer to 5 + 15</span>
+<span class="c1"># [user] Tell me the answer to (5 + 15) * 2</span>
+<span class="c1"># [user] Tell me the answer to ((5 + 15) * 2) / 10</span>
+<span class="c1">#</span>
+<span class="c1"># [assistant] The answer to 5 + 15 is 20.</span>
+<span class="c1">#             The answer to (5 + 15) * 2 is 40.</span>
+<span class="c1">#             The answer to ((5 + 15) * 2) / 10 is 4.</span>
+</code></pre></div></div>
+
+<h3 id="audio">Audio</h3>
+
+<h4 id="speech">Speech</h4>
+
+<p>Some but not all providers implement audio generation capabilities that
+can create text from speech, transcribe audio to text, or translate
+audio to text (usually English). The following example uses the OpenAI provider
+to create an audio file from a text prompt. The audio is then moved to
+<code>${HOME}/hello.mp3</code> as the final step. As always, consult the provider’s
+documentation (eg <a href="https://platform.openai.com/docs/api-reference/audio/create">OpenAI docs</a>)
+for more information on how to use the audio generation API:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+<span class="nb">require</span> <span class="s2">"open-uri"</span>
+<span class="nb">require</span> <span class="s2">"fileutils"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">audio</span><span class="p">.</span><span class="nf">create_speech</span><span class="p">(</span><span class="ss">input: </span><span class="s2">"Hello world"</span><span class="p">)</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">binwrite</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">home</span><span class="p">,</span> <span class="s2">"hello.mp3"</span><span class="p">),</span>
+	          <span class="n">res</span><span class="p">.</span><span class="nf">audio</span><span class="p">.</span><span class="nf">string</span>
+</code></pre></div></div>
+
+<h4 id="transcribe">Transcribe</h4>
+
+<p>The following example transcribes an audio file to text. The audio file
+(<code>${HOME}/hello.mp3</code>) was theoretically created in the previous example,
+and the result is printed to the console. The example uses the OpenAI
+provider to transcribe the audio file. As always, consult the provider’s
+documentation (eg <a href="https://platform.openai.com/docs/api-reference/audio/createTranscription">OpenAI docs</a>)
+for more information on how to use the audio transcription API:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+<span class="nb">require</span> <span class="s2">"open-uri"</span>
+<span class="nb">require</span> <span class="s2">"fileutils"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">audio</span><span class="p">.</span><span class="nf">create_transcription</span><span class="p">(</span>
+  <span class="ss">file: </span><span class="no">LLM</span><span class="o">::</span><span class="no">File</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">home</span><span class="p">,</span> <span class="s2">"hello.mp3"</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">text</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="c1"># => "Hello world."</span>
+</code></pre></div></div>
+
+<h4 id="translate">Translate</h4>
+
+<p>The following example translates an audio file to text. In this example
+the audio file (<code>${HOME/bomdia.mp3}</code>) is theoretically in Portuguese,
+and it is translated to English. The example uses the OpenAI provider,
+and at the time of writing, it can only translate to English. As always,
+consult the provider’s documentation (eg <a href="https://platform.openai.com/docs/api-reference/audio/createTranslation">OpenAI docs</a>)
+for more information on how to use the audio translation API:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="nb">require</span> <span class="s2">"llm"</span>
+<span class="nb">require</span> <span class="s2">"open-uri"</span>
+<span class="nb">require</span> <span class="s2">"fileutils"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">audio</span><span class="p">.</span><span class="nf">create_translation</span><span class="p">(</span>
+  <span class="ss">file: </span><span class="no">LLM</span><span class="o">::</span><span class="no">File</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">home</span><span class="p">,</span> <span class="s2">"bomdia.mp3"</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">text</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="c1"># => "Good morning."</span>
+</code></pre></div></div>
+
+<h3 id="images">Images</h3>
+
+<h4 id="create">Create</h4>
+
+<p>Some but all LLM providers implement image generation capabilities that
+can create new images from a prompt, or edit an existing image with a
+prompt. The following example uses the OpenAI provider to create an
+image of a dog on a rocket to the moon. The image is then moved to
+<code>${HOME}/dogonrocket.png</code> as the final step:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+<span class="nb">require</span> <span class="s2">"open-uri"</span>
+<span class="nb">require</span> <span class="s2">"fileutils"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">images</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">prompt: </span><span class="s2">"a dog on a rocket to the moon"</span><span class="p">)</span>
+<span class="n">res</span><span class="p">.</span><span class="nf">data</span><span class="p">.</span><span class="nf">urls</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span>
+  <span class="no">FileUtils</span><span class="p">.</span><span class="nf">mv</span> <span class="no">OpenURI</span><span class="p">.</span><span class="nf">open_uri</span><span class="p">(</span><span class="n">url</span><span class="p">).</span><span class="nf">path</span><span class="p">,</span>
+               <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">home</span><span class="p">,</span> <span class="s2">"dogonrocket.png"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="edit">Edit</h4>
+
+<p>The following example is focused on editing a local image with the aid
+of a prompt. The image (<code>/images/cat.png</code>) is returned to us with the cat
+now wearing a hat. The image is then moved to <code>${HOME}/catwithhat.png</code> as
+the final step. Results and quality may vary, consider prompt adjustments
+if the results are not satisfactory, and consult the provider’s documentation
+(eg <a href="https://platform.openai.com/docs/api-reference/images/createEdit">OpenAI docs</a>)
+for more information on how to use the image editing API:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+<span class="nb">require</span> <span class="s2">"open-uri"</span>
+<span class="nb">require</span> <span class="s2">"fileutils"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">images</span><span class="p">.</span><span class="nf">edit</span><span class="p">(</span>
+  <span class="ss">image: </span><span class="no">LLM</span><span class="o">::</span><span class="no">File</span><span class="p">(</span><span class="s2">"/images/cat.png"</span><span class="p">)</span>
+  <span class="ss">prompt: </span><span class="s2">"a cat with a hat"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">res</span><span class="p">.</span><span class="nf">data</span><span class="p">.</span><span class="nf">urls</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span>
+  <span class="no">FileUtils</span><span class="p">.</span><span class="nf">mv</span> <span class="no">OpenURI</span><span class="p">.</span><span class="nf">open_uri</span><span class="p">(</span><span class="n">url</span><span class="p">).</span><span class="nf">path</span><span class="p">,</span>
+               <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">home</span><span class="p">,</span> <span class="s2">"catwithhat.png"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="variations">Variations</h4>
+
+<p>The following example is focused on creating variations of a local image.
+The image (<code>/images/cat.png</code>) is returned to us with five different variations.
+The images are then moved to <code>${HOME}/catvariation0.png</code>, <code>${HOME}/catvariation1.png</code>
+and so on as the final step. Consult the provider’s documentation
+(eg <a href="https://platform.openai.com/docs/api-reference/images/createVariation">OpenAI docs</a>)
+for more information on how to use the image variations API:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+<span class="nb">require</span> <span class="s2">"open-uri"</span>
+<span class="nb">require</span> <span class="s2">"fileutils"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">images</span><span class="p">.</span><span class="nf">create_variation</span><span class="p">(</span>
+  <span class="ss">image: </span><span class="no">LLM</span><span class="o">::</span><span class="no">File</span><span class="p">(</span><span class="s2">"/images/cat.png"</span><span class="p">),</span>
+  <span class="ss">n: </span><span class="mi">5</span>
+<span class="p">)</span>
+<span class="n">res</span><span class="p">.</span><span class="nf">data</span><span class="p">.</span><span class="nf">urls</span><span class="p">.</span><span class="nf">each</span><span class="p">.</span><span class="nf">with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+  <span class="no">FileUtils</span><span class="p">.</span><span class="nf">mv</span> <span class="no">OpenURI</span><span class="p">.</span><span class="nf">open_uri</span><span class="p">(</span><span class="n">url</span><span class="p">).</span><span class="nf">path</span><span class="p">,</span>
+               <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">home</span><span class="p">,</span> <span class="s2">"catvariation</span><span class="si">#{</span><span class="n">index</span><span class="si">}</span><span class="s2">.png"</span><span class="p">)</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<h3 id="embeddings">Embeddings</h3>
+
+<h4 id="text">Text</h4>
+
+<p>The
+<a href="https://0x1eef.github.io/x/llm/LLM/Provider.html#embed-instance_method"><code>LLM::Provider#embed</code></a>
+method generates a vector representation of one or more chunks
+of text. Embeddings capture the semantic meaning of text –
+a common use-case for them is to store chunks of text in a
+vector database, and then to query the database for <em>semantically
+similar</em> text. These chunks of similar text can then support the
+generation of a prompt that is used to query a large language model,
+which will go on to generate a response:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"llm"</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="no">LLM</span><span class="p">.</span><span class="nf">openai</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"KEY"</span><span class="p">])</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">embed</span><span class="p">([</span><span class="s2">"programming is fun"</span><span class="p">,</span> <span class="s2">"ruby is a programming language"</span><span class="p">,</span> <span class="s2">"sushi is art"</span><span class="p">])</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">class</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">embeddings</span><span class="p">.</span><span class="nf">size</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">print</span> <span class="n">res</span><span class="p">.</span><span class="nf">embeddings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">size</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="c1">##</span>
+<span class="c1"># LLM::Response::Embedding</span>
+<span class="c1"># 3</span>
+<span class="c1"># 1536</span>
+</code></pre></div></div>
+
+<h2 id="api-reference">API reference</h2>
+
+<p>The README tries to provide a high-level overview of the library. For everything
+else there’s the API reference. It covers classes and methods that the README glances
+over or doesn’t cover at all. The API reference is available at
+<a href="https://0x1eef.github.io/x/llm.rb">0x1eef.github.io/x/llm.rb</a>.</p>
+
+<h2 id="install">Install</h2>
+
+<p>llm.rb can be installed via rubygems.org:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_llm'>llm</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://choosealicense.com/licenses/0bsd/">BSD Zero Clause</a>
+<br />
+See <a href="./LICENSE">LICENSE</a></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sat Apr 19 21:41:11 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>

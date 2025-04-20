@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h2 id="about">About</h2>
+
+<p>bsdcapsicum.rb provides Ruby bindings for FreeBSD’s
+<a href="https://man.freebsd.org/cgi/man.cgi?query=capsicum&amp;apropos=0&amp;sektion=4&amp;format=html">capsicum(4)</a>
+via
+<a href="https://github.com/ruby/fiddle#readme">fiddle</a>.</p>
+
+<p>The capsicum framework provides a sandbox model where a process can enter
+into a mode of operation where it is exclusively capable of performing system
+calls on file descriptors that have been acquired before entering capability
+mode.</p>
+
+<p>The file descriptors can also be limited to a subset of system calls, and
+a file descriptor could reference a file, a socket, or other IO objects.
+Both of these strategies can be used together to limit the capabilities
+of a process and / or to limit the capabilities of file descriptors.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="bsdcapsicum">BSD::Capsicum</h3>
+
+<h4 id="capability-mode">Capability mode</h4>
+
+<p>A process can enter into capability mode by calling
+the
+<a href="http://0x1eef.github.io/x/bsdcapsicum.rb/BSD/Capsicum.html#enter!-instance_method">BSD::Capsicum.enter_capability_mode!</a>
+method. After entering capability mode, a process may only
+issue system calls operating on file descriptors that have already
+been acquired or by reading limited global system state.
+File descriptors acquired before entering capability mode remain
+fully capable but their capabilities can be reduced by calling
+the
+<a href="http://0x1eef.github.io/x/bsdcapsicum.rb/BSD/Capsicum.html#permit!-instance_method">BSD::Capsicum.permit!</a>
+method. See the
+<a href="https://man.freebsd.org/cgi/man.cgi?query=cap_enter&amp;apropos=0&amp;sektion=2&amp;format=html">cap_enter(2)</a>
+manual page or the rest of the README for more details:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"bsd/capsicum"</span>
+
+<span class="nb">print</span> <span class="s2">"In capability mode: "</span><span class="p">,</span> <span class="p">(</span><span class="no">BSD</span><span class="o">::</span><span class="no">Capsicum</span><span class="p">.</span><span class="nf">capability_mode?</span> <span class="p">?</span> <span class="s2">"yes"</span> <span class="p">:</span> <span class="s2">"no"</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="no">BSD</span><span class="o">::</span><span class="no">Capsicum</span><span class="p">.</span><span class="nf">enter_capability_mode!</span>
+<span class="nb">print</span> <span class="s2">"Enter capability mode: ok"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">print</span> <span class="s2">"In capability mode: "</span><span class="p">,</span> <span class="p">(</span><span class="no">BSD</span><span class="o">::</span><span class="no">Capsicum</span><span class="p">.</span><span class="nf">capability_mode?</span> <span class="p">?</span> <span class="s2">"yes"</span> <span class="p">:</span> <span class="s2">"no"</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="k">begin</span>
+  <span class="no">File</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">File</span><span class="o">::</span><span class="no">NULL</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">Errno</span><span class="o">::</span><span class="no">ECAPMODE</span> <span class="o">=></span> <span class="n">ex</span>
+  <span class="nb">print</span> <span class="s2">"Error: </span><span class="si">#{</span><span class="n">ex</span><span class="p">.</span><span class="nf">message</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">ex</span><span class="p">.</span><span class="nf">class</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="c1">##</span>
+<span class="c1"># In capability mode: no</span>
+<span class="c1"># Enter capability mode: ok</span>
+<span class="c1"># In capability mode: yes</span>
+<span class="c1"># Error: Not permitted in capability mode @ rb_sysopen - /dev/null (Errno::ECAPMODE)</span>
+</code></pre></div></div>
+
+<h4 id="file-descriptors">File descriptors</h4>
+
+<p>The
+<a href="http://0x1eef.github.io/x/bsdcapsicum.rb/BSD/Capsicum/IO.html#permit!-instance_method">BSD::Capsicum::IO#permit!</a>
+method can reduce the capabilities of a file descriptor by limiting what
+system calls it can be used with. In that sense it is roughly similar to OpenBSD’s
+pledge but it operates on the file descriptor level rather than the process
+level.
+The following example obtains a file descriptor in a parent process (with
+full capabilities), then limits the capabilities of the file descriptor
+in a child process to allow only read operations. See the
+<a href="https://man.freebsd.org/cgi/man.cgi?query=rights&amp;apropos=0&amp;sektion=4&amp;format=html">rights(4)</a>
+and
+<a href="https://man.freebsd.org/cgi/man.cgi?query=cap_rights_limit&amp;sektion=2&amp;format=htmlman">cap_rights_limit(2)</a>
+manual pages for more information:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"bsd/capsicum"</span>
+<span class="nb">require</span> <span class="s2">"tmpdir"</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">tmpdir</span><span class="p">,</span> <span class="s2">"bsdcapsicum.txt"</span><span class="p">)</span>
+<span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="no">File</span><span class="o">::</span><span class="no">CREAT</span> <span class="o">|</span> <span class="no">File</span><span class="o">::</span><span class="no">TRUNC</span> <span class="o">|</span> <span class="no">File</span><span class="o">::</span><span class="no">RDWR</span><span class="p">)</span>
+<span class="n">file</span><span class="p">.</span><span class="nf">sync</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="nb">print</span> <span class="s2">"[parent] Obtain file descriptor (with full capabilities)"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">fork</span> <span class="k">do</span>
+  <span class="n">file</span><span class="p">.</span><span class="nf">permit!</span><span class="p">(</span><span class="ss">:read</span><span class="p">)</span>
+  <span class="nb">print</span> <span class="s2">"[child] Reduce capabilities to read"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+  <span class="n">file</span><span class="p">.</span><span class="nf">gets</span>
+  <span class="nb">print</span> <span class="s2">"[child] Read OK"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+  <span class="k">begin</span>
+    <span class="n">file</span><span class="p">.</span><span class="nf">write</span> <span class="s2">"foo"</span>
+  <span class="k">rescue</span> <span class="no">Errno</span><span class="o">::</span><span class="no">ENOTCAPABLE</span> <span class="o">=></span> <span class="n">ex</span>
+    <span class="nb">print</span> <span class="s2">"[child] Error: </span><span class="si">#{</span><span class="n">ex</span><span class="p">.</span><span class="nf">message</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">ex</span><span class="p">.</span><span class="nf">class</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="no">Process</span><span class="p">.</span><span class="nf">wait</span>
+<span class="n">file</span><span class="p">.</span><span class="nf">write</span> <span class="s2">"[parent] Hello from </span><span class="si">#{</span><span class="no">Process</span><span class="p">.</span><span class="nf">pid</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">print</span> <span class="s2">"[parent] Write OK"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="c1">##</span>
+<span class="c1"># [parent] Obtain file descriptor (with full capabilities)</span>
+<span class="c1"># [child] Reduce capabilities to read</span>
+<span class="c1"># [child] Read OK</span>
+<span class="c1"># [child] Error: Capabilities insufficient @ io_write - /tmp/bsdcapsicum.txt (Errno::ENOTCAPABLE)</span>
+<span class="c1"># [parent] Write OK</span>
+</code></pre></div></div>
+
+<h4 id="fcntls">Fcntls</h4>
+
+<p>The
+<a href="http://0x1eef.github.io/x/bsdcapsicum.rb/BSD/Capsicum/IO.html#permit!-instance_method">BSD::Capsicum::IO#permit!</a>
+method can limit the fcntl capabilities of a file descriptor by limiting what
+fcntl operations it can be used with. This method requires the fcntl capability to already
+be present, and it can limit fcntl operations to a smaller subset of operations.
+The following example limits the fcntl capabilities of a file descriptor to allow
+only the <code>GETFL</code> operation, and prevents the <code>SETFL</code> operation:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code ruby"><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"bsd/capsicum"</span>
+<span class="nb">require</span> <span class="s2">"tmpdir"</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Dir</span><span class="p">.</span><span class="nf">tmpdir</span><span class="p">,</span> <span class="s2">"bsdcapsicum.txt"</span><span class="p">)</span>
+<span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="no">File</span><span class="o">::</span><span class="no">CREAT</span> <span class="o">|</span> <span class="no">File</span><span class="o">::</span><span class="no">TRUNC</span> <span class="o">|</span> <span class="no">File</span><span class="o">::</span><span class="no">RDWR</span><span class="p">)</span>
+<span class="n">file</span><span class="p">.</span><span class="nf">sync</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="nb">print</span> <span class="s2">"Obtain file descriptor (with full capabilities)"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="n">file</span><span class="p">.</span><span class="nf">permit!</span><span class="p">(</span><span class="ss">:fcntl</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"Reduce capabilities to fcntl"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="n">file</span><span class="p">.</span><span class="nf">permit!</span><span class="p">(</span><span class="ss">:GETFL</span><span class="p">,</span> <span class="ss">scope: :fcntl</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"Reduces fcntl capabilities to GETFL"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="n">flags</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">fcntl</span><span class="p">(</span><span class="no">Fcntl</span><span class="o">::</span><span class="no">F_GETFL</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"Get fcntl flags: OK"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="k">begin</span>
+  <span class="nb">print</span> <span class="s2">"Try to set fcntls flag ... "</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="n">file</span><span class="p">.</span><span class="nf">fcntl</span><span class="p">(</span><span class="no">Fcntl</span><span class="o">::</span><span class="no">F_SETFL</span><span class="p">,</span> <span class="n">flags</span> <span class="o">|</span> <span class="no">Fcntl</span><span class="o">::</span><span class="no">O_APPEND</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">Errno</span><span class="o">::</span><span class="no">ENOTCAPABLE</span> <span class="o">=></span> <span class="n">ex</span>
+  <span class="nb">print</span> <span class="s2">"Error: </span><span class="si">#{</span><span class="n">ex</span><span class="p">.</span><span class="nf">message</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">ex</span><span class="p">.</span><span class="nf">class</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="c1">##</span>
+<span class="c1"># Obtain file descriptor (with full capabilities)</span>
+<span class="c1"># Reduce capabilities to fcntl</span>
+<span class="c1"># Reduce fcntl capabilities to fcntl_getfl</span>
+<span class="c1"># Get fcntl flags: OK</span>
+<span class="c1"># Try to set fcntls flag ...</span>
+<span class="c1"># Error: Capabilities insufficient @ finish_narg - /tmp/bsdcapsicum.txt (Errno::ENOTCAPABLE)</span>
+</code></pre></div></div>
+
+<h2 id="documentation">Documentation</h2>
+
+<p>A complete API reference is available at <a href="https://0x1eef.github.io/x/bsdcapsicum.rb">0x1eef.github.io/x/bsdcapsicum.rb</a></p>
+
+<h2 id="install">Install</h2>
+
+<p>bsdcapsicum.rb is available via rubygems.org:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_bsdcapsicum'>bsdcapsicum</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+  <li><a href="https://github.com/0x1eef/bsdcapsicum.rb#readme">github.com/@0x1eef</a></li>
+  <li><a href="https://gitlab.com/0x1eef/bsdcapsicum.rb#about">gitlab.com/@0x1eef</a></li>
+  <li><a href="https://git.hardenedbsd.org/0x1eef/bsdcapsicum.rb#about">git.HardenedBSD.org/@0x1eef</a></li>
+  <li><a href="https://brew.bsd.cafe/0x1eef/bsdcapsicum.rb">brew.bsd.cafe/@0x1eef</a></li>
+</ul>
+
+<h2 id="see-also">See also</h2>
+
+<ul>
+  <li><a href="https://github.com/Freaky/ruby-capsicum">Freaky/ruby-capsicum</a> <br />
+bsdcapsicum.rb is a fork of this project.</li>
+</ul>
+
+<h2 id="status">Status</h2>
+
+<p>The following functions have an equivalent Ruby interface:</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://man.freebsd.org/cgi/man.cgi?query=cap_enter&amp;apropos=0&amp;sektion=2&amp;format=html">cap_enter(2)</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://man.freebsd.org/cgi/man.cgi?query=cap_getmode&amp;apropos=0&amp;sektion=2&amp;format=html">cap_getmode(2)</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://man.freebsd.org/cgi/man.cgi?query=cap_rights_limit&amp;sektion=2&amp;format=html">cap_rights_limit(2)</a></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="https://man.freebsd.org/cgi/man.cgi?query=cap_fcntls_limit&amp;sektion=2&amp;format=html">cap_fcntls_limit(2)</a></li>
+</ul>
+
+<p>The following functions complement
+<a href="https://man.freebsd.org/cgi/man.cgi?query=cap_rights_limit&amp;sektion=2&amp;format=html">cap_rights_limit(2)</a>
+but have not yet been implemented:</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://man.freebsd.org/cgi/man.cgi?query=cap_ioctls_limit&amp;sektion=2&amp;format=html">cap_ioctls_limit(2)</a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>bsdcapsicum.rb
+<br />
+<a href="https://choosealicense.com/licenses/0bsd/">BSD Zero Clause</a>
+<br />
+See <a href="./LICENSE">LICENSE</a>
+<br /><br />
+ruby-capsicum
+<br />
+<a href="https://github.com/Freaky/ruby-capsicum">Freaky/ruby-capsicum</a> is released
+under the terms of the MIT license
+<br />
+See <a href="/.LICENSE-ruby-capsicum">LICENSE.ruby-capsicum</a></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sat Apr 19 21:41:09 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>

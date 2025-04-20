@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Ryo::Enumerable
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Ryo::Enumerable";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span>
+     &raquo; 
+    <span class="title">Enumerable</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Ryo::Enumerable
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/ryo/enumerable.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> module provides methods
+that are similar to Ruby’s Enumerable module, and at the same
+time - intentionally different.</p>
+
+<p>For example: <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span>
+methods receive ‘self’ as an argument rather than from the
+surrounding context. The methods implemented by this
+module are available as singleton methods on the <span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span>
+module.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find-instance_method" title="#find (instance method)">#<strong>find</strong>(ryo, ancestors: nil)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt;<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a Ryo object, or nil.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_ryo-instance_method" title="#each_ryo (instance method)">#<strong>each_ryo</strong>(ryo, ancestors: nil)  &#x21d2; &lt;Ryo::BasicObject, Ryo::Object&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#each_ryo-instance_method" title="Ryo::Enumerable#each_ryo (method)">#each_ryo</a></span> method iterates through a Ryo object, and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#map-instance_method" title="#map (instance method)">#<strong>map</strong>(ryo, ancestors: nil, &amp;b)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#map-instance_method" title="Ryo::Enumerable#map (method)">#map</a></span> method creates a copy of a Ryo object, and then performs a map operation on the copy and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#map!-instance_method" title="#map! (instance method)">#<strong>map!</strong>(ryo, ancestors: nil)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#map!-instance_method" title="Ryo::Enumerable#map! (method)">#map!</a></span> method performs an in-place map operation on a Ryo object, and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#select-instance_method" title="#select (instance method)">#<strong>select</strong>(ryo, ancestors: nil, &amp;b)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#select-instance_method" title="Ryo::Enumerable#select (method)">#select</a></span> method creates a copy of a Ryo object, and then performs a filter operation on the copy and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#select!-instance_method" title="#select! (instance method)">#<strong>select!</strong>(ryo, ancestors: nil)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#select!-instance_method" title="Ryo::Enumerable#select! (method)">#select!</a></span> method performs an in-place filter operation on a Ryo object, and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reject-instance_method" title="#reject (instance method)">#<strong>reject</strong>(ryo, ancestors: nil, &amp;b)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#reject-instance_method" title="Ryo::Enumerable#reject (method)">#reject</a></span> method creates a copy of a Ryo object, and then performs a filter operation on the copy and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reject!-instance_method" title="#reject! (instance method)">#<strong>reject!</strong>(ryo, ancestors: nil)  &#x21d2; &lt;Ryo::Object, Ryo::BasicObject&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#reject!-instance_method" title="Ryo::Enumerable#reject! (method)">#reject!</a></span> method performs an in-place filter operation on a Ryo object, and its prototypes.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#any%3F-instance_method" title="#any? (instance method)">#<strong>any?</strong>(ryo, ancestors: nil)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns true when the given block evaluates to a truthy value for at least one iteration.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#all%3F-instance_method" title="#all? (instance method)">#<strong>all?</strong>(ryo, ancestors: nil)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns true when the given block evaluates to a truthy value for every iteration.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each-instance_method" title="#each (instance method)">#<strong>each</strong>(ryo, ancestors: nil)  &#x21d2; &lt;Enumerator, Array&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The <span class='object_link'><a href="#each-instance_method" title="Ryo::Enumerable#each (method)">#each</a></span> method iterates through a Ryo object, and yields two parameters: a key, and a value.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="find-instance_method">
+  
+    #<strong>find</strong>(ryo, ancestors: nil)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a Ryo object, or nil</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_point_a'>point_a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>5</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_b'>point_b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>10</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_a'>point_a</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_c'>point_c</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>z:</span> <span class='int'>15</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_b'>point_b</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ryo'>ryo</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_point_c'>point_c</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='int'>5</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_ryo'>ryo</span> <span class='op'>==</span> <span class='id identifier rubyid_point_a'>point_a</span> <span class='comment'># =&gt; true</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns a Ryo object, or nil</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+191
+192
+193
+194
+195
+196</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 191</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_ryo'>ryo</span> <span class='kw'>if</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each_ryo-instance_method">
+  
+    #<strong>each_ryo</strong>(ryo, ancestors: nil)  &#x21d2; <tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#each_ryo-instance_method" title="Ryo::Enumerable#each_ryo (method)">#each_ryo</a></span> method iterates through a Ryo object,
+and its prototypes. <span class='object_link'><a href="#each_ryo-instance_method" title="Ryo::Enumerable#each_ryo (method)">#each_ryo</a></span> yields three parameters:
+a Ryo object, a key, and a value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_point_a'>point_a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_b'>point_b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>y:</span> <span class='int'>3</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_a'>point_a</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_point_b'>point_b</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='comment'># [point_b, &quot;y&quot;, 3]
+</span><span class='comment'># [point_a, &quot;x&quot;, 1]
+</span><span class='comment'># [point_a, &quot;y&quot;, 2]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 57</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_proto_chain'>proto_chain</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_prototype_chain_of'>prototype_chain_of</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_ancestors'>ancestors</span> <span class='op'>||=</span> <span class='op'>-</span><span class='int'>1</span>
+  <span class='id identifier rubyid_proto_chain'>proto_chain</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='id identifier rubyid_ancestors'>ancestors</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ryo'>ryo</span><span class='op'>|</span>
+    <span class='id identifier rubyid_properties_of'>properties_of</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
+      <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ryo'>ryo</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_ryo'>ryo</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="map-instance_method">
+  
+    #<strong>map</strong>(ryo, ancestors: nil, &amp;b)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#map-instance_method" title="Ryo::Enumerable#map (method)">#map</a></span> method creates a copy of a Ryo object,
+and then performs a map operation on the copy and
+its prototypes</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_map!'>map!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dup'><span class='object_link'><a href="../Ryo.html#dup-class_method" title="Ryo.dup (method)">dup</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="map!-instance_method">
+  
+    #<strong>map!</strong>(ryo, ancestors: nil)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#map!-instance_method" title="Ryo::Enumerable#map! (method)">#map!</a></span> method performs an in-place map operation
+on a Ryo object, and its prototypes</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_point'>point</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>4</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map!'>map!</span><span class='lparen'>(</span><span class='id identifier rubyid_point'>point</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid__2'>_2</span> <span class='op'>*</span> <span class='int'>2</span> <span class='rbrace'>}</span>
+<span class='lbracket'>[</span><span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point'>point</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='rbracket'>]</span>
+<span class='comment'># =&gt; [4, 8]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_map!'>map!</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='id identifier rubyid_ryo'>ryo</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="select-instance_method">
+  
+    #<strong>select</strong>(ryo, ancestors: nil, &amp;b)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#select-instance_method" title="Ryo::Enumerable#select (method)">#select</a></span> method creates a copy of a Ryo object, and
+then performs a filter operation on the copy and its
+prototypes</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_select!'>select!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dup'><span class='object_link'><a href="../Ryo.html#dup-class_method" title="Ryo.dup (method)">dup</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="select!-instance_method">
+  
+    #<strong>select!</strong>(ryo, ancestors: nil)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#select!-instance_method" title="Ryo::Enumerable#select! (method)">#select!</a></span> method performs an in-place filter operation
+on a Ryo object, and its prototypes</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_point_a'>point_a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>z:</span> <span class='int'>3</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_b'>point_b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>z:</span> <span class='int'>4</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_a'>point_a</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_select!'>select!</span><span class='lparen'>(</span><span class='id identifier rubyid_point_b'>point_b</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>x</span><span class='words_sep'> </span><span class='tstring_content'>y</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='lbracket'>[</span><span class='id identifier rubyid_point_b'>point_b</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point_b'>point_b</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='comma'>,</span> <span class='id identifier rubyid_point_b'>point_b</span><span class='period'>.</span><span class='id identifier rubyid_z'>z</span><span class='rbracket'>]</span>
+<span class='comment'># =&gt; [1, 2, nil]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 121</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_select!'>select!</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reject-instance_method">
+  
+    #<strong>reject</strong>(ryo, ancestors: nil, &amp;b)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#reject-instance_method" title="Ryo::Enumerable#reject (method)">#reject</a></span> method creates a copy of a Ryo object, and then
+performs a filter operation on the copy and its prototypes</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+133
+134
+135</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 133</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_reject!'>reject!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dup'><span class='object_link'><a href="../Ryo.html#dup-class_method" title="Ryo.dup (method)">dup</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reject!-instance_method">
+  
+    #<strong>reject!</strong>(ryo, ancestors: nil)  &#x21d2; <tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#reject!-instance_method" title="Ryo::Enumerable#reject! (method)">#reject!</a></span> method performs an in-place filter operation
+on a Ryo object, and its prototypes</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_point_a'>point_a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>z:</span> <span class='int'>3</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_b'>point_b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>z:</span> <span class='int'>4</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_point_a'>point_a</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reject!'>reject!</span><span class='lparen'>(</span><span class='id identifier rubyid_point_b'>point_b</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;</span> <span class='int'>2</span> <span class='rbrace'>}</span>
+<span class='lbracket'>[</span><span class='id identifier rubyid_point_b'>point_b</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_point_b'>point_b</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span><span class='comma'>,</span> <span class='id identifier rubyid_point_b'>point_b</span><span class='period'>.</span><span class='id identifier rubyid_z'>z</span><span class='rbracket'>]</span>
+<span class='comment'># =&gt; [1, 2, nil]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>, <span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+150
+151
+152
+153
+154</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 150</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reject!'>reject!</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="any?-instance_method">
+  
+    #<strong>any?</strong>(ryo, ancestors: nil)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true when the given block evaluates to
+a truthy value for at least one iteration</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns true when the given block evaluates to
+a truthy value for at least one iteration</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+161
+162
+163
+164
+165
+166</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 161</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_any?'>any?</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="all?-instance_method">
+  
+    #<strong>all?</strong>(ryo, ancestors: nil)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true when the given block evaluates to a
+truthy value for every iteration</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns true when the given block evaluates to a
+truthy value for every iteration</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175
+176
+177
+178</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 173</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_all?'>all?</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each-instance_method">
+  
+    #<strong>each</strong>(ryo, ancestors: nil)  &#x21d2; <tt>&lt;Enumerator, Array&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="#each-instance_method" title="Ryo::Enumerable#each (method)">#each</a></span> method iterates through a Ryo object, and
+yields two parameters: a key, and a value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_point_a'>point_a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>x:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_point_b'>point_b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='lparen'>(</span><span class='label'>y:</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="../Ryo.html" title="Ryo (module)">Ryo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='id identifier rubyid_point_b'>point_b</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_p'>p</span> <span class='lbracket'>[</span><span class='id identifier rubyid__1'>_1</span><span class='comma'>,</span> <span class='id identifier rubyid__2'>_2</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='comment'># [&quot;y&quot;, 1]
+</span><span class='comment'># [&quot;y&quot;, 2]
+</span><span class='comment'># [&quot;x&quot;, 1]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ryo</span>
+      
+      
+        <span class='type'>(<tt>&lt;<span class='object_link'><a href="BasicObject.html" title="Ryo::BasicObject (class)">Ryo::BasicObject</a></span>, <span class='object_link'><a href="Object.html" title="Ryo::Object (class)">Ryo::Object</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ancestors</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>“ancestors” is an integer that defines the traversal depth
+of a <span class='object_link'><a href="" title="Ryo::Enumerable (module)">Ryo::Enumerable</a></span> method. 0 covers a
+Ryo object, and none of the prototypes in its prototype
+chain. 1 covers a Ryo object, and one of the prototypes
+in its prototype chain - and so on. The default covers
+the entire prototype chain.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>&lt;Enumerator, Array&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ryo/enumerable.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='symbol'>:each</span><span class='comma'>,</span> <span class='id identifier rubyid_ryo'>ryo</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+  <span class='id identifier rubyid_each_ryo'>each_ryo</span><span class='lparen'>(</span><span class='id identifier rubyid_ryo'>ryo</span><span class='comma'>,</span> <span class='label'>ancestors:</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sat Apr 19 21:41:17 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>
