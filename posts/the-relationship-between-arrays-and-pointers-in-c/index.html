@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>The relationship between arrays and pointers in C</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content=
+  "The relationship between arrays and pointers in C">
+  <META property="og:description" content=
+  "Documents the relationship between arrays and pointers in C">
+  <META property="og:url" content=
+  "https://0x1eef.github.com/posts/the-relationship-between-arrays-and-pointers-in-c">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="text-base">
+  <HEADER class="flex flex-row items-center justify-between h-12 text-sm">
+    <DIV class="flex flex-row justify-end m-auto w-full">
+      <UL class="list-none p-0 m-0 flex hidden">
+        <LI>
+          <A class="" href="/">Projects</A>
+        </LI>
+        <LI>
+          <A class="active" href="/posts/">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto pt-5 hidden">
+    <MAIN class=
+    "flex flex-col place-content-center post flex flex-col mb-5 mt-5">
+      <H1 id="the-relationship-between-arrays-and-pointers-in-c">The
+      relationship between arrays and pointers in C</H1>
+      <P>This post takes a look at the relationship between arrays and pointers
+      in the C programming language.</P>
+      <H2 id="background">Background</H2>
+      <P><A href=
+      "https://www.amazon.com/Programming-Language-2nd-Brian-Kernighan/dp/0131103628"
+      target="_blank">The C programming language (2nd edition)</A> emphasizes
+      the relationship between pointers and arrays in the C programming
+      language by dedicating the fifth chapter to covering both arrays and
+      pointers at the same time.</P>
+      <P>The chapter opens by mentioning that both arrays and pointers are
+      closely related, and how many operations that work on one also work on
+      the other. For example pointer arithmetic and subscript notation can be
+      used with both arrays and pointers. This has been an important
+      realization in my journey to learning C, and I'd like to share what I
+      learnt for myself and for others.</P>
+      <H2 id="arithmetic">Arithmetic</H2>
+      <P>Pointer arithmetic and arrays are two intertwined concepts in C.</P>
+      <P>When given a pointer to the first element of an array, we can traverse
+      to the next memory location using pointer arithmetic. The next memory
+      location happens to be the next element in the array. The <CODE>++</CODE>
+      operator can move a pointer to the next memory location, or in the case
+      of an array pointer, to the next element in the array. We can call the
+      <CODE>++</CODE> operator repeatedly to traverse the entire array from
+      start to finish.</P>
+      <P>The following example focuses primarily on the <CODE>++</CODE>
+      operator but we could also use the <CODE>--</CODE> operator to traverse
+      backwards through an array as well. Similarly, we could use the <CODE>p +
+      &lt;n&gt;</CODE> and <CODE>p - &lt;n&gt;</CODE> operators to obtain a
+      pointer to the nth element of an array in either direction. That goes to
+      show how useful pointer arithmetic can be when used with arrays.</P>
+      <P>But for now let's take a look at how we would traverse an array with a
+      pointer and the <CODE>++</CODE> operator. An important realization to
+      have is that we don't need to know the size of an array in order to
+      traverse through an array, although ideally, we would have an element in
+      an array that would indicate when an array ends – similar to a NULL byte
+      for char arrays:</P>
+      <DIV class="sourceCode" id="cb1">
+        <PRE class="sourceCode c"><CODE class="sourceCode c"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="pp">#include </SPAN><SPAN class=
+        "im">&lt;stdio.h&gt;</SPAN></SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="pp">#include </SPAN><SPAN class=
+"im">&lt;stdlib.h&gt;</SPAN></SPAN>
+<SPAN id="cb1-3"><A href="#cb1-3" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb1-4"><A href="#cb1-4" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="dt">int</SPAN></SPAN>
+<SPAN id="cb1-5"><A href="#cb1-5" aria-hidden="true" tabindex=
+"-1"></A>main<SPAN class="op">(</SPAN><SPAN class="dt">void</SPAN><SPAN class=
+"op">)</SPAN></SPAN>
+<SPAN id="cb1-6"><A href="#cb1-6" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb1-7"><A href="#cb1-7" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="dt">int</SPAN> numbers<SPAN class=
+"op">[]</SPAN> <SPAN class="op">=</SPAN> <SPAN class="op">{</SPAN><SPAN class=
+"dv">50</SPAN><SPAN class="op">,</SPAN><SPAN class="dv">20</SPAN><SPAN class=
+"op">,</SPAN><SPAN class="dv">70</SPAN><SPAN class="op">};</SPAN></SPAN>
+<SPAN id="cb1-8"><A href="#cb1-8" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="dt">int</SPAN> <SPAN class="op">*</SPAN>p <SPAN class=
+"op">=</SPAN> <SPAN class="op">&</SPAN>numbers<SPAN class=
+"op">[</SPAN><SPAN class="dv">0</SPAN><SPAN class="op">];</SPAN></SPAN>
+<SPAN id="cb1-9"><A href="#cb1-9" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="cf">for</SPAN> <SPAN class="op">(</SPAN><SPAN class=
+"dt">int</SPAN> i <SPAN class="op">=</SPAN> <SPAN class=
+"dv">0</SPAN><SPAN class="op">;</SPAN> i <SPAN class=
+"op">&lt;</SPAN> <SPAN class="dv">3</SPAN><SPAN class=
+"op">;</SPAN> i<SPAN class="op">++)</SPAN></SPAN>
+<SPAN id="cb1-10"><A href="#cb1-10" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb1-11"><A href="#cb1-11" aria-hidden="true" tabindex=
+"-1"></A>    printf<SPAN class="op">(</SPAN><SPAN class=
+"st">"element: </SPAN><SPAN class="sc">%d\n</SPAN><SPAN class=
+"st">"</SPAN><SPAN class="op">,</SPAN> <SPAN class="op">*</SPAN>p<SPAN class=
+"op">++);</SPAN></SPAN>
+<SPAN id="cb1-12"><A href="#cb1-12" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="op">}</SPAN></SPAN>
+<SPAN id="cb1-13"><A href="#cb1-13" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="cf">return</SPAN> <SPAN class=
+"op">(</SPAN>EXIT_SUCCESS<SPAN class="op">);</SPAN></SPAN>
+<SPAN id="cb1-14"><A href="#cb1-14" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">}</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="subscript">Subscript</H2>
+      <P>In a similar light, we can use the subscript operator to access either
+      the <STRONG>nth element of an array</STRONG> or the <STRONG>nth memory
+      location</STRONG> relative to the current memory location of a pointer.
+      When we reference an array with the subscript <CODE>arr[4]</CODE> we're
+      accessing the fifth element of an array, and when we do the same for a
+      pointer (<CODE>ptr[4]</CODE>) we're accessing the fifth memory location
+      relative to the current memory location of a pointer.</P>
+      <P>We can also write to the nth element of an array using the subscript
+      operator, and we can do the same with a pointer and the subscript
+      operator as well. The following example writes five elements to an array
+      and for the pointer writes to five memory locations – with each one being
+      adjacent to the other. They're almost indistinguishable from each
+      other:</P>
+      <DIV class="sourceCode" id="cb2">
+        <PRE class="sourceCode c"><CODE class="sourceCode c"><SPAN id=
+        "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="pp">#include </SPAN><SPAN class=
+        "im">&lt;stdio.h&gt;</SPAN></SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="pp">#include </SPAN><SPAN class=
+"im">&lt;stdlib.h&gt;</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb2-4"><A href="#cb2-4" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="dt">int</SPAN></SPAN>
+<SPAN id="cb2-5"><A href="#cb2-5" aria-hidden="true" tabindex=
+"-1"></A>main<SPAN class="op">(</SPAN><SPAN class="dt">void</SPAN><SPAN class=
+"op">)</SPAN></SPAN>
+<SPAN id="cb2-6"><A href="#cb2-6" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb2-7"><A href="#cb2-7" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="dt">int</SPAN> <SPAN class=
+"op">*</SPAN>pnumbers  <SPAN class="op">=</SPAN> calloc<SPAN class=
+"op">(</SPAN><SPAN class="dv">5</SPAN><SPAN class="op">,</SPAN> <SPAN class=
+"kw">sizeof</SPAN><SPAN class="op">(</SPAN><SPAN class=
+"dt">int</SPAN><SPAN class="op">));</SPAN></SPAN>
+<SPAN id="cb2-8"><A href="#cb2-8" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="dt">int</SPAN> numbers<SPAN class=
+"op">[</SPAN><SPAN class="dv">5</SPAN><SPAN class="op">]</SPAN> <SPAN class=
+"op">=</SPAN> <SPAN class="op">{};</SPAN></SPAN>
+<SPAN id="cb2-9"><A href="#cb2-9" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="cf">for</SPAN> <SPAN class="op">(</SPAN><SPAN class=
+"dt">int</SPAN> i <SPAN class="op">=</SPAN> <SPAN class=
+"dv">0</SPAN><SPAN class="op">;</SPAN> i <SPAN class=
+"op">&lt;</SPAN> <SPAN class="dv">5</SPAN><SPAN class=
+"op">;</SPAN> i<SPAN class="op">++)</SPAN></SPAN>
+<SPAN id="cb2-10"><A href="#cb2-10" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb2-11"><A href="#cb2-11" aria-hidden="true" tabindex=
+"-1"></A>    <SPAN class="co">/* write */</SPAN></SPAN>
+<SPAN id="cb2-12"><A href="#cb2-12" aria-hidden="true" tabindex=
+"-1"></A>    pnumbers<SPAN class="op">[</SPAN>i<SPAN class=
+"op">]</SPAN> <SPAN class="op">=</SPAN> i<SPAN class="op">;</SPAN></SPAN>
+<SPAN id="cb2-13"><A href="#cb2-13" aria-hidden="true" tabindex=
+"-1"></A>    numbers<SPAN class="op">[</SPAN>i<SPAN class=
+"op">]</SPAN> <SPAN class="op">=</SPAN> i<SPAN class="op">;</SPAN></SPAN>
+<SPAN id="cb2-14"><A href="#cb2-14" aria-hidden="true" tabindex=
+"-1"></A>    <SPAN class="co">/* read */</SPAN></SPAN>
+<SPAN id="cb2-15"><A href="#cb2-15" aria-hidden="true" tabindex=
+"-1"></A>    printf<SPAN class="op">(</SPAN><SPAN class=
+"st">"pnumbers[</SPAN><SPAN class="sc">%d</SPAN><SPAN class=
+"st">] =&gt; </SPAN><SPAN class="sc">%d\n</SPAN><SPAN class=
+"st">"</SPAN><SPAN class="op">,</SPAN> i<SPAN class=
+"op">,</SPAN> pnumbers<SPAN class="op">[</SPAN>i<SPAN class=
+"op">]);</SPAN></SPAN>
+<SPAN id="cb2-16"><A href="#cb2-16" aria-hidden="true" tabindex=
+"-1"></A>    printf<SPAN class="op">(</SPAN><SPAN class=
+"st">"numbers[</SPAN><SPAN class="sc">%d</SPAN><SPAN class=
+"st">]  =&gt; </SPAN><SPAN class="sc">%d\n</SPAN><SPAN class=
+"st">"</SPAN><SPAN class="op">,</SPAN> i<SPAN class=
+"op">,</SPAN> numbers<SPAN class="op">[</SPAN>i<SPAN class=
+"op">]);</SPAN></SPAN>
+<SPAN id="cb2-17"><A href="#cb2-17" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="op">}</SPAN></SPAN>
+<SPAN id="cb2-18"><A href="#cb2-18" aria-hidden="true" tabindex=
+"-1"></A>  free<SPAN class="op">(</SPAN>pnumbers<SPAN class=
+"op">);</SPAN></SPAN>
+<SPAN id="cb2-19"><A href="#cb2-19" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="cf">return</SPAN> <SPAN class=
+"op">(</SPAN>EXIT_SUCCESS<SPAN class="op">);</SPAN></SPAN>
+<SPAN id="cb2-20"><A href="#cb2-20" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">}</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="functions">Functions</H2>
+      <P>In the C language – arguments to functions are <U>passed by value</U>.
+      And when we pass an array to a function, it is said to "decay" into a
+      pointer. This means that the argument becomes a pointer to the first
+      element of the array. But it doesn't have to be the first element, it
+      could be the third, or second, or any other element in the array. By
+      default a pointer to the the first element is passed to the function.</P>
+      <P>The following example illustrates this point by passing an array to a
+      function named <CODE>walk</CODE> and within the <CODE>walk</CODE>
+      function we receive an int pointer to the first element of the array from
+      the caller's scope. The function then traverses the array and prints each
+      element to standard output:</P>
+      <DIV class="sourceCode" id="cb3">
+        <PRE class="sourceCode c"><CODE class="sourceCode c"><SPAN id=
+        "cb3-1"><A href="#cb3-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="pp">#include </SPAN><SPAN class=
+        "im">&lt;stdio.h&gt;</SPAN></SPAN>
+<SPAN id="cb3-2"><A href="#cb3-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="pp">#include </SPAN><SPAN class=
+"im">&lt;stdlib.h&gt;</SPAN></SPAN>
+<SPAN id="cb3-3"><A href="#cb3-3" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb3-4"><A href="#cb3-4" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="dt">static</SPAN> <SPAN class=
+"dt">void</SPAN> walk<SPAN class="op">(</SPAN><SPAN class=
+"dt">int</SPAN> <SPAN class="op">*</SPAN>p<SPAN class="op">);</SPAN></SPAN>
+<SPAN id="cb3-5"><A href="#cb3-5" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb3-6"><A href="#cb3-6" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="dt">int</SPAN> main<SPAN class="op">(</SPAN><SPAN class=
+"dt">void</SPAN><SPAN class="op">)</SPAN></SPAN>
+<SPAN id="cb3-7"><A href="#cb3-7" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb3-8"><A href="#cb3-8" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="dt">int</SPAN> numbers<SPAN class=
+"op">[]</SPAN> <SPAN class="op">=</SPAN> <SPAN class="op">{</SPAN><SPAN class=
+"dv">50</SPAN><SPAN class="op">,</SPAN><SPAN class="dv">20</SPAN><SPAN class=
+"op">,</SPAN><SPAN class="dv">70</SPAN><SPAN class="op">};</SPAN></SPAN>
+<SPAN id="cb3-9"><A href="#cb3-9" aria-hidden="true" tabindex=
+"-1"></A>  walk<SPAN class="op">(</SPAN>numbers<SPAN class=
+"op">);</SPAN></SPAN>
+<SPAN id="cb3-10"><A href="#cb3-10" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="cf">return</SPAN> <SPAN class=
+"op">(</SPAN>EXIT_SUCCESS<SPAN class="op">);</SPAN></SPAN>
+<SPAN id="cb3-11"><A href="#cb3-11" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">}</SPAN></SPAN>
+<SPAN id="cb3-12"><A href="#cb3-12" aria-hidden="true" tabindex=
+"-1"></A></SPAN>
+<SPAN id="cb3-13"><A href="#cb3-13" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="dt">static</SPAN> <SPAN class="dt">void</SPAN></SPAN>
+<SPAN id="cb3-14"><A href="#cb3-14" aria-hidden="true" tabindex=
+"-1"></A>walk<SPAN class="op">(</SPAN><SPAN class="dt">int</SPAN> <SPAN class=
+"op">*</SPAN>p<SPAN class="op">)</SPAN></SPAN>
+<SPAN id="cb3-15"><A href="#cb3-15" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb3-16"><A href="#cb3-16" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="cf">for</SPAN> <SPAN class="op">(</SPAN><SPAN class=
+"dt">int</SPAN> i <SPAN class="op">=</SPAN> <SPAN class=
+"dv">0</SPAN><SPAN class="op">;</SPAN> i <SPAN class=
+"op">&lt;</SPAN> <SPAN class="dv">3</SPAN><SPAN class=
+"op">;</SPAN> i<SPAN class="op">++)</SPAN></SPAN>
+<SPAN id="cb3-17"><A href="#cb3-17" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="op">{</SPAN></SPAN>
+<SPAN id="cb3-18"><A href="#cb3-18" aria-hidden="true" tabindex=
+"-1"></A>    printf<SPAN class="op">(</SPAN><SPAN class=
+"st">"element: </SPAN><SPAN class="sc">%d\n</SPAN><SPAN class=
+"st">"</SPAN><SPAN class="op">,</SPAN> <SPAN class="op">*</SPAN>p<SPAN class=
+"op">++);</SPAN></SPAN>
+<SPAN id="cb3-19"><A href="#cb3-19" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="op">}</SPAN></SPAN>
+<SPAN id="cb3-20"><A href="#cb3-20" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="op">}</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="conclusion">Conclusion</H2>
+      <P>We can conclude that arrays and pointers are closely related to C, and
+      that they can be used interchangeably in many cases. The similarities
+      have a lot to do with both arrays and pointers being stored in contiguous
+      memory locations, and that pointer arithmetic and the subscript operator
+      can be used with both arrays and pointers.</P>
+    </MAIN>
+  </DIV>
+  <DIV data-testid="postman" class=
+  "flex flex-col items-center h-full w-full m-auto pt-48 text-sans text-sm">
+    <PROGRESS value="0"></PROGRESS> <SPAN>Loading</SPAN>
+  </DIV>
+  <SCRIPT src="/js/loader.js"></SCRIPT>
+</BODY>
+</HTML>
