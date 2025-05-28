@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Nanoc::Webpack::Filter::Dependable
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/main.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/rouge.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Nanoc::Webpack::Filter::Dependable";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (D)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Nanoc.html" title="Nanoc (module)">Nanoc</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Webpack.html" title="Nanoc::Webpack (module)">Webpack</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Filter.html" title="Nanoc::Webpack::Filter (class)">Filter</a></span></span>
+     &raquo; 
+    <span class="title">Dependable</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Nanoc::Webpack::Filter::Dependable
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../Filter.html" title="Nanoc::Webpack::Filter (class)">Nanoc::Webpack::Filter</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/nanoc/webpack/filter/dependable.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dependable-instance_method" title="#dependable (instance method)">#<strong>dependable</strong>(paths:, reject: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#expand-instance_method" title="#expand (instance method)">#<strong>expand</strong>(path)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#root-instance_method" title="#root (instance method)">#<strong>root</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="dependable-instance_method">
+  
+    #<strong>dependable</strong>(paths:, reject: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nanoc/webpack/filter/dependable.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dependable'>dependable</span><span class='lparen'>(</span><span class='label'>paths:</span><span class='comma'>,</span> <span class='label'>reject:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_reject'>reject</span> <span class='op'>||=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='lbracket'>[</span><span class='op'>*</span><span class='id identifier rubyid_paths'>paths</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flat_map'>flat_map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_path'>path</span><span class='op'>|</span>
+    <span class='id identifier rubyid_expand'>expand</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_flat_map'>flat_map</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_node'>node</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_root'><span class='object_link'><a href="../../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_dependable'>dependable</span><span class='lparen'>(</span><span class='label'>paths:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid__1'>_1</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>reject:</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid__1'>_1</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+     <span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_reject'>reject</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="expand-instance_method">
+  
+    #<strong>expand</strong>(path)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nanoc/webpack/filter/dependable.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_expand'>expand</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_abs_path'>abs_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_getwd'>getwd</span><span class='comma'>,</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="../../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_glob_str'>glob_str</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_abs_path'>abs_path</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='id identifier rubyid_glob_str'>glob_str</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid__1'>_1</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='id identifier rubyid_abs_path'>abs_path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="root-instance_method">
+  
+    #<strong>root</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nanoc/webpack/filter/dependable.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="../../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span>
+  <span class='ivar'>@root</span> <span class='op'>||=</span> <span class='kw'>begin</span>
+    <span class='id identifier rubyid_nanoc'>nanoc</span> <span class='op'>=</span> <span class='const'>Ryo</span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_source'>source</span> <span class='op'>=</span> <span class='id identifier rubyid_nanoc'>nanoc</span><span class='period'>.</span><span class='id identifier rubyid_data_sources'>data_sources</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:content_dir</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_source'>source</span><span class='op'>&amp;.</span><span class='id identifier rubyid_content_dir'>content_dir</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content/</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed May 28 18:16:52 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.3.8).
+</div>
+
+    </div>
+  </body>
+</html>
