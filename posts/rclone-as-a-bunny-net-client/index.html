@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>rclone(1) as a bunny.net client</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="rclone(1) as a bunny.net client">
+  <META property="og:description" content=
+  "Documents how to use rclone(1) with bunny.net">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/rclone-as-a-bunny-net-client/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="text-base">
+  <HEADER class="flex flex-row items-center h-28 text-sm mb-2">
+    <DIV class="flex items-center m-auto w-full h-full hidden justify-between">
+      <A class="flex" href="/"><IMG src="/images/og.png"></A>
+      <UL class="flex flex-col list-none justify-center p-0 m-0">
+        <LI>
+          <A class="h6 text-center flex justify-end" href="/">About</A>
+        </LI>
+        <LI>
+          <A class="h-6 text-center flex justify-end" href=
+          "/projects">Projects</A>
+        </LI>
+        <LI>
+          <A class="active h-6 text-center flex justify-end" href=
+          "/posts">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto hidden">
+    <MAIN class="flex flex-col place-content-center post flex flex-col mb-5">
+      <H1 id="rclone1-as-a-bunny.net-client">rclone(1) as a bunny.net
+      client</H1>
+      <P>This post takes a look at using <A href="https://rclone.org" target=
+      "_blank">rclone</A> as a <A href="https://bunny.net" target=
+      "_blank">bunny.net</A> client on FreeBSD for one of my static websites.
+      This post should (mostly) apply to other operating systems too.</P>
+      <H2 id="background">Background</H2>
+      <P><A href="https://bunny.net" target="_blank">bunny.net</A> provide a
+      content delivery network (CDN) and an object storage service that's both
+      easy to use and affordable. Both (s)ftp and HTTP are provided as upload
+      options but finding an efficient and trustworthy client proved to be a
+      challenge. I settled on <A href="https://rclone.org" target=
+      "_blank">rclone</A> via sftp. For some context <A href=
+      "https://al-quran.reflectslight.io" target="_blank">the static
+      website</A> I am hosting is made up of hundreds of directories and
+      thousands of files that are updated semi-frequently.</P>
+      <H2 id="install">Install</H2>
+      <P>If you haven't already go ahead and grab the <A href=
+      "https://rclone.org" target="_blank">rclone</A> package:</P>
+      <DIV class="sourceCode" id="cb1" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class=
+        "ex">root@localhost#</SPAN> pkg install rclone</SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="rclone-config">rclone config</H2>
+      <P>Next we want to add a remote that will represent a storage zone on
+      <A href="https://bunny.net" target="_blank">bunny.net</A>. To do this we
+      will run <CODE>rclone config</CODE> and follow the instructions to add a
+      new remote. The remote name is up to you, the storage type should be
+      entered as 47 (sftp). The hostname varies by storage region, for example
+      it might be <CODE>storage.bunnycdn.com</CODE>. See the list of <A href=
+      "https://docs.bunny.net/reference/storage-api#storage-endpoints" target=
+      "_blank">storage endpoints</A> for other options. The username and
+      password can be obtained from the "FTP & API Access" section of the
+      storage zone page.</P>
+      <H2 id="rclone-copysync">rclone (copy|sync)</H2>
+      <P>Once the remote is configured we can use rclone to upload files by
+      either syncing or copying them to the remote. The primary difference
+      between the two is that <CODE>sync</CODE> deletes files that are no
+      longer present in the local copy, while copy won't delete anything. These
+      are the commands I use most often:</P>
+      <DIV class="sourceCode" id="cb2" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="co"># rclone copy</SPAN></SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">$</SPAN> rclone copy <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex=
+"-1"></A>  /var/nfs/website <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-4"><A href="#cb2-4" aria-hidden="true" tabindex=
+"-1"></A>  name_of_remote: <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-5"><A href="#cb2-5" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--inplace</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-6"><A href="#cb2-6" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--progress</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-7"><A href="#cb2-7" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--transfers</SPAN> 8</SPAN>
+<SPAN id="cb2-8"><A href="#cb2-8" aria-hidden="true" tabindex="-1"></A></SPAN>
+<SPAN id="cb2-9"><A href="#cb2-9" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="co"># rclone sync</SPAN></SPAN>
+<SPAN id="cb2-10"><A href="#cb2-10" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="ex">$</SPAN> rclone sync <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-11"><A href="#cb2-11" aria-hidden="true" tabindex=
+"-1"></A>  /var/nfs/website <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-12"><A href="#cb2-12" aria-hidden="true" tabindex=
+"-1"></A>  name_of_remote: <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-13"><A href="#cb2-13" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--inplace</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-14"><A href="#cb2-14" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--progress</SPAN> <SPAN class="dt">\</SPAN></SPAN>
+<SPAN id="cb2-15"><A href="#cb2-15" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--transfers</SPAN> 8 <SPAN class=
+"dt">\</SPAN></SPAN>
+<SPAN id="cb2-16"><A href="#cb2-16" aria-hidden="true" tabindex=
+"-1"></A>  <SPAN class="at">--exclude</SPAN> <SPAN class=
+"st">"*.mp4"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="conclusion">Conclusion</H2>
+      <P>While looking for possible <A href="https://bunny.net" target=
+      "_blank">bunny.net</A> clients I came across a handful of unofficial
+      clients that looked obscure and I wasn't sure I could trust them. So in
+      the end I was happy to find that <A href="https://rclone.org" target=
+      "_blank">rclone</A> could be used as a client for <A href=
+      "https://bunny.net" target="_blank">bunny.net</A>.</P>
+      <P>In closing, it is worth noting that I tried both ftp and sftp with
+      <A href="https://rclone.org" target="_blank">rclone</A>, and the sftp
+      option was much faster and more reliable.</P>
+    </MAIN>
+  </DIV>
+  <DIV data-testid="postman" class=
+  "flex flex-col items-center h-full w-full m-auto pt-48 text-sans font-sans text-sm">
+    <SPAN>Loading</SPAN>
+  </DIV>
+  <SCRIPT src="/js/loader.js"></SCRIPT>
+</BODY>
+</HTML>
