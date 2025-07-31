@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>An introduction to periodic(8)</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <META property="og:type" content="article">
+  <META property="og:title" content="An introduction to periodic(8)">
+  <META property="og:description" content="Documents the periodic(8) utility">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/an-introduction-to-periodic">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+</HEAD>
+<BODY class="text-base">
+  <HEADER class="flex flex-row items-center h-28 text-sm mb-2">
+    <DIV class="flex items-center m-auto w-full h-full hidden justify-between">
+      <A class="flex" href="/"><IMG src="/images/og.png"></A>
+      <UL class="flex flex-col list-none justify-center p-0 m-0">
+        <LI>
+          <A class="h6 text-center flex justify-end" href="/">About</A>
+        </LI>
+        <LI>
+          <A class="h-6 text-center flex justify-end" href=
+          "/projects">Projects</A>
+        </LI>
+        <LI>
+          <A class="active h-6 text-center flex justify-end" href=
+          "/posts">Posts</A>
+        </LI>
+      </UL>
+    </DIV>
+  </HEADER>
+  <DIV class="h-full w-full m-auto hidden">
+    <MAIN class="flex flex-col place-content-center post flex flex-col mb-5">
+      <H1 id="an-introduction-to-periodic8">An introduction to periodic(8)</H1>
+      <P>This post provides an introduction to the <A href=
+      "https://man.freebsd.org/periodic" target="_blank">periodic(8)</A>
+      utility on <A href="https://freebsd.org" target="_blank">FreeBSD</A>.</P>
+      <H2 id="background">Background</H2>
+      <P>On FreeBSD the <A href="https://man.freebsd.org/cgi/man.cgi?periodic"
+      target="_blank">periodic(8)</A> utility is run regularly via
+      <CODE>/etc/crontab</CODE> – and it provides a framework where recurring
+      system maintainance tasks can be organized into three categories: daily,
+      weekly, and monthly scripts.</P>
+      <P>The <CODE>periodic daily</CODE>, <CODE>periodic weekly</CODE>, and
+      <CODE>periodic monthly</CODE> commands execute a category of scripts from
+      the command-line – and this matches how <A href=
+      "https://man.freebsd.org/cgi/man.cgi?periodic" target=
+      "_blank">periodic(8)</A> is executed from <CODE>/etc/crontab</CODE> as
+      well.</P>
+      <P>Each category exists as a subdirectory under
+      <CODE>/etc/periodic/</CODE> and each subdirectory contains a collection
+      of shell scripts that are to be executed by <A href=
+      "https://man.freebsd.org/cgi/man.cgi?periodic" target=
+      "_blank">periodic(8)</A>.</P>
+      <P>By default FreeBSD ships with its own set of scripts but your own
+      scripts can also be added to these directories. The only requirement is
+      that the scripts must be executable.</P>
+      <P>Last but not least, there is a fourth category of scripts known as
+      security scripts. Similar to other categories, they exist under
+      <CODE>/etc/periodic/security/</CODE> but unlike the other categories,
+      security scripts are run at every interval (daily, weekly, and monthly)
+      and have a separate set of variables that control how their output is
+      logged.</P>
+      <H2 id="logging-via-mail">Logging via mail</H2>
+      <P>We can configure <A href="https://man.freebsd.org/periodic" target=
+      "_blank">periodic(8)</A> through the <CODE>/etc/periodic.conf</CODE>
+      file.</P>
+      <P>We can define variables that control where the output of the daily,
+      weekly, and monthly scripts are sent. By default the output is sent to
+      the root user, but let's change that to a separate user account called
+      <CODE>periodic</CODE> (this account would have to be created first):</P>
+      <DIV class="sourceCode" id="cb1" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb1-1"><A href="#cb1-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="va">daily_output</SPAN><SPAN class=
+        "op">=</SPAN><SPAN class="st">"periodic"</SPAN></SPAN>
+<SPAN id="cb1-2"><A href="#cb1-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">weekly_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"periodic"</SPAN></SPAN>
+<SPAN id="cb1-3"><A href="#cb1-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">monthly_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"periodic"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <P>The daily, weekly, and monthly commands run the security scripts via
+      <CODE>/etc/periodic/(daily|weekly|monthly)/450.status-security</CODE> but
+      the output of the security scripts is controlled by a separate set of
+      variables that should also be updated:</P>
+      <DIV class="sourceCode" id="cb2" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb2-1"><A href="#cb2-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class=
+        "va">daily_status_security_output</SPAN><SPAN class=
+        "op">=</SPAN><SPAN class="st">"periodic"</SPAN></SPAN>
+<SPAN id="cb2-2"><A href="#cb2-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">weekly_status_security_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"periodic"</SPAN></SPAN>
+<SPAN id="cb2-3"><A href="#cb2-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">monthly_status_security_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"periodic"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="logging-via-file">Logging via file</H2>
+      <P>An alternative to mailing output to a specific set of user(s) is to
+      send the output to a file. This can be done by setting the
+      <CODE>(daily|weekly|monthly)_output</CODE> variables to an absolute path.
+      This approach avoids sending mail to a user and instead writes the output
+      to a file:</P>
+      <DIV class="sourceCode" id="cb3" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb3-1"><A href="#cb3-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class="va">daily_output</SPAN><SPAN class=
+        "op">=</SPAN><SPAN class="st">"/var/log/daily.log"</SPAN></SPAN>
+<SPAN id="cb3-2"><A href="#cb3-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">weekly_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"/var/log/weekly.log"</SPAN></SPAN>
+<SPAN id="cb3-3"><A href="#cb3-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">monthly_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"/var/log/monthly.log"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <P>Similar to how we can redirect the output of the daily, weekly, and
+      monthly scripts to a file, we can also redirect the output of the
+      security scripts to a file:</P>
+      <DIV class="sourceCode" id="cb4" data-org-language="sh">
+        <PRE class="sourceCode bash"><CODE class="sourceCode bash"><SPAN id=
+        "cb4-1"><A href="#cb4-1" aria-hidden="true" tabindex=
+        "-1"></A><SPAN class=
+        "va">daily_status_security_output</SPAN><SPAN class=
+        "op">=</SPAN><SPAN class=
+        "st">"/var/log/daily-security.log"</SPAN></SPAN>
+<SPAN id="cb4-2"><A href="#cb4-2" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">weekly_status_security_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class="st">"/var/log/weekly-security.log"</SPAN></SPAN>
+<SPAN id="cb4-3"><A href="#cb4-3" aria-hidden="true" tabindex=
+"-1"></A><SPAN class="va">monthly_status_security_output</SPAN><SPAN class=
+"op">=</SPAN><SPAN class=
+"st">"/var/log/monthly-security.log"</SPAN></SPAN></CODE></PRE>
+      </DIV>
+      <H2 id="conclusion">Conclusion</H2>
+      <P>We can conclude that the <A href="https://man.freebsd.org/periodic"
+      target="_blank">periodic(8)</A> utility is a powerful tool to have in a
+      system administrator's toolbox :)</P>
+    </MAIN>
+  </DIV>
+  <DIV data-testid="postman" class=
+  "flex flex-col items-center h-full w-full m-auto pt-48 text-sans font-sans text-sm">
+    <SPAN>Loading</SPAN>
+  </DIV>
+  <SCRIPT src="/js/loader.js"></SCRIPT>
+</BODY>
+</HTML>
