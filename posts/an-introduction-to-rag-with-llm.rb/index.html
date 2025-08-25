@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>An introduction to RAG</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="An introduction to RAG" />
+    <meta property="og:description" content="Documents how to implement the RAG pattern with llm.rb" />
+    <meta property="og:url" content="https://0x1eef.github.io/posts/an-introduction-to-rag-with-llm.rb" />
+    <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  </head>
+  <body class="text-base">
+    <header class="flex flex-row items-center h-28 text-sm mb-2">
+      <div class="flex items-center m-auto w-full h-full hidden justify-between">
+	      <a class="flex" href="/"><img src="/images/og.png"></a>
+        <ul class="flex flex-col list-none justify-center p-0 m-0">
+          <li><a class=" h6 text-center flex justify-end" href="/">About</a></li>
+	        <li><a class=" h-6 text-center flex justify-end" href="/projects">Projects</a></li>
+	        <li><a class="active h-6 text-center flex justify-end" href="/posts">Posts</a></li>
+	      </ul>
+      </div>
+    </header>
+    <div class="h-full w-full m-auto hidden">
+      <main class="flex flex-col place-content-center post flex flex-col mb-5">
+        <!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE></TITLE>
+</HEAD>
+<BODY>
+  <H2 id="about">About</H2>
+  <P>This post introduces <STRONG>Retrieval-Augmented Generation (RAG)</STRONG>
+  using the <A href="https://github.com/llmrb/llm" target="_blank">llm.rb</A>
+  library. The example is only 32-lines of Ruby code 🫡 And best of all ? The
+  post concludes with a <A href="#demo">live demo</A>.</P>
+  <H2 id="context">Context</H2>
+  <P>For storage and retrieval, we’ll use <A href=
+  "https://platform.openai.com/docs/api-reference/vector-stores" target=
+  "_blank">OpenAI’s Vector Stores API</A> as our vector database. If “RAG” or
+  “vector database” are new terms for you, don’t worry – we’ll cover them both
+  briefly before diving into the example. Our “knowledge base” or primary
+  content will be composed of the files found in the <A href=
+  "https://github.com/llmrb/llm-rag/tree/main/documents" target=
+  "_blank">documents/</A> directory, and it contains the FreeBSD handbook –
+  with one file per chapter.</P>
+  <H2 id="background">Background</H2>
+  <H3 id="what-is-rag">What is RAG?</H3>
+  <P>RAG is a technique whereby a language model is given extra context –
+  retrieved from an external knowledge source – before generating a response.
+  With RAG, you supply your own knowledge base at query time. The LLM then
+  generates responses <STRONG>based entirely (or primarily) on that provided
+  context</STRONG>, ensuring the answers are grounded in your chosen source of
+  truth.</P>
+  <P>For example, an engineering team could load the company’s internal API
+  docs into a RAG system. Queries about those APIs would return accurate,
+  up-to-date answers, even if the model was trained long before those APIs
+  existed.</P>
+  <H3 id="what-is-a-vector-database">What is a vector database?</H3>
+  <P>A vector database is a common choice for storing and retrieving the
+  context used in RAG. We will be dealing with a text-based vector database but
+  it is worth knowing that vector databases can also handle images, audio, and
+  other types of data.</P>
+  <P>Here’s the basic idea:</P>
+  <UL>
+    <LI><STRONG>Embeddings</STRONG>: Text is converted into a high-dimensional
+    numeric representation (an “embedding”) that captures semantic
+    meaning.</LI>
+    <LI><STRONG>Search</STRONG>: Given a query, the database compares
+    embeddings to find the most semantically similar text chunks.</LI>
+    <LI><STRONG>Results</STRONG>: The most relevant chunks are returned and
+    injected into the LLM’s prompt.</LI>
+  </UL>
+  <P>In RAG, these retrieved chunks form the knowledge base for that particular
+  prompt. The LLM can then use them to answer questions, summarize, or
+  otherwise respond with grounding in specific, relevant information.</P>
+  <H2 id="example">Example</H2>
+  <H3 id="explanation">Explanation</H3>
+  <P>The following example adds the contents of the <A href=
+  "https://github.com/llmrb/llm-rag/tree/main/documents" target=
+  "_blank">documents/</A> directory by uploading them as files via OpenAI’s
+  Files API. The next step is to create a vector store, and the vector store
+  will be composed of the files that we just uploaded.</P>
+  <P>After the vector store is created, and it is ready, we can search the
+  vector store with a query. The query will produce one or more chunks of text,
+  and those chunks will be provided to the <A href=
+  "https://github.com/llmrb/llm-rag/tree/main/prompts/system.erb.txt" target=
+  "_blank">system prompt</A>.</P>
+  <P>Finally, the bot will generate a response based on the system prompt and
+  the user’s question. This is done in an infinite loop, so you can ask as many
+  questions as you like, and the bot will respond with answers based on the
+  context provided by the vector store.</P>
+  <DIV class="language-ruby highlighter-rouge">
+    <DIV class="highlight">
+      <PRE class="highlight"><CODE><SPAN class="nb">require</SPAN> <SPAN class=
+      "s2">"llm"</SPAN>
+<SPAN class="nb">require</SPAN> <SPAN class="s2">"erb"</SPAN>
+
+<SPAN class="n">llm</SPAN>   <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">openai</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">key: </SPAN><SPAN class="no">ENV</SPAN><SPAN class=
+"p">[</SPAN><SPAN class="s2">"OPENAI_SECRET"</SPAN><SPAN class="p">])</SPAN>
+<SPAN class="n">bot</SPAN>   <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="o">::</SPAN><SPAN class="no">Bot</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">new</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"n">llm</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="n">docs</SPAN>  <SPAN class="o">=</SPAN> <SPAN class=
+"no">Dir</SPAN><SPAN class="p">[</SPAN><SPAN class=
+"s2">"documents/*.pdf"</SPAN><SPAN class="p">]</SPAN>
+<SPAN class="n">files</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">docs</SPAN><SPAN class="p">.</SPAN><SPAN class="nf">map</SPAN> <SPAN class=
+"k">do</SPAN>
+  <SPAN class="nb">print</SPAN> <SPAN class="s2">"[-] wait "</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="n">_1</SPAN><SPAN class="p">,</SPAN> <SPAN class=
+"s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class="s2">"</SPAN>
+  <SPAN class="n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">files</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">create</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">file: </SPAN><SPAN class="n">_1</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="k">end</SPAN>
+<SPAN class="n">store</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">vector_stores</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">create</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">name: </SPAN><SPAN class="s2">"FreeBSD Handbook"</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="ss">file_ids: </SPAN><SPAN class=
+"n">files</SPAN><SPAN class="p">.</SPAN><SPAN class="nf">map</SPAN><SPAN class=
+"p">(</SPAN><SPAN class="o">&</SPAN><SPAN class="ss">:id</SPAN><SPAN class=
+"p">))</SPAN>
+
+<SPAN class="nb">print</SPAN> <SPAN class=
+"s2">"[-] wait vector store"</SPAN><SPAN class="p">,</SPAN> <SPAN class=
+"s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class="s2">"</SPAN>
+<SPAN class="k">while</SPAN> <SPAN class="n">store</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">status</SPAN> <SPAN class=
+"o">!=</SPAN> <SPAN class="s2">"completed"</SPAN>
+  <SPAN class="nb">sleep</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"mf">0.5</SPAN><SPAN class="p">)</SPAN>
+  <SPAN class="n">store</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">vector_stores</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">get</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">vector: </SPAN><SPAN class="n">store</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="k">end</SPAN>
+<SPAN class="nb">print</SPAN> <SPAN class="s2">"[-] done!"</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class=
+"s2">"</SPAN>
+
+<SPAN class="kp">loop</SPAN> <SPAN class="k">do</SPAN>
+  <SPAN class="nb">print</SPAN> <SPAN class="s2">"&gt; "</SPAN>
+  <SPAN class="n">query</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"vg">$stdin</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">gets</SPAN><SPAN class="o">&</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">chomp</SPAN> <SPAN class="o">||</SPAN> <SPAN class="k">break</SPAN>
+  <SPAN class="n">res</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">vector_stores</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">search</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">vector: </SPAN><SPAN class="n">store</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="n">query</SPAN><SPAN class="p">:)</SPAN>
+  <SPAN class="n">chunks</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">res</SPAN><SPAN class="p">.</SPAN><SPAN class="nf">data</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">select</SPAN> <SPAN class=
+"p">{</SPAN> <SPAN class="n">_1</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">score</SPAN> <SPAN class="o">&gt;</SPAN> <SPAN class=
+"mf">0.7</SPAN> <SPAN class="p">}</SPAN>
+  <SPAN class="n">bot</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">chat</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">stream: </SPAN><SPAN class="vg">$stdout</SPAN><SPAN class=
+"p">)</SPAN> <SPAN class="k">do</SPAN> <SPAN class="o">|</SPAN><SPAN class=
+"n">prompt</SPAN><SPAN class="o">|</SPAN>
+    <SPAN class="n">prompt</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">system</SPAN> <SPAN class="no">ERB</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">new</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"no">File</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">read</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"prompts/system.erb.txt"</SPAN><SPAN class="p">)).</SPAN><SPAN class=
+"nf">result</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"nb">binding</SPAN><SPAN class="p">)</SPAN>
+    <SPAN class="n">prompt</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">user</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"n">query</SPAN><SPAN class="p">)</SPAN>
+  <SPAN class="k">end</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">to_a</SPAN>
+  <SPAN class="nb">print</SPAN> <SPAN class="s2">"</SPAN><SPAN class=
+"se">\n</SPAN><SPAN class="s2">"</SPAN>
+<SPAN class="k">rescue</SPAN> <SPAN class="no">LLM</SPAN><SPAN class=
+"o">::</SPAN><SPAN class="no">Error</SPAN> <SPAN class=
+"o">=&gt;</SPAN> <SPAN class="n">e</SPAN>
+  <SPAN class="nb">print</SPAN> <SPAN class="n">e</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">class</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">to_s</SPAN> <SPAN class="o">+</SPAN> <SPAN class=
+"s2">": "</SPAN> <SPAN class="o">+</SPAN> <SPAN class="n">e</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">message</SPAN> <SPAN class=
+"o">+</SPAN> <SPAN class="s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class=
+"s2">"</SPAN>
+<SPAN class="k">end</SPAN>
+</CODE></PRE>
+    </DIV>
+  </DIV>
+  <H3 id="demo">Demo</H3>
+  <DETAILS>
+    <SUMMARY>
+      <B>Start the demo</B>
+    </SUMMARY><IMG src="demo.gif">
+  </DETAILS>
+</BODY>
+</HTML>
+
+      </main>
+    </div>
+    <div data-testid="postman" class="flex flex-col items-center h-full w-full m-auto pt-48 text-sans font-sans text-sm">
+      <span>Loading</span>
+    </div>
+    <script src="/js/loader.js"></script>
+  </body>
+</html>
