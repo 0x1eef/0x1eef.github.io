@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>How to edit images with Gemini</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to edit images with Gemini" />
+    <meta property="og:description" content="Documents how to edit a photo with Gemini and llm.rb" />
+    <meta property="og:url" content="https://0x1eef.github.io/posts/how-to-edit-images-with-gemini" />
+    <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  </head>
+  <body class="text-base">
+    <header class="flex flex-row items-center h-28 text-sm mb-2">
+      <div class="flex items-center m-auto w-full h-full hidden justify-between">
+	      <a class="flex" href="/"><img src="/images/og.png"></a>
+        <ul class="flex flex-col list-none justify-center p-0 m-0">
+          <li><a class=" h6 text-center flex justify-end" href="/">About</a></li>
+	        <li><a class=" h-6 text-center flex justify-end" href="/projects">Projects</a></li>
+	        <li><a class="active h-6 text-center flex justify-end" href="/posts">Posts</a></li>
+	      </ul>
+      </div>
+    </header>
+    <div class="h-full w-full m-auto hidden">
+      <main class="flex flex-col place-content-center post flex flex-col mb-5">
+        <!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE></TITLE>
+</HEAD>
+<BODY>
+  <H2 id="about">About</H2>
+  <P>This post looks at how we can edit an image with Gemini and <A href=
+  "https://github.com/llmrb/llm" target="_blank">llm.rb</A>. Our plan is to
+  edit an image to be a little silly by adding a cowboy hat into the mix. The
+  <A href="https://github.com/llmrb/llm" target="_blank">llm.rb</A> library
+  supports both image generation (with a prompt) and image editing (also done
+  with a prompt) plus much more that we won’t cover here. Let’s get started
+  😃</P>
+  <H2 id="placeholder">Placeholder</H2>
+  <P>We don’t want to offend anybody or cross any red lines, so the first step
+  we will take is to generate a placeholder image on the fly. This will allow
+  us to follow up and edit the image by adding a cowboy hat as mentioned
+  earlier. Let’s generate a single image, and save it to use later:</P>
+  <DIV class="language-ruby highlighter-rouge">
+    <DIV class="highlight">
+      <PRE class="highlight"><CODE><SPAN class="c1">#!/usr/bin/env ruby</SPAN>
+<SPAN class="nb">require</SPAN> <SPAN class="s2">"llm"</SPAN>
+
+<SPAN class="n">llm</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">gemini</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">key: </SPAN><SPAN class="no">ENV</SPAN><SPAN class=
+"p">[</SPAN><SPAN class="s2">"GEMINI_SECRET"</SPAN><SPAN class="p">])</SPAN>
+<SPAN class="n">res</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">images</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">create</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">prompt: </SPAN><SPAN class=
+"s2">"A profile photo of a man, in his late 30s"</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="no">IO</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">copy_stream</SPAN> <SPAN class="n">res</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">images</SPAN><SPAN class="p">[</SPAN><SPAN class=
+"mi">0</SPAN><SPAN class="p">],</SPAN> <SPAN class="s2">"photo.png"</SPAN>
+</CODE></PRE>
+    </DIV>
+  </DIV>
+  <H2 id="edit">Edit</H2>
+  <P>The next step in the process is to edit the image we generated in the last
+  step. We will add a cowboy hat to the man in the photo, which will likely be
+  different for each person running these examples. The <CODE>edit</CODE>
+  method takes a path to a file, and also a prompt that describes the edit that
+  should be made:</P>
+  <DIV class="language-ruby highlighter-rouge">
+    <DIV class="highlight">
+      <PRE class="highlight"><CODE><SPAN class="c1">#!/usr/bin/env ruby</SPAN>
+<SPAN class="nb">require</SPAN> <SPAN class="s2">"llm"</SPAN>
+
+<SPAN class="n">llm</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">gemini</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">key: </SPAN><SPAN class="no">ENV</SPAN><SPAN class=
+"p">[</SPAN><SPAN class="s2">"GEMINI_SECRET"</SPAN><SPAN class="p">])</SPAN>
+<SPAN class="n">res</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">images</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">edit</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">image: </SPAN><SPAN class="s2">"photo.png"</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="ss">prompt: </SPAN><SPAN class=
+"s2">"Add a cowboy hat"</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="no">IO</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">copy_stream</SPAN> <SPAN class="n">res</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">images</SPAN><SPAN class="p">[</SPAN><SPAN class=
+"mi">0</SPAN><SPAN class="p">],</SPAN> <SPAN class="s2">"cowboy.png"</SPAN>
+</CODE></PRE>
+    </DIV>
+  </DIV>
+  <H2 id="result">Result</H2>
+  <P><IMG alt="cowboy photo" src="cowboy.png"></P>
+</BODY>
+</HTML>
+
+      </main>
+    </div>
+    <div data-testid="postman" class="flex flex-col items-center h-full w-full m-auto pt-48 text-sans font-sans text-sm">
+      <span>Loading</span>
+    </div>
+    <script src="/js/loader.js"></script>
+  </body>
+</html>
