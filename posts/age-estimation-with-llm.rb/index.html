@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>How to estimate the age of a person in a photo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to estimate the age of a person in a photo" />
+    <meta property="og:description" content="Documents how to estimate the age of a person in a photo with llm.rb" />
+    <meta property="og:url" content="https://0x1eef.github.io/posts/an-introduction-to-rag-with-llm.rb" />
+    <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  </head>
+  <body class="text-base">
+    <header class="flex flex-row items-center h-28 text-sm mb-2">
+      <div class="flex items-center m-auto w-full h-full hidden justify-between">
+	      <a class="flex" href="/"><img src="/images/og.png"></a>
+        <ul class="flex flex-col list-none justify-center p-0 m-0">
+          <li><a class=" h6 text-center flex justify-end" href="/">About</a></li>
+	        <li><a class=" h-6 text-center flex justify-end" href="/projects">Projects</a></li>
+	        <li><a class="active h-6 text-center flex justify-end" href="/posts">Posts</a></li>
+	      </ul>
+      </div>
+    </header>
+    <div class="h-full w-full m-auto hidden">
+      <main class="flex flex-col place-content-center post flex flex-col mb-5">
+        <!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE></TITLE>
+</HEAD>
+<BODY>
+  <H2 id="about">About</H2>
+  <P>This post looks at how we can build a tool that estimates the age of the
+  person in a photo with the <A href="https://github.com/llmrb/llm" target=
+  "_blank">llm.rb</A> library. The post demonstrates three key <A href=
+  "https://github.com/llmrb/llm" target="_blank">llm.rb</A> features at once –
+  multimodal prompts, image vision and generation, and structured outputs.</P>
+  <H2 id="vision">Vision</H2>
+  <P>An LLM that can understand both text and images is said to be multimodal –
+  and LLMs are generally moving further in that direction. All of the Large
+  Language Models that the <A href="https://github.com/llmrb/llm" target=
+  "_blank">llm.rb</A> library supports have vision capabilities. An image can
+  be given as input in a number of ways: as a URL, as base64-encoded inline
+  data (eg local files), or as a reference to a file object stored by the LLM
+  provider. Our post will focus on providing the image as a URL – the best
+  option for an example that should work out of the box.</P>
+  <H2 id="schema">Schema</H2>
+  <P>We can provide a JSON schema that describes the response we expect from
+  the LLM, and the LLM will abide by the schema. This is perfect for our
+  example because we can describe a schema that has an age, a confidence rating
+  (between 0.0 and 1.0), and finally any notes the LLM has:</P>
+  <DIV class="language-ruby highlighter-rouge">
+    <DIV class="highlight">
+      <PRE class="highlight"><CODE><SPAN class="nb">require</SPAN> <SPAN class=
+      "s2">"llm"</SPAN>
+
+<SPAN class="n">llm</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">openai</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">key: </SPAN><SPAN class="no">ENV</SPAN><SPAN class=
+"p">[</SPAN><SPAN class="s2">"OPENAI_SECRET"</SPAN><SPAN class="p">])</SPAN>
+<SPAN class="n">schema</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">object</SPAN><SPAN class="p">(</SPAN>
+  <SPAN class="ss">age: </SPAN><SPAN class="n">llm</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">integer</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">required</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">description</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"The age of the person in a photo"</SPAN><SPAN class="p">),</SPAN>
+  <SPAN class="ss">confidence: </SPAN><SPAN class="n">llm</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">number</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">required</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">description</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"Model confidence (0.0 to 1.0)"</SPAN><SPAN class="p">),</SPAN>
+  <SPAN class="ss">notes: </SPAN><SPAN class="n">llm</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">string</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">required</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">description</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"Model notes or caveats"</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="p">)</SPAN>
+</CODE></PRE>
+    </DIV>
+  </DIV>
+  <H2 id="image">Image</H2>
+  <P>For the example the most important piece is the image. I decided to
+  generate an image on the fly instead of trying to source a public domain
+  photo online, which was surprisingly difficult. OpenAI, Gemini and xAI (Grok)
+  all have first-class image generation, editing and variation support in
+  <A href="https://github.com/llmrb/llm" target="_blank">llm.rb</A>:</P>
+  <DIV class="language-ruby highlighter-rouge">
+    <DIV class="highlight">
+      <PRE class="highlight"><CODE><SPAN class="nb">require</SPAN> <SPAN class=
+      "s2">"llm"</SPAN>
+
+<SPAN class="n">llm</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">openai</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">key: </SPAN><SPAN class="no">ENV</SPAN><SPAN class=
+"p">[</SPAN><SPAN class="s2">"OPENAI_SECRET"</SPAN><SPAN class="p">])</SPAN>
+<SPAN class="n">img</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">images</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">create</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">prompt: </SPAN><SPAN class="s2">"A man in his 30s"</SPAN><SPAN class=
+"p">)</SPAN>
+</CODE></PRE>
+    </DIV>
+  </DIV>
+  <H2 id="example">Example</H2>
+  <P>The following example provides the LLM with an image <A href=
+  "https://docs.ruby-lang.org/en/master/URI.html" target="_blank">as a URI
+  object</A> – and it provides the LLM with the schema from the previous
+  section. The image used is of a man, and the LLM estimates them to be in
+  their 30s:</P>
+  <DIV class="language-ruby highlighter-rouge">
+    <DIV class="highlight">
+      <PRE class="highlight"><CODE><SPAN class="nb">require</SPAN> <SPAN class=
+      "s2">"llm"</SPAN>
+
+<SPAN class="c1">##</SPAN>
+<SPAN class="c1"># schema</SPAN>
+<SPAN class="n">llm</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">openai</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">key: </SPAN><SPAN class="no">ENV</SPAN><SPAN class=
+"p">[</SPAN><SPAN class="s2">"OPENAI_SECRET"</SPAN><SPAN class="p">])</SPAN>
+<SPAN class="n">schema</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">object</SPAN><SPAN class="p">(</SPAN>
+  <SPAN class="ss">age: </SPAN><SPAN class="n">llm</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">integer</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">required</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">description</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"The age of the person in a photo"</SPAN><SPAN class="p">),</SPAN>
+  <SPAN class="ss">confidence: </SPAN><SPAN class="n">llm</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">number</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">required</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">description</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"Model confidence"</SPAN><SPAN class="p">),</SPAN>
+  <SPAN class="ss">notes: </SPAN><SPAN class="n">llm</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">schema</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">string</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">required</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">description</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"s2">"Model notes"</SPAN><SPAN class="p">)</SPAN>
+<SPAN class="p">)</SPAN>
+
+<SPAN class="c1">##</SPAN>
+<SPAN class="c1"># request</SPAN>
+<SPAN class="n">bot</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"no">LLM</SPAN><SPAN class="o">::</SPAN><SPAN class="no">Bot</SPAN><SPAN class=
+"p">.</SPAN><SPAN class="nf">new</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"n">llm</SPAN><SPAN class="p">,</SPAN> <SPAN class=
+"n">schema</SPAN><SPAN class="p">:)</SPAN>
+<SPAN class="n">img</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">llm</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">images</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">create</SPAN><SPAN class="p">(</SPAN><SPAN class=
+"ss">prompt: </SPAN><SPAN class="s2">"A man in his 30s"</SPAN><SPAN class=
+"p">)</SPAN>
+<SPAN class="n">bot</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">chat</SPAN> <SPAN class="no">URI</SPAN><SPAN class=
+"p">(</SPAN><SPAN class="n">img</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">urls</SPAN><SPAN class="p">[</SPAN><SPAN class="mi">0</SPAN><SPAN class=
+"p">])</SPAN>
+
+<SPAN class="c1">##</SPAN>
+<SPAN class="c1"># response</SPAN>
+<SPAN class="n">res</SPAN> <SPAN class="o">=</SPAN> <SPAN class=
+"n">bot</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">messages</SPAN><SPAN class="p">.</SPAN><SPAN class=
+"nf">find</SPAN><SPAN class="p">(</SPAN><SPAN class="o">&</SPAN><SPAN class=
+"ss">:assistant?</SPAN><SPAN class="p">).</SPAN><SPAN class=
+"nf">content!</SPAN>
+<SPAN class="nb">print</SPAN> <SPAN class="s2">"age: "</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="n">res</SPAN><SPAN class="p">[</SPAN><SPAN class=
+"s2">"age"</SPAN><SPAN class="p">],</SPAN> <SPAN class=
+"s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class="s2">"</SPAN>
+<SPAN class="nb">print</SPAN> <SPAN class=
+"s2">"confidence: "</SPAN><SPAN class="p">,</SPAN> <SPAN class=
+"n">res</SPAN><SPAN class="p">[</SPAN><SPAN class=
+"s2">"confidence"</SPAN><SPAN class="p">],</SPAN> <SPAN class=
+"s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class="s2">"</SPAN>
+<SPAN class="nb">print</SPAN> <SPAN class="s2">"notes: "</SPAN><SPAN class=
+"p">,</SPAN> <SPAN class="n">res</SPAN><SPAN class="p">[</SPAN><SPAN class=
+"s2">"notes"</SPAN><SPAN class="p">],</SPAN> <SPAN class=
+"s2">"</SPAN><SPAN class="se">\n</SPAN><SPAN class="s2">"</SPAN>
+
+<SPAN class="c1">##</SPAN>
+<SPAN class="c1"># age: 32</SPAN>
+<SPAN class="c1"># confidence: 0.89</SPAN>
+<SPAN class=
+"c1"># notes: The man appears to be in his early thirties ...</SPAN>
+</CODE></PRE>
+    </DIV>
+  </DIV>
+  <P>Note: This demo shows llm.rb’s multimodal and schema features. Age
+  estimation is approximate and should not be used in sensitive contexts.</P>
+</BODY>
+</HTML>
+
+      </main>
+    </div>
+    <div data-testid="postman" class="flex flex-col items-center h-full w-full m-auto pt-48 text-sans font-sans text-sm">
+      <span>Loading</span>
+    </div>
+    <script src="/js/loader.js"></script>
+  </body>
+</html>
