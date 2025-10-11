@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>@0x1eef's personal website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+    <link rel="stylesheet" href="/css/main.css">
+    
+  <script src="/js/prism.js" async></script>
+  <link rel="stylesheet" href="/css/prism.css">
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="An introduction to periodic(8)" />
+  <meta property="og:description" content="Documents the periodic(8) utility" />
+  <meta property="og:url" content="https://0x1eef.github.io/posts/an-introduction-to-periodic" />
+  <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512"/>
+
+  </head>
+  <body class="hidden">
+    <header class="main-header">
+      <img src="/images/og.png" alt="Leaf Logo" class="nav-logo">
+      <nav>
+        <ul>
+          <li><a href="/">HOME</a></li>
+          <li><a href="/posts">POSTS</a></li>
+        </ul>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="theme-icon-moon" aria-hidden="true">&#127769;</span>
+      </button>
+    </header>
+    <main>
+      
+  <div>
+    <h2>About</h2>
+<p>This post provides an introduction to the
+<a href="https://man.freebsd.org/periodic">periodic(8)</a> utility on
+<a href="https://freebsd.org">FreeBSD</a>.</p>
+<h2>Motivation</h2>
+<p>We can maintain a healthy and secure system by paying attention to regular,
+recurring tasks like log rotation, temporary file cleanup, security checks,
+and other system updates.</p>
+<p>It can be tedious and error prone to perform these tasks manually, but
+thankfully the periodic(8) utility on FreeBSD offers a robust, automated
+framework that can organize and execute system maintenance tasks at regular
+intervals.</p>
+<h2>Background</h2>
+<p>From the previous section we know that the periodic(8) utility on FreeBSD
+provides an automated framework that can execute recurring system
+maintenance tasks. This is achieved by running periodic(8) via cron(8) at
+daily, weekly, and monthly intervals:</p>
+<pre><code class="language-sh"># /etc/crontab
+# Perform daily/weekly/monthly maintenance.
+1       3       *       *       *       root    periodic daily
+15      4       *       *       6       root    periodic weekly
+30      5       1       *       *       root    periodic monthly
+</code></pre>
+<br>
+<p>Each period corresponds to a subdirectory – <code>/etc/periodic/daily</code>,
+<code>/etc/periodic/weekly</code>, and <code>/etc/periodic/monthly</code> – and each
+subdirectory contains a collection of executable shell scripts. These
+scripts perform various maintenance tasks specific to their designated
+period. Even though FreeBSD ships with its own set of scripts, users can
+extend periodic(8) by adding their own executable scripts to any one of
+these subdirectories.</p>
+<p>The periodic(8) utility is typically executed via cron(8), but it can also
+be called manually from the command line using the <code>periodic daily</code>,
+<code>periodic weekly</code>, or <code>periodic monthly</code> commands.</p>
+<p>A fourth category of scripts, known as security scripts, lives under the
+<code>/etc/periodic/security/</code> directory. Unlike the other categories, security
+scripts are designed to run at every interval (daily, weekly, and monthly)
+and normally the security category is not run independently of the main
+three categories, although they can be through the <code>periodic security</code>
+command.</p>
+<h2>Mail logs</h2>
+<p><strong>General</strong></p>
+<p><code>periodic.conf</code> configures periodic(8).</p>
+<p>The variables defined by <code>periodic.conf</code> can control where the output
+of daily, weekly, and monthly scripts are sent. By default, output
+is sent to the root user via mail. We can redirect output to a separate
+user account named <code>periodic</code> (which would need to be created), with
+the following variables:</p>
+<pre><code class="language-sh"># /etc/periodic.conf
+daily_output=&quot;periodic&quot;
+weekly_output=&quot;periodic&quot;
+monthly_output=&quot;periodic&quot;
+</code></pre>
+<br>
+<p><strong>Security</strong></p>
+<p>The daily, weekly, and monthly commands run the security scripts via
+<code>/etc/periodic/(daily|weekly|monthly)/450.status-security</code>. The output
+of these security scripts is managed by a separate set of variables, which
+should also be updated:</p>
+<pre><code class="language-sh"># /etc/periodic.conf
+daily_status_security_output=&quot;periodic&quot;
+weekly_status_security_output=&quot;periodic&quot;
+monthly_status_security_output=&quot;periodic&quot;
+</code></pre>
+<h2>File logs</h2>
+<p><strong>General</strong></p>
+<p>We can send output to a file instead of mailing it to user(s) by
+setting the <code>(daily|weekly|monthly)_output</code> variables to an absolute
+path. Personally I prefer this approach:</p>
+<pre><code class="language-sh"># /etc/periodic.conf
+daily_output=&quot;/var/log/periodic-daily.log&quot;
+weekly_output=&quot;/var/log/periodic-weekly.log&quot;
+monthly_output=&quot;/var/log/periodic-monthly.log&quot;
+</code></pre>
+<br>
+<p><strong>Security</strong></p>
+<p>Similarly, security script output can also be redirected to files by
+updating the following variables:</p>
+<pre><code class="language-sh"># /etc/periodic.conf
+daily_status_security_output=&quot;/var/log/periodic-daily-security.log&quot;
+weekly_status_security_output=&quot;/var/log/periodic-weekly-security.log&quot;
+monthly_status_security_output=&quot;/var/log/periodic-monthly-security.log&quot;
+</code></pre>
+<h2>Conclusion</h2>
+<p><strong>Context</strong></p>
+<p>After configuring periodic(8) to log its output to a file, we can manually
+trigger a daily run to observe the results.</p>
+<p><strong>Demo</strong></p>
+<pre><code class="language-sh">root@localhost# periodic daily
+root@localhost# cat /var/log/periodic-daily.log
+</code></pre>
+<br>
+<p><strong>Explanation</strong></p>
+<p>The <code>periodic daily</code> command initiates a single execution
+of all daily periodic scripts. The output, which would typically be mailed,
+is now redirected to the <code>/var/log/periodic-daily.log</code> file and
+at least for me, I prefer file logs over mail logs.</p>
+
+  </div>
+
+    </main>
+    <footer>
+      <p>This website was generated by <a href="https://go.dev/" target="_blank" rel="noopener noreferrer">Golang</a></p>
+    </footer>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

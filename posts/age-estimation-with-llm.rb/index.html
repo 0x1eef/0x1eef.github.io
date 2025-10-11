@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>@0x1eef's personal website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+    <link rel="stylesheet" href="/css/main.css">
+    
+  <script src="/js/prism.js" async></script>
+  <link rel="stylesheet" href="/css/prism.css">
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to estimate the age of a person in a photo" />
+  <meta property="og:description" content="Documents how to estimate the age of a person in a photo with llm.rb" />
+  <meta property="og:url" content="https://0x1eef.github.io/posts/an-introduction-to-rag-with-llm.rb" />
+  <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512"/>
+
+  </head>
+  <body class="hidden">
+    <header class="main-header">
+      <img src="/images/og.png" alt="Leaf Logo" class="nav-logo">
+      <nav>
+        <ul>
+          <li><a href="/">HOME</a></li>
+          <li><a href="/posts">POSTS</a></li>
+        </ul>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="theme-icon-moon" aria-hidden="true">&#127769;</span>
+      </button>
+    </header>
+    <main>
+      
+  <div>
+    <h2>About</h2>
+<p>This post looks at how we can build a tool that estimates the age of the person
+in a photo with the <a href="https://github.com/llmrb/llm">llm.rb</a> library. The post
+demonstrates three key
+<a href="https://github.com/llmrb/llm">llm.rb</a>
+features at once – multimodal prompts, image vision and generation, and
+structured outputs.</p>
+<h2>Vision</h2>
+<p>An LLM that can understand both text and images is said to be multimodal 
+and LLMs are generally moving further in that direction. All of the Large
+Language Models that the <a href="https://github.com/llmrb/llm">llm.rb</a> library supports have vision capabilities. An
+image can be given as input in a number of ways: as a URL, as base64-encoded
+inline data (eg local files), or as a reference to a file object stored by the
+LLM provider. Our post will focus on providing the image as a URL  the best
+option for an example that should work out of the box.</p>
+<h2>Schema</h2>
+<p>We can provide a JSON schema that describes the response we expect from the
+LLM, and the LLM will abide by the schema. This is perfect for our example
+because we can describe a schema that has an age, a confidence rating (between
+0.0 and 1.0), and finally any notes the LLM has:</p>
+<pre><code class="language-ruby">require &quot;llm&quot;
+
+llm = LLM.openai(key: ENV[&quot;OPENAI_SECRET&quot;])
+schema = llm.schema.object(
+  age: llm.schema.integer.required.description(&quot;The age of the person in a photo&quot;),
+  confidence: llm.schema.number.required.description(&quot;Model confidence (0.0 to 1.0)&quot;),
+  notes: llm.schema.string.required.description(&quot;Model notes or caveats&quot;)
+)
+</code></pre>
+<h2>Image</h2>
+<p>For the example the most important piece is the image. I decided to generate
+an image on the fly instead of trying to source a public domain photo online,
+which was surprisingly difficult. OpenAI, Gemini and xAI (Grok) all have first-class
+image generation, editing and variation support in <a href="https://github.com/llmrb/llm">llm.rb</a>:</p>
+<pre><code class="language-ruby">require &quot;llm&quot;
+
+llm = LLM.openai(key: ENV[&quot;OPENAI_SECRET&quot;])
+img = llm.images.create(prompt: &quot;A man in his 30s&quot;)
+</code></pre>
+<h2>Example</h2>
+<p>The following example provides the LLM with an image <a href="https://docs.ruby-lang.org/en/master/URI.html">as a URI
+object</a>  and it provides the
+LLM with the schema from the previous section. The image used is of a man, and
+the LLM estimates them to be in their 30s:</p>
+<pre><code class="language-ruby">require &quot;llm&quot;
+
+##
+# schema
+llm = LLM.openai(key: ENV[&quot;OPENAI_SECRET&quot;])
+schema = llm.schema.object(
+  age: llm.schema.integer.required.description(&quot;The age of the person in a photo&quot;),
+  confidence: llm.schema.number.required.description(&quot;Model confidence&quot;),
+  notes: llm.schema.string.required.description(&quot;Model notes&quot;)
+)
+
+##
+# request
+bot = LLM::Bot.new(llm, schema:)
+img = llm.images.create(prompt: &quot;A man in his 30s&quot;)
+bot.chat URI(img.urls[0])
+
+##
+# response
+res = bot.messages.find(&amp;:assistant?).content!
+print &quot;age: &quot;, res[&quot;age&quot;], &quot;\n&quot;
+print &quot;confidence: &quot;, res[&quot;confidence&quot;], &quot;\n&quot;
+print &quot;notes: &quot;, res[&quot;notes&quot;], &quot;\n&quot;
+
+##
+# age: 32
+# confidence: 0.89
+# notes: The man appears to be in his early thirties ...
+</code></pre>
+<p>Note: This demo shows llm.rbs multimodal and schema features.
+Age estimation is approximate and should not be used in sensitive
+contexts.</p>
+
+  </div>
+
+    </main>
+    <footer>
+      <p>This website was generated by <a href="https://go.dev/" target="_blank" rel="noopener noreferrer">Golang</a></p>
+    </footer>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

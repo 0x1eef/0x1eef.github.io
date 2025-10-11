@@ -1,0 +1,162 @@
+/* PrismJS 1.30.0 - GitHub-like Light Theme */
+
+/* Base styles for code blocks and inline code */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #24292e; /* GitHub's primary dark text color */
+  background: 0 0;
+  text-shadow: none; /* GitHub typically doesn't use text-shadow */
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.85rem; /* Reduced font size from 1em to 0.85rem */
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Selection styles - kept original for general browser consistency */
+code[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection,
+pre[class*="language-"]::-moz-selection {
+  text-shadow: none;
+  background: #b3d4fc;
+}
+
+code[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+pre[class*="language-"]::selection {
+  text-shadow: none;
+  background: #b3d4fc;
+}
+
+/* Print styles */
+@media print {
+  code[class*="language-"],
+  pre[class*="language-"] {
+    text-shadow: none;
+  }
+}
+
+/* Block code wrapper (pre tags) - no styling here, focus on the child code element */
+pre[class*="language-"] {
+  padding: 0;
+  margin: .5em 0;
+  overflow: auto;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+/* Block code content (code tags within pre) */
+pre[class*="language-"] > code[class*="language-"] {
+  display: block;
+  padding: 0.9em;
+  background: #f6f8fa; /* GitHub's light code background */
+  border: 1px solid #d0d7de; /* Distinct border */
+  border-radius: 6px; /* Consistent modern border-radius */
+}
+
+/* Inline code specific styles (code tags not inside pre) */
+:not(pre)>code[class*="language-"] {
+  padding: .1em .4em;
+  border-radius: 4px;
+  white-space: normal;
+  background: #f6f8fa; /* GitHub's light code background */
+  border: 1px solid #d0d7de; /* More distinct border, GitHub-like */
+}
+
+/* ========================================================================== */
+/* Token Colors - GitHub-like Palette                                         */
+/* ========================================================================== */
+
+/* Comments, doctypes, prologs, CDATA */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a737d; /* GitHub comment color */
+}
+
+/* Punctuation */
+.token.punctuation {
+  color: #24292e; /* General dark text color for punctuation */
+}
+
+/* Namespace (keep default opacity) */
+.token.namespace {
+  opacity: .7;
+}
+
+/* Keywords, At-rules, Attr-values */
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #6f42c1; /* GitHub purple for keywords/at-rules */
+}
+
+/* Operators, Entities, URLs (often similar to keywords or distinct orange) */
+.token.operator,
+.token.entity,
+.token.url {
+  color: #e36209; /* GitHub orange for operators/entities */
+}
+
+/* Tags, properties, boolean, number, constant, symbol, deleted */
+.token.boolean,
+.token.constant,
+.token.deleted,
+.token.number,
+.token.property,
+.token.symbol,
+.token.tag {
+  color: #d73a49; /* GitHub red for tags/properties/numbers */
+}
+
+/* Attribute names, built-ins, chars, inserted, selectors, strings */
+.token.attr-name,
+.token.builtin,
+.token.char,
+.token.inserted,
+.token.selector,
+.token.string {
+  color: #032f62; /* GitHub dark blue for strings/selectors */
+}
+
+/* Class names, functions */
+.token.class-name,
+.token.function {
+  color: #005cc5; /* GitHub blue for functions/class names */
+}
+
+/* Important, regex, variables */
+.token.important,
+.token.regex,
+.token.variable {
+  color: #e36209; /* GitHub orange for variables/regex */
+}
+
+/* Bold and Italic */
+.token.bold,
+.token.important {
+  font-weight: 700;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* Entity cursor (keep original) */
+.token.entity {
+  cursor: help;
+}
