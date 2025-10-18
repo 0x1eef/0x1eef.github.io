@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>@0x1eef's personal website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+    <link rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+    <link rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+    <link rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+    <link rel="stylesheet" href="/css/main.css">
+    
+  <script src="/js/prism.js" async></script>
+  <link rel="stylesheet" href="/css/prism.css">
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Lightweight Program Isolation with doas(1)" />
+  <meta property="og:description" content="Documents user-level program isolation with doas(1)" />
+  <meta property="og:url" content="https://0x1eef.github.io/posts/doas-program-isolation/" />
+  <meta property="og:image" content="https://0x1eef.github.io/images/og.png" />
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512"/>
+
+  </head>
+  <body class="hidden">
+    <header class="main-header">
+      <img src="/images/og.png" alt="Leaf Logo" class="nav-logo">
+      <nav>
+        <ul>
+          <li><a href="/">HOME</a></li>
+          <li><a href="/posts">POSTS</a></li>
+        </ul>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="theme-icon-moon" aria-hidden="true">&#127769;</span>
+      </button>
+    </header>
+    <main>
+      
+  <div>
+    <h2>About</h2>
+<p>This post shows how to achieve <strong>light program isolation</strong> by running programs
+with a dedicated, unprivileged user account via the <a href="https://man.openbsd.org/doas">doas(1)</a>
+utility. This is a simple, effective way to isolate a program from
+your &quot;main&quot; user account.</p>
+<p>doas(1) from the <a href="https://openbsd.org">OpenBSD project</a> enables one
+user to execute a command as another user. Although ports exist for
+other platforms, they do not offer the same features or security
+guarantees and generally I do not recommend using them.
+On FreeBSD, <a href="https://man.freebsd.org/mdo">mdo(1)</a> is the recommended
+alternative. See <a href="https://0x1eef.github.io/posts/an-mdo-introduction/">an introduction to mdo(1)</a>
+for more details.</p>
+<h2>Motivation</h2>
+<p>Sometimes it can be helpful to isolate a program from your &quot;main&quot; user
+account in case the program is compromised, at least then the damage
+can be minimized. An attacker would have to first break out of the
+dedicated user account, and achieve root or otherwise access your
+&quot;main&quot; user account.</p>
+<p>It also becomes possible to apply certain controls and limits to a
+particular user account by assigning the user a login class –
+these might be limits you may not want your &quot;main&quot; user account
+to have.</p>
+<p>It is important to note though that as far as isolation goes, this
+approach is thin. There are alternatives such as VMs, jails and
+containers that provide better isolation but at the same time, this
+approach also has its time and place.</p>
+<h2>User</h2>
+<p><strong>Context</strong></p>
+<p>The first step is to create a new, unprivileged user account for the
+program you want to isolate. We'll use the IRC client weechat as our
+example because it is simple and straight forward. Let's create the user:</p>
+<pre><code class="language-sh">root@localhost# useradd \
+  -d /home/weechat \
+  -s /sbin/nologin \
+  -m \
+  -v \
+  weechat
+
+root@localhost# chmod u=rwx,go= /home/weechat
+</code></pre>
+<br>
+<p><strong>Explanation</strong></p>
+<ul>
+<li>
+<p>-d /home/weechat <br>
+This flag sets <code>/home/weechat</code> as the home directory. This is where all
+of weechat's data (configuration, scripts, logs, etc) is kept.</p>
+</li>
+<li>
+<p>-s /sbin/nologin <br>
+This flag sets the user's login shell to <code>nologin</code> and effectively prevents
+logging into the account unless it is done and permitted by doas(1).</p>
+</li>
+<li>
+<p>-m <br>
+This flag automatically creates the user's home directory.</p>
+</li>
+<li>
+<p>-v <br>
+This flag enables verbose mode.</p>
+</li>
+<li>
+<p>chmod u=rwx,go= /home/weechat <br>
+This command gives the <code>weechat</code> user full read, write, and execute permissions
+over its home directory and prevents access for anyone else.</p>
+</li>
+</ul>
+<h2>Configuration</h2>
+<p><strong>Context</strong></p>
+<p>In the next step we will configure doas(1) to allow our &quot;main&quot;
+user account execute the weechat program as the <code>weechat</code> user.
+This can be done through a configuration file that defines one
+or more rules, and each rule defines what user(s) can execute
+a command as another user. Let's get started by editing <code>/etc/doas.conf</code>
+and adding the following contents:</p>
+<pre><code class="language-sh"># /etc/doas.conf
+permit nopass main as weechat cmd /usr/local/bin/weechat args
+</code></pre>
+<br>
+<p><strong>Explanation</strong></p>
+<ul>
+<li>
+<p>permit nopass main as weechat <br>
+This part of the rule allows your <code>main</code> user to execute commands
+as the <code>weechat</code> user without a password. It is convenient for quick
+access but asking for a password would add another layer of security
+(this can be done by omitting <code>nopass</code>).</p>
+</li>
+<li>
+<p>cmd /usr/local/bin/weechat <br>
+This part of the rule specifies the full path to the weechat executable.
+The full path is used to prevent running an unintended executable that
+might be on your $PATH.</p>
+</li>
+<li>
+<p>args <br>
+By including <code>args</code> on its own <code>doas</code> will refuse to execute <code>/usr/local/bin/weechat</code>
+unless it is given exactly <em>zero</em> arguments. This could be further relaxed
+to allow only certain arguments, or omitted entirely to allow <em>all</em>
+arguments.</p>
+</li>
+</ul>
+<h2>Conclusion</h2>
+<p><strong>Context</strong></p>
+<p>Before we execute doas(1) it can help to have a general idea
+of how it works. As a setuid binary owned by root, doas(1) will
+be run with an effective user id of 0 (root). When successful
+doas(1) will execute a system call that drops privileges to the
+weechat user, and in turn changes the real|effective user ID along
+with the real|effective group ID associated with a process. Finally,
+execvpe is called and a new process is started as the weechat user.
+That explanation is a slight over-simplication but it does accruately
+describe how tools like doas(1) generally work.</p>
+<p><strong>Demo</strong></p>
+<p>With the dedicated user created and <code>doas.conf</code> configured, we can
+now log in with the <code>main</code> user account and launch weechat as the
+<code>weechat</code> user.</p>
+<pre><code class="language-sh"># Launch weechat as the 'weechat' user
+main@localhost$ doas -u weechat /usr/local/bin/weechat
+</code></pre>
+
+  </div>
+
+    </main>
+    <footer>
+      <p>This website was generated by <a href="https://go.dev/" target="_blank" rel="noopener noreferrer">Golang</a></p>
+    </footer>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
