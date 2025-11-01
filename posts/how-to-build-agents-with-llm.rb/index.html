@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/github.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to build agents with llm.rb">
+  <META property="og:description" content=
+  "Documents how to build agents with llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-build-agents-with-llm.rb">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY class="hidden">
+  <HEADER class="main-header">
+    <IMG src="/images/og.png" alt="Leaf Logo" class="nav-logo">
+    <NAV>
+      <UL>
+        <LI>
+          <A href="/">HOME</A>
+        </LI>
+        <LI>
+          <A href="/posts">POSTS</A>
+        </LI>
+      </UL>
+    </NAV><BUTTON id="theme-toggle" aria-label="Toggle dark mode"><SPAN class=
+    "theme-icon-sun" aria-hidden="true">☀</SPAN> <SPAN class="theme-icon-moon"
+    aria-hidden="true">🌙</SPAN></BUTTON>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post demonstrates how to build agents with the <A href=
+      "https://github.com/llmrb/llm">llm.rb</A> library. We’ll walk through how
+      to use <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/Function.html">LLM::Function</A>
+      and <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/Tool.html">LLM::Tool</A>, noting
+      their differences and how agents can leverage them. For our example, our
+      agent will either fetch GitHub star counts or evaluate arbitrary Ruby
+      code – nothing too complicated and simple enough for a blog post.</P>
+      <H2>Background</H2>
+      <H3>What is an agent?</H3>
+      <P>For the context of this post an agent is a system that interprets user
+      requests and, when necessary, calls tools — these tools might contact
+      external HTTP APIs, evaluate code, or any other "action" you might like
+      the LLM to take on your behalf.</P>
+      <P>By combining the broad intelligence of a language model with access to
+      real, external data sources, agents are able to return answers based not
+      just on pre-trained knowledge, but also on live, up-to-date
+      information.</P>
+      <P>Through this tool-calling capability, agents enable language models to
+      go beyond simple questions and answers, empowering them to take
+      meaningful action and automate tasks. A tool might send an email on your
+      behalf, evaluate code, crunch numbers for a report, and any other action
+      you'd like to automate through a LLM.</P>
+      <H3>LLM::Function</H3>
+      <P><STRONG>Closures</STRONG></P>
+      <P>The <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/Function.html"><CODE>LLM::Function</CODE></A>
+      interface allows you to define a tool as a Ruby closure. This approach is
+      ideal when you need dynamic, locally-scoped functionality, such as
+      evaluating code or performing quick, one-off computations. Closures make
+      it easy to embed context-dependent or ad-hoc logic within your agent.
+      They’re best suited for situations where the tool’s logic is relatively
+      simple and tightly coupled to the immediate agent context.</P>
+      <H3>LLM::Tool</H3>
+      <P><STRONG>Classes</STRONG></P>
+      <P><A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/Tool.html"><CODE>LLM::Tool</CODE></A>
+      is designed for building reusable, stand-alone tools that encapsulate
+      more complex logic, such as integrating external APIs or handling
+      structured data. By defining a tool as a Ruby class we benefit from
+      organization, reusability and the ability to manage complexity. The
+      choice between <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/Function.html"><CODE>LLM::Function</CODE></A>
+      and <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/Tool.html"><CODE>LLM::Tool</CODE></A>
+      often depends on personal preferences, and technical requirements.</P>
+      <H2>Examples</H2>
+      <H3>StarGazer</H3>
+      <P>The following class defines a Tool for fetching the number of stars
+      for any public GitHub repository:</P>
+      <PRE><CODE class="language-ruby">require "llm"
+require "json"
+
+class StarGazer &lt; LLM::Tool
+  name "stargazer"
+  description "Fetch the number of stars for a public GitHub repo (e.g. owner/repo)"
+  params { |schema| schema.object(repo: schema.string.required) }
+
+  def call(repo:)
+    uri = URI("https://api.github.com/repos/#{repo}")
+    response = Net::HTTP.get_response(uri)
+    data = JSON.parse(response.body)
+    if response.is_a?(Net::HTTPSuccess) &amp;& data["stargazers_count"]
+      { repo: repo, stars: data["stargazers_count"], url: data["html_url"] }
+    elsif data["message"]
+      { error: "GitHub API: #{data["message"]}" }
+    else
+      { error: "Could not retrieve stars." }
+    end
+  rescue =&gt; ex
+    { error: ex.message }
+  end
+end
+</CODE></PRE>
+      <H3>Eval bot</H3>
+      <P>This closure defines a tool to evaluate arbitrary Ruby code.<BR>
+      ⚠️ <STRONG>Never use eval in production or with untrusted
+      input!</STRONG></P>
+      <PRE><CODE class="language-ruby">eval = LLM.function(:eval) do |fn|
+  fn.description "Evaluate Ruby code"
+  fn.params { |schema| schema.object(code: schema.string.required) }
+  fn.define do |code:|
+    { result: Kernel.eval(code).inspect }
+  rescue SystemExit
+    { error: "Permission denied" }
+  rescue =&gt; ex
+    { error: ex.message }
+  end
+end
+</CODE></PRE>
+      <H3>Loop</H3>
+      <P>Finally we combine both tools into an agent and demonstrate a usage
+      loop. The agent can answer factual questions about GitHub repositories,
+      as well as evaluate Ruby code on demand:</P>
+      <PRE><CODE class="language-ruby">##
+# &lt;insert tools here&gt;
+
+llm = LLM.openai(key: ENV["OPENAI_SECRET"])
+bot = LLM::Bot.new(llm, stream: $stdout, tools: [StarGazer, eval])
+loop do
+  print "&gt; "
+  input = $stdin.gets&amp;.chomp || break
+  bot.chat input, role: :user
+  # If tools are suggested by the model, call them automatically
+  bot.chat bot.functions.map(&amp;:call)
+  bot.messages.flush
+end
+</CODE></PRE>
+      <H2>Conclusion</H2>
+      <DETAILS>
+        <SUMMARY>
+          <B>Start the demo</B>
+        </SUMMARY><IMG alt="demo" src="demo.gif">
+      </DETAILS>
+    </DIV>
+  </MAIN>
+  <FOOTER>
+    <P>This website was generated by <A href="https://go.dev/" target="_blank"
+    rel="noopener noreferrer">Golang</A></P>
+  </FOOTER>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

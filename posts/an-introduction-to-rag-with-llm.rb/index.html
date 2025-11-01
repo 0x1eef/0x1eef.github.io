@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/github.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="An introduction to RAG">
+  <META property="og:description" content=
+  "Documents how to implement the RAG pattern with llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/an-introduction-to-rag-with-llm.rb">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY class="hidden">
+  <HEADER class="main-header">
+    <IMG src="/images/og.png" alt="Leaf Logo" class="nav-logo">
+    <NAV>
+      <UL>
+        <LI>
+          <A href="/">HOME</A>
+        </LI>
+        <LI>
+          <A href="/posts">POSTS</A>
+        </LI>
+      </UL>
+    </NAV><BUTTON id="theme-toggle" aria-label="Toggle dark mode"><SPAN class=
+    "theme-icon-sun" aria-hidden="true">☀</SPAN> <SPAN class="theme-icon-moon"
+    aria-hidden="true">🌙</SPAN></BUTTON>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post introduces Retrieval-Augmented Generation (RAG) using the
+      <A href="https://github.com/llmrb/llm">llm.rb</A> library. The example is
+      concise – only 32 lines of Ruby code – and concludes with a live
+      demo.</P>
+      <H2>Motivation</H2>
+      <P>The more I worked with large language models, the more I found their
+      knowledge useful but not always grounded in the knowledge I'm interested
+      in or consider to be especially reliable. I wanted a way to ingest my own
+      particular knowledge into a large language model so I could then ask
+      precise questions about that content and receive answers based entirely
+      or primarily on the content I have provided.</P>
+      <H2>Approach</H2>
+      <P>For storage and retrieval, we will use OpenAI’s Vector Stores API as
+      our vector database. Our primary content will be composed of files found
+      in the <A href=
+      "https://github.com/llmrb/llm-rag/tree/main/documents">documents/</A>
+      directory, which contains the FreeBSD handbook – with one file per
+      chapter. This is a resource I consider to be trustworthy and authorative
+      when it comes to FreeBSD, and when I have questions about FreeBSD I would
+      like my answers to be grounded in the handbook.</P>
+      <H2>Background</H2>
+      <H3>What is RAG?</H3>
+      <P>RAG is a technique whereby a language model is given extra context –
+      retrieved from an external knowledge source – before generating a
+      response. With RAG, you supply your own knowledge base at query time, as
+      "chunks" of text.</P>
+      <P>These chunks are typically labeled (eg: by number) and structured
+      within the system prompt in a format the LLM can easily understand and
+      reference. The LLM then generates responses based entirely (or primarily)
+      on that provided context, ensuring the answers are grounded in your
+      chosen source of truth.</P>
+      <H3>What is a vector database?</H3>
+      <P>A vector database is a specialized database designed to efficiently
+      store and query high-dimensional data, known as vectors. For RAG, the
+      process typically involves <STRONG>ingesting</STRONG> a knowledge base by
+      breaking it into smaller, semantically meaningful
+      <STRONG>chunks</STRONG>.</P>
+      <P>Each chunk is then converted into a vector (an "embedding") before
+      being stored. Unlike traditional databases that rely on exact matches or
+      keyword searches, vector databases excel at finding items based on
+      semantic similarity, understanding the "meaning" behind your data.</P>
+      <P>While we will focus on text-based vector databases, they can also
+      handle images, audio, and other types of data by converting them into
+      vectors.</P>
+      <H2>Example</H2>
+      <P><STRONG>Context</STRONG><BR>
+      The following example adds the contents of the <CODE>documents/</CODE>
+      directory by uploading them as files via OpenAI's Files API. The next
+      step is to create a vector store, which will be composed of the files
+      that we just uploaded.</P>
+      <P>After the vector store is created and ready, we can search it with a
+      query. The query will produce one or more chunks of text, and those
+      chunks will be provided to the system prompt.</P>
+      <P>Finally, the bot will generate a response based on the system prompt
+      and the user’s question. The bot operates in an infinite loop, allowing
+      multiple queries where it responds with answers based on the context
+      provided by the vector store.</P>
+      <PRE><CODE class="language-ruby">require "llm"
+require "erb"
+
+llm   = LLM.openai(key: ENV["OPENAI_SECRET"])
+bot   = LLM::Bot.new(llm)
+docs  = Dir["documents/*.pdf"]
+files = docs.map do
+  print "[-] wait ", _1, "\n"
+  llm.files.create(file: _1)
+end
+store = llm.vector_stores.create(
+  name: "FreeBSD Handbook", file_ids: files.map(&amp;:id)
+)
+
+print "[-] wait vector store", "\n"
+while store.status != "completed"
+  sleep(0.5)
+  store = llm.vector_stores.get(vector: store)
+end
+print "[-] done!", "\n"
+
+loop do
+  print "&gt; "
+  query = $stdin.gets&amp;.chomp || break
+  res = llm.vector_stores.search(vector: store, query:)
+  chunks = res.data.select { _1.score &gt; 0.7 }
+  bot.chat(stream: $stdout) do |prompt|
+    prompt.system ERB.new(
+      File.read("prompts/system.erb.txt")
+    ).result(binding)
+    prompt.user(query)
+  end.to_a
+  print "\n"
+rescue LLM::Error =&gt; e
+  print e.class.to_s + ": " + e.message + "\n"
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG><BR>
+      The code first initializes <A href=
+      "https://github.com/llmrb/llm">llm.rb</A> and then iterates through PDF
+      documents in the <CODE>documents/</CODE> directory, uploading each to
+      OpenAI’s Files API. These file IDs are used to create a new vector store
+      named "FreeBSD Handbook". The script then waits for the vector store to
+      finish processing the files.</P>
+      <P>Once the store is ready, an infinite loop begins, prompting the user
+      for queries. Each query triggers a search against the vector store,
+      retrieving relevant text chunks. Chunks with a score above 0.7 are
+      selected, and their content is passed to the system prompt via ERB.
+      Finally, the bot generates a response based on the user’s query and the
+      retrieved context, streaming the output to <CODE>$stdout</CODE>.</P>
+      <H2>Conclusion</H2>
+      <P><STRONG>Context</STRONG><BR></P>
+      <P>The following demo illustrates the RAG system in action by querying
+      the FreeBSD handbook.</P>
+      <P><STRONG>Demo</STRONG><BR></P>
+      <DETAILS>
+        <SUMMARY>
+          <B>Start the demo</B>
+        </SUMMARY><IMG src="demo.gif">
+      </DETAILS>
+    </DIV>
+  </MAIN>
+  <FOOTER>
+    <P>This website was generated by <A href="https://go.dev/" target="_blank"
+    rel="noopener noreferrer">Golang</A></P>
+  </FOOTER>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>
