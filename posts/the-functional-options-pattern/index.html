@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/github.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="The functional options pattern (in Go)">
+  <META property="og:description" content=
+  "Documents a common pattern when initializing Go structs">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/the-functional-options-pattern/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV>
+      <A href="/"><IMG src="/images/og.png" alt="Leaf Logo" class=
+      "nav-logo"></A>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post looks at the functional options pattern and how it can help
+      you write Go programs that can initialize structs in idiomatic Go.</P>
+      <H2>Background</H2>
+      <H4>Context</H4>
+      <P>I believe the first time I came across the pattern we will discuss was
+      with goldmark (a nice Go markdown library). At first, the pattern was a
+      mystery that I took note of but had no idea how it worked. Eventually I
+      started to build my own libraries, and I wanted them to be idiomatic Go
+      libraries. That's when I started to research what is known as the
+      functional options pattern.</P>
+      <H4>Pattern</H4>
+      <P>The functional options pattern implements a technique that can
+      initialize and configure Go structs with a syntax that is readable and
+      expressive.</P>
+      <P>The pattern typically revolves around a <CODE>New</CODE> function, and
+      it usually belongs to a package other than <CODE>main</CODE>. The New
+      function accepts a variable number of <CODE>Option</CODE> arguments,
+      where Option is a function type defined to receive a pointer to the
+      struct being configured (eg <CODE>type Option func(*User)</CODE>).</P>
+      <P>The <CODE>Option</CODE> values are created by <STRONG>option
+      functions</STRONG> (like <CODE>SetName</CODE> or <CODE>SetAge</CODE>)
+      that are exported by a package. Each of these functions takes a desired
+      configuration value, then returns a new Option function. This returned
+      Option function "closes over" the provided value, and when the New
+      function iterates and calls it, the function will set a property on the
+      struct.</P>
+      <P>The next step is to illustrate the explanation with an experiment that
+      demonstrates how the pattern works in practice.</P>
+      <H2>Experiment</H2>
+      <H4>Context</H4>
+      <P>The following experiment illustrates the functional options pattern
+      described in the previous step by defining a <CODE>User</CODE> struct and
+      a collection of public package functions that configure the User
+      struct:</P>
+      <UL>
+        <LI><STRONG>user/user.go</STRONG></LI>
+      </UL>
+      <PRE><CODE class="language-go">package user
+
+type User struct {
+  name string
+  age  uint8
+}
+
+type Option func(*User)
+
+func New(opts ...Option) *User {
+  u := &amp;User{name: "unknown", age: uint8(0)}
+  for _, set := range opts {
+    set(u)
+  }
+  return u
+}
+
+func SetName(name string) Option {
+  return func(u *User) {
+    u.name = name
+  }
+}
+
+func SetAge(age uint8) Option {
+  return func (u *User) {
+    u.age = age
+  }
+}
+</CODE></PRE>
+      <UL>
+        <LI><STRONG>cmd/main/main.go</STRONG></LI>
+      </UL>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "user"
+)
+
+func main() {
+  u := user.New(
+    user.SetName("Mario"),
+    user.SetAge(uint8(37))
+  )
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <P>The user package defines a User struct and an Option type for
+      configuring the struct. The New constructor initializes a User with
+      default values, then applies any provided Option functions, such as
+      <CODE>SetName</CODE> and <CODE>SetAge</CODE>.</P>
+      <H2>Conclusion</H2>
+      <P>The functional options pattern can help Go programmers design
+      idiomatic libraries that library consumers will be happy to use.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>
