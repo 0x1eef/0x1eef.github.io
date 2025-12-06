@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/github.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to stream a response body in Go">
+  <META property="og:description" content=
+  "Documents how to stream a response body in Go">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-stream-a-response-body-in-go">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV>
+      <A href="/"><IMG src="/images/og.png" alt="Leaf Logo" class=
+      "nav-logo"></A>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to stream a response body when making HTTP
+      requests with the Go programming language and its standard library.</P>
+      <H2>Background</H2>
+      <P>The Go programming language provides a rich standard library that
+      includes the <A href="https://pkg.go.dev/net/http">net/http</A> package
+      for the implementation of HTTP clients and servers.</P>
+      <P>This post focuses on how to make HTTP requests with the <A href=
+      "https://pkg.go.dev/net/http">net/http</A> package, and in particular it
+      focuses on how to stream a response body in chunks rather than reading
+      the entire body into memory at once.</P>
+      <P>This can be useful in a number of scenarios including when a client
+      wants to implement a progess bar for a large download, or when a client
+      wants to eagerly process data as it arrives rather than wait to download
+      the entire response body into memory at once.</P>
+      <P>It is also a pattern you could borrow if you find yourself
+      implementing an interface that implements a stream of some sort and it is
+      a pattern that is both common and idiomatic in Go.</P>
+      <H2>Experiment</H2>
+      <H4>Context</H4>
+      <P>Our experiment will implement a function that downloads the response
+      body in chunks, and also prints the number of bytes downloaded so far at
+      each iteration.</P>
+      <P>The <A href="https://pkg.go.dev/net/http#Get">http.Get</A> method
+      returns a <A href=
+      "https://pkg.go.dev/net/http#Response">http.Response</A> object that
+      represents a HTTP response, and among its fields are a <CODE>Body</CODE>
+      field that returns a object that implements the
+      <CODE>io.ReadCloser</CODE> interface.</P>
+      <P>When a request is made, the response body is not read into memory and
+      instead it can be read into memory all at once using <A href=
+      "https://pkg.go.dev/io#ReadAll">io.ReadAll</A> or it can be read in
+      smaller chunks using the <CODE>Read</CODE> method defined by the <A href=
+      "https://pkg.go.dev/io#ReadCloser">io.ReadCloser</A> interface.</P>
+      <P>The response object also provides a <A href=
+      "https://pkg.go.dev/net/http#Response.ContentLength">ContentLength</A>
+      field that holds the total size of the response body in bytes but
+      sometimes it might not be set, and in that case, its value will be
+      <CODE>-1</CODE>. If you plan to implement a progress bar, this field is
+      essential but in this experiment we won't need to use it:</P>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  res, err := http.Get("https://www.openbsd.org/images/puffy78.gif")
+  if err != nil {
+    panic(err)
+  }
+  _, err = download(res.Body)
+  if err != nil {
+    panic(err)
+  }
+}
+
+func download(body io.ReadCloser) ([]byte, error) {
+  defer body.Close()
+  chunk := make([]byte, 2048)
+  buffer := make([]byte, 0, 2048*100)
+  read := 0
+  for {
+    n, err := body.Read(chunk)
+    if err == io.EOF {
+      break
+    } else if err != nil {
+      return buffer, err
+    } else {
+      buffer = append(buffer, chunk[:n]...)
+      read += n
+    }
+    fmt.Printf("\033[0K\rread %d bytes", read)
+  }
+  fmt.Println()
+  return buffer, nil
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI>
+          <P><CODE>res, err :=
+          http.Get("https://www.openbsd.org/images/puffy78.gif")</CODE><BR>
+          This line sends a GET request to the specified URL and returns a
+          response object.</P>
+        </LI>
+        <LI>
+          <P><CODE>_, err = download(res.Body)</CODE><BR>
+          This line calls the <CODE>download</CODE> function to read the
+          response body in chunks and display progress.</P>
+        </LI>
+        <LI>
+          <P><CODE>defer body.Close()</CODE><BR>
+          This line ensures the response body is closed after reading is
+          complete.</P>
+        </LI>
+        <LI>
+          <P><CODE>chunk := make([]byte, 2048)</CODE><BR>
+          This line creates a buffer to hold each chunk of data read from the
+          response body.</P>
+        </LI>
+        <LI>
+          <P><CODE>buffer := make([]byte, 0, 2048*100)</CODE><BR>
+          This line initializes a zero-length buffer with an initial capacity
+          of 200KB, and it will accumulate the downloaded data. It will be
+          expanded if/when the buffer overflows.</P>
+        </LI>
+        <LI>
+          <P><CODE>n, err := body.Read(chunk)</CODE><BR>
+          This line reads up to 2048 bytes from the response body into the
+          chunk buffer. The <CODE>n</CODE> variable returns the number of bytes
+          that were read (might be less than 2048).</P>
+        </LI>
+        <LI>
+          <P><CODE>buffer = append(buffer, chunk[:n]...)</CODE><BR>
+          This line appends the newly read chunk to the buffer, growing it as
+          needed, and appending only the valid portion of the chunk (up to
+          <CODE>n</CODE> bytes).</P>
+        </LI>
+        <LI>
+          <P><CODE>read += n</CODE><BR>
+          This line increments the total number of bytes read so far.</P>
+        </LI>
+        <LI>
+          <P><CODE>fmt.Printf("\033[0K\rread %d bytes", read)</CODE><BR>
+          This line prints the current download progress, updating the same
+          line in the terminal.</P>
+        </LI>
+        <LI>
+          <P><CODE>fmt.Println()</CODE><BR>
+          This line prints a newline after the download is complete for better
+          output formatting.</P>
+        </LI>
+        <LI>
+          <P><CODE>if err == io.EOF { break }</CODE><BR>
+          This line checks for the end of the response body and exits the loop
+          when all data has been read.</P>
+        </LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <DETAILS>
+        <SUMMARY>
+          Play demo
+        </SUMMARY><IMG src="demo.gif" alt=
+        "Demo of streaming a response body in Go">
+      </DETAILS>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>
