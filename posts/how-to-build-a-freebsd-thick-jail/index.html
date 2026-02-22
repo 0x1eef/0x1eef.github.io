@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to setup a classic FreeBSD jail">
+  <META property="og:description" content=
+  "Documents how to setup a classic FreeBSD jail">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-build-a-freebsd-thick-jail">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to build a "thick" FreeBSD jail, sometimes
+      also known as a classic jail.</P>
+      <H2>Network</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>Before we start it is important that our host network stack is
+      prepared for vnet jails. A vnet jail has its own network stack, its own
+      IP address, and its own network interfaces. Those interfaces typically
+      join a bridge on the host so the jail can reach the outside world.</P>
+      <P>Here is the host <CODE>rc.conf</CODE> setup I use. The
+      <CODE>ue0</CODE> interface is the physical interface on my machine (a USB
+      adapter):</P>
+      <PRE><CODE class="language-conf">ifconfig_ue0="up"
+cloned_interfaces="bridge0"
+ifconfig_bridge0="up addm ue0 SYNCDHCP"
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>ifconfig_ue0="up"</CODE><BR>
+        Brings the physical interface up without assigning it an IP
+        address.</LI>
+        <LI><CODE>cloned_interfaces="bridge0"</CODE><BR>
+        Creates the bridge interface at boot so vnet interfaces have a place to
+        attach.</LI>
+        <LI><CODE>ifconfig_bridge0="up addm ue0 SYNCDHCP"</CODE><BR>
+        Brings the bridge up, adds <CODE>ue0</CODE> as a member, and runs DHCP.
+        The IP is assigned to <CODE>bridge0</CODE> rather than the physical
+        interface.</LI>
+      </UL>
+      <P><STRONG>Note</STRONG><BR>
+      In a typical LAN setup, jails can obtain IPs automatically via DHCP once
+      their vnet interfaces are attached to the bridge. Jails can use
+      <CODE>ifconfig_DEFAULT="SYNCDHCP"</CODE> to request a lease from their
+      router on boot.</P>
+      <H2>Bootstrap</H2>
+      <P><STRONG>/tmp/jail</STRONG></P>
+      <P>For the purpose of this post we will store our jail in
+      <STRONG>/tmp/jail</STRONG>. This is just to show that building a jail can
+      be fast even with base tools, and you don't need to over engineer the
+      problem at first:</P>
+      <PRE><CODE class="language-sh">mkdir -p /tmp/jail
+</CODE></PRE>
+      <P><STRONG>/usr/src</STRONG></P>
+      <P>The next step is to populate our jail with the FreeBSD base system.
+      We're going to do this through a copy of <STRONG>/usr/src</STRONG> that
+      should at least build world. This is also a good time to modify the jail
+      filesystem if you want to. For example we could add
+      <STRONG>/etc/rc.conf</STRONG>, <STRONG>/etc/rc.local</STRONG>, and other
+      configuration files before we boot the jail:</P>
+      <PRE><CODE class="language-sh">cd /usr/src
+make buildworld
+DESTDIR=/tmp/jail make installworld distribution
+</CODE></PRE>
+      <H2>jail.conf</H2>
+      <P>The following configuration we're going to embed directly into
+      <CODE>/etc/jail.conf</CODE> for simplicity. It is also possible to break
+      them up into separate files, and if you prefer that setup, feel free to
+      do that instead. This will be our configuration, and I'm going to defer
+      to <A href="https://man.freebsd.org/jail">jail(8)</A> when it comes
+      offering an in-depth explanation of the various parameters:</P>
+      <PRE><CODE class="language-conf">tmp {
+  $domain="tmp";
+  $id="99";
+
+  jid = "${id}";
+  host.hostname = "${domain}.local";
+  path = "/tmp/jail";
+  exec.start = "/bin/sh /etc/rc";
+  exec.stop = "/bin/sh /etc/rc.shutdown";
+
+  exec.prestart = "ifconfig epair${id} create";
+  exec.prestart += "ifconfig epair${id}a up";
+  exec.prestart += "ifconfig bridge0 addm epair${id}a";
+  exec.poststop = "ifconfig bridge0 deletem epair${id}a";
+  exec.poststop += "ifconfig epair${id}a destroy";
+
+  vnet;
+  vnet.interface = "epair${id}b";
+
+  mount.devfs;
+  devfs_ruleset = 5;
+
+  persist;
+}
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>exec.prestart = "ifconfig epair${id} create"</CODE><BR>
+        Creates the epair device used for the jail's vnet interface.</LI>
+        <LI><CODE>exec.prestart += "ifconfig bridge0 addm
+        epair${id}a"</CODE><BR>
+        Adds the host side of the epair to <CODE>bridge0</CODE> for LAN
+        access.</LI>
+        <LI><CODE>vnet;</CODE> and <CODE>vnet.interface =
+        "epair${id}b"</CODE><BR>
+        Enables vnet and assigns the jail side of the epair to the jail.</LI>
+        <LI><CODE>mount.devfs;</CODE> and <CODE>devfs_ruleset = 5;</CODE><BR>
+        Mounts devfs inside the jail with the specified ruleset.</LI>
+        <LI><CODE>persist;</CODE><BR>
+        Keeps the jail running even if it has no processes.</LI>
+      </UL>
+      <H2>jail(8)</H2>
+      <P>We're finally in a position where we can start the jail. That can be
+      done with <CODE>jail -c tmp</CODE>, and then we should see whether or not
+      the jail booted successfully. We can remove the jail with <CODE>jail -r
+      tmp</CODE> when we're done, and the <A href=
+      "https://man.freebsd.org/jls">jls(8)</A> utility is also quite useful and
+      can do a bit more than just list jails. Maybe for a future post.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

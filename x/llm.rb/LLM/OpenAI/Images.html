@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::OpenAI::Images — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::OpenAI::Images";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (I)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../OpenAI.html" title=
+        "LLM::OpenAI (class)">OpenAI</A></SPAN></SPAN> » <SPAN class=
+        "title">Images</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::OpenAI::Images</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::OpenAI::Images</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/openai/images.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::OpenAI::Images (class)">LLM::OpenAI::Images</A></SPAN> class
+          provides an interface for <A href=
+          "https://platform.openai.com/docs/api-reference/images">OpenAI's
+          images API</A>. OpenAI supports multiple response formats: temporary
+          URLs, or binary strings encoded in base64. The default is to return
+          temporary URLs.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <P class="example_title"></P>
+          <DIV class='inline'>
+            <P>Temporary URLs</P>
+          </DIV>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>open-uri</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>fileutils</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+
+<SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_openai'><SPAN class=
+'object_link'><A href="../../LLM.html#openai-class_method" title=
+"LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create'>create</SPAN> <SPAN class=
+'label'>prompt:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>A dog on a rocket to the moon</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='const'>FileUtils</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_mv'>mv</SPAN> <SPAN class=
+'const'>OpenURI</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_open_uri'>open_uri</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_urls'>urls</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_path'>path</SPAN><SPAN class='comma'>,</SPAN>
+             <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>rocket.png</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+          <P class="example_title"></P>
+          <DIV class='inline'>
+            <P>Binary strings</P>
+          </DIV>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+
+<SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_openai'><SPAN class=
+'object_link'><A href="../../LLM.html#openai-class_method" title=
+"LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create'>create</SPAN> <SPAN class=
+'label'>prompt:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>A dog on a rocket to the moon</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+                        <SPAN class=
+'label'>response_format:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>b64_json</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='const'>IO</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_copy_stream'>copy_stream</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>rocket.png</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <DIV id="subclasses">
+        <H2>Direct Known Subclasses</H2>
+        <P class="children"><SPAN class='object_link'><A href=
+        "../XAI/Images.html" title=
+        "LLM::XAI::Images (class)">XAI::Images</A></SPAN></P>
+      </DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider)
+          ⇒ LLM::OpenAI::Responses</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a new Images
+            object.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#create-instance_method"
+          title="#create (instance method)">#<STRONG>create</STRONG>(prompt:,
+          model: "dall-e-3", **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create an image.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#create_variation-instance_method" title=
+          "#create_variation (instance method)">#<STRONG>create_variation</STRONG>(image:,
+          model: "dall-e-2", **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create image variations.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#edit-instance_method"
+          title="#edit (instance method)">#<STRONG>edit</STRONG>(image:,
+          prompt:, model: "dall-e-2", **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Edit an image.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider) ⇒ <TT><SPAN class=
+          'object_link'><A href="Responses.html" title=
+          "LLM::OpenAI::Responses (class)">LLM::OpenAI::Responses</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new Images object</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>provider</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Provider.html"
+              title=
+              "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+34
+35
+36</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/images.rb', line 34</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="create-instance_method">
+          #<STRONG>create</STRONG>(prompt:, model: "dall-e-3", **params) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create an image</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create'>create</SPAN> <SPAN class=
+'label'>prompt:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>A dog on a rocket to the moon</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_urls'>urls</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_each'>each</SPAN> <SPAN class='lbrace'>{</SPAN> <SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN> <SPAN class='rbrace'>}</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>prompt</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The prompt</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"dall-e-3"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/images/create"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+50
+51
+52
+53
+54
+55
+56</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/images.rb', line 50</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create'>create</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>prompt:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>dall-e-3</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/images/generations</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>prompt:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>n:</SPAN> <SPAN class='int'>1</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge!'>merge!</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:image</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="create_variation-instance_method">
+          #<STRONG>create_variation</STRONG>(image:, model: "dall-e-2",
+          **params) ⇒ <TT><SPAN class='object_link'><A href="../Response.html"
+          title="LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create image variations</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create_variation'>create_variation</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>image:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/images/hat.png</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>n:</SPAN> <SPAN class='int'>5</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_p'>p</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_urls'>urls</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>image</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../File.html"
+                title="LLM::File (class)">File</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The image to create variations from</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"dall-e-2"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/images/createVariation"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/images.rb', line 70</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create_variation'>create_variation</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>image:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>dall-e-2</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_image'>image</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='const'>File</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_image'>image</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_multi'>multi</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Multipart</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge!'>merge!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>image:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/images/variations</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>content-type</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_content_type'>content_type</SPAN>
+  <SPAN class=
+'id identifier rubyid_set_body_stream'>set_body_stream</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:image</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="edit-instance_method">
+          #<STRONG>edit</STRONG>(image:, prompt:, model: "dall-e-2", **params)
+          ⇒ <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Edit an image</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_edit'>edit</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>image:</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>/images/hat.png</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>prompt:</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>A cat wearing this hat</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_p'>p</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_urls'>urls</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>image</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../File.html"
+                title="LLM::File (class)">File</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The image to edit</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>prompt</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The prompt</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"dall-e-2"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/images/createEdit"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/images.rb', line 94</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_edit'>edit</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>image:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>prompt:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>dall-e-2</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_image'>image</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='const'>File</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_image'>image</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_multi'>multi</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Multipart</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge!'>merge!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>image:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>prompt:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/images/edits</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>content-type</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_content_type'>content_type</SPAN>
+  <SPAN class=
+'id identifier rubyid_set_body_stream'>set_body_stream</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:image</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

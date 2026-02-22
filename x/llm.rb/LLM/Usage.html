@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Usage — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Usage";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (U)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class="title">Usage</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Usage</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Struct</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">Struct</LI>
+              <LI class="next">LLM::Usage</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/usage.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Usage (class)">LLM::Usage</A></SPAN> class represents token
+          usage for a given conversation or completion. As a conversation
+          grows, so does the number of tokens used. This class helps track the
+          number of input, output, reasoning and overall token count. It can
+          also help track usage of the context window (which may vary by
+          model).</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#input_tokens-instance_method" title=
+          "#input_tokens (instance method)">#<STRONG>input_tokens</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            input_tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#output_tokens-instance_method" title=
+          "#output_tokens (instance method)">#<STRONG>output_tokens</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            output_tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#reasoning_tokens-instance_method" title=
+          "#reasoning_tokens (instance method)">#<STRONG>reasoning_tokens</STRONG>
+          ⇒ Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            reasoning_tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#total_tokens-instance_method" title=
+          "#total_tokens (instance method)">#<STRONG>total_tokens</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            total_tokens.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=
+        "input_tokens=-instance_method"></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="input_tokens-instance_method">
+          #<STRONG>input_tokens</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute input_tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of input_tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+10
+11
+12</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/usage.rb', line 10</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_input_tokens'>input_tokens</SPAN>
+  <SPAN class='ivar'>@input_tokens</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="output_tokens=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="output_tokens-instance_method">
+          #<STRONG>output_tokens</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute output_tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of output_tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+10
+11
+12</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/usage.rb', line 10</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_output_tokens'>output_tokens</SPAN>
+  <SPAN class='ivar'>@output_tokens</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="reasoning_tokens=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="reasoning_tokens-instance_method">
+          #<STRONG>reasoning_tokens</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute reasoning_tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of reasoning_tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+10
+11
+12</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/usage.rb', line 10</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_reasoning_tokens'>reasoning_tokens</SPAN>
+  <SPAN class='ivar'>@reasoning_tokens</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="total_tokens=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="total_tokens-instance_method">
+          #<STRONG>total_tokens</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute total_tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of total_tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+10
+11
+12</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/usage.rb', line 10</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_total_tokens'>total_tokens</SPAN>
+  <SPAN class='ivar'>@total_tokens</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

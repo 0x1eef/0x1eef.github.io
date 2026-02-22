@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Anthropic::Files — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Anthropic::Files";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (F)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Anthropic.html" title=
+        "LLM::Anthropic (class)">Anthropic</A></SPAN></SPAN> » <SPAN class=
+        "title">Files</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Anthropic::Files</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Anthropic::Files</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/anthropic/files.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Anthropic::Files (class)">LLM::Anthropic::Files</A></SPAN>
+          class provides a files object for interacting with <A href=
+          "https://docs.anthropic.com/en/docs/build-with-claude/files">Anthropic's
+          Files API</A>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+
+<SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_anthropic'><SPAN class=
+'object_link'><A href="../../LLM.html#anthropic-class_method" title=
+"LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_file'>file</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create'>create</SPAN> <SPAN class=
+'label'>file:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/books/goodread.pdf</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Tell me about this PDF</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_select'>select</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:assistant?</SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_print'>print</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>[</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>]</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='rbrace'>}</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#get-instance_method" title=
+          "#get (instance method)">#<STRONG>get</STRONG>(file:, **params) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Get a file.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#all-instance_method" title=
+          "#all (instance method)">#<STRONG>all</STRONG>(**params) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">List all files.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#create-instance_method"
+          title="#create (instance method)">#<STRONG>create</STRONG>(file:,
+          **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create a file.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider)
+          ⇒ LLM::Anthropic::Files</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a new Files
+            object.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#get_metadata-instance_method" title=
+          "#get_metadata (instance method)">#<STRONG>get_metadata</STRONG>(file:,
+          **params) ⇒ LLM::Response</A> (also: #retrieve_metadata)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Retrieve file metadata.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#delete-instance_method"
+          title="#delete (instance method)">#<STRONG>delete</STRONG>(file:) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Delete a file.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#download-instance_method"
+          title="#download (instance method)">#<STRONG>download</STRONG>(file:,
+          **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Download the contents of a
+            file.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Anthropic::Files (class)">LLM::Anthropic::Files</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new Files object</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>provider</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Provider.html"
+              title=
+              "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+22
+23
+24</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 22</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="get-instance_method">
+          #<STRONG>get</STRONG>(file:, **params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Get a file</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../../LLM.html#anthropic-class_method"
+              title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_get'>get</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>file-1234567890</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>id: </SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_id'>id</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>#id</TT>, <TT>#to_s</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The file ID</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters - if any (see Anthropic docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+77
+78
+79
+80
+81
+82
+83
+84</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 77</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_get'>get</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'label'>file:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>?</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:file</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="all-instance_method">
+          #<STRONG>all</STRONG>(**params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>List all files</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../../LLM.html#anthropic-class_method"
+              title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_all'>all</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class='kw'>do</SPAN> <SPAN class=
+'op'>|</SPAN><SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'op'>|</SPAN>
+  <SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>id: </SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see Anthropic docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 38</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_all'>all</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/files?</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:enumerable</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="create-instance_method">
+          #<STRONG>create</STRONG>(file:, **params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create a file</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../../LLM.html#anthropic-class_method"
+              title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create'>create</SPAN> <SPAN class=
+'label'>file:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/documents/haiku.txt</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../File.html"
+                title="LLM::File (class)">File</A></SPAN></TT>,
+                <TT><SPAN class='object_link'><A href="../File.html" title=
+                "LLM::File (class)">LLM::File</A></SPAN></TT>,
+                <TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The file</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see Anthropic docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 56</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create'>create</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_multi'>multi</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Multipart</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge!'>merge!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'const'>File</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/files</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>content-type</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_content_type'>content_type</SPAN>
+  <SPAN class=
+'id identifier rubyid_set_body_stream'>set_body_stream</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:file</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="get_metadata-instance_method">
+          #<STRONG>get_metadata</STRONG>(file:, **params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'retrieve_metadata-instance_method'>retrieve_metadata</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Retrieve file metadata</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../../LLM.html#anthropic-class_method"
+              title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_get_metadata'>get_metadata</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>file-1234567890</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>id: </SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_id'>id</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>#id</TT>, <TT>#to_s</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The file ID</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters - if any (see Anthropic docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files">https://docs.anthropic.com/en/docs/build-with-claude/files</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+97
+98
+99
+100
+101
+102
+103
+104</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 97</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_get_metadata'>get_metadata</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>?</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:file</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="delete-instance_method">
+          #<STRONG>delete</STRONG>(file:) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Delete a file</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../../LLM.html#anthropic-class_method"
+              title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_delete'>delete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>file-1234567890</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_deleted'>deleted</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>#id</TT>, <TT>#to_s</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The file ID</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+117
+118
+119
+120
+121
+122
+123</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 117</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_delete'>delete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Delete</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="download-instance_method">
+          #<STRONG>download</STRONG>(file:, **params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>You can only download files that were created by the code
+                  execution tool. Files that you uploaded cannot be
+                  downloaded.</P>
+                </DIV>
+              </DIV>
+              <P>Download the contents of a file</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../../LLM.html#anthropic-class_method"
+              title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_download'>download</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>file-1234567890</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='const'><SPAN class='object_link'><A href="../File.html" title=
+"LLM::File (class)">File</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_binwrite'>binwrite</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>program.c</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_read'>read</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_read'>read</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>#id</TT>, <TT>#to_s</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The file ID</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see Anthropic docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+140
+141
+142
+143
+144
+145
+146
+147
+148</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic/files.rb', line 140</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_download'>download</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'>/content?</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_query'>query</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_io'>io</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>StringIO</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_b'>b</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='op'>|</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_read_body'>read_body</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_chunk'>chunk</SPAN><SPAN class='op'>|</SPAN> <SPAN class=
+'id identifier rubyid_io'>io</SPAN> <SPAN class=
+'op'>&lt;&lt;</SPAN> <SPAN class=
+'id identifier rubyid_chunk'>chunk</SPAN> <SPAN class=
+'rbrace'>}</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_define_singleton_method'>define_singleton_method</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='symbol'>:file</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class='lbrace'>{</SPAN> <SPAN class='id identifier rubyid_io'>io</SPAN> <SPAN class='rbrace'>}</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

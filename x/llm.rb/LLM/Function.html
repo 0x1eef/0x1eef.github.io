@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Function — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Function";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (F)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Function</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Function</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Function</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Includes:</DT>
+          <DD><SPAN class='object_link'><A href="Function/Tracing.html" title=
+          "LLM::Function::Tracing (module)">Tracing</A></SPAN></DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/function.rb<SPAN class="defines">,<BR>
+          lib/llm/function/tracing.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Function (class)">LLM::Function</A></SPAN> class represents a
+          local function that can be called by an LLM.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <P class="example_title"></P>
+          <DIV class='inline'>
+            <P>example #1</P>
+          </DIV>
+          <PRE class="example code"><CODE><SPAN class='const'><SPAN class=
+          'object_link'><A href="../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_function'><SPAN class='object_link'><A href=
+          "../LLM.html#function-class_method" title=
+          "LLM.function (method)">function</A></SPAN></SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='symbol'>:system</SPAN><SPAN class=
+          'rparen'>)</SPAN> <SPAN class='kw'>do</SPAN> <SPAN class=
+          'op'>|</SPAN><SPAN class=
+          'id identifier rubyid_fn'>fn</SPAN><SPAN class='op'>|</SPAN>
+  <SPAN class='id identifier rubyid_fn'>fn</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>system</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='id identifier rubyid_fn'>fn</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_description'>description</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Runs system commands</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='id identifier rubyid_fn'>fn</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN> <SPAN class=
+'kw'>do</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_schema'>schema</SPAN><SPAN class='op'>|</SPAN>
+    <SPAN class='id identifier rubyid_schema'>schema</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_object'>object</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>command:</SPAN> <SPAN class=
+'id identifier rubyid_schema'>schema</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_string'>string</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_required'>required</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+  <SPAN class='id identifier rubyid_fn'>fn</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_define'>define</SPAN> <SPAN class=
+'kw'>do</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'label'>command:</SPAN><SPAN class='op'>|</SPAN>
+    <SPAN class='lbrace'>{</SPAN><SPAN class=
+'label'>success:</SPAN> <SPAN class='const'>Kernel</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_system'>system</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_command'>command</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></CODE></PRE>
+          <P class="example_title"></P>
+          <DIV class='inline'>
+            <P>example #2</P>
+          </DIV>
+          <PRE class="example code"><CODE><SPAN class=
+          'kw'>class</SPAN> <SPAN class='const'>System</SPAN> <SPAN class=
+          'op'>&lt;</SPAN> <SPAN class='const'><SPAN class=
+          'object_link'><A href="../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "Tool.html" title="LLM::Tool (class)">Tool</A></SPAN></SPAN>
+  <SPAN class='id identifier rubyid_name'>name</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>system</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class=
+'id identifier rubyid_description'>description</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>Runs system commands</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='id identifier rubyid_params'>params</SPAN> <SPAN class=
+'kw'>do</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_schema'>schema</SPAN><SPAN class='op'>|</SPAN>
+    <SPAN class='id identifier rubyid_schema'>schema</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_object'>object</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>command:</SPAN> <SPAN class=
+'id identifier rubyid_schema'>schema</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_string'>string</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_required'>required</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+
+  <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>command:</SPAN><SPAN class=
+'rparen'>)</SPAN>
+    <SPAN class='lbrace'>{</SPAN><SPAN class=
+'label'>success:</SPAN> <SPAN class='const'>Kernel</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_system'>system</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_command'>command</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="modules">Modules:</STRONG>
+      <SPAN class='object_link'><A href="Function/Tracing.html" title=
+      "LLM::Function::Tracing (module)">Tracing</A></SPAN> <STRONG class=
+      "classes">Classes:</STRONG> <SPAN class='object_link'><A href=
+      "Function/Return.html" title=
+      "LLM::Function::Return (class)">Return</A></SPAN></P>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#id-instance_method" title=
+          "#id (instance method)">#<STRONG>id</STRONG> ⇒
+          String<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the function ID.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#arguments-instance_method"
+          title="#arguments (instance method)">#<STRONG>arguments</STRONG> ⇒
+          Array<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns function
+            arguments.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#tracer-instance_method"
+          title="#tracer (instance method)">#<STRONG>tracer</STRONG> ⇒
+          LLM::Tracer<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a tracer, or nil.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#model-instance_method"
+          title="#model (instance method)">#<STRONG>model</STRONG> ⇒
+          String<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a model name, or
+            nil.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#format_openai-instance_method" title=
+          "#format_openai (instance method)">#<STRONG>format_openai</STRONG>(provider)
+          ⇒ Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#name-instance_method"
+          title="#name (instance method)">#<STRONG>name</STRONG>(name = nil) ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set (or get) the function
+            name.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#description-instance_method" title=
+          "#description (instance method)">#<STRONG>description</STRONG>(desc =
+          nil) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set (or get) the function
+            description.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#params-instance_method"
+          title="#params (instance method)">#<STRONG>params</STRONG> {|schema|
+          ... } ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set (or get) the function
+            parameters.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#define-instance_method"
+          title="#define (instance method)">#<STRONG>define</STRONG>(klass =
+          nil, &amp;b) ⇒ void</A> (also: #register)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set the function
+            implementation.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#call-instance_method"
+          title="#call (instance method)">#<STRONG>call</STRONG> ⇒
+          LLM::Function::Return</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Call the function.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#cancel-instance_method"
+          title="#cancel (instance method)">#<STRONG>cancel</STRONG>(reason:
+          "function call cancelled") ⇒ LLM::Function::Return</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a value that communicates
+            that the function call was cancelled.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#called%3F-instance_method"
+          title="#called? (instance method)">#<STRONG>called?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when a function has been
+            called.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#cancelled%3F-instance_method" title=
+          "#cancelled? (instance method)">#<STRONG>cancelled?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when a function has been
+            cancelled.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#pending%3F-instance_method"
+          title="#pending? (instance method)">#<STRONG>pending?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when a function has
+            neither been called nor cancelled.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#adapt-instance_method"
+          title="#adapt (instance method)">#<STRONG>adapt</STRONG>(provider) ⇒
+          Hash</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(name)
+          {|self| ... } ⇒ Function</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of
+            Function.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(name) {|self| ... } ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Function (class)">Function</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Function.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The function name</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Yield Parameters:</P>
+            <UL class="yieldparam">
+              <LI>
+                <SPAN class='name'>self</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="" title=
+                "LLM::Function (class)">LLM::Function</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The function object</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class='id identifier rubyid_b'>b</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@name</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN>
+  <SPAN class='ivar'>@schema</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Schema.html" title=
+"LLM::Schema (class)">Schema</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN>
+  <SPAN class='ivar'>@called</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>false</SPAN>
+  <SPAN class='ivar'>@cancelled</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>false</SPAN>
+  <SPAN class='kw'>yield</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'kw'>self</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_block_given?'>block_given?</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=
+        "id=-instance_method"></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="id-instance_method">
+          #<STRONG>id</STRONG> ⇒ <TT>String</TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the function ID</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+41
+42
+43</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 41</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_id'>id</SPAN>
+  <SPAN class='ivar'>@id</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="arguments=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="arguments-instance_method">
+          #<STRONG>arguments</STRONG> ⇒ <TT>Array</TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns function arguments</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array</TT>, <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+46
+47
+48</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 46</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_arguments'>arguments</SPAN>
+  <SPAN class='ivar'>@arguments</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="tracer=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="tracer-instance_method">
+          #<STRONG>tracer</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Tracer.html" title=
+          "LLM::Tracer (class)">LLM::Tracer</A></SPAN></TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a tracer, or nil</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Tracer.html" title=
+              "LLM::Tracer (class)">LLM::Tracer</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+51
+52
+53</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 51</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_tracer'>tracer</SPAN>
+  <SPAN class='ivar'>@tracer</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="model=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="model-instance_method">
+          #<STRONG>model</STRONG> ⇒ <TT>String</TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a model name, or nil</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+56
+57
+58</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 56</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_model'>model</SPAN>
+  <SPAN class='ivar'>@model</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="format_openai-instance_method">
+          #<STRONG>format_openai</STRONG>(provider) ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 176</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_format_openai'>format_openai</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>LLM::OpenAI::Responses</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+    <SPAN class='lbrace'>{</SPAN>
+      <SPAN class='label'>type:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>function</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>name:</SPAN> <SPAN class='ivar'>@name</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>description:</SPAN> <SPAN class=
+'ivar'>@description</SPAN><SPAN class='comma'>,</SPAN>
+      <SPAN class='label'>parameters:</SPAN> <SPAN class=
+'ivar'>@params</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_to_h'>to_h</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>additionalProperties:</SPAN> <SPAN class='kw'>false</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>strict:</SPAN> <SPAN class='kw'>true</SPAN>
+    <SPAN class='rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_compact'>compact</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='lbrace'>{</SPAN>
+      <SPAN class='label'>type:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>function</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>name:</SPAN> <SPAN class='ivar'>@name</SPAN><SPAN class=
+'comma'>,</SPAN>
+      <SPAN class='label'>function:</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>name:</SPAN> <SPAN class=
+'ivar'>@name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>description:</SPAN> <SPAN class='ivar'>@description</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>parameters:</SPAN> <SPAN class=
+'ivar'>@params</SPAN><SPAN class='rbrace'>}</SPAN>
+    <SPAN class='rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_compact'>compact</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="name-instance_method">
+          #<STRONG>name</STRONG>(name = nil) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Set (or get) the function name</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The function name</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+73
+74
+75
+76
+77
+78
+79</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 73</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_name'>name</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN>
+    <SPAN class='ivar'>@name</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='ivar'>@name</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="description-instance_method">
+          #<STRONG>description</STRONG>(desc = nil) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Set (or get) the function description</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>desc</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The function description</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+85
+86
+87
+88
+89
+90
+91</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 85</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_description'>description</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_desc'>desc</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_desc'>desc</SPAN>
+    <SPAN class='ivar'>@description</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_desc'>desc</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='ivar'>@description</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="params-instance_method">
+          #<STRONG>params</STRONG> {|schema| ... } ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Set (or get) the function parameters</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Yield Parameters:</P>
+            <UL class="yieldparam">
+              <LI>
+                <SPAN class='name'>schema</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Schema.html"
+                title="LLM::Schema (class)">LLM::Schema</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The schema object</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 97</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_block_given?'>block_given?</SPAN>
+    <SPAN class='kw'>if</SPAN> <SPAN class='ivar'>@params</SPAN>
+      <SPAN class='ivar'>@params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_merge!'>merge!</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='kw'>yield</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='ivar'>@schema</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='kw'>else</SPAN>
+      <SPAN class='ivar'>@params</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>yield</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'ivar'>@schema</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='kw'>end</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='ivar'>@params</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="define-instance_method">
+          #<STRONG>define</STRONG>(klass = nil, &amp;b) ⇒ <TT>void</TT>
+          <SPAN class="aliases">Also known as: <SPAN class="names"><SPAN id=
+          'register-instance_method'>register</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Set the function implementation</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>b</SPAN> <SPAN class='type'>(<TT>Proc</TT>,
+                <TT>Class</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The function implementation</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+113
+114
+115</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 113</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_define'>define</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_klass'>klass</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class=
+'id identifier rubyid_b'>b</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@runner</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_klass'>klass</SPAN> <SPAN class=
+'op'>||</SPAN> <SPAN class='id identifier rubyid_b'>b</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="call-instance_method">
+          #<STRONG>call</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Function/Return.html" title=
+          "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Call the function</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Function/Return.html" title=
+                "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The result of the function call</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+121
+122
+123
+124
+125
+126</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 121</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_call'>call</SPAN>
+  <SPAN class='id identifier rubyid_runner'>runner</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lparen'>(</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'>Class</SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='ivar'>@runner</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'ivar'>@runner</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_new'>new</SPAN> <SPAN class='op'>:</SPAN> <SPAN class=
+'ivar'>@runner</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="Function/Return.html"
+title="LLM::Function::Return (class)">Return</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="#initialize-instance_method" title=
+"LLM::Function#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_runner'>runner</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='id identifier rubyid_arguments'>arguments</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>ensure</SPAN>
+  <SPAN class='ivar'>@called</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>true</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="cancel-instance_method">
+          #<STRONG>cancel</STRONG>(reason: "function call cancelled") ⇒
+          <TT><SPAN class='object_link'><A href="Function/Return.html" title=
+          "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a value that communicates that the function call was
+              cancelled</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>tools:</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class=
+'id identifier rubyid_fn1'>fn1</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_fn2'>fn2</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>I want to run the functions</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN> <SPAN class=
+'id identifier rubyid_ses'>ses</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_functions'>functions</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_map'>map</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:cancel</SPAN><SPAN class='rparen'>)</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Function/Return.html" title=
+              "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+136
+137
+138
+139
+140</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 136</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_cancel'>cancel</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>reason:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>function call cancelled</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="Function/Return.html"
+title="LLM::Function::Return (class)">Return</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="#initialize-instance_method" title=
+"LLM::Function#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class='label'>cancelled:</SPAN> <SPAN class='kw'>true</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>reason:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>ensure</SPAN>
+  <SPAN class='ivar'>@cancelled</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>true</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="called?-instance_method">
+          #<STRONG>called?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when a function has been called</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+145
+146
+147</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 145</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_called?'>called?</SPAN>
+  <SPAN class='ivar'>@called</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="cancelled?-instance_method">
+          #<STRONG>cancelled?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when a function has been cancelled</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+152
+153
+154</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 152</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_cancelled?'>cancelled?</SPAN>
+  <SPAN class='ivar'>@cancelled</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="pending?-instance_method">
+          #<STRONG>pending?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when a function has neither been called nor
+              cancelled</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+159
+160
+161</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 159</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_pending?'>pending?</SPAN>
+  <SPAN class='op'>!</SPAN><SPAN class='ivar'>@called</SPAN> <SPAN class=
+'op'>&amp;&</SPAN> <SPAN class='op'>!</SPAN><SPAN class=
+'ivar'>@cancelled</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="adapt-instance_method">
+          #<STRONG>adapt</STRONG>(provider) ⇒ <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function.rb', line 165</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>LLM::Gemini</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+    <SPAN class='lbrace'>{</SPAN><SPAN class='label'>name:</SPAN> <SPAN class=
+'ivar'>@name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>description:</SPAN> <SPAN class='ivar'>@description</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>parameters:</SPAN> <SPAN class=
+'ivar'>@params</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>LLM::Anthropic</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+    <SPAN class='lbrace'>{</SPAN><SPAN class='label'>name:</SPAN> <SPAN class=
+'ivar'>@name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>description:</SPAN> <SPAN class='ivar'>@description</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>input_schema:</SPAN> <SPAN class=
+'ivar'>@params</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class=
+'id identifier rubyid_format_openai'>format_openai</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

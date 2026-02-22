@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Module: LLM::Contract::Completion — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Contract::Completion";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (C)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Contract.html" title=
+        "LLM::Contract (module)">Contract</A></SPAN></SPAN> » <SPAN class=
+        "title">Completion</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Module: LLM::Contract::Completion <SPAN class=
+      "abstract note title">Abstract</SPAN></H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Extended by:</DT>
+          <DD><SPAN class='object_link'><A href="../Contract.html" title=
+          "LLM::Contract (module)">LLM::Contract</A></SPAN></DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/contract/completion.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <DIV class="note abstract">
+            <STRONG>This module is abstract.</STRONG>
+            <DIV class='inline'></DIV>
+          </DIV>
+          <P>Defines the interface all completion responses must implement</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Constant Summary</H2>
+      <H3 class="inherited">Constants included from <SPAN class=
+      'object_link'><A href="../Contract.html" title=
+      "LLM::Contract (module)">LLM::Contract</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "../Contract.html#ContractError-constant" title=
+      "LLM::Contract::ContractError (constant)">ContractError</A></SPAN></P>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#reasoning_tokens-instance_method" title=
+          "#reasoning_tokens (instance method)">#<STRONG>reasoning_tokens</STRONG>
+          ⇒ Integer</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the number of reasoning
+            tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#input_tokens-instance_method" title=
+          "#input_tokens (instance method)">#<STRONG>input_tokens</STRONG> ⇒
+          Integer</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the number of input
+            tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#output_tokens-instance_method" title=
+          "#output_tokens (instance method)">#<STRONG>output_tokens</STRONG> ⇒
+          Integer</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the number of output
+            tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#messages-instance_method"
+          title="#messages (instance method)">#<STRONG>messages</STRONG> ⇒
+          Array&lt;LLM::Messsage&gt;</A> (also: #choices)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns one or more
+            messages.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#total_tokens-instance_method" title=
+          "#total_tokens (instance method)">#<STRONG>total_tokens</STRONG> ⇒
+          Integer</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the total number of
+            tokens.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#usage-instance_method"
+          title="#usage (instance method)">#<STRONG>usage</STRONG> ⇒
+          LLM::Usage</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns usage information.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#model-instance_method"
+          title="#model (instance method)">#<STRONG>model</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the model name.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H3 class="inherited">Methods included from <SPAN class=
+      'object_link'><A href="../Contract.html" title=
+      "LLM::Contract (module)">LLM::Contract</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "../Contract.html#included-instance_method" title=
+      "LLM::Contract#included (method)">included</A></SPAN></P>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="reasoning_tokens-instance_method">
+          #<STRONG>reasoning_tokens</STRONG> ⇒ <TT>Integer</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the number of reasoning tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Integer</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+35
+36
+37</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 35</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_reasoning_tokens'>reasoning_tokens</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="input_tokens-instance_method">
+          #<STRONG>input_tokens</STRONG> ⇒ <TT>Integer</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the number of input tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Integer</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the number of input tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+21
+22
+23</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 21</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_input_tokens'>input_tokens</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="output_tokens-instance_method">
+          #<STRONG>output_tokens</STRONG> ⇒ <TT>Integer</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the number of output tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Integer</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the number of output tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+28
+29
+30</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 28</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_output_tokens'>output_tokens</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="messages-instance_method">
+          #<STRONG>messages</STRONG> ⇒ <TT>Array&lt;LLM::Messsage&gt;</TT>
+          <SPAN class="aliases">Also known as: <SPAN class="names"><SPAN id=
+          'choices-instance_method'>choices</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns one or more messages</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Array&lt;LLM::Messsage&gt;</TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>Returns one or more messages</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+13
+14
+15</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 13</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_messages'>messages</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="total_tokens-instance_method">
+          #<STRONG>total_tokens</STRONG> ⇒ <TT>Integer</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the total number of tokens</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Integer</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the total number of tokens</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+42
+43
+44</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 42</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_total_tokens'>total_tokens</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="usage-instance_method">
+          #<STRONG>usage</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "../Usage.html" title=
+          "LLM::Usage (class)">LLM::Usage</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns usage information</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "../Usage.html" title=
+                "LLM::Usage (class)">LLM::Usage</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns usage information</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 49</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_usage'>usage</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../Usage.html" title=
+"LLM::Usage (class)">Usage</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN>
+    <SPAN class='label'>input_tokens:</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>output_tokens:</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>reasoning_tokens:</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>total_tokens:</SPAN>
+  <SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="model-instance_method">
+          #<STRONG>model</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the model name</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the model name</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract/completion.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_model'>model</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

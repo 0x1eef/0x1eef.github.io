@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Tracer::Logger — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Tracer::Logger";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (L)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Tracer.html" title=
+        "LLM::Tracer (class)">Tracer</A></SPAN></SPAN> » <SPAN class=
+        "title">Logger</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Tracer::Logger</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName"><SPAN class='object_link'><A href=
+            "../Tracer.html" title=
+            "LLM::Tracer (class)">LLM::Tracer</A></SPAN></SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next"><SPAN class='object_link'><A href=
+              "../Tracer.html" title=
+              "LLM::Tracer (class)">LLM::Tracer</A></SPAN></LI>
+              <LI class="next">LLM::Tracer::Logger</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/tracer/logger.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Tracer::Logger (class)">LLM::Tracer::Logger</A></SPAN> class
+          provides a tracer that provides logging facilities through Ruby's
+          standard library.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+          'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+          "../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+          "../../LLM.html#openai-class_method" title=
+          "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+          'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+          'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+          'tstring_content'>KEY</SPAN><SPAN class=
+          'tstring_end'>"</SPAN></SPAN><SPAN class=
+          'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='comment'># Log to a file
+</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_tracer'>tracer</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Tracer.html" title=
+"LLM::Tracer (class)">Tracer</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Logger</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="#initialize-instance_method" title=
+"LLM::Tracer::Logger#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>path:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/tmp/log.txt</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='comment'># Log to $stdout (default)
+</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_tracer'>tracer</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Tracer.html" title=
+"LLM::Tracer (class)">Tracer</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Logger</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="#initialize-instance_method" title=
+"LLM::Tracer::Logger#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>io:</SPAN> <SPAN class=
+'gvar'>$stdout</SPAN><SPAN class='rparen'>)</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_error-instance_method" title=
+          "#on_request_error (instance method)">#<STRONG>on_request_error</STRONG>(ex:)
+          ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_start-instance_method" title=
+          "#on_request_start (instance method)">#<STRONG>on_request_start</STRONG>(operation:,
+          model: nil) ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_finish-instance_method" title=
+          "#on_request_finish (instance method)">#<STRONG>on_request_finish</STRONG>(operation:,
+          res:, model: nil) ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider,
+          options = {}) ⇒ Logger</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of Logger.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_start-instance_method" title=
+          "#on_tool_start (instance method)">#<STRONG>on_tool_start</STRONG>(id:,
+          name:, arguments:, model:) ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_finish-instance_method" title=
+          "#on_tool_finish (instance method)">#<STRONG>on_tool_finish</STRONG>(result:)
+          ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_error-instance_method" title=
+          "#on_tool_error (instance method)">#<STRONG>on_tool_error</STRONG>(ex:)
+          ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <H3 class="inherited">Methods inherited from <SPAN class=
+      'object_link'><A href="../Tracer.html" title=
+      "LLM::Tracer (class)">LLM::Tracer</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "../Tracer.html#flush!-instance_method" title=
+      "LLM::Tracer#flush! (method)">#flush!</A></SPAN>, <SPAN class=
+      'object_link'><A href="../Tracer.html#inspect-instance_method" title=
+      "LLM::Tracer#inspect (method)">#inspect</A></SPAN>, <SPAN class=
+      'object_link'><A href="../Tracer.html#spans-instance_method" title=
+      "LLM::Tracer#spans (method)">#spans</A></SPAN></P>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider, options = {}) ⇒
+          <TT><SPAN class='object_link'><A href="" title=
+          "LLM::Tracer::Logger (class)">Logger</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Logger.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>provider</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "../Provider.html" title=
+                "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A provider</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>options</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>{}</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>A hash of options</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+18
+19
+20
+21</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 18</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>super</SPAN>
+  <SPAN class='id identifier rubyid_setup!'>setup!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="on_request_error-instance_method">
+          #<STRONG>on_request_error</STRONG>(ex:) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ex</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Error.html"
+              title=
+              "LLM::Error (class)">LLM::Error</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>span</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+              title="LLM::Object (class)">Object</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54
+55
+56</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 48</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_error'>on_request_error</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>ex:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@logger</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_error'>error</SPAN><SPAN class='lparen'>(</SPAN>
+    <SPAN class='label'>tracer:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm.rb (logger)</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>event:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request.error</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>provider:</SPAN> <SPAN class=
+'id identifier rubyid_provider_name'>provider_name</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='label'>error_class:</SPAN> <SPAN class=
+'id identifier rubyid_ex'>ex</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_to_s'>to_s</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>error_message:</SPAN> <SPAN class=
+'id identifier rubyid_ex'>ex</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN>
+  <SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_start-instance_method">
+          #<STRONG>on_request_start</STRONG>(operation:, model: nil) ⇒
+          <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>operation</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>model</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>nil</TT>)</EM></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 26</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_start'>on_request_start</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_operation'>operation</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>chat</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>then</SPAN> <SPAN class=
+'id identifier rubyid_start_chat'>start_chat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>retrieval</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>then</SPAN> <SPAN class='id identifier rubyid_start_retrieval'>start_retrieval</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class='kw'>nil</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_finish-instance_method">
+          #<STRONG>on_request_finish</STRONG>(operation:, res:, model: nil) ⇒
+          <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>operation</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>model</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>nil</TT>)</EM></LI>
+              <LI><SPAN class='name'>res</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Response.html"
+              title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>span</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+              title="LLM::Object (class)">Object</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+37
+38
+39
+40
+41
+42
+43</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 37</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_finish'>on_request_finish</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>res:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_operation'>operation</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>chat</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>then</SPAN> <SPAN class=
+'id identifier rubyid_finish_chat'>finish_chat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>res:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>retrieval</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>then</SPAN> <SPAN class='id identifier rubyid_finish_retrieval'>finish_retrieval</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>res:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class='kw'>nil</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_start-instance_method">
+          #<STRONG>on_tool_start</STRONG>(id:, name:, arguments:, model:) ⇒
+          <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>id</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool call ID assigned by the model/provider</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool (function) name.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>arguments</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The parsed tool arguments.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The model name</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_start'>on_tool_start</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>id:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>name:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>arguments:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@logger</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_info'>info</SPAN><SPAN class='lparen'>(</SPAN>
+    <SPAN class='label'>tracer:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm.rb (logger)</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>event:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>tool.start</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>provider:</SPAN> <SPAN class=
+'id identifier rubyid_provider_name'>provider_name</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>execute_tool</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>tool_id:</SPAN> <SPAN class=
+'id identifier rubyid_id'>id</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>tool_name:</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>tool_arguments:</SPAN> <SPAN class=
+'id identifier rubyid_arguments'>arguments</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>model:</SPAN>
+  <SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_finish-instance_method">
+          #<STRONG>on_tool_finish</STRONG>(result:) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>result</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "../Function/Return.html" title=
+                "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The tool return object.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>span</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The span/context object returned by <SPAN class=
+                  'object_link'><A href="#on_tool_start-instance_method" title=
+                  "LLM::Tracer::Logger#on_tool_start (method)">#on_tool_start</A></SPAN>.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 77</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_finish'>on_tool_finish</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>result:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@logger</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_info'>info</SPAN><SPAN class='lparen'>(</SPAN>
+    <SPAN class='label'>tracer:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm.rb (logger)</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>event:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>tool.finish</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>provider:</SPAN> <SPAN class=
+'id identifier rubyid_provider_name'>provider_name</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>execute_tool</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>tool_id:</SPAN> <SPAN class=
+'id identifier rubyid_result'>result</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='label'>tool_name:</SPAN> <SPAN class=
+'id identifier rubyid_result'>result</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>tool_result:</SPAN> <SPAN class=
+'id identifier rubyid_result'>result</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_value'>value</SPAN>
+  <SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_error-instance_method">
+          #<STRONG>on_tool_error</STRONG>(ex:) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>ex</SPAN> <SPAN class=
+                'type'>(<TT>Exception</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The raised error.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>span</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The span/context object returned by <SPAN class=
+                  'object_link'><A href="#on_tool_start-instance_method" title=
+                  "LLM::Tracer::Logger#on_tool_start (method)">#on_tool_start</A></SPAN>.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/logger.rb', line 92</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_error'>on_tool_error</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>ex:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@logger</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_error'>error</SPAN><SPAN class='lparen'>(</SPAN>
+    <SPAN class='label'>tracer:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm.rb (logger)</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>event:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>tool.error</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>provider:</SPAN> <SPAN class=
+'id identifier rubyid_provider_name'>provider_name</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>execute_tool</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>error_class:</SPAN> <SPAN class=
+'id identifier rubyid_ex'>ex</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_to_s'>to_s</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>error_message:</SPAN> <SPAN class=
+'id identifier rubyid_ex'>ex</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN>
+  <SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

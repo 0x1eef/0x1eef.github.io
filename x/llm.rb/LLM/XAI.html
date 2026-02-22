@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::XAI — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::XAI";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (X)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class="title">XAI</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::XAI</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName"><SPAN class='object_link'><A href=
+            "OpenAI.html" title="LLM::OpenAI (class)">OpenAI</A></SPAN></SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next"><SPAN class='object_link'><A href=
+              "Provider.html" title=
+              "LLM::Provider (class)">Provider</A></SPAN></LI>
+              <LI class="next"><SPAN class='object_link'><A href="OpenAI.html"
+              title="LLM::OpenAI (class)">OpenAI</A></SPAN></LI>
+              <LI class="next">LLM::XAI</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/xai.rb<SPAN class="defines">,<BR>
+          lib/llm/providers/xai/images.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The XAI class implements a provider for <A href=
+          "https://docs.x.ai">xAI</A>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+
+<SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_xai'><SPAN class=
+'object_link'><A href="../LLM.html#xai-class_method" title=
+"LLM.xai (method)">xai</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Tell me about this photo</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_ses'>ses</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_local_file'>local_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/images/photo.png</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_select'>select</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:assistant?</SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_print'>print</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>[</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>]</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='rbrace'>}</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="classes">Classes:</STRONG>
+      <SPAN class='object_link'><A href="XAI/Images.html" title=
+      "LLM::XAI::Images (class)">Images</A></SPAN></P>
+      <H2>Constant Summary</H2>
+      <H3 class="inherited">Constants inherited from <SPAN class=
+      'object_link'><A href="OpenAI.html" title=
+      "LLM::OpenAI (class)">OpenAI</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "OpenAI.html#HOST-constant" title=
+      "LLM::OpenAI::HOST (constant)">OpenAI::HOST</A></SPAN></P>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#default_model-instance_method" title=
+          "#default_model (instance method)">#<STRONG>default_model</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the default model for chat
+            completions #see <A href=
+            "https://docs.x.ai/docs/models">https://docs.x.ai/docs/models</A>
+            grok-4-0709.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#files-instance_method"
+          title="#files (instance method)">#<STRONG>files</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#images-instance_method"
+          title="#images (instance method)">#<STRONG>images</STRONG> ⇒
+          LLM::XAI::Images</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#audio-instance_method"
+          title="#audio (instance method)">#<STRONG>audio</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#moderations-instance_method" title=
+          "#moderations (instance method)">#<STRONG>moderations</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#responses-instance_method"
+          title="#responses (instance method)">#<STRONG>responses</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#vector_stores-instance_method" title=
+          "#vector_stores (instance method)">#<STRONG>vector_stores</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(host:
+          "api.x.ai") ⇒ XAI</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of XAI.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H3 class="inherited">Methods inherited from <SPAN class=
+      'object_link'><A href="OpenAI.html" title=
+      "LLM::OpenAI (class)">OpenAI</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "OpenAI.html#assistant_role-instance_method" title=
+      "LLM::OpenAI#assistant_role (method)">#assistant_role</A></SPAN>,
+      <SPAN class='object_link'><A href="OpenAI.html#complete-instance_method"
+      title="LLM::OpenAI#complete (method)">#complete</A></SPAN>, <SPAN class=
+      'object_link'><A href="OpenAI.html#embed-instance_method" title=
+      "LLM::OpenAI#embed (method)">#embed</A></SPAN>, <SPAN class=
+      'object_link'><A href="OpenAI.html#models-instance_method" title=
+      "LLM::OpenAI#models (method)">#models</A></SPAN>, <SPAN class=
+      'object_link'><A href="OpenAI.html#server_tools-instance_method" title=
+      "LLM::OpenAI#server_tools (method)">#server_tools</A></SPAN>,
+      <SPAN class='object_link'><A href=
+      "OpenAI.html#web_search-instance_method" title=
+      "LLM::OpenAI#web_search (method)">#web_search</A></SPAN></P>
+      <H3 class="inherited">Methods inherited from <SPAN class=
+      'object_link'><A href="Provider.html" title=
+      "LLM::Provider (class)">Provider</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "Provider.html#assistant_role-instance_method" title=
+      "LLM::Provider#assistant_role (method)">#assistant_role</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#chat-instance_method"
+      title="LLM::Provider#chat (method)">#chat</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#clients-class_method" title=
+      "LLM::Provider.clients (method)">clients</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#complete-instance_method" title=
+      "LLM::Provider#complete (method)">#complete</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#developer_role-instance_method"
+      title="LLM::Provider#developer_role (method)">#developer_role</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#embed-instance_method"
+      title="LLM::Provider#embed (method)">#embed</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#inspect-instance_method" title=
+      "LLM::Provider#inspect (method)">#inspect</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#models-instance_method" title=
+      "LLM::Provider#models (method)">#models</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#respond-instance_method" title=
+      "LLM::Provider#respond (method)">#respond</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#schema-instance_method" title=
+      "LLM::Provider#schema (method)">#schema</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#server_tool-instance_method" title=
+      "LLM::Provider#server_tool (method)">#server_tool</A></SPAN>,
+      <SPAN class='object_link'><A href=
+      "Provider.html#server_tools-instance_method" title=
+      "LLM::Provider#server_tools (method)">#server_tools</A></SPAN>,
+      <SPAN class='object_link'><A href=
+      "Provider.html#system_role-instance_method" title=
+      "LLM::Provider#system_role (method)">#system_role</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#tracer-instance_method"
+      title="LLM::Provider#tracer (method)">#tracer</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#tracer=-instance_method" title=
+      "LLM::Provider#tracer= (method)">#tracer=</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#user_role-instance_method" title=
+      "LLM::Provider#user_role (method)">#user_role</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#web_search-instance_method" title=
+      "LLM::Provider#web_search (method)">#web_search</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#with-instance_method" title=
+      "LLM::Provider#with (method)">#with</A></SPAN></P>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(host: "api.x.ai") ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::XAI (class)">XAI</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of XAI.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>host</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"api.x.ai"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>A regional host or the default ("api.x.ai")</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>key</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The secret key for authentication</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://docs.x.ai/docs/key-information/regions"
+                target="_parent" title="Regional endpoints">Regional
+                endpoints</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+24
+25
+26</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 24</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>host:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>api.x.ai</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>super</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="default_model-instance_method">
+          #<STRONG>default_model</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the default model for chat completions</P>
+              <H1 id="see-https-docs-x-ai-docs-models-grok-4-0709">see <A href=
+              "https://docs.x.ai/docs/models">https://docs.x.ai/docs/models</A>
+              grok-4-0709</H1>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+68
+69
+70</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 68</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_default_model'>default_model</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>grok-4-0709</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="files-instance_method">
+          #<STRONG>files</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+30
+31
+32</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 30</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_files'>files</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="images-instance_method">
+          #<STRONG>images</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "XAI/Images.html" title=
+          "LLM::XAI::Images (class)">LLM::XAI::Images</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "XAI/Images.html" title=
+              "LLM::XAI::Images (class)">LLM::XAI::Images</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_images'>images</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::XAI (class)">XAI</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="XAI/Images.html" title=
+"LLM::XAI::Images (class)">Images</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="OpenAI/Images.html#initialize-instance_method" title=
+"LLM::OpenAI::Images#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="audio-instance_method">
+          #<STRONG>audio</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+42
+43
+44</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 42</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_audio'>audio</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="moderations-instance_method">
+          #<STRONG>moderations</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+48
+49
+50</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 48</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_moderations'>moderations</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="responses-instance_method">
+          #<STRONG>responses</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+54
+55
+56</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 54</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_responses'>responses</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="vector_stores-instance_method">
+          #<STRONG>vector_stores</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+60
+61
+62</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/xai.rb', line 60</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_vector_stores'>vector_stores</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

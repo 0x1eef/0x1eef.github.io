@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::JSONAdapter::JSON — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::JSONAdapter::JSON";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (J)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../JSONAdapter.html" title=
+        "LLM::JSONAdapter (class)">JSONAdapter</A></SPAN></SPAN> » <SPAN class=
+        "title">JSON</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::JSONAdapter::JSON</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName"><SPAN class='object_link'><A href=
+            "../JSONAdapter.html" title=
+            "LLM::JSONAdapter (class)">LLM::JSONAdapter</A></SPAN></SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next"><SPAN class='object_link'><A href=
+              "../JSONAdapter.html" title=
+              "LLM::JSONAdapter (class)">LLM::JSONAdapter</A></SPAN></LI>
+              <LI class="next">LLM::JSONAdapter::JSON</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/json_adapter.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::JSONAdapter::JSON (class)">LLM::JSONAdapter::JSON</A></SPAN>
+          class provides a JSON adapter backed by the standard library JSON
+          module.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Class Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#dump-class_method" title=
+          "dump (class method)">.<STRONG>dump</STRONG>(obj) ⇒ Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#load-class_method" title=
+          "load (class method)">.<STRONG>load</STRONG>(string) ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#parser_error-class_method"
+          title="parser_error (class method)">.<STRONG>parser_error</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="class_method_details" class="method_details_list">
+        <H2>Class Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="dump-class_method">
+          .<STRONG>dump</STRONG>(obj) ⇒ <TT><SPAN class='object_link'><A href=
+          "../Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+38
+39
+40
+41</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/json_adapter.rb', line 38</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>json</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>unless</SPAN> <SPAN class=
+'kw'>defined?</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../../JSON.html" title="JSON (module)">JSON</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='op'>::</SPAN><SPAN class='const'><SPAN class=
+'object_link'><A href="../../JSON.html" title=
+"JSON (module)">JSON</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="load-class_method">
+          .<STRONG>load</STRONG>(string) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+45
+46
+47
+48</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/json_adapter.rb', line 45</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_load'>load</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_string'>string</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>json</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>unless</SPAN> <SPAN class=
+'kw'>defined?</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../../JSON.html" title="JSON (module)">JSON</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='op'>::</SPAN><SPAN class='const'><SPAN class=
+'object_link'><A href="../../JSON.html" title=
+"JSON (module)">JSON</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_parse'>parse</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_string'>string</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="parser_error-class_method">
+          .<STRONG>parser_error</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="../Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+52
+53
+54
+55</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/json_adapter.rb', line 52</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_parser_error'>parser_error</SPAN>
+  <SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>json</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>unless</SPAN> <SPAN class=
+'kw'>defined?</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../../JSON.html" title="JSON (module)">JSON</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='lbracket'>[</SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../JSON.html" title=
+"JSON (module)">JSON</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>ParserError</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

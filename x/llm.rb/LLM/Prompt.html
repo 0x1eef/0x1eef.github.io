@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Prompt — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Prompt";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (P)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Prompt</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Prompt</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Prompt</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/prompt.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P><SPAN class='object_link'><A href="" title=
+          "LLM::Prompt (class)">LLM::Prompt</A></SPAN> is a small object for
+          composing a single request from multiple role-aware messages. A
+          prompt is not just a string. It is an ordered chain of messages with
+          explicit roles (for example <CODE>system</CODE> and
+          <CODE>user</CODE>). Use <SPAN class='object_link'><A href=
+          "Session.html#prompt-instance_method" title=
+          "LLM::Session#prompt (method)">Session#prompt</A></SPAN> when
+          building a prompt inside a session. Use
+          <CODE>LLM::Prompt.new(provider)</CODE> directly when you want to
+          construct or pass prompt objects around explicitly.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+          'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+          "../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+          "../LLM.html#openai-class_method" title=
+          "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+          'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+          'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+          'tstring_content'>KEY</SPAN><SPAN class=
+          'tstring_end'>"</SPAN></SPAN><SPAN class=
+          'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'rparen'>)</SPAN>
+
+<SPAN class='id identifier rubyid_prompt'>prompt</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN> <SPAN class='kw'>do</SPAN>
+  <SPAN class='id identifier rubyid_system'>system</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Your task is to assist the user</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='id identifier rubyid_user'>user</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Hello. Can you assist me?</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN>
+
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_prompt'>prompt</SPAN><SPAN class='rparen'>)</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider,
+          &amp;b) ⇒ Prompt</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of Prompt.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#talk-instance_method"
+          title="#talk (instance method)">#<STRONG>talk</STRONG>(content, role:
+          @provider.user_role) ⇒ void</A> (also: #chat)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#user-instance_method"
+          title="#user (instance method)">#<STRONG>user</STRONG>(content) ⇒
+          void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#system-instance_method"
+          title="#system (instance method)">#<STRONG>system</STRONG>(content) ⇒
+          void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#developer-instance_method"
+          title=
+          "#developer (instance method)">#<STRONG>developer</STRONG>(content) ⇒
+          void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#to_a-instance_method"
+          title="#to_a (instance method)">#<STRONG>to_a</STRONG> ⇒
+          Array&lt;LLM::Message&gt;</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the prompt messages in
+            order.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider, &amp;b) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Prompt (class)">Prompt</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Prompt.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>provider</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Provider.html"
+                title=
+                "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A provider used to resolve provider-specific role
+                  names.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>b</SPAN> <SPAN class=
+                'type'>(<TT>Proc</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A block that composes messages. If the block takes one
+                  argument, it receives the prompt object. Otherwise the block
+                  runs in the prompt context via
+                  <CODE>instance_eval</CODE>.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+30
+31
+32
+33
+34
+35
+36</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/prompt.rb', line 30</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class=
+'id identifier rubyid_b'>b</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+  <SPAN class='ivar'>@buffer</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='rbracket'>]</SPAN>
+  <SPAN class='kw'>unless</SPAN> <SPAN class=
+'id identifier rubyid_b'>b</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_nil?'>nil?</SPAN>
+    <SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_b'>b</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_arity'>arity</SPAN> <SPAN class=
+'op'>==</SPAN> <SPAN class='int'>1</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_b'>b</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>:</SPAN> <SPAN class=
+'id identifier rubyid_instance_eval'>instance_eval</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'id identifier rubyid_b'>b</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="talk-instance_method">
+          #<STRONG>talk</STRONG>(content, role: @provider.user_role) ⇒
+          <TT>void</TT> <SPAN class="aliases">Also known as: <SPAN class=
+          "names"><SPAN id=
+          'chat-instance_method'>chat</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>content</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The message</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>role</SPAN> <SPAN class=
+                'type'>(<TT>Symbol</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>@provider.user_role</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The role (eg user, system)</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/prompt.rb', line 44</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_talk'>talk</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_content'>content</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>role:</SPAN> <SPAN class='ivar'>@provider</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_user_role'>user_role</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_role'>role</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_sym'>to_sym</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='symbol'>:system</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class='ivar'>@provider</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_system_role'>system_role</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='symbol'>:user</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class='ivar'>@provider</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_user_role'>user_role</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class=
+'symbol'>:developer</SPAN> <SPAN class='kw'>then</SPAN> <SPAN class=
+'ivar'>@provider</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_developer_role'>developer_role</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class=
+'id identifier rubyid_role'>role</SPAN>
+  <SPAN class='kw'>end</SPAN>
+  <SPAN class='ivar'>@buffer</SPAN> <SPAN class=
+'op'>&lt;&lt;</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Message.html" title=
+"LLM::Message (class)">Message</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Message.html#initialize-instance_method" title=
+"LLM::Message#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_content'>content</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="user-instance_method">
+          #<STRONG>user</STRONG>(content) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>content</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The message content</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+59
+60
+61</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/prompt.rb', line 59</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_user'>user</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_content'>content</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_chat'>chat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>role:</SPAN> <SPAN class=
+'ivar'>@provider</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_user_role'>user_role</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="system-instance_method">
+          #<STRONG>system</STRONG>(content) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>content</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The message content</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+67
+68
+69</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/prompt.rb', line 67</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_system'>system</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_chat'>chat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>role:</SPAN> <SPAN class=
+'ivar'>@provider</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_system_role'>system_role</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="developer-instance_method">
+          #<STRONG>developer</STRONG>(content) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>content</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The message content</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+75
+76
+77</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/prompt.rb', line 75</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_developer'>developer</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_chat'>chat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>role:</SPAN> <SPAN class=
+'ivar'>@provider</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_developer_role'>developer_role</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="to_a-instance_method">
+          #<STRONG>to_a</STRONG> ⇒ <TT>Array&lt;<SPAN class=
+          'object_link'><A href="Message.html" title=
+          "LLM::Message (class)">LLM::Message</A></SPAN>&gt;</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the prompt messages in order.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Array&lt;<SPAN class=
+                'object_link'><A href="Message.html" title=
+                "LLM::Message (class)">LLM::Message</A></SPAN>&gt;</TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>Returns the prompt messages in order.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+82
+83
+84</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/prompt.rb', line 82</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_to_a'>to_a</SPAN>
+  <SPAN class='ivar'>@buffer</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_dup'>dup</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

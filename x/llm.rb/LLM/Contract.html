@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Module: LLM::Contract — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Contract";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (C)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Contract</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Module: LLM::Contract</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Included in:</DT>
+          <DD><SPAN class='object_link'><A href="Contract/Completion.html"
+          title="LLM::Contract::Completion (module)">Completion</A></SPAN></DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/contract.rb<SPAN class="defines">,<BR>
+          lib/llm/contract/completion.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <CODE>LLM::Contract</CODE> module provides the ability for
+          modules who are extended by it to implement contracts which must be
+          implemented by other modules who include a given contract.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'kw'>module</SPAN> <SPAN class='const'><SPAN class=
+          'object_link'><A href="../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'>Contract</SPAN>
+   <SPAN class='comment'># ..
+</SPAN><SPAN class='kw'>end</SPAN>
+
+<SPAN class='kw'>module</SPAN> <SPAN class='const'><SPAN class=
+'object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>Contract</SPAN>
+  <SPAN class='kw'>module</SPAN> <SPAN class='const'><SPAN class=
+'object_link'><A href="Contract/Completion.html" title=
+"LLM::Contract::Completion (module)">Completion</A></SPAN></SPAN>
+    <SPAN class='id identifier rubyid_extend'>extend</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>Contract</SPAN>
+    <SPAN class='comment'># inheriting modules must implement these methods
+</SPAN>    <SPAN class='comment'># otherwise an error is raised on include
+</SPAN>    <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_foo'>foo</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+    <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_bar'>bar</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN>
+
+<SPAN class='kw'>module</SPAN> <SPAN class='const'><SPAN class=
+'object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="OpenAI.html" title=
+"LLM::OpenAI (class)">OpenAI</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>ResponseAdapter</SPAN>
+  <SPAN class='kw'>module</SPAN> <SPAN class='const'><SPAN class=
+'object_link'><A href="Contract/Completion.html" title=
+"LLM::Contract::Completion (module)">Completion</A></SPAN></SPAN>
+    <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_foo'>foo</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+    <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_bar'>bar</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+    <SPAN class='id identifier rubyid_include'>include</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>Contract</SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Contract/Completion.html" title=
+"LLM::Contract::Completion (module)">Completion</A></SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="modules">Modules:</STRONG>
+      <SPAN class='object_link'><A href="Contract/Completion.html" title=
+      "LLM::Contract::Completion (module)">Completion</A></SPAN></P>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="ContractError-constant" class="">ContractError =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'>Class</SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_new'>new</SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='const'><SPAN class=
+          'object_link'><A href="../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "Error.html" title=
+          "LLM::Error (class)">Error</A></SPAN></SPAN><SPAN class=
+          'rparen'>)</SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#included-instance_method"
+          title="#included (instance method)">#<STRONG>included</STRONG>(mod) ⇒
+          Object</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="included-instance_method">
+          #<STRONG>included</STRONG>(mod) ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/contract.rb', line 37</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_included'>included</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_mod'>mod</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_meths'>meths</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_mod'>mod</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_instance_methods'>instance_methods</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>false</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_meths'>meths</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_empty?'>empty?</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="#ContractError-constant" title=
+"LLM::Contract::ContractError (constant)">ContractError</A></SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_mod'>mod</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'> does not implement any methods required by </SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+  <SPAN class='id identifier rubyid_missing'>missing</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_instance_methods'>instance_methods</SPAN> <SPAN class=
+'op'>-</SPAN> <SPAN class='id identifier rubyid_meths'>meths</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_missing'>missing</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_any?'>any?</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="#ContractError-constant" title=
+"LLM::Contract::ContractError (constant)">ContractError</A></SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_mod'>mod</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'> does not implement methods (</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_missing'>missing</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_join'>join</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>, </SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>) required by </SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

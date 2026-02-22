@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to make syscalls in Go">
+  <META property="og:description" content=
+  "Documents how to make syscalls in Go">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-make-syscalls-in-go">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post takes a look at the <A href=
+      "https://pkg.go.dev/golang.org/x/sys/unix">unix</A> package and how it
+      can be used to make system calls on FreeBSD in Go.</P>
+      <H2>Background</H2>
+      <P>The FreeBSD kernel implements <A href=
+      "https://github.com/freebsd/freebsd-src/blob/main/sys/sys/syscall.h">hundreds
+      of system calls</A> and they allow userspace programs to ask the kernel
+      to execute an operation on their behalf. For example, the <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=write&amp;sektion=2">write(2)</A>
+      system call allows a userspace program to write data to a file
+      descriptor, and the <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=read&amp;sektion=2">read(2)</A>
+      system call allows a userspace program to read data from a file
+      descriptor, and so on.</P>
+      <P>Most of the time we're not going to be interested in binding to system
+      calls like <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=read&amp;sektion=2">read(2)</A>
+      or <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=write&amp;sektion=2">write(2)</A>,
+      but instead we might be interested in system calls more specific to
+      FreeBSD that may not have extensive support in the Go standard library or
+      beyond. For example, I recently worked on <A href=
+      "https://github.com/0x1eef/jail#readme">a project</A> where I used the
+      <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=jail_get&amp;sektion=2">jail_get(2)</A>
+      and <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=jail_set&amp;sektion=2">jail_set(2)</A>
+      system calls to build a high level abstraction around FreeBSD jails. And
+      I wanted to document what I learned in the process when it comes to the
+      unix package and system calls in Go in general.</P>
+      <H2>Experiment</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>For this example we will use <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=getpid&amp;sektion=2">getpid(2)</A>.
+      It does not take any arguments. When we call <A href=
+      "https://pkg.go.dev/golang.org/x/sys/unix#Syscall">unix.Syscall</A>, the
+      first value is the trap number (the syscall number), which is 20 for
+      <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=getpid&amp;sektion=2">getpid(2)</A>
+      on FreeBSD. The next three values are syscall arguments, and since
+      <A href=
+      "https://www.freebsd.org/cgi/man.cgi?query=getpid&amp;sektion=2">getpid(2)</A>
+      takes none, we pass 0, 0, and 0. <A href=
+      "https://pkg.go.dev/golang.org/x/sys/unix#Syscall">unix.Syscall</A>
+      returns three values: the syscall return value, a second return value
+      that is usually ignored, and errno in case the syscall fails:</P>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "fmt"
+  "log"
+
+  "golang.org/x/sys/unix"
+)
+
+var (
+  sysGetPid = uintptr(20)
+)
+
+func main() {
+  pid, _, errno := unix.Syscall(sysGetPid, 0, 0, 0)
+  if errno != 0 {
+    log.Fatalf("%v", errno)
+  }
+  fmt.Printf("The process ID is %d\n", pid)
+}
+</CODE></PRE><BR>
+      <H4>Explanation</H4>
+      <UL>
+        <LI>
+          <P><CODE>sysGetPid = uintptr(20)</CODE><BR>
+          This line defines the system call number for <A href=
+          "https://www.freebsd.org/cgi/man.cgi?query=getpid&amp;sektion=2">getpid(2)</A></P>
+        </LI>
+        <LI>
+          <P><CODE>pid, _, errno := unix.Syscall(sysGetPid, 0, 0, 0)</CODE><BR>
+          This line executes the system call. A breakdown:</P>
+          <UL>
+            <LI>
+              <P><CODE>pid</CODE><BR>
+              This variable holds the primary return value from the system
+              call.</P>
+            </LI>
+            <LI>
+              <P><CODE>_</CODE><BR>
+              This variable holds a secondary return value, and it is usually
+              not used.</P>
+            </LI>
+            <LI>
+              <P><CODE>errno</CODE><BR>
+              This variable holds the syscall error code returned by
+              unix.Syscall.</P>
+            </LI>
+          </UL>
+        </LI>
+        <LI>
+          <P><CODE>if errno != 0 { log.Fatalf("%v", errno) }</CODE><BR>
+          This line confirms whether the system call was successful or not.</P>
+        </LI>
+        <LI>
+          <P><CODE>fmt.Printf("The process ID is %d\n", pid)</CODE><BR>
+          Prints the process ID when <CODE>errno == 0</CODE>.</P>
+        </LI>
+      </UL>
+      <H2>Related</H2>
+      <UL>
+        <LI>
+          <A href=
+          "https://pkg.go.dev/golang.org/x/sys/unix#Syscall6">unix.Syscall6</A><BR>
+
+          This function is used when the system call takes 6 arguments instead
+          of 3.
+        </LI>
+      </UL>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

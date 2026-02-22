@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content=
+  "How to install extensions with code-server">
+  <META property="og:description" content=
+  "Documents how to install extensions with code-server">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-install-extensions-with-code-server">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to install "desktop" extensions with <A href=
+      "https://github.com/coder/code-server">code-server</A> - a popular way to
+      run Visual Studio Code in the browser.</P>
+      <H2>Background</H2>
+      <P>The <A href="https://github.com/coder/code-server">code-server</A>
+      project can run an instance of Visual Studio Code in the browser. I run
+      code-server on my FreeBSD computers and it provides a development
+      environment for my OpenBSD laptops.</P>
+      <P>By default the extensions that can be installed with code-server are
+      limited to "web" extensions that are designed to run in a browser
+      environment. It's also possible to use and install "desktop" extensions
+      too but the install path is less obvious and requires a few manual steps
+      that must be performed at the command-line.</P>
+      <H2>Download</H2>
+      <H4>Overview</H4>
+      <P>The first step involves downloading an extension as a vsix file, which
+      is a zip archive that contains the extension's code and metadata.</P>
+      <P>The Python-based <A href="https://github.com/gni/offvsix">offvsix</A>
+      project provides a command-line utility that can download extensions from
+      the Visual Studio Code marketplace. The following downloads the extension
+      at the command-line and saves it to the <CODE>extensions/</CODE>
+      directory:</P>
+      <PRE><CODE class="language-sh">user@localhost$ pip install offvsix
+# &lt;snip&gt;
+
+user@localhost$ offvsix golang.go
+==================================================
+Downloading golang.go
+==================================================
+Querying Marketplace API...
+Downloading version 0.51.1...
+**************************************************
+Successfully downloaded to: extensions/golang.go-0.51.1.vsix
+**************************************************
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI>
+          <P><CODE>pip install offvsix</CODE><BR>
+          This command installs the <CODE>offvsix</CODE> utility using Python's
+          package manager: pip.</P>
+        </LI>
+        <LI>
+          <P><CODE>offvsix golang.go</CODE><BR>
+          This command uses <CODE>offvsix</CODE> to download the Visual Studio
+          Code extension with the identifier <CODE>golang.go</CODE>, which is
+          the Go language extension.</P>
+        </LI>
+      </UL>
+      <H2>Install</H2>
+      <H4>Overview</H4>
+      <P>After the extension has been downloaded we are ready to begin the
+      install process with the <A href=
+      "https://github.com/coder/code-server">code-server</A> command-line
+      utility:</P>
+      <PRE><CODE class=
+      "language-sh">user@localhost$ code-server --install-extension extensions/golang.go-0.51.1.vsix
+Installing extensions...
+Extension 'golang.go-0.51.1.vsix' was successfully installed.
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI><CODE>code-server --install-extension
+        extensions/golang.go-0.51.1.vsix</CODE><BR>
+        This command installs the downloaded extension using the
+        <CODE>code-server</CODE> command-line utility. The path to the
+        downloaded vsix file is provided as an argument.</LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P>It took me months to realize that <A href=
+      "https://github.com/coder/code-server">code-server</A> could install and
+      use desktop extensions as well as "web" extensions, and once I figured it
+      out I wanted to document the process for others (and my future self). I
+      hope this post might help others who are using <A href=
+      "https://github.com/coder/code-server">code-server</A> to drive their
+      development environments.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

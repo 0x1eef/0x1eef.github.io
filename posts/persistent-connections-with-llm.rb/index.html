@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content=
+  "Performance gains with persistent connections">
+  <META property="og:description" content=
+  "Documents performance gains with persistent connections and llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/persistent-connections-with-llm.rb/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>In this post I tried the opt-in persistent connection pool in <A href=
+      "https://github.com/llmrb/llm#readme">llm.rb</A>. It relies on <A href=
+      "https://github.com/drbrain/net-http-persistent">net-http-persistent</A>,
+      which you install separately.</P>
+      <H2>Background</H2>
+      <P>By default, each <A href=
+      "https://github.com/llmrb/llm#readme">llm.rb</A> request opens and closes
+      a socket. That’s fine for occasional calls, but it can get expensive when
+      you’re doing many requests back-to-back. To avoid repeated DNS/TCP/TLS
+      setup costs, llm.rb can reuse sockets through a persistent connection
+      pool backed by <A href=
+      "https://github.com/drbrain/net-http-persistent">net-http-persistent</A>.</P>
+      <P>The <A href=
+      "https://github.com/drbrain/net-http-persistent">net-http-persistent</A>
+      gem keeps a pool of warm connections that can be reused across requests
+      and threads. It’s thread-safe, which makes it a good fit for background
+      jobs or web workers.</P>
+      <P>Install it once:</P>
+      <PRE><CODE class="language-sh">gem install net-http-persistent
+</CODE></PRE>
+      <H2>Experiment</H2>
+      <P>The following is a minimal example that configures an instance of
+      <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/OpenAI.html"><CODE>LLM::OpenAI</CODE></A>
+      to use a connection pool where each request in the example reuses the
+      same socket that was initially created for the first request. In practice
+      this can speed things up because the expensive setup (DNS lookup, TCP /
+      SSL handshakes) only happens once per socket.</P>
+      <P>The optimization applies to <STRONG>all</STRONG> requests for a
+      <STRONG>single provider</STRONG> - that means a socket can be reused
+      across API endpoints, and even across multiple instances of <A href=
+      "https://0x1eef.github.io/x/llm.rb/LLM/OpenAI.html"><CODE>LLM::OpenAI</CODE></A>
+      that exist in different threads (eg a Sidekiq environment). The
+      optimization is applied automatically as long as an object opts in via
+      the <CODE>persistent</CODE> option:</P>
+      <PRE><CODE class="language-ruby">#!/usr/bin/env ruby
+require "llm"
+llm = LLM.openai(key: ENV["OPENAI_SECRET"], persistent: true)
+res1 = llm.responses.create "message 1"
+res2 = llm.responses.create "message 2", previous_response_id: res1.response_id
+res3 = llm.responses.create "message 3", previous_response_id: res2.response_id
+</CODE></PRE>
+      <H2>Conclusion</H2>
+      <P>For most environments, opting into the connection pool is a reasonable
+      choice because it removes repeated DNS/TCP/TLS setup costs and makes
+      back-to-back requests cheaper. llm.rb provides first-class support for
+      this feature and tries to keep the pool saturated when it can.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

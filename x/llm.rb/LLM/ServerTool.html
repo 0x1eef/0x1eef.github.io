@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::ServerTool — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::ServerTool";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (S)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">ServerTool</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::ServerTool</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Struct</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">Struct</LI>
+              <LI class="next">LLM::ServerTool</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/server_tool.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::ServerTool (class)">LLM::ServerTool</A></SPAN> class represents
+          a platform-native tool that can be activated by an LLM provider.
+          Unlike <SPAN class='object_link'><A href="Function.html" title=
+          "LLM::Function (class)">LLM::Function</A></SPAN>, these tools are
+          pre-defined by the provider and their capabilities are already known
+          to the underlying LLM.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_gemini'><SPAN class=
+'object_link'><A href="../LLM.html#gemini-class_method" title=
+"LLM.gemini (method)">gemini</A></SPAN></SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>tools:</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>ServerTool</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:google_search</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>Summarize today's news</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>role:</SPAN> <SPAN class='symbol'>:user</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'id identifier rubyid_ses'>ses</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_find'>find</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class='symbol'>:assistant?</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_content'>content</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#name-instance_method"
+          title="#name (instance method)">#<STRONG>name</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            name.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#options-instance_method"
+          title="#options (instance method)">#<STRONG>options</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            options.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#provider-instance_method"
+          title="#provider (instance method)">#<STRONG>provider</STRONG> ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the value of attribute
+            provider.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#to_json-instance_method"
+          title="#to_json (instance method)">#<STRONG>to_json</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#to_h-instance_method"
+          title="#to_h (instance method)">#<STRONG>to_h</STRONG> ⇒ Hash</A>
+          (also: #to_hash)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=
+        "name=-instance_method"></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="name-instance_method">
+          #<STRONG>name</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute name</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of name</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+15
+16
+17</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/server_tool.rb', line 15</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_name'>name</SPAN>
+  <SPAN class='ivar'>@name</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="options=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="options-instance_method">
+          #<STRONG>options</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute options</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of options</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+15
+16
+17</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/server_tool.rb', line 15</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN>
+  <SPAN class='ivar'>@options</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id="provider=-instance_method"></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="provider-instance_method">
+          #<STRONG>provider</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the value of attribute provider</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>the current value of provider</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+15
+16
+17</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/server_tool.rb', line 15</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+  <SPAN class='ivar'>@provider</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="to_json-instance_method">
+          #<STRONG>to_json</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+18
+19
+20</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/server_tool.rb', line 18</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_to_json'>to_json</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_to_h'>to_h</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_to_json'>to_json</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="to_h-instance_method">
+          #<STRONG>to_h</STRONG> ⇒ <TT>Hash</TT> <SPAN class="aliases">Also
+          known as: <SPAN class="names"><SPAN id=
+          'to_hash-instance_method'>to_hash</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/server_tool.rb', line 24</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_to_h'>to_h</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>LLM::Anthropic</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>then</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge'>merge</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>name</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>LLM::Gemini</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='kw'>then</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN> <SPAN class=
+'op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge'>merge</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>type</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

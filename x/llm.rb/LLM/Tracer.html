@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Tracer — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Tracer";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (T)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Tracer</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Tracer</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Tracer</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/tracer.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Tracer (class)">LLM::Tracer</A></SPAN> is the superclass of all
+          LLM tracers. It can be helpful for implementing instrumentation and
+          hooking into the lifecycle of an LLM request. See <SPAN class=
+          'object_link'><A href="Tracer/Telemetry.html" title=
+          "LLM::Tracer::Telemetry (class)">LLM::Tracer::Telemetry</A></SPAN>,
+          and <SPAN class='object_link'><A href="Tracer/Logger.html" title=
+          "LLM::Tracer::Logger (class)">LLM::Tracer::Logger</A></SPAN> for
+          example tracer implementations.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <DIV id="subclasses">
+        <H2>Direct Known Subclasses</H2>
+        <P class="children"><SPAN class='object_link'><A href=
+        "Tracer/Logger.html" title=
+        "LLM::Tracer::Logger (class)">Logger</A></SPAN>, <SPAN class=
+        'object_link'><A href="Tracer/Null.html" title=
+        "LLM::Tracer::Null (class)">Null</A></SPAN>, <SPAN class=
+        'object_link'><A href="Tracer/Telemetry.html" title=
+        "LLM::Tracer::Telemetry (class)">Telemetry</A></SPAN></P>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="classes">Classes:</STRONG>
+      <SPAN class='object_link'><A href="Tracer/Logger.html" title=
+      "LLM::Tracer::Logger (class)">Logger</A></SPAN>, <SPAN class=
+      'object_link'><A href="Tracer/Null.html" title=
+      "LLM::Tracer::Null (class)">Null</A></SPAN>, <SPAN class=
+      'object_link'><A href="Tracer/Telemetry.html" title=
+      "LLM::Tracer::Telemetry (class)">Telemetry</A></SPAN></P>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#flush!-instance_method"
+          title="#flush! (instance method)">#<STRONG>flush!</STRONG> ⇒
+          nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Flush the tracer.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_start-instance_method" title=
+          "#on_request_start (instance method)">#<STRONG>on_request_start</STRONG>(operation:,
+          model: nil) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called before an LLM provider request
+            is executed.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_finish-instance_method" title=
+          "#on_request_finish (instance method)">#<STRONG>on_request_finish</STRONG>(operation:,
+          res:, model: nil, span: nil) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called after an LLM provider request
+            succeeds.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_error-instance_method" title=
+          "#on_request_error (instance method)">#<STRONG>on_request_error</STRONG>(ex:,
+          span:) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called when an LLM provider request
+            fails.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_start-instance_method" title=
+          "#on_tool_start (instance method)">#<STRONG>on_tool_start</STRONG>(id:,
+          name:, arguments:, model:) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called before a local tool/function
+            executes.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_finish-instance_method" title=
+          "#on_tool_finish (instance method)">#<STRONG>on_tool_finish</STRONG>(result:,
+          span:) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called after a local tool/function
+            succeeds.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_error-instance_method" title=
+          "#on_tool_error (instance method)">#<STRONG>on_tool_error</STRONG>(ex:,
+          span:) ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called when a local tool/function
+            raises.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#inspect-instance_method"
+          title="#inspect (instance method)">#<STRONG>inspect</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#spans-instance_method"
+          title="#spans (instance method)">#<STRONG>spans</STRONG> ⇒
+          Array</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider,
+          options = {}) ⇒ Tracer</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of Tracer.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider, options = {}) ⇒
+          <TT><SPAN class='object_link'><A href="" title=
+          "LLM::Tracer (class)">Tracer</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Tracer.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>provider</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Provider.html"
+                title=
+                "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A provider</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>options</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>{}</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>A hash of options</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+21
+22
+23
+24</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 21</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+  <SPAN class='ivar'>@options</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="flush!-instance_method">
+          #<STRONG>flush!</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>This method is only implemented by the <SPAN class=
+                  'object_link'><A href="Tracer/Telemetry.html" title=
+                  "LLM::Tracer::Telemetry (class)">Telemetry</A></SPAN> tracer.
+                  It is a noop for other tracers.</P>
+                </DIV>
+              </DIV>
+              <P>Flush the tracer</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+110
+111
+112</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 110</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_flush!'>flush!</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_start-instance_method">
+          #<STRONG>on_request_start</STRONG>(operation:, model: nil) ⇒
+          <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Called before an LLM provider request is executed.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>operation</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>model</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>nil</TT>)</EM></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+31
+32
+33</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 31</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_start'>on_request_start</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_finish-instance_method">
+          #<STRONG>on_request_finish</STRONG>(operation:, res:, model: nil,
+          span: nil) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Called after an LLM provider request succeeds.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>operation</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>model</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>nil</TT>)</EM></LI>
+              <LI><SPAN class='name'>res</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Response.html"
+              title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>span</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+              title="LLM::Object (class)">Object</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>nil</TT>)</EM></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+42
+43
+44</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 42</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_finish'>on_request_finish</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>res:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_error-instance_method">
+          #<STRONG>on_request_error</STRONG>(ex:, span:) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Called when an LLM provider request fails.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ex</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Error.html" title=
+              "LLM::Error (class)">LLM::Error</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>span</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+              title="LLM::Object (class)">Object</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+51
+52
+53</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 51</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_error'>on_request_error</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>ex:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_start-instance_method">
+          #<STRONG>on_tool_start</STRONG>(id:, name:, arguments:, model:) ⇒
+          <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Called before a local tool/function executes.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>id</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool call ID assigned by the model/provider</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool (function) name.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>arguments</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The parsed tool arguments.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The model name</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+66
+67
+68</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 66</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_start'>on_tool_start</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>id:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>name:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>arguments:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_finish-instance_method">
+          #<STRONG>on_tool_finish</STRONG>(result:, span:) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Called after a local tool/function succeeds.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>result</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "Function/Return.html" title=
+                "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The tool return object.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>span</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The span/context object returned by <SPAN class=
+                  'object_link'><A href="#on_tool_start-instance_method" title=
+                  "LLM::Tracer#on_tool_start (method)">#on_tool_start</A></SPAN>.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+77
+78
+79</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 77</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_finish'>on_tool_finish</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>result:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_error-instance_method">
+          #<STRONG>on_tool_error</STRONG>(ex:, span:) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Called when a local tool/function raises.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>ex</SPAN> <SPAN class=
+                'type'>(<TT>Exception</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The raised error.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>span</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The span/context object returned by <SPAN class=
+                  'object_link'><A href="#on_tool_start-instance_method" title=
+                  "LLM::Tracer#on_tool_start (method)">#on_tool_start</A></SPAN>.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI><SPAN class='type'>(<TT>NotImplementedError</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+88
+89
+90</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 88</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_error'>on_tool_error</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>ex:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>NotImplementedError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> does not implement '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid___method__'>__method__</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>'</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="inspect-instance_method">
+          #<STRONG>inspect</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+94
+95
+96</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 94</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_inspect'>inspect</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>#&lt;</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'kw'>self</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>:0x</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_object_id'>object_id</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='int'>16</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'> @provider=</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='ivar'>@provider</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_class'>class</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'> @tracer=</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='ivar'>@tracer</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_inspect'>inspect</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>&gt;</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="spans-instance_method">
+          #<STRONG>spans</STRONG> ⇒ <TT>Array</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+100
+101
+102</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer.rb', line 100</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_spans'>spans</SPAN>
+  <SPAN class='lbracket'>[</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to modify a hardenedBSD VM image">
+  <META property="og:description" content=
+  "Documents how to modify a hardenedBSD VM image">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-modify-a-hardenedbsd-vm-image">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to modify a <A href=
+      "https://hardenedbsd.org">hardenedBSD</A> virtual machine image, and
+      follows my first post that documented how to <A href=
+      "/posts/how-to-build-a-hardenedbsd-vm-image">build a hardenedBSD virtual
+      machine image</A> where we produced image with a standard installation
+      that this post intends to modify and customize.</P>
+      <H2>Phase 1</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>In the first post we produced a <EM>raw</EM> virtual machine image
+      (<CODE>vm.ufs.raw</CODE>). In this post we intend to use <A href=
+      "https://man.freebsd.org/mdconfig">mdconfig(8)</A> to create a memory
+      device from our raw image file. This will allow us to mount the device
+      with <A href="https://man.freebsd.org/mount">mount(8)</A>. Afterwards we
+      can modify the mount point to either add, modify or remove files from the
+      image itself. Once we're done making edits, we can unmount the device and
+      the changes that were made will have persisted to the image file
+      (<CODE>vm.ufs.raw</CODE>).</P>
+      <P>What files could we add ? A good start could be
+      <CODE>/etc/rc.conf</CODE>. Another candidate might be
+      <CODE>/etc/rc.local</CODE>. The latter would allow us execute a shell
+      script at boot time towards the end of the boot process.
+      <CODE>/boot/loader.conf</CODE> is another file we may we want to add to
+      load certain kernel modules early in the process. These are just ideas
+      and food for thought.</P>
+      <P>First let's mount the virtual machine image to <CODE>/mnt</CODE>:</P>
+      <PRE><CODE class="language-sh">mdconfig -f vm.ufs.raw -u 0
+mount /dev/md0p4 /mnt
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI>
+          <CODE>mdconfig -f vm.ufs.raw -u 0</CODE><BR>
+          Attach <CODE>vm.ufs.raw</CODE> as a memory disk. A breakdown:
+          <UL>
+            <LI><CODE>-f vm.ufs.raw</CODE> The file we want to attach as a
+            memory disk.</LI>
+            <LI><CODE>-u 0</CODE> The memory disk unit (eg md0)</LI>
+          </UL>
+        </LI>
+        <LI><CODE>mount /dev/md0p4 /mnt</CODE><BR>
+        Mount the root partition at <CODE>/mnt</CODE> so files can be
+        edited.</LI>
+      </UL>
+      <H2>Phase 2</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>The next step is where the reader may know what they want to do better
+      than I do. For the purposes of this post, we're going to add three files
+      to the image. The contents of these files could be anything you like,
+      however, the hardenedbsd-builder repository has a <A href=
+      "https://github.com/0x1eef/hardenedbsd-builder/tree/main/config">realistic
+      example</A> of what the contents could be. These are the files we will be
+      working with:</P>
+      <UL>
+        <LI>/etc/rc.conf</LI>
+        <LI>/etc/rc.local</LI>
+        <LI>/boot/loader.conf</LI>
+      </UL>
+      <PRE><CODE class="language-sh">cp config/etc/rc.conf /mnt/etc/
+cp config/etc/rc.local /mnt/etc/
+cp config/boot/loader.conf /mnt/boot/
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>cp config/etc/rc.conf /mnt/etc/</CODE><BR>
+        Copies the file onto the image.</LI>
+        <LI><CODE>cp config/etc/rc.local /mnt/etc/</CODE><BR>
+        Copies the file onto the image.</LI>
+        <LI><CODE>cp config/boot/loader.conf /mnt/boot/</CODE><BR>
+        Copies the file onto the image.</LI>
+      </UL>
+      <H2>Phase 3</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>This phase is the last phase, and it is where we unmount disks, and
+      detach the memory device. Afterwards, the process is complete and we can
+      take our modified image and potentially deploy it to the cloud:</P>
+      <PRE><CODE class="language-sh">umount /mnt
+mdconfig -d -u 0
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>umount /mnt</CODE><BR>
+        Unmounts the mountpoint</LI>
+        <LI><CODE>mdconfig -d -u 0</CODE><BR>
+        Detaches memory disk <CODE>md0</CODE></LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P><A href="https://man.freebsd.org/mdconfig">mdconfig(8)</A> is an
+      awesome tool that does one thing well, and cooperates with <A href=
+      "https://man.freebsd.org/mount">mount(8)</A> rather than trying to be two
+      tools at once. It is a great example of the UNIX philosophy. That's what
+      stood out to me most. I'm grateful to have tools like it, and for the
+      people who have worked on them.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

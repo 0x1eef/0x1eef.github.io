@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Gemini — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Gemini";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (G)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Gemini</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Gemini</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName"><SPAN class='object_link'><A href=
+            "Provider.html" title=
+            "LLM::Provider (class)">Provider</A></SPAN></SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next"><SPAN class='object_link'><A href=
+              "Provider.html" title=
+              "LLM::Provider (class)">Provider</A></SPAN></LI>
+              <LI class="next">LLM::Gemini</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/gemini.rb<SPAN class="defines">,<BR>
+          lib/llm/providers/gemini/audio.rb,<BR>
+          lib/llm/providers/gemini/files.rb,<BR>
+          lib/llm/providers/gemini/images.rb,<BR>
+          lib/llm/providers/gemini/models.rb,<BR>
+          lib/llm/providers/gemini/error_handler.rb,<BR>
+          lib/llm/providers/gemini/stream_parser.rb,<BR>
+          lib/llm/providers/gemini/request_adapter.rb,<BR>
+          lib/llm/providers/gemini/response_adapter.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The Gemini class implements a provider for <A href=
+          "https://ai.google.dev/">Gemini</A>. The Gemini provider can accept
+          multiple inputs (text, images, audio, and video). The inputs can be
+          provided inline via the prompt for files under 20MB or via the Gemini
+          Files API for files that are over 20MB.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+
+<SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_gemini'><SPAN class=
+'object_link'><A href="../LLM.html#gemini-class_method" title=
+"LLM.gemini (method)">gemini</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Tell me about this photo</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_ses'>ses</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_local_file'>local_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/images/photo.png</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_select'>select</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:assistant?</SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_print'>print</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>[</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>]</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='rbrace'>}</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="classes">Classes:</STRONG>
+      <SPAN class='object_link'><A href="Gemini/Audio.html" title=
+      "LLM::Gemini::Audio (class)">Audio</A></SPAN>, <SPAN class=
+      'object_link'><A href="Gemini/Files.html" title=
+      "LLM::Gemini::Files (class)">Files</A></SPAN>, <SPAN class=
+      'object_link'><A href="Gemini/Images.html" title=
+      "LLM::Gemini::Images (class)">Images</A></SPAN>, <SPAN class=
+      'object_link'><A href="Gemini/Models.html" title=
+      "LLM::Gemini::Models (class)">Models</A></SPAN></P>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="HOST-constant" class="">HOST =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='tstring'><SPAN class=
+          'tstring_beg'>"</SPAN><SPAN class=
+          'tstring_content'>generativelanguage.googleapis.com</SPAN><SPAN class=
+          'tstring_end'>"</SPAN></SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#assistant_role-instance_method" title=
+          "#assistant_role (instance method)">#<STRONG>assistant_role</STRONG>
+          ⇒ String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the role of the assistant in
+            the conversation.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#embed-instance_method"
+          title="#embed (instance method)">#<STRONG>embed</STRONG>(input,
+          model: "text-embedding-004", **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an embedding.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#complete-instance_method"
+          title=
+          "#complete (instance method)">#<STRONG>complete</STRONG>(prompt,
+          params = {}) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to the chat
+            completions API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#audio-instance_method"
+          title="#audio (instance method)">#<STRONG>audio</STRONG> ⇒
+          LLM::Gemini::Audio</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to Gemini's
+            audio API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#images-instance_method"
+          title="#images (instance method)">#<STRONG>images</STRONG> ⇒ see
+          LLM::Gemini::Images</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to Gemini's
+            image generation API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#files-instance_method"
+          title="#files (instance method)">#<STRONG>files</STRONG> ⇒
+          LLM::Gemini::Files</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to Gemini's
+            file management API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#models-instance_method"
+          title="#models (instance method)">#<STRONG>models</STRONG> ⇒
+          LLM::Gemini::Models</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to Gemini's
+            models API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#default_model-instance_method" title=
+          "#default_model (instance method)">#<STRONG>default_model</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the default model for chat
+            completions.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#server_tools-instance_method" title=
+          "#server_tools (instance method)">#<STRONG>server_tools</STRONG> ⇒
+          String =&gt; LLM::ServerTool</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#web_search-instance_method"
+          title=
+          "#web_search (instance method)">#<STRONG>web_search</STRONG>(query:)
+          ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A convenience method for performing a
+            web search using the Google Search tool.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#user_role-instance_method"
+          title="#user_role (instance method)">#<STRONG>user_role</STRONG> ⇒
+          Symbol</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the providers user
+            role.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#system_role-instance_method" title=
+          "#system_role (instance method)">#<STRONG>system_role</STRONG> ⇒
+          Symbol</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the providers system
+            role.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#developer_role-instance_method" title=
+          "#developer_role (instance method)">#<STRONG>developer_role</STRONG>
+          ⇒ Symbol</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the providers developer
+            role.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title="#initialize (instance method)">#<STRONG>initialize</STRONG> ⇒
+          Gemini</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of Gemini.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H3 class="inherited">Methods inherited from <SPAN class=
+      'object_link'><A href="Provider.html" title=
+      "LLM::Provider (class)">Provider</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "Provider.html#chat-instance_method" title=
+      "LLM::Provider#chat (method)">#chat</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#clients-class_method" title=
+      "LLM::Provider.clients (method)">clients</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#inspect-instance_method" title=
+      "LLM::Provider#inspect (method)">#inspect</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#moderations-instance_method" title=
+      "LLM::Provider#moderations (method)">#moderations</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#respond-instance_method"
+      title="LLM::Provider#respond (method)">#respond</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#responses-instance_method" title=
+      "LLM::Provider#responses (method)">#responses</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#schema-instance_method" title=
+      "LLM::Provider#schema (method)">#schema</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#server_tool-instance_method" title=
+      "LLM::Provider#server_tool (method)">#server_tool</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#tracer-instance_method"
+      title="LLM::Provider#tracer (method)">#tracer</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#tracer=-instance_method" title=
+      "LLM::Provider#tracer= (method)">#tracer=</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#vector_stores-instance_method"
+      title="LLM::Provider#vector_stores (method)">#vector_stores</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#with-instance_method"
+      title="LLM::Provider#with (method)">#with</A></SPAN></P>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "" title="LLM::Gemini (class)">Gemini</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Gemini.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>key</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The secret key for authentication</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>super</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'label'>host:</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"#HOST-constant" title=
+"LLM::Gemini::HOST (constant)">HOST</A></SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="assistant_role-instance_method">
+          #<STRONG>assistant_role</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the role of the assistant in the conversation. Usually
+              "assistant" or "model"</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the role of the assistant in the conversation.
+                  Usually "assistant" or "model"</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+163
+164
+165</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 163</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_assistant_role'>assistant_role</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>model</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="embed-instance_method">
+          #<STRONG>embed</STRONG>(input, model: "text-embedding-004", **params)
+          ⇒ <TT><SPAN class='object_link'><A href="Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an embedding</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>input</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>Array&lt;String&gt;</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The input to embed</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"text-embedding-004"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The embedding model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other embedding parameters</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54
+55</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 47</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_embed'>embed</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_input'>input</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>text-embedding-004</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_model'>model</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_model'>model</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_model'>model</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_model'>model</SPAN>
+  <SPAN class='id identifier rubyid_path'>path</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1beta/models/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_model'>model</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>embedContent?key=</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='ivar'>@key</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_join'>join</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>:</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_path'>path</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>content:</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class='label'>parts:</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>text:</SPAN> <SPAN class='id identifier rubyid_input'>input</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>embeddings</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:embedding</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>embeddings</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="complete-instance_method">
+          #<STRONG>complete</STRONG>(prompt, params = {}) ⇒ <TT><SPAN class=
+          'object_link'><A href="Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to the chat completions API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_messages'>messages</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>role:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>system</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>content:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Your task is to answer all of my questions</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbrace'>}</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_complete'>complete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>5 + 2 ?</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>messages:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>[</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>]</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>prompt</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The input prompt to be completed</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>{}</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The parameters to maintain throughout the conversation.
+                  Any parameter the provider supports can be included and not
+                  only those listed here.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "../LLM.html#PromptError-constant" title=
+                "LLM::PromptError (constant)">LLM::PromptError</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>When given an object a provider does not understand</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://ai.google.dev/api/generate-content#v1beta.models.generateContent"
+                target="_parent" title="Gemini docs">Gemini docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+67
+68
+69
+70
+71
+72
+73
+74</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 67</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_complete'>complete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_stream'>stream</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_model'>model</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='id identifier rubyid_normalize_complete_params'>normalize_complete_params</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_build_complete_request'>build_complete_request</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_prompt'>prompt</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_role'>role</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_model'>model</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_stream'>stream</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>stream:</SPAN> <SPAN class=
+'id identifier rubyid_stream'>stream</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>chat</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:completion</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_extend'>extend</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'>Module</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_define_method'>define_method</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:__tools__</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN> <SPAN class=
+'rbrace'>}</SPAN> <SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>chat</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="audio-instance_method">
+          #<STRONG>audio</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Gemini/Audio.html" title=
+          "LLM::Gemini::Audio (class)">LLM::Gemini::Audio</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to Gemini's audio API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Gemini/Audio.html" title=
+              "LLM::Gemini::Audio (class)">LLM::Gemini::Audio</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://ai.google.dev/gemini-api/docs/audio" target=
+                "_parent" title="Gemini docs">Gemini docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+80
+81
+82</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 80</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_audio'>audio</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::Gemini (class)">Gemini</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Gemini/Audio.html" title=
+"LLM::Gemini::Audio (class)">Audio</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Gemini/Audio.html#initialize-instance_method" title=
+"LLM::Gemini::Audio#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="images-instance_method">
+          #<STRONG>images</STRONG> ⇒ <TT>see <SPAN class='object_link'><A href=
+          "Gemini/Images.html" title=
+          "LLM::Gemini::Images (class)">LLM::Gemini::Images</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to Gemini's image generation API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>see <SPAN class=
+              'object_link'><A href="Gemini/Images.html" title=
+              "LLM::Gemini::Images (class)">LLM::Gemini::Images</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://ai.google.dev/gemini-api/docs/image-generation"
+                target="_parent" title="Gemini docs">Gemini docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+88
+89
+90</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 88</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_images'>images</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::Gemini (class)">Gemini</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Gemini/Images.html" title=
+"LLM::Gemini::Images (class)">Images</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Gemini/Images.html#initialize-instance_method" title=
+"LLM::Gemini::Images#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="files-instance_method">
+          #<STRONG>files</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Gemini/Files.html" title=
+          "LLM::Gemini::Files (class)">LLM::Gemini::Files</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to Gemini's file management API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Gemini/Files.html" title=
+              "LLM::Gemini::Files (class)">LLM::Gemini::Files</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://ai.google.dev/gemini-api/docs/files" target=
+                "_parent" title="Gemini docs">Gemini docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+96
+97
+98</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 96</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_files'>files</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::Gemini (class)">Gemini</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Gemini/Files.html" title=
+"LLM::Gemini::Files (class)">Files</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Gemini/Files.html#initialize-instance_method" title=
+"LLM::Gemini::Files#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="models-instance_method">
+          #<STRONG>models</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Gemini/Models.html" title=
+          "LLM::Gemini::Models (class)">LLM::Gemini::Models</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to Gemini's models API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Gemini/Models.html" title=
+              "LLM::Gemini::Models (class)">LLM::Gemini::Models</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://ai.google.dev/gemini-api/docs/models" target=
+                "_parent" title="Gemini docs">Gemini docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+104
+105
+106</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 104</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_models'>models</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::Gemini (class)">Gemini</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Gemini/Models.html" title=
+"LLM::Gemini::Models (class)">Models</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Gemini/Models.html#initialize-instance_method" title=
+"LLM::Gemini::Models#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="default_model-instance_method">
+          #<STRONG>default_model</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the default model for chat completions</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash"
+                target="_parent" title="gemini-2.5-flash">gemini-2.5-flash</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+112
+113
+114</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 112</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_default_model'>default_model</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>gemini-2.5-flash</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="server_tools-instance_method">
+          #<STRONG>server_tools</STRONG> ⇒ <TT>String =&gt; <SPAN class=
+          'object_link'><A href="ServerTool.html" title=
+          "LLM::ServerTool (class)">LLM::ServerTool</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>This method includes certain tools that require
+                  configuration through a set of options that are easier to set
+                  through the <SPAN class='object_link'><A href=
+                  "Provider.html#server_tool-instance_method" title=
+                  "LLM::Provider#server_tool (method)">LLM::Provider#server_tool</A></SPAN>
+                  method.</P>
+                </DIV>
+              </DIV>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String =&gt; <SPAN class=
+              'object_link'><A href="ServerTool.html" title=
+              "LLM::ServerTool (class)">LLM::ServerTool</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://ai.google.dev/gemini-api/docs/google-search"
+                target="_parent" title="Gemini docs">Gemini docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+123
+124
+125
+126
+127
+128
+129</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 123</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_server_tools'>server_tools</SPAN>
+  <SPAN class='lbrace'>{</SPAN>
+    <SPAN class='label'>google_search:</SPAN> <SPAN class=
+'id identifier rubyid_server_tool'>server_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:google_search</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>code_execution:</SPAN> <SPAN class=
+'id identifier rubyid_server_tool'>server_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:code_execution</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>url_context:</SPAN> <SPAN class=
+'id identifier rubyid_server_tool'>server_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:url_context</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="web_search-instance_method">
+          #<STRONG>web_search</STRONG>(query:) ⇒ <TT><SPAN class=
+          'object_link'><A href="Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>A convenience method for performing a web search using the
+              Google Search tool.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>query</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The search query.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Response.html" title=
+                "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The response from the LLM provider.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+136
+137
+138</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 136</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_web_search'>web_search</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>query:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_complete'>complete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>tools:</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class=
+'id identifier rubyid_server_tools'>server_tools</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:google_search</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>type:</SPAN> <SPAN class='symbol'>:web_search</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="user_role-instance_method">
+          #<STRONG>user_role</STRONG> ⇒ <TT>Symbol</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the providers user role</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Symbol</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the providers user role</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+143
+144
+145</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 143</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_user_role'>user_role</SPAN>
+  <SPAN class='symbol'>:user</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="system_role-instance_method">
+          #<STRONG>system_role</STRONG> ⇒ <TT>Symbol</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the providers system role</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Symbol</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the providers system role</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+150
+151
+152</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 150</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_system_role'>system_role</SPAN>
+  <SPAN class='symbol'>:user</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="developer_role-instance_method">
+          #<STRONG>developer_role</STRONG> ⇒ <TT>Symbol</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the providers developer role</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Symbol</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+157
+158
+159</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/gemini.rb', line 157</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_developer_role'>developer_role</SPAN>
+  <SPAN class='symbol'>:user</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

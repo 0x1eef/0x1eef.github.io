@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::OpenAI::Audio — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::OpenAI::Audio";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (A)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../OpenAI.html" title=
+        "LLM::OpenAI (class)">OpenAI</A></SPAN></SPAN> » <SPAN class=
+        "title">Audio</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::OpenAI::Audio</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::OpenAI::Audio</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/openai/audio.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::OpenAI::Audio (class)">LLM::OpenAI::Audio</A></SPAN> class
+          provides an audio object for interacting with <A href=
+          "https://platform.openai.com/docs/api-reference/audio/createSpeech">OpenAI's
+          audio API</A>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+          'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+          "../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+          "../../LLM.html#openai-class_method" title=
+          "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+          'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+          'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+          'tstring_content'>KEY</SPAN><SPAN class=
+          'tstring_end'>"</SPAN></SPAN><SPAN class=
+          'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_audio'>audio</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create_speech'>create_speech</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>input:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>A dog on a rocket to the moon</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='const'>IO</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_copy_stream'>copy_stream</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_audio'>audio</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>rocket.mp3</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider)
+          ⇒ LLM::OpenAI::Responses</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a new Audio
+            object.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#create_speech-instance_method" title=
+          "#create_speech (instance method)">#<STRONG>create_speech</STRONG>(input:,
+          voice: "alloy", model: "gpt-4o-mini-tts", response_format: "mp3",
+          **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create an audio track.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#create_transcription-instance_method" title=
+          "#create_transcription (instance method)">#<STRONG>create_transcription</STRONG>(file:,
+          model: "whisper-1", **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create an audio
+            transcription.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#create_translation-instance_method" title=
+          "#create_translation (instance method)">#<STRONG>create_translation</STRONG>(file:,
+          model: "whisper-1", **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create an audio translation (in
+            English).</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider) ⇒ <TT><SPAN class=
+          'object_link'><A href="Responses.html" title=
+          "LLM::OpenAI::Responses (class)">LLM::OpenAI::Responses</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new Audio object</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>provider</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Provider.html"
+              title=
+              "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+16
+17
+18</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/audio.rb', line 16</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="create_speech-instance_method">
+          #<STRONG>create_speech</STRONG>(input:, voice: "alloy", model:
+          "gpt-4o-mini-tts", response_format: "mp3", **params) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create an audio track</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_images'>images</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create_speech'>create_speech</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>input:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>A dog on a rocket to the moon</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='const'><SPAN class='object_link'><A href="../File.html" title=
+"LLM::File (class)">File</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_binwrite'>binwrite</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>rocket.mp3</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_audio'>audio</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_string'>string</SPAN><SPAN class=
+'rparen'>)</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>input</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The text input</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>voice</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"alloy"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The voice to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"gpt-4o-mini-tts"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>response_format</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"mp3"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The response format</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/audio/createSpeech"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40
+41</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/audio.rb', line 34</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create_speech'>create_speech</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>input:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>voice:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>alloy</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>gpt-4o-mini-tts</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>response_format:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>mp3</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/audio/speech</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>input:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>voice:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>response_format:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge!'>merge!</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_io'>io</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>StringIO</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_b'>b</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_read_body'>read_body</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_chunk'>chunk</SPAN><SPAN class='op'>|</SPAN> <SPAN class=
+'id identifier rubyid_io'>io</SPAN> <SPAN class=
+'op'>&lt;&lt;</SPAN> <SPAN class=
+'id identifier rubyid_chunk'>chunk</SPAN> <SPAN class=
+'rbrace'>}</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_define_singleton_method'>define_singleton_method</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='symbol'>:audio</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class='lbrace'>{</SPAN> <SPAN class='id identifier rubyid_io'>io</SPAN> <SPAN class='rbrace'>}</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="create_transcription-instance_method">
+          #<STRONG>create_transcription</STRONG>(file:, model: "whisper-1",
+          **params) ⇒ <TT><SPAN class='object_link'><A href="../Response.html"
+          title="LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create an audio transcription</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_audio'>audio</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create_transcription'>create_transcription</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>/audio/rocket.mp3</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_text'>text</SPAN> <SPAN class=
+'comment'># =&gt; "A dog on a rocket to the moon"</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT><SPAN class='object_link'><A href=
+                "../File.html" title=
+                "LLM::File (class)">LLM::File</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The input audio</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"whisper-1"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/audio/createTranscription"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+55
+56
+57
+58
+59
+60
+61
+62
+63</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/audio.rb', line 55</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create_transcription'>create_transcription</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>file:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>whisper-1</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_multi'>multi</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Multipart</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge!'>merge!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'const'>File</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/audio/transcriptions</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>content-type</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_content_type'>content_type</SPAN>
+  <SPAN class=
+'id identifier rubyid_set_body_stream'>set_body_stream</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="create_translation-instance_method">
+          #<STRONG>create_translation</STRONG>(file:, model: "whisper-1",
+          **params) ⇒ <TT><SPAN class='object_link'><A href="../Response.html"
+          title="LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create an audio translation (in English)</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'comment'># Arabic =&gt; English
+</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_openai'><SPAN class=
+'object_link'><A href="../../LLM.html#openai-class_method" title=
+"LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_audio'>audio</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create_translation'>create_translation</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/audio/bismillah.mp3</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_text'>text</SPAN> <SPAN class=
+'comment'># =&gt; "In the name of Allah, the Beneficent, the Merciful."</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../File.html"
+                title="LLM::File (class)">LLM::File</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The input audio</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>"whisper-1"</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The model to use</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/audio/createTranslation"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84
+85
+86</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/audio.rb', line 78</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create_translation'>create_translation</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>model:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>whisper-1</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_multi'>multi</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Multipart</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge!'>merge!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'const'>File</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/audio/translations</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>content-type</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_content_type'>content_type</SPAN>
+  <SPAN class=
+'id identifier rubyid_set_body_stream'>set_body_stream</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_multi'>multi</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

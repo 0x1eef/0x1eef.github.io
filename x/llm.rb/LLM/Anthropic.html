@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Anthropic — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Anthropic";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (A)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Anthropic</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Anthropic</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName"><SPAN class='object_link'><A href=
+            "Provider.html" title=
+            "LLM::Provider (class)">Provider</A></SPAN></SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next"><SPAN class='object_link'><A href=
+              "Provider.html" title=
+              "LLM::Provider (class)">Provider</A></SPAN></LI>
+              <LI class="next">LLM::Anthropic</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/anthropic.rb<SPAN class="defines">,<BR>
+          lib/llm/providers/anthropic/files.rb,<BR>
+          lib/llm/providers/anthropic/models.rb,<BR>
+          lib/llm/providers/anthropic/error_handler.rb,<BR>
+          lib/llm/providers/anthropic/stream_parser.rb,<BR>
+          lib/llm/providers/anthropic/request_adapter.rb,<BR>
+          lib/llm/providers/anthropic/response_adapter.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The Anthropic class implements a provider for <A href=
+          "https://www.anthropic.com">Anthropic</A>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'comment'>#!/usr/bin/env ruby
+</SPAN><SPAN class='id identifier rubyid_require'>require</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+
+<SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_anthropic'><SPAN class=
+'object_link'><A href="../LLM.html#anthropic-class_method" title=
+"LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>KEY</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Session.html" title=
+"LLM::Session (class)">Session</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Session.html#initialize-instance_method" title=
+"LLM::Session#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Tell me about this photo</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_ses'>ses</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_local_file'>local_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/images/photo.png</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_ses'>ses</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_select'>select</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:assistant?</SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_print'>print</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>[</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>]</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='rbrace'>}</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="classes">Classes:</STRONG>
+      <SPAN class='object_link'><A href="Anthropic/Files.html" title=
+      "LLM::Anthropic::Files (class)">Files</A></SPAN>, <SPAN class=
+      'object_link'><A href="Anthropic/Models.html" title=
+      "LLM::Anthropic::Models (class)">Models</A></SPAN></P>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="HOST-constant" class="">HOST =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='tstring'><SPAN class=
+          'tstring_beg'>"</SPAN><SPAN class=
+          'tstring_content'>api.anthropic.com</SPAN><SPAN class=
+          'tstring_end'>"</SPAN></SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#web_search-instance_method"
+          title=
+          "#web_search (instance method)">#<STRONG>web_search</STRONG>(query:)
+          ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A convenience method for performing a
+            web search using the Anthropic web search tool.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#complete-instance_method"
+          title=
+          "#complete (instance method)">#<STRONG>complete</STRONG>(prompt,
+          params = {}) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to the chat
+            completions API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#models-instance_method"
+          title="#models (instance method)">#<STRONG>models</STRONG> ⇒
+          LLM::Anthropic::Models</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to Anthropic's
+            models API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#files-instance_method"
+          title="#files (instance method)">#<STRONG>files</STRONG> ⇒
+          LLM::Anthropic::Files</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Provides an interface to Anthropic's
+            files API.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#assistant_role-instance_method" title=
+          "#assistant_role (instance method)">#<STRONG>assistant_role</STRONG>
+          ⇒ String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the role of the assistant in
+            the conversation.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#default_model-instance_method" title=
+          "#default_model (instance method)">#<STRONG>default_model</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the default model for chat
+            completions.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#server_tools-instance_method" title=
+          "#server_tools (instance method)">#<STRONG>server_tools</STRONG> ⇒
+          String =&gt; LLM::ServerTool</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title="#initialize (instance method)">#<STRONG>initialize</STRONG> ⇒
+          Anthropic</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of
+            Anthropic.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H3 class="inherited">Methods inherited from <SPAN class=
+      'object_link'><A href="Provider.html" title=
+      "LLM::Provider (class)">Provider</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "Provider.html#audio-instance_method" title=
+      "LLM::Provider#audio (method)">#audio</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#chat-instance_method" title=
+      "LLM::Provider#chat (method)">#chat</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#clients-class_method" title=
+      "LLM::Provider.clients (method)">clients</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#developer_role-instance_method"
+      title="LLM::Provider#developer_role (method)">#developer_role</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#embed-instance_method"
+      title="LLM::Provider#embed (method)">#embed</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#images-instance_method" title=
+      "LLM::Provider#images (method)">#images</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#inspect-instance_method" title=
+      "LLM::Provider#inspect (method)">#inspect</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#moderations-instance_method" title=
+      "LLM::Provider#moderations (method)">#moderations</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#respond-instance_method"
+      title="LLM::Provider#respond (method)">#respond</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#responses-instance_method" title=
+      "LLM::Provider#responses (method)">#responses</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#schema-instance_method" title=
+      "LLM::Provider#schema (method)">#schema</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#server_tool-instance_method" title=
+      "LLM::Provider#server_tool (method)">#server_tool</A></SPAN>,
+      <SPAN class='object_link'><A href=
+      "Provider.html#system_role-instance_method" title=
+      "LLM::Provider#system_role (method)">#system_role</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#tracer-instance_method"
+      title="LLM::Provider#tracer (method)">#tracer</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#tracer=-instance_method" title=
+      "LLM::Provider#tracer= (method)">#tracer=</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#user_role-instance_method" title=
+      "LLM::Provider#user_role (method)">#user_role</A></SPAN>, <SPAN class=
+      'object_link'><A href="Provider.html#vector_stores-instance_method"
+      title="LLM::Provider#vector_stores (method)">#vector_stores</A></SPAN>,
+      <SPAN class='object_link'><A href="Provider.html#with-instance_method"
+      title="LLM::Provider#with (method)">#with</A></SPAN></P>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "" title="LLM::Anthropic (class)">Anthropic</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Anthropic.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>key</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The secret key for authentication</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+29
+30
+31</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 29</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>super</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'label'>host:</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"#HOST-constant" title=
+"LLM::Anthropic::HOST (constant)">HOST</A></SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="web_search-instance_method">
+          #<STRONG>web_search</STRONG>(query:) ⇒ <TT><SPAN class=
+          'object_link'><A href="Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>A convenience method for performing a web search using the
+              Anthropic web search tool.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_anthropic'><SPAN class=
+              'object_link'><A href="../LLM.html#anthropic-class_method" title=
+              "LLM.anthropic (method)">anthropic</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_web_search'>web_search</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>query:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>summarize today's news</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_search_results'>search_results</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_item'>item</SPAN><SPAN class='op'>|</SPAN> <SPAN class=
+'id identifier rubyid_print'>print</SPAN> <SPAN class=
+'id identifier rubyid_item'>item</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_title'>title</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>: </SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_item'>item</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_url'>url</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN> <SPAN class='rbrace'>}</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>query</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The search query.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Response.html" title=
+                "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The response from the LLM provider.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+106
+107
+108</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 106</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_web_search'>web_search</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>query:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_complete'>complete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>tools:</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class=
+'id identifier rubyid_server_tools'>server_tools</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:web_search</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>type:</SPAN> <SPAN class='symbol'>:web_search</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="complete-instance_method">
+          #<STRONG>complete</STRONG>(prompt, params = {}) ⇒ <TT><SPAN class=
+          'object_link'><A href="Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to the chat completions API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+              "../LLM.html#openai-class_method" title=
+              "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+              'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>KEY</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_messages'>messages</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>role:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>system</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>content:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Your task is to answer all of my questions</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbrace'>}</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+<SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_complete'>complete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>5 + 2 ?</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>messages:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>[</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_role'>role</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>]</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>\n</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>prompt</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The input prompt to be completed</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>{}</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The parameters to maintain throughout the conversation.
+                  Any parameter the provider supports can be included and not
+                  only those listed here.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "../LLM.html#PromptError-constant" title=
+                "LLM::PromptError (constant)">LLM::PromptError</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>When given an object a provider does not understand</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://docs.anthropic.com/en/api/messages" target=
+                "_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+43
+44
+45
+46
+47
+48
+49
+50</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 43</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_complete'>complete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_stream'>stream</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_role'>role</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_normalize_complete_params'>normalize_complete_params</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_build_complete_request'>build_complete_request</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_prompt'>prompt</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_role'>role</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>stream:</SPAN> <SPAN class=
+'id identifier rubyid_stream'>stream</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>chat</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:model</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:completion</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_extend'>extend</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'>Module</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_define_method'>define_method</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:__tools__</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='lbrace'>{</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN> <SPAN class=
+'rbrace'>}</SPAN> <SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>chat</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>model:</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:model</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="models-instance_method">
+          #<STRONG>models</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Anthropic/Models.html" title=
+          "LLM::Anthropic::Models (class)">LLM::Anthropic::Models</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to Anthropic's models API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Anthropic/Models.html" title=
+              "LLM::Anthropic::Models (class)">LLM::Anthropic::Models</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href="https://docs.anthropic.com/en/api/models-list" target=
+                "_parent" title=
+                "https://docs.anthropic.com/en/api/models-list">https://docs.anthropic.com/en/api/models-list</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+56
+57
+58</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 56</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_models'>models</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::Anthropic (class)">Anthropic</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Anthropic/Models.html" title=
+"LLM::Anthropic::Models (class)">Models</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Anthropic/Models.html#initialize-instance_method" title=
+"LLM::Anthropic::Models#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="files-instance_method">
+          #<STRONG>files</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Anthropic/Files.html" title=
+          "LLM::Anthropic::Files (class)">LLM::Anthropic::Files</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Provides an interface to Anthropic's files API</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Anthropic/Files.html" title=
+              "LLM::Anthropic::Files (class)">LLM::Anthropic::Files</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/build-with-claude/files"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+64
+65
+66</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 64</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_files'>files</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="" title=
+"LLM::Anthropic (class)">Anthropic</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Anthropic/Files.html" title=
+"LLM::Anthropic::Files (class)">Files</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Anthropic/Files.html#initialize-instance_method" title=
+"LLM::Anthropic::Files#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="assistant_role-instance_method">
+          #<STRONG>assistant_role</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the role of the assistant in the conversation. Usually
+              "assistant" or "model"</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the role of the assistant in the conversation.
+                  Usually "assistant" or "model"</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+70
+71
+72</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 70</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_assistant_role'>assistant_role</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>assistant</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="default_model-instance_method">
+          #<STRONG>default_model</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the default model for chat completions</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/about-claude/models/all-models#model-comparison-table"
+                target="_parent" title=
+                "claude-sonnet-4-20250514">claude-sonnet-4-20250514</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+78
+79
+80</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 78</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_default_model'>default_model</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>claude-sonnet-4-20250514</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="server_tools-instance_method">
+          #<STRONG>server_tools</STRONG> ⇒ <TT>String =&gt; <SPAN class=
+          'object_link'><A href="ServerTool.html" title=
+          "LLM::ServerTool (class)">LLM::ServerTool</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>This method includes certain tools that require
+                  configuration through a set of options that are easier to set
+                  through the <SPAN class='object_link'><A href=
+                  "Provider.html#server_tool-instance_method" title=
+                  "LLM::Provider#server_tool (method)">LLM::Provider#server_tool</A></SPAN>
+                  method.</P>
+                </DIV>
+              </DIV>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String =&gt; <SPAN class=
+              'object_link'><A href="ServerTool.html" title=
+              "LLM::ServerTool (class)">LLM::ServerTool</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/web-search-tool"
+                target="_parent" title="Anthropic docs">Anthropic docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+89
+90
+91
+92
+93
+94
+95</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/anthropic.rb', line 89</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_server_tools'>server_tools</SPAN>
+  <SPAN class='lbrace'>{</SPAN>
+    <SPAN class='label'>bash:</SPAN> <SPAN class=
+'id identifier rubyid_server_tool'>server_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:bash</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>bash_20250124</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='label'>web_search:</SPAN> <SPAN class=
+'id identifier rubyid_server_tool'>server_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:web_search</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>web_search_20250305</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>max_uses:</SPAN> <SPAN class='int'>5</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>text_editor:</SPAN> <SPAN class=
+'id identifier rubyid_server_tool'>server_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'symbol'>:str_replace_based_edit_tool</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>text_editor_20250728</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>max_characters:</SPAN> <SPAN class='int'>10_000</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

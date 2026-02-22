@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Schema::Leaf — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Schema::Leaf";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (L)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Schema.html" title=
+        "LLM::Schema (class)">Schema</A></SPAN></SPAN> » <SPAN class=
+        "title">Leaf</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Schema::Leaf</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Schema::Leaf</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/schema/leaf.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN> class is the
+          superclass of all values that can appear in a JSON schema. See the
+          instance methods of <SPAN class='object_link'><A href=
+          "../Schema.html" title="LLM::Schema (class)">LLM::Schema</A></SPAN>
+          for an example of how to create instances of <SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN> through its
+          subclasses.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <DIV id="subclasses">
+        <H2>Direct Known Subclasses</H2>
+        <P class="children"><SPAN class='object_link'><A href="Array.html"
+        title="LLM::Schema::Array (class)">Array</A></SPAN>, <SPAN class=
+        'object_link'><A href="Boolean.html" title=
+        "LLM::Schema::Boolean (class)">Boolean</A></SPAN>, <SPAN class=
+        'object_link'><A href="Integer.html" title=
+        "LLM::Schema::Integer (class)">Integer</A></SPAN>, <SPAN class=
+        'object_link'><A href="Null.html" title=
+        "LLM::Schema::Null (class)">Null</A></SPAN>, <SPAN class=
+        'object_link'><A href="Number.html" title=
+        "LLM::Schema::Number (class)">Number</A></SPAN>, <SPAN class=
+        'object_link'><A href="Object.html" title=
+        "LLM::Schema::Object (class)">Object</A></SPAN>, <SPAN class=
+        'object_link'><A href="String.html" title=
+        "LLM::Schema::String (class)">String</A></SPAN></P>
+      </DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#==-instance_method" title=
+          "#== (instance method)">#<STRONG>==</STRONG>(other) ⇒ Boolean</A>
+          (also: #eql?)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#description-instance_method" title=
+          "#description (instance method)">#<STRONG>description</STRONG>(str =
+          nil) ⇒ LLM::Schema::Leaf</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set the description of a
+            leaf.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#default-instance_method"
+          title="#default (instance method)">#<STRONG>default</STRONG>(value =
+          nil) ⇒ LLM::Schema::Leaf</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set the default value of a
+            leaf.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#enum-instance_method"
+          title="#enum (instance method)">#<STRONG>enum</STRONG>(*values) ⇒
+          LLM::Schema::Leaf</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set the allowed values of a
+            leaf.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#const-instance_method"
+          title="#const (instance method)">#<STRONG>const</STRONG>(value = nil)
+          ⇒ LLM::Schema::Leaf</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Set the value of a leaf to be a
+            constant value.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#required-instance_method"
+          title="#required (instance method)">#<STRONG>required</STRONG> ⇒
+          LLM::Schema::Leaf</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Mark a leaf as required.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#required%3F-instance_method" title=
+          "#required? (instance method)">#<STRONG>required?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#optional-instance_method"
+          title="#optional (instance method)">#<STRONG>optional</STRONG> ⇒
+          LLM::Schema::Leaf</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Mark a leaf as optional.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#optional%3F-instance_method" title=
+          "#optional? (instance method)">#<STRONG>optional?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#to_h-instance_method"
+          title="#to_h (instance method)">#<STRONG>to_h</STRONG> ⇒
+          Hash</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#to_json-instance_method"
+          title="#to_json (instance method)">#<STRONG>to_json</STRONG>(options
+          = {}) ⇒ String</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title="#initialize (instance method)">#<STRONG>initialize</STRONG> ⇒
+          Leaf</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of Leaf.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "" title="LLM::Schema::Leaf (class)">Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Leaf.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+11
+12
+13
+14
+15
+16
+17</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 11</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN>
+  <SPAN class='ivar'>@description</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+  <SPAN class='ivar'>@default</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+  <SPAN class='ivar'>@enum</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+  <SPAN class='ivar'>@required</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+  <SPAN class='ivar'>@const</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="==-instance_method">
+          #<STRONG>==</STRONG>(other) ⇒ <TT><SPAN class='object_link'><A href=
+          "Boolean.html" title=
+          "LLM::Schema::Boolean (class)">Boolean</A></SPAN></TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'eql?-instance_method'>eql?</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>other</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="" title=
+                "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>An object to compare</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Boolean.html" title=
+              "LLM::Schema::Boolean (class)">Boolean</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+111
+112
+113
+114</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 111</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='op'>==</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_other'>other</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class='kw'>false</SPAN> <SPAN class=
+'kw'>unless</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='id identifier rubyid_other'>other</SPAN>
+  <SPAN class='id identifier rubyid_to_h'>to_h</SPAN> <SPAN class=
+'op'>==</SPAN> <SPAN class=
+'id identifier rubyid_other'>other</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_to_h'>to_h</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="description-instance_method">
+          #<STRONG>description</STRONG>(str = nil) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Set the description of a leaf</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>str</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="String.html"
+                title=
+                "LLM::Schema::String (class)">String</A></SPAN></TT>)</SPAN>
+                <EM class="default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The description</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 23</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_description'>description</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_str'>str</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_str'>str</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_nil?'>nil?</SPAN>
+    <SPAN class='ivar'>@description</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='ivar'>@description</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_str'>str</SPAN> <SPAN class=
+'rbrace'>}</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="default-instance_method">
+          #<STRONG>default</STRONG>(value = nil) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Set the default value of a leaf</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>value</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+                title=
+                "LLM::Schema::Object (class)">Object</A></SPAN></TT>)</SPAN>
+                <EM class="default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The default value</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 35</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_default'>default</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_value'>value</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_value'>value</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_nil?'>nil?</SPAN>
+    <SPAN class='ivar'>@default</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='ivar'>@default</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_value'>value</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="enum-instance_method">
+          #<STRONG>enum</STRONG>(*values) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Set the allowed values of a leaf</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>values</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Array.html"
+                title=
+                "LLM::Schema::Array (class)">Array</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The allowed values</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://tour.json-schema.org/content/02-Primitive-Types/07-Enumerated-Values-II"
+                target="_parent" title="Enumerated Values">Enumerated
+                Values</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 48</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_enum'>enum</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>*</SPAN><SPAN class=
+'id identifier rubyid_values'>values</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_values'>values</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_empty?'>empty?</SPAN>
+    <SPAN class='ivar'>@enum</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='ivar'>@enum</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_values'>values</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="const-instance_method">
+          #<STRONG>const</STRONG>(value = nil) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Set the value of a leaf to be a constant value</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>value</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+                title=
+                "LLM::Schema::Object (class)">Object</A></SPAN></TT>)</SPAN>
+                <EM class="default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The constant value</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://tour.json-schema.org/content/02-Primitive-Types/08-Defining-Constant-Values"
+                target="_parent" title="Constant Values">Constant Values</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_const'>const</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_value'>value</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_value'>value</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_nil?'>nil?</SPAN>
+    <SPAN class='ivar'>@const</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='ivar'>@const</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_value'>value</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="required-instance_method">
+          #<STRONG>required</STRONG> ⇒ <TT><SPAN class='object_link'><A href=""
+          title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Mark a leaf as required</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+72
+73
+74</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 72</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_required'>required</SPAN>
+  <SPAN class='id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='ivar'>@required</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>true</SPAN> <SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="required?-instance_method">
+          #<STRONG>required?</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Boolean.html" title=
+          "LLM::Schema::Boolean (class)">Boolean</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Boolean.html" title=
+              "LLM::Schema::Boolean (class)">Boolean</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+78
+79
+80</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 78</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_required?'>required?</SPAN>
+  <SPAN class='ivar'>@required</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="optional-instance_method">
+          #<STRONG>optional</STRONG> ⇒ <TT><SPAN class='object_link'><A href=""
+          title=
+          "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Mark a leaf as optional</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Schema::Leaf (class)">LLM::Schema::Leaf</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+85
+86
+87</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 85</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_optional'>optional</SPAN>
+  <SPAN class='id identifier rubyid_tap'>tap</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='ivar'>@required</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>false</SPAN> <SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="optional?-instance_method">
+          #<STRONG>optional?</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Boolean.html" title=
+          "LLM::Schema::Boolean (class)">Boolean</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Boolean.html" title=
+              "LLM::Schema::Boolean (class)">Boolean</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+91
+92
+93</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 91</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_optional?'>optional?</SPAN>
+  <SPAN class='op'>!</SPAN><SPAN class='ivar'>@required</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="to_h-instance_method">
+          #<STRONG>to_h</STRONG> ⇒ <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+97
+98
+99</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 97</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_to_h'>to_h</SPAN>
+  <SPAN class='lbrace'>{</SPAN><SPAN class=
+'label'>description:</SPAN> <SPAN class='ivar'>@description</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>default:</SPAN> <SPAN class=
+'ivar'>@default</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>enum:</SPAN> <SPAN class='ivar'>@enum</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_compact'>compact</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="to_json-instance_method">
+          #<STRONG>to_json</STRONG>(options = {}) ⇒ <TT><SPAN class=
+          'object_link'><A href="String.html" title=
+          "LLM::Schema::String (class)">String</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "String.html" title=
+              "LLM::Schema::String (class)">String</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+103
+104
+105</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/schema/leaf.rb', line 103</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_to_json'>to_json</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_options'>options</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_to_h'>to_h</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_to_json'>to_json</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

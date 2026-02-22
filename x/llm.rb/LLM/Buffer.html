@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Buffer — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Buffer";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (B)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Buffer</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Buffer</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Buffer</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Includes:</DT>
+          <DD>Enumerable</DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/buffer.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P><SPAN class='object_link'><A href="" title=
+          "LLM::Buffer (class)">LLM::Buffer</A></SPAN> provides an Enumerable
+          object that tracks messages in a conversation thread.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#empty%3F-instance_method"
+          title="#empty? (instance method)">#<STRONG>empty?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when the buffer is
+            empty.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#concat-instance_method"
+          title="#concat (instance method)">#<STRONG>concat</STRONG>(ary) ⇒
+          Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Append an array.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#each-instance_method"
+          title="#each (instance method)">#<STRONG>each</STRONG>
+          {|LLM::Message| ... } ⇒ void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#find-instance_method"
+          title="#find (instance method)">#<STRONG>find</STRONG> ⇒
+          LLM::Message<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Find a message (in descending
+            order).</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#last-instance_method"
+          title="#last (instance method)">#<STRONG>last</STRONG>(n = nil) ⇒
+          LLM::Message, ...</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the last message(s) in the
+            buffer.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#%3C%3C-instance_method"
+          title="#&lt;&lt; (instance method)">#<STRONG>&lt;&lt;</STRONG>(item)
+          ⇒ void</A> (also: #push)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#[]-instance_method" title=
+          "#[] (instance method)">#<STRONG>[]</STRONG>(index) ⇒
+          LLM::Message<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a message, or nil.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#inspect-instance_method"
+          title="#inspect (instance method)">#<STRONG>inspect</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider)
+          ⇒ LLM::Buffer</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Buffer (class)">LLM::Buffer</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>provider</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Provider.html"
+              title=
+              "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+13
+14
+15
+16</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 13</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+  <SPAN class='ivar'>@messages</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="empty?-instance_method">
+          #<STRONG>empty?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when the buffer is empty</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+83
+84
+85</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 83</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_empty?'>empty?</SPAN>
+  <SPAN class='ivar'>@messages</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_empty?'>empty?</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="concat-instance_method">
+          #<STRONG>concat</STRONG>(ary) ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Append an array</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>ary</SPAN> <SPAN class=
+                'type'>(<TT>Array&lt;<SPAN class='object_link'><A href=
+                "Message.html" title=
+                "LLM::Message (class)">LLM::Message</A></SPAN>&gt;</TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The array to append</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+22
+23
+24</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 22</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_concat'>concat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ary'>ary</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='ivar'>@messages</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_concat'>concat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ary'>ary</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="each-instance_method">
+          #<STRONG>each</STRONG> {|LLM::Message| ... } ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Yields:</P>
+            <UL class="yield">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Message.html" title=
+                "LLM::Message (class)">LLM::Message</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Yields each message in the conversation thread</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+30
+31
+32
+33
+34
+35
+36</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 30</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_each'>each</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_block_given?'>block_given?</SPAN>
+    <SPAN class='ivar'>@messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_each'>each</SPAN> <SPAN class='lbrace'>{</SPAN> <SPAN class='kw'>yield</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_enum_for'>enum_for</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:each</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="find-instance_method">
+          #<STRONG>find</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Message.html" title=
+          "LLM::Message (class)">LLM::Message</A></SPAN></TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Find a message (in descending order)</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Message.html" title=
+              "LLM::Message (class)">LLM::Message</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+41
+42
+43</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 41</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_find'>find</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_reverse_each'>reverse_each</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_find'>find</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="last-instance_method">
+          #<STRONG>last</STRONG>(n = nil) ⇒ <TT><SPAN class=
+          'object_link'><A href="Message.html" title=
+          "LLM::Message (class)">LLM::Message</A></SPAN></TT>, ...</H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the last message(s) in the buffer</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>n</SPAN> <SPAN class=
+                'type'>(<TT>Integer</TT>, <TT>nil</TT>)</SPAN> <EM class=
+                "default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The number of messages to return</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Message.html" title=
+              "LLM::Message (class)">LLM::Message</A></SPAN></TT>,
+              <TT>Array&lt;<SPAN class='object_link'><A href="Message.html"
+              title="LLM::Message (class)">LLM::Message</A></SPAN>&gt;</TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+50
+51
+52</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 50</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_last'>last</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_n'>n</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_n'>n</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_nil?'>nil?</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'ivar'>@messages</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_last'>last</SPAN> <SPAN class='op'>:</SPAN> <SPAN class=
+'ivar'>@messages</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_last'>last</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_n'>n</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="&lt;&lt;-instance_method">
+          #<STRONG>&lt;&lt;</STRONG>(item) ⇒ <TT>void</TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'push-instance_method'>push</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>item</SPAN> <SPAN class=
+                'type'>(<TT>[<SPAN class='object_link'><A href="Message.html"
+                title=
+                "LLM::Message (class)">LLM::Message</A></SPAN>]</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A message to add to the buffer</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+58
+59
+60
+61</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 58</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='op'>&lt;&lt;</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_item'>item</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@messages</SPAN> <SPAN class=
+'op'>&lt;&lt;</SPAN> <SPAN class='id identifier rubyid_item'>item</SPAN>
+  <SPAN class='kw'>self</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="[]-instance_method">
+          #<STRONG>[]</STRONG>(index) ⇒ <TT><SPAN class='object_link'><A href=
+          "Message.html" title=
+          "LLM::Message (class)">LLM::Message</A></SPAN></TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a message, or nil</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>index</SPAN> <SPAN class=
+                'type'>(<TT>Integer</TT>, <TT>Range</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The message index</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Message.html" title=
+                "LLM::Message (class)">LLM::Message</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns a message, or nil</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+69
+70
+71</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 69</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='op'>[]</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_index'>index</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@messages</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='id identifier rubyid_index'>index</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="inspect-instance_method">
+          #<STRONG>inspect</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+75
+76
+77
+78</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/buffer.rb', line 75</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_inspect'>inspect</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>#&lt;</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'kw'>self</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>:0x</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_object_id'>object_id</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='int'>16</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'> </SPAN><SPAN class='tstring_end'>"</SPAN></SPAN> \
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>message_count=</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class='ivar'>@messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_size'>size</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>&gt;</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

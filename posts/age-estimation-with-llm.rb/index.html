@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content=
+  "How to estimate the age of a person in a photo">
+  <META property="og:description" content=
+  "Documents how to estimate the age of a person in a photo with llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/age-estimation-with-llm.rb">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post walks through a small experiment using <A href=
+      "https://github.com/llmrb/llm#readme">llm.rb</A> to estimate a person's
+      age from a photo. I mainly wanted to see how well multimodal prompts,
+      vision, and structured outputs fit together in a simple Ruby script.</P>
+      <H2>Experiment</H2>
+      <H4>Overview</H4>
+      <P>The idea of the experiment is to provide an LLM with an image (as a
+      URL but it could also be a local file) and ask it to estimate the age of
+      the person in the photo using a JSON Schema. The schema tells the model
+      exactly what to return: an age, a confidence score, and optional notes,
+      so the response is easy to consume in code.</P>
+      <P>Not all models support JSON Schema (structured outputs), but you can
+      still get similar results with traditional prompts and prompt
+      engineering. It's just less effort with structured outputs. We're also
+      going to generate a sample image on the fly since it's a self-contained
+      demo:</P>
+      <PRE><CODE class="language-ruby">#!/usr/bin/env ruby
+require "llm"
+
+class Estimation &lt; LLM::Schema
+  property :age, Integer, "Estimated age", required: true
+  property :confidence, Number, "0.0-1.0", required: true
+  property :notes, String, "Short notes", optional: true
+end
+
+llm = LLM.openai(key: ENV.fetch("KEY"))
+bot = LLM::Bot.new(llm, schema: Estimation)
+img = llm.images.create(prompt: "A man in his 30s")
+res = bot.chat bot.image_url(img.urls.first)
+data = res.choices.find(&amp;:assistant?).content!
+
+puts "age: #{data["age"]}"
+puts "confidence: #{data["confidence"]}"
+puts "notes: #{data["notes"]}" if data["notes"]
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI>The schema names the three fields we want back: age, confidence,
+        and notes.</LI>
+        <LI>The sample image is generated on the fly to keep the demo
+        self-contained.</LI>
+        <LI>The bot is created with the schema and asked to "look" at the image
+        URL.</LI>
+        <LI>The response comes back as structured data, which is easy to
+        consume in code.</LI>
+      </UL>
+      <H2>Caveats</H2>
+      <P>Model-based age estimation is always approximate. The output here
+      shouldn't be used for real-world decisions or sensitive applications, and
+      it's worth being thoughtful about privacy when analyzing real photos.</P>
+      <H2>Conclusion</H2>
+      <P>This is a tiny script but quite powerful: it shows a pattern that can
+      be applied, leaning on a multimodal input (the image) and structured
+      outputs to make the result easy to understand and reuse. The same
+      approach works for captioning, attribute extraction, or other "look and
+      explain" tasks – with the caveats above.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

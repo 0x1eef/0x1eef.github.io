@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to stream a response body in Go">
+  <META property="og:description" content=
+  "Documents how to stream a response body in Go">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-stream-a-response-body-in-go">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post shows how to stream an HTTP response body in Go using the
+      standard library.</P>
+      <H2>Background</H2>
+      <P>Go’s standard library includes <A href=
+      "https://pkg.go.dev/net/http">net/http</A>, which gives you both an HTTP
+      client and server. This post focuses on streaming a response body in
+      chunks instead of reading everything into memory at once. That is useful
+      for large downloads (where you want a progress bar) or when you want to
+      process data as it arrives, and it is a common, idiomatic pattern for
+      stream-like interfaces in Go.</P>
+      <H2>Experiment</H2>
+      <H4>Overview</H4>
+      <P>Our experiment implements a function that reads the response body in
+      chunks and prints how many bytes have been downloaded so far. <A href=
+      "https://pkg.go.dev/net/http#Get">http.Get</A> returns an <A href=
+      "https://pkg.go.dev/net/http#Response">http.Response</A>. Its
+      <CODE>Body</CODE> field is an <CODE>io.ReadCloser</CODE> we can read from
+      and close when we are done.</P>
+      <P>By default, the body is streamed. You can pull it all at once with
+      <A href="https://pkg.go.dev/io#ReadAll">io.ReadAll</A>, or read smaller
+      chunks using <CODE>Read</CODE>. The response also has a <A href=
+      "https://pkg.go.dev/net/http#Response.ContentLength">ContentLength</A>
+      field with the total size in bytes, but it is sometimes <CODE>-1</CODE>
+      when the server does not send it. If you want a progress bar, you will
+      need it, but this experiment does not rely on it:</P>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  res, err := http.Get("https://www.openbsd.org/images/puffy78.gif")
+  if err != nil {
+    panic(err)
+  }
+  _, err = download(res.Body)
+  if err != nil {
+    panic(err)
+  }
+}
+
+func download(body io.ReadCloser) ([]byte, error) {
+  defer body.Close()
+  chunk := make([]byte, 2048)
+  buffer := make([]byte, 0, 2048*100)
+  read := 0
+  for {
+    n, err := body.Read(chunk)
+    if err == io.EOF {
+      break
+    } else if err != nil {
+      return buffer, err
+    } else {
+      buffer = append(buffer, chunk[:n]...)
+      read += n
+    }
+    fmt.Printf("\033[0K\rread %d bytes", read)
+  }
+  fmt.Println()
+  return buffer, nil
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI>
+          <P><CODE>res, err :=
+          http.Get("https://www.openbsd.org/images/puffy78.gif")</CODE><BR>
+          Sends a GET request and returns a response.</P>
+        </LI>
+        <LI>
+          <P><CODE>_, err = download(res.Body)</CODE><BR>
+          Reads the body in chunks and prints progress.</P>
+        </LI>
+        <LI>
+          <P><CODE>defer body.Close()</CODE><BR>
+          Closes the body when we are done.</P>
+        </LI>
+        <LI>
+          <P><CODE>chunk := make([]byte, 2048)</CODE><BR>
+          Allocates a 2KB buffer for each read.</P>
+        </LI>
+        <LI>
+          <P><CODE>buffer := make([]byte, 0, 2048*100)</CODE><BR>
+          Preallocates space for the downloaded data, growing if needed.</P>
+        </LI>
+        <LI>
+          <P><CODE>n, err := body.Read(chunk)</CODE><BR>
+          Reads up to 2KB and returns how many bytes were actually read.</P>
+        </LI>
+        <LI>
+          <P><CODE>buffer = append(buffer, chunk[:n]...)</CODE><BR>
+          Appends only the bytes we just read.</P>
+        </LI>
+        <LI>
+          <P><CODE>read += n</CODE><BR>
+          Keeps a running total.</P>
+        </LI>
+        <LI>
+          <P><CODE>fmt.Printf("\033[0K\rread %d bytes", read)</CODE><BR>
+          Updates the same terminal line with progress.</P>
+        </LI>
+        <LI>
+          <P><CODE>fmt.Println()</CODE><BR>
+          Adds a final newline after the loop.</P>
+        </LI>
+        <LI>
+          <P><CODE>if err == io.EOF { break }</CODE><BR>
+          Stops when we hit the end of the stream.</P>
+        </LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <DETAILS>
+        <SUMMARY>
+          Play demo
+        </SUMMARY><IMG src="demo.gif" alt=
+        "Demo of streaming a response body in Go">
+      </DETAILS>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

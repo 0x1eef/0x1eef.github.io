@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::OpenAI::VectorStores — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::OpenAI::VectorStores";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (V)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../OpenAI.html" title=
+        "LLM::OpenAI (class)">OpenAI</A></SPAN></SPAN> » <SPAN class=
+        "title">VectorStores</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::OpenAI::VectorStores</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::OpenAI::VectorStores</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/providers/openai/vector_stores.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::OpenAI::VectorStores (class)">LLM::OpenAI::VectorStores</A></SPAN>
+          class provides an interface for <A href=
+          "https://platform.openai.com/docs/api-reference/vector_stores/create">
+          OpenAI's vector stores API</A>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+          'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+          "../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_openai'><SPAN class='object_link'><A href=
+          "../../LLM.html#openai-class_method" title=
+          "LLM.openai (method)">openai</A></SPAN></SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='label'>key:</SPAN> <SPAN class=
+          'const'>ENV</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+          'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+          'tstring_content'>OPENAI_SECRET</SPAN><SPAN class=
+          'tstring_end'>"</SPAN></SPAN><SPAN class=
+          'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_files'>files</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='qwords_beg'>%w(</SPAN><SPAN class=
+'tstring_content'>foo.pdf</SPAN><SPAN class='words_sep'> </SPAN><SPAN class=
+'tstring_content'>bar.pdf</SPAN><SPAN class=
+'tstring_end'>)</SPAN></CODE><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_map'>map</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create'>create</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>file:</SPAN> <SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class=
+'rbrace'>}</SPAN>
+<SPAN class='id identifier rubyid_store'>store</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_vector_stores'>vector_stores</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_create_and_poll'>create_and_poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>name:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>PDF Store</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>file_ids:</SPAN> <SPAN class=
+'id identifier rubyid_files'>files</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_map'>map</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:id</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_print'>print</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>[-] store is ready</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>\n</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='id identifier rubyid_chunks'>chunks</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_vector_stores'>vector_stores</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_search'>search</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN> <SPAN class=
+'id identifier rubyid_store'>store</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>query:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>What is Ruby?</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='id identifier rubyid_chunks'>chunks</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_chunk'>chunk</SPAN><SPAN class='op'>|</SPAN> <SPAN class=
+'id identifier rubyid_puts'>puts</SPAN> <SPAN class=
+'id identifier rubyid_chunk'>chunk</SPAN> <SPAN class='rbrace'>}</SPAN></PRE>
+        </DIV>
+      </DIV>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="PollError-constant" class="">PollError =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'>Class</SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_new'>new</SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='const'><SPAN class=
+          'object_link'><A href="../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "../Error.html" title=
+          "LLM::Error (class)">Error</A></SPAN></SPAN><SPAN class=
+          'rparen'>)</SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#poll-instance_method"
+          title="#poll (instance method)">#<STRONG>poll</STRONG>(vector:, file:
+          nil, attempts: 0, max: 50, interval: INTERVAL) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Poll a vector store or file until its
+            status is "completed".</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#all-instance_method" title=
+          "#all (instance method)">#<STRONG>all</STRONG>(**params) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">List all vector stores.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#create-instance_method"
+          title="#create (instance method)">#<STRONG>create</STRONG>(name:,
+          file_ids: nil, **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create a vector store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#create_and_poll-instance_method" title=
+          "#create_and_poll (instance method)">#<STRONG>create_and_poll</STRONG>(interval:
+          INTERVAL, **rest) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Create a vector store and poll until
+            its status is "completed".</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#get-instance_method" title=
+          "#get (instance method)">#<STRONG>get</STRONG>(vector:) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Get a vector store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#modify-instance_method"
+          title="#modify (instance method)">#<STRONG>modify</STRONG>(vector:,
+          name: nil, **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Modify an existing vector
+            store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#delete-instance_method"
+          title="#delete (instance method)">#<STRONG>delete</STRONG>(vector:) ⇒
+          LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Delete a vector store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#search-instance_method"
+          title="#search (instance method)">#<STRONG>search</STRONG>(vector:,
+          query:, **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Search a vector store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#all_files-instance_method"
+          title=
+          "#all_files (instance method)">#<STRONG>all_files</STRONG>(vector:,
+          **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">List all files in a vector
+            store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#add_file-instance_method"
+          title=
+          "#add_file (instance method)">#<STRONG>add_file</STRONG>(vector:,
+          file:, attributes: nil, **params) ⇒ LLM::Response</A> (also:
+          #create_file)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Add a file to a vector
+            store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#add_file_and_poll-instance_method" title=
+          "#add_file_and_poll (instance method)">#<STRONG>add_file_and_poll</STRONG>(vector:,
+          file:, interval: INTERVAL, **rest) ⇒ LLM::Response</A> (also:
+          #create_file_and_poll)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Add a file to a vector store and poll
+            until its status is "completed".</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#update_file-instance_method" title=
+          "#update_file (instance method)">#<STRONG>update_file</STRONG>(vector:,
+          file:, attributes:, **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Update a file in a vector
+            store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#get_file-instance_method"
+          title=
+          "#get_file (instance method)">#<STRONG>get_file</STRONG>(vector:,
+          file:, **params) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Get a file from a vector
+            store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#delete_file-instance_method" title=
+          "#delete_file (instance method)">#<STRONG>delete_file</STRONG>(vector:,
+          file:) ⇒ LLM::Response</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Delete a file from a vector
+            store.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(provider)
+          ⇒ VectorStores</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of
+            VectorStores.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(provider) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::OpenAI::VectorStores (class)">VectorStores</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of VectorStores.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>provider</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "../Provider.html" title=
+                "LLM::Provider (class)">LLM::Provider</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>An OpenAI provider</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+24
+25
+26</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 24</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_provider'>provider</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@provider</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_provider'>provider</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="poll-instance_method">
+          #<STRONG>poll</STRONG>(vector:, file: nil, attempts: 0, max: 50,
+          interval: INTERVAL) ⇒ <TT><SPAN class='object_link'><A href=
+          "../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Poll a vector store or file until its status is
+              "completed"</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> <EM class=
+                "default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The file to poll (optional)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>attempts</SPAN> <SPAN class=
+                'type'>(<TT>Integer</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>0</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The current number of attempts (default: 0)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>max</SPAN> <SPAN class=
+                'type'>(<TT>Integer</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>50</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The maximum number of iterations (default: 50)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>interval</SPAN> <SPAN class=
+                'type'>(<TT>Float</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>INTERVAL</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The interval between polling attempts (seconds)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT>LLM::PollError</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When the maximum number of iterations is reached</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 234</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_poll'>poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>attempts:</SPAN> <SPAN class='int'>0</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>max:</SPAN> <SPAN class=
+'int'>50</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>interval:</SPAN> <SPAN class='const'>INTERVAL</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_target'>target</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN> <SPAN class=
+'op'>||</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_attempts'>attempts</SPAN> <SPAN class=
+'op'>==</SPAN> <SPAN class='id identifier rubyid_max'>max</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>PollError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>'</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_target'>target</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'>' has status '</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_target'>target</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_status'>status</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>' after </SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_max'>max</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'> attempts</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>elsif</SPAN> <SPAN class=
+'id identifier rubyid_target'>target</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_status'>status</SPAN> <SPAN class=
+'op'>==</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>expired</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>PollError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_target'>target</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'>' has expired</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>elsif</SPAN> <SPAN class=
+'id identifier rubyid_target'>target</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_status'>status</SPAN> <SPAN class=
+'op'>!=</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>completed</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+    <SPAN class='id identifier rubyid_file'>file</SPAN> <SPAN class=
+'op'>?</SPAN> <SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_file'>file</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_get_file'>get_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_vector'>vector</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_get'>get</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='id identifier rubyid_sleep'>sleep</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_interval'>interval</SPAN> <SPAN class=
+'op'>*</SPAN> <SPAN class='lparen'>(</SPAN><SPAN class=
+'int'>2</SPAN><SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_attempts'>attempts</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class=
+'kw'>unless</SPAN> <SPAN class=
+'id identifier rubyid_interval'>interval</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_zero?'>zero?</SPAN>
+    <SPAN class='id identifier rubyid_poll'>poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>attempts:</SPAN> <SPAN class=
+'id identifier rubyid_attempts'>attempts</SPAN> <SPAN class=
+'op'>+</SPAN> <SPAN class='int'>1</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>max:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>interval:</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_target'>target</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="all-instance_method">
+          #<STRONG>all</STRONG>(**params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>List all vector stores</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 32</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_all'>all</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores?</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:enumerable</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="create-instance_method">
+          #<STRONG>create</STRONG>(name:, file_ids: nil, **params) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The name of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file_ids</SPAN> <SPAN class=
+                'type'>(<TT>Array&lt;String&gt;</TT>)</SPAN> <EM class=
+                "default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The IDs of the files to include in the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores/create"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 48</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create'>create</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>name:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file_ids:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>name:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>file_ids:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="create_and_poll-instance_method">
+          #<STRONG>create_and_poll</STRONG>(interval: INTERVAL, **rest) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Create a vector store and poll until its status is
+              "completed"</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>interval</SPAN> <SPAN class=
+                'type'>(<TT>Float</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>INTERVAL</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The interval between polling attempts (seconds)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The name of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file_ids</SPAN> <SPAN class=
+                'type'>(<TT>Array&lt;String&gt;</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The IDs of the files to include in the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_create_and_poll'>create_and_poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>interval:</SPAN> <SPAN class=
+'const'>INTERVAL</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class='id identifier rubyid_rest'>rest</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_poll'>poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>interval:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>vector:</SPAN> <SPAN class=
+'id identifier rubyid_create'>create</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_rest'>rest</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="get-instance_method">
+          #<STRONG>get</STRONG>(vector:) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Get a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores/retrieve"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+71
+72
+73
+74
+75
+76
+77</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 71</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_get'>get</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'label'>vector:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="modify-instance_method">
+          #<STRONG>modify</STRONG>(vector:, name: nil, **params) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Modify an existing vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The new name of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores/modify"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+87
+88
+89
+90
+91
+92
+93
+94</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 87</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_modify'>modify</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>name:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>name:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="delete-instance_method">
+          #<STRONG>delete</STRONG>(vector:) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Delete a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores/delete"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+102
+103
+104
+105
+106
+107
+108</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 102</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_delete'>delete</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Delete</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="search-instance_method">
+          #<STRONG>search</STRONG>(vector:, query:, **params) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Search a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>query</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The query to search for</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores/search"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+118
+119
+120
+121
+122
+123
+124
+125</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 118</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_search'>search</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>query:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/search</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>query:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>retrieval</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:enumerable</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>retrieval</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="all_files-instance_method">
+          #<STRONG>all_files</STRONG>(vector:, **params) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>List all files in a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores_files/listFiles"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+134
+135
+136
+137
+138
+139
+140
+141</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 134</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_all_files'>all_files</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/files?</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>ResponseAdapter</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_adapt'>adapt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'symbol'>:enumerable</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="add_file-instance_method">
+          #<STRONG>add_file</STRONG>(vector:, file:, attributes: nil, **params)
+          ⇒ <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'create_file-instance_method'>create_file</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Add a file to a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the file to add</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>attributes</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>Attributes to associate with the file (optional)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores_files/createFile"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+152
+153
+154
+155
+156
+157
+158
+159
+160</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 152</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_add_file'>add_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>attributes:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/files</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>file_id:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>attributes:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="add_file_and_poll-instance_method">
+          #<STRONG>add_file_and_poll</STRONG>(vector:, file:, interval:
+          INTERVAL, **rest) ⇒ <TT><SPAN class='object_link'><A href=
+          "../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'create_file_and_poll-instance_method'>create_file_and_poll</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Add a file to a vector store and poll until its status is
+              "completed"</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>interval</SPAN> <SPAN class=
+                'type'>(<TT>Float</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>INTERVAL</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The interval between polling attempts (seconds)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the file to add</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>attributes</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Attributes to associate with the file (optional)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+168
+169
+170</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 168</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_add_file_and_poll'>add_file_and_poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>interval:</SPAN> <SPAN class=
+'const'>INTERVAL</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'op'>**</SPAN><SPAN class='id identifier rubyid_rest'>rest</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_poll'>poll</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>interval:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN> <SPAN class=
+'id identifier rubyid_add_file'>add_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_rest'>rest</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="update_file-instance_method">
+          #<STRONG>update_file</STRONG>(vector:, file:, attributes:, **params)
+          ⇒ <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Update a file in a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the file to update</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>attributes</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Attributes to associate with the file</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>params</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Other parameters (see OpenAI docs)</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores_files/updateAttributes"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+182
+183
+184
+185
+186
+187
+188
+189
+190</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 182</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_update_file'>update_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>attributes:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Post</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_body'>body</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_json'><SPAN class='object_link'><A href=
+"../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='label'>attributes:</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_compact'>compact</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="get_file-instance_method">
+          #<STRONG>get_file</STRONG>(vector:, file:, **params) ⇒
+          <TT><SPAN class='object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Get a file from a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the file to retrieve</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores_files/getFile"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+199
+200
+201
+202
+203
+204
+205
+206
+207</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 199</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_get_file'>get_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_query'>query</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>URI</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_encode_www_form'>encode_www_form</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Get</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>?</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_query'>query</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="delete_file-instance_method">
+          #<STRONG>delete_file</STRONG>(vector:, file:) ⇒ <TT><SPAN class=
+          'object_link'><A href="../Response.html" title=
+          "LLM::Response (class)">LLM::Response</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Delete a file from a vector store</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>vector</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the vector store</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>file</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>, <TT>#id</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The ID of the file to delete</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Response.html" title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">See Also:</P>
+            <UL class="see">
+              <LI>
+                <A href=
+                "https://platform.openai.com/docs/api-reference/vector_stores_files/deleteFile"
+                target="_parent" title="OpenAI docs">OpenAI docs</A>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+216
+217
+218
+219
+220
+221
+222
+223</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/providers/openai/vector_stores.rb', line 216</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_delete_file'>delete_file</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>vector:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>file:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_vector_id'>vector_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_vector'>vector</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_vector'>vector</SPAN>
+  <SPAN class='id identifier rubyid_file_id'>file_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:id</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid_file'>file</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid_file'>file</SPAN>
+  <SPAN class='id identifier rubyid_req'>req</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Net</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>HTTP</SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'>Delete</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>/v1/vector_stores/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_vector_id'>vector_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/files/</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_file_id'>file_id</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_headers'>headers</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_span'>span</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_execute'>execute</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>request:</SPAN> <SPAN class=
+'id identifier rubyid_req'>req</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>operation:</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Response.html" title=
+"LLM::Response (class)">Response</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="../Response.html#initialize-instance_method" title=
+"LLM::Response#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_finish_trace'>finish_trace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>operation:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>request</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>res:</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>span:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:40 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Tracer::Null — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Tracer::Null";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (N)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Tracer.html" title=
+        "LLM::Tracer (class)">Tracer</A></SPAN></SPAN> » <SPAN class=
+        "title">Null</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Tracer::Null</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName"><SPAN class='object_link'><A href=
+            "../Tracer.html" title=
+            "LLM::Tracer (class)">LLM::Tracer</A></SPAN></SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next"><SPAN class='object_link'><A href=
+              "../Tracer.html" title=
+              "LLM::Tracer (class)">LLM::Tracer</A></SPAN></LI>
+              <LI class="next">LLM::Tracer::Null</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/tracer/null.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>A no-op tracer that ignores all tracing callbacks.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_start-instance_method" title=
+          "#on_request_start (instance method)">#<STRONG>on_request_start</STRONG>
+          ⇒ nil</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_finish-instance_method" title=
+          "#on_request_finish (instance method)">#<STRONG>on_request_finish</STRONG>
+          ⇒ nil</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_request_error-instance_method" title=
+          "#on_request_error (instance method)">#<STRONG>on_request_error</STRONG>
+          ⇒ nil</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_start-instance_method" title=
+          "#on_tool_start (instance method)">#<STRONG>on_tool_start</STRONG> ⇒
+          nil</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_finish-instance_method" title=
+          "#on_tool_finish (instance method)">#<STRONG>on_tool_finish</STRONG>
+          ⇒ nil</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_error-instance_method" title=
+          "#on_tool_error (instance method)">#<STRONG>on_tool_error</STRONG> ⇒
+          nil</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <H3 class="inherited">Methods inherited from <SPAN class=
+      'object_link'><A href="../Tracer.html" title=
+      "LLM::Tracer (class)">LLM::Tracer</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "../Tracer.html#flush!-instance_method" title=
+      "LLM::Tracer#flush! (method)">#flush!</A></SPAN>, <SPAN class=
+      'object_link'><A href="../Tracer.html#initialize-instance_method" title=
+      "LLM::Tracer#initialize (method)">#initialize</A></SPAN>, <SPAN class=
+      'object_link'><A href="../Tracer.html#inspect-instance_method" title=
+      "LLM::Tracer#inspect (method)">#inspect</A></SPAN>, <SPAN class=
+      'object_link'><A href="../Tracer.html#spans-instance_method" title=
+      "LLM::Tracer#spans (method)">#spans</A></SPAN></P>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <P class="notice">This class inherits a constructor from <SPAN class=
+        'object_link'><A href="../Tracer.html#initialize-instance_method"
+        title="LLM::Tracer#initialize (method)">LLM::Tracer</A></SPAN></P>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="on_request_start-instance_method">
+          #<STRONG>on_request_start</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>operation</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>model</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+10
+11
+12</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/null.rb', line 10</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_start'>on_request_start</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_finish-instance_method">
+          #<STRONG>on_request_finish</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>operation</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>model</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>res</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Response.html"
+              title=
+              "LLM::Response (class)">LLM::Response</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>span</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+              title="LLM::Object (class)">Object</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+17
+18
+19</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/null.rb', line 17</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_finish'>on_request_finish</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_request_error-instance_method">
+          #<STRONG>on_request_error</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ex</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Error.html"
+              title=
+              "LLM::Error (class)">LLM::Error</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>span</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+              title="LLM::Object (class)">Object</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+24
+25
+26</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/null.rb', line 24</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_request_error'>on_request_error</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_start-instance_method">
+          #<STRONG>on_tool_start</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>id</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool call ID assigned by the model/provider</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool (function) name.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>arguments</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The parsed tool arguments.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>model</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The model name</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+31
+32
+33</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/null.rb', line 31</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_start'>on_tool_start</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_finish-instance_method">
+          #<STRONG>on_tool_finish</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>result</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "../Function/Return.html" title=
+                "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The tool return object.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>span</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The span/context object returned by <SPAN class=
+                  'object_link'><A href="#on_tool_start-instance_method" title=
+                  "LLM::Tracer::Null#on_tool_start (method)">#on_tool_start</A></SPAN>.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+38
+39
+40</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/null.rb', line 38</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_finish'>on_tool_finish</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_error-instance_method">
+          #<STRONG>on_tool_error</STRONG> ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>ex</SPAN> <SPAN class=
+                'type'>(<TT>Exception</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The raised error.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>span</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The span/context object returned by <SPAN class=
+                  'object_link'><A href="#on_tool_start-instance_method" title=
+                  "LLM::Tracer::Null#on_tool_start (method)">#on_tool_start</A></SPAN>.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+45
+46
+47</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tracer/null.rb', line 45</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_error'>on_tool_error</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

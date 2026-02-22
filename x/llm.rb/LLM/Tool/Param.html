@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Module: LLM::Tool::Param — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Tool::Param";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (P)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Tool.html" title=
+        "LLM::Tool (class)">Tool</A></SPAN></SPAN> » <SPAN class=
+        "title">Param</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Module: LLM::Tool::Param</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Included in:</DT>
+          <DD><SPAN class='object_link'><A href="../Tool.html" title=
+          "LLM::Tool (class)">LLM::Tool</A></SPAN></DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/tool/param.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Tool::Param (module)">LLM::Tool::Param</A></SPAN> module
+          extends the <SPAN class='object_link'><A href="../Tool.html" title=
+          "LLM::Tool (class)">LLM::Tool</A></SPAN> class with a "param" method
+          that can define a parameter for simple types. For complex types, use
+          <SPAN class='object_link'><A href="../Tool.html#params-class_method"
+          title="LLM::Tool.params (method)">LLM::Tool.params</A></SPAN>
+          instead.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags">
+        <DIV class="examples">
+          <P class="tag_title">Examples:</P>
+          <PRE class="example code"><CODE><SPAN class=
+          'kw'>class</SPAN> <SPAN class='const'>Greeter</SPAN> <SPAN class=
+          'op'>&lt;</SPAN> <SPAN class='const'><SPAN class=
+          'object_link'><A href="../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "../Tool.html" title="LLM::Tool (class)">Tool</A></SPAN></SPAN>
+  <SPAN class='id identifier rubyid_name'>name</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>greeter</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class=
+'id identifier rubyid_description'>description</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>Greets the user</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='id identifier rubyid_param'>param</SPAN> <SPAN class=
+'symbol'>:name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'const'>String</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>The user's name</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>required:</SPAN> <SPAN class='kw'>true</SPAN>
+
+  <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>name:</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='id identifier rubyid_puts'>puts</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Hello, </SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>!</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></CODE></PRE>
+        </DIV>
+      </DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="modules">Modules:</STRONG>
+      <SPAN class='object_link'><A href="Param/Utils.html" title=
+      "LLM::Tool::Param::Utils (module)">Utils</A></SPAN></P>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#param-instance_method"
+          title="#param (instance method)">#<STRONG>param</STRONG>(name, type,
+          description, options = {}) ⇒ Object</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="param-instance_method">
+          #<STRONG>param</STRONG>(name, type, description, options = {}) ⇒
+          <TT><SPAN class='object_link'><A href="../Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>Symbol</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The name of a parameter</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>type</SPAN> <SPAN class=
+                'type'>(<TT>Class</TT>, <TT>Symbol</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The parameter type (eg String)</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>description</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The description of a property</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>options</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>{}</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>A hash of options for the parameter</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Options Hash (<TT>options</TT>):</P>
+            <UL class="option">
+              <LI>
+                <SPAN class="name">:required</SPAN> <SPAN class=
+                "type">(<TT>Boolean</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Whether or not the parameter is required</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:default</SPAN> <SPAN class=
+                "type">(<TT><SPAN class='object_link'><A href="../Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The default value for a given property</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:enum</SPAN> <SPAN class=
+                "type">(<TT>Array&lt;String&gt;</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>One or more possible values for a param</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38
+39
+40
+41
+42
+43
+44</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/tool/param.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_param'>param</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_type'>type</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_description'>description</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_options'>options</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_lock'>lock</SPAN> <SPAN class=
+'kw'>do</SPAN>
+    <SPAN class='id identifier rubyid_function'>function</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN> <SPAN class=
+'kw'>do</SPAN> <SPAN class='op'>|</SPAN><SPAN class=
+'id identifier rubyid_schema'>schema</SPAN><SPAN class='op'>|</SPAN>
+      <SPAN class='id identifier rubyid_leaf'>leaf</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_schema'>schema</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_public_send'>public_send</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Param/Utils.html" title=
+"LLM::Tool::Param::Utils (module)">Utils</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_resolve'><SPAN class=
+'object_link'><A href="Param/Utils.html#resolve-instance_method" title=
+"LLM::Tool::Param::Utils#resolve (method)">resolve</A></SPAN></SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_type'>type</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+      <SPAN class='id identifier rubyid_leaf'>leaf</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"Param/Utils.html" title=
+"LLM::Tool::Param::Utils (module)">Utils</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_setup'><SPAN class=
+'object_link'><A href="Param/Utils.html#setup-instance_method" title=
+"LLM::Tool::Param::Utils#setup (method)">setup</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_leaf'>leaf</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_description'>description</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+      <SPAN class='id identifier rubyid_schema'>schema</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_object'>object</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN> <SPAN class=
+'op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_leaf'>leaf</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='kw'>end</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Sun Feb 22 12:47:39 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>
