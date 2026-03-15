@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="The functional options pattern (in Go)">
+  <META property="og:description" content=
+  "Documents a common pattern when initializing Go structs">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/the-functional-options-pattern/">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post walks through the functional options pattern and why I like
+      it for building Go APIs that stay tidy as they grow.</P>
+      <H2>Background</H2>
+      <H4>Overview</H4>
+      <P>I first ran into this pattern while using the goldmark library (a
+      great Go markdown library). At the time it felt a little mysterious, so I
+      filed it away and moved on. Later, when I started writing my own
+      libraries, I wanted the APIs to feel idiomatic, so I circled back and
+      learned how the functional options pattern works.</P>
+      <H4>Pattern</H4>
+      <P>The functional options pattern is a simple way to configure a struct
+      without stuffing a constructor with lots of parameters.</P>
+      <P>Instead of passing a long list of values, you pass option functions to
+      <CODE>New</CODE>. Each option function receives a pointer to the struct
+      and sets one field.</P>
+      <P>Option functions are usually small helpers like <CODE>SetName</CODE>
+      or <CODE>SetAge</CODE>. They capture a value, return a function, and
+      <CODE>New</CODE> runs them to apply those values.</P>
+      <H2>Experiment</H2>
+      <H4>Overview</H4>
+      <P>The example below defines a <CODE>User</CODE> struct and a few package
+      functions that configure it:</P>
+      <UL>
+        <LI><STRONG>user/user.go</STRONG></LI>
+      </UL>
+      <PRE><CODE class="language-go">package user
+
+type User struct {
+  name string
+  age  uint8
+}
+
+type Option func(*User)
+
+func New(opts ...Option) *User {
+  u := &amp;User{name: "unknown", age: uint8(0)}
+  for _, set := range opts {
+    set(u)
+  }
+  return u
+}
+
+func SetName(name string) Option {
+  return func(u *User) {
+    u.name = name
+  }
+}
+
+func SetAge(age uint8) Option {
+  return func (u *User) {
+    u.age = age
+  }
+}
+</CODE></PRE>
+      <UL>
+        <LI><STRONG>cmd/main/main.go</STRONG></LI>
+      </UL>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "user"
+)
+
+func main() {
+  u := user.New(
+    user.SetName("Mario"),
+    user.SetAge(uint8(37))
+  )
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI><CODE>User</CODE> is the struct we want to configure.</LI>
+        <LI><CODE>SetName</CODE> and <CODE>SetAge</CODE> each capture a value
+        and return an option function.</LI>
+        <LI>Each option function sets one field on <CODE>User</CODE>.</LI>
+        <LI><CODE>New</CODE> builds a default <CODE>User</CODE>, then runs all
+        the options to apply those values.</LI>
+        <LI>In <CODE>main</CODE>, passing <CODE>SetName(...)</CODE> and
+        <CODE>SetAge(...)</CODE> configures the struct in one line.</LI>
+      </UL>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

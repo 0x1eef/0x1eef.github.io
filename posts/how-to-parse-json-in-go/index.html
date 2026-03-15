@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to parse JSON in Go">
+  <META property="og:description" content="Documents how to parse JSON in Go">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-parse-json-in-go">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how Go's <A href=
+      "https://pkg.go.dev/encoding/json">encoding/json</A> can be used to parse
+      JSON into a Go struct with the help of the <A href=
+      "https://pkg.go.dev/encoding/json#Unmarshal">Unmarshal</A> function.
+      We're going to make it a little more useful by using generics as
+      well.</P>
+      <H2>Schema</H2>
+      <H4>Payload</H4>
+      <PRE><CODE class="language-json">{
+  "ok": true,
+  "errors": [],
+  "data": { "pages": 123 } | { "color": "blue" }
+}
+</CODE></PRE>
+      <H4>Response</H4>
+      <PRE><CODE class="language-go">type Response[T any] struct {
+  Ok     bool     `json:"ok"`
+  Errors []string `json:"errors"`
+  Data   T        `json:"data"`
+}
+</CODE></PRE>
+      <H2>Experiment</H2>
+      <H4>Overview</H4>
+      <P>Our experiment sets up two examples with slightly different payloads.
+      The first payload includes a book with a page count, and the second
+      payload includes a car with a color. The <A href=
+      "https://pkg.go.dev/encoding/json#Unmarshal">unmarshal</A> function is
+      used to parse the JSON into a Go struct, and, if successful, the struct
+      is initialized with the data from the JSON.</P>
+      <P>One word before we begin though, <A href=
+      "https://pkg.go.dev/encoding/json#Unmarshal">json.Unmarshal</A> expects a
+      <CODE>[]byte</CODE>. If your JSON comes from an <CODE>io.Reader</CODE>
+      (file, network, or stream), use <A href=
+      "https://pkg.go.dev/encoding/json#Decoder">json.Decoder</A> instead, it
+      can read directly from the stream without buffering the entire input in
+      memory. Otherwise the information in this post still applies:</P>
+      <H4>Book</H4>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "encoding/json"
+)
+
+type Response[T any] struct {
+  Ok     bool     `json:"ok"`
+  Errors []string `json:"errors"`
+  Data   T        `json:"data"`
+}
+
+type Book struct {
+  Pages int `json:"pages"`
+}
+
+func main() {
+  var res Response[Book]
+  str := `{"ok": true, "errors": [], "data": {"pages": 123}}`
+  err := json.Unmarshal([]byte(str), &amp;res)
+  if err != nil {
+    panic(err)
+  }
+  book := res.Data
+  println(book.Pages) // 123
+}
+</CODE></PRE>
+      <H4>Car</H4>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "encoding/json"
+)
+
+type Response[T any] struct {
+  Ok     bool     `json:"ok"`
+  Errors []string `json:"errors"`
+  Data   T        `json:"data"`
+}
+
+type Car struct {
+  Color string `json:"color"`
+}
+
+func main() {
+  var res Response[Car]
+  str := `{"ok": true, "errors": [], "data": {"color": "blue"}}`
+  err := json.Unmarshal([]byte(str), &amp;res)
+  if err != nil {
+    panic(err)
+  }
+  car := res.Data
+  println(car.Color) // blue
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <P>This explanation also applies to the car example, but we'll just talk
+      about the book example for simplicity:</P>
+      <UL>
+        <LI>
+          <P><CODE>type Response[T any] struct { ... }</CODE><BR>
+          The Response object provides common fields, and a generic field.</P>
+        </LI>
+        <LI>
+          <P><CODE>type Book struct { Pages int }</CODE><BR>
+          The book payload fills the role of the generic field
+          (<CODE>data</CODE>).</P>
+        </LI>
+        <LI>
+          <P><CODE>var book Response[Book]</CODE><BR>
+          The Response type, with the Book generic.</P>
+        </LI>
+        <LI>
+          <P><CODE>json.Unmarshal(...)</CODE><BR>
+          This is where the magic happens.<BR>
+          Our JSON string is turned into a Go struct, or an error is
+          returned.</P>
+        </LI>
+        <LI>
+          <P><CODE>book := res.Data</CODE><BR>
+          The generic field becomes a concrete type (Book) after
+          unmarshalling.</P>
+        </LI>
+        <LI>
+          <P><CODE>println(book.Pages)</CODE><BR>
+          This prints the page count.</P>
+        </LI>
+      </UL>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

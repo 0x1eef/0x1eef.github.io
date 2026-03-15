@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="An mdo(1) introduction">
+  <META property="og:description" content=
+  "Documents how to use mdo(1) on FreeBSD">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/an-mdo-introduction">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post takes a look at a recent addition to FreeBSD: <A href=
+      "https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A>. The mdo utility
+      allows a given user or group member to execute a command as another
+      user.</P>
+      <H2>Background</H2>
+      <P>Historically UNIX tools that let one user execute a command as another
+      (for example: <A href="https://man.openbsd.org/doas">doas(1)</A> and
+      <A href=
+      "https://www.man7.org/linux/man-pages/man8/sudo.8.html">sudo(8)</A>) have
+      relied on a setuid binary owned by root.</P>
+      <P>When invoked, the binary runs with an effective user ID of 0 and then
+      drops privileges to the target user via a system call like <A href=
+      "https://man.freebsd.org/setuid">setuid(2)</A>. The real and effective
+      user/group IDs are updated, and <A href=
+      "https://man.freebsd.org/execve">execve(2)</A> replaces the process while
+      keeping those target privileges. That pattern has been standard for
+      decades.</P>
+      <P>But <A href="https://man.freebsd.org/mdo">mdo(1)</A> is different. It
+      avoids setuid binaries completely and instead relies on the <A href=
+      "https://man.freebsd.org/mac_do">mac_do(4)</A> policy (a kernel module)
+      to allow user/group transitions through the <A href=
+      "https://man.freebsd.org/setcred">setcred(2)</A> system call. In
+      comparison to setuid binaries this approach is innovative and a breath of
+      fresh air.</P>
+      <H2>Policy</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>The <A href="https://man.freebsd.org/cgi/man.cgi?mdo">mdo(1)</A>
+      utility depends on the <A href=
+      "https://man.freebsd.org/cgi/man.cgi?mac_do">mac_do(4)</A> policy. This
+      policy must be loaded into the kernel before mdo(1) can be used from the
+      command line. The <A href=
+      "https://man.freebsd.org/cgi/man.cgi?mac">mac(4)</A> man page provides
+      more information about FreeBSD's Mandatory Access Control (MAC)
+      framework.</P>
+      <P><STRONG>Policy: Temporary</STRONG></P>
+      <P>We can quickly try mdo without rebooting the system by loading the
+      policy temporarily but the recommended approach is to load the policy
+      earlier in the boot process:</P>
+      <PRE><CODE class="language-sh">root@freebsd# kldload mac_do
+</CODE></PRE>
+      <P><STRONG>Policy: Persistent</STRONG></P>
+      <P>We can choose to have the mdo policy persist across system reboots and
+      loaded into the kernel early in the boot process by updating
+      <CODE>/boot/loader.conf</CODE>. This is the recommended approach:</P>
+      <PRE><CODE class="language-sh"># /boot/loader.conf
+mac_do_load="YES"
+</CODE></PRE>
+      <H2>Rules</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>A rule defines which user or group members can execute a command as
+      another user. These rules are stored as a semicolon-separated list and
+      can be managed via <A href="https://man.freebsd.org/sysctl">sysctl(8)</A>
+      under the <CODE>security.mac.do.rules</CODE> node.</P>
+      <P>Each rule consists of two parts: a left-hand side and a right-hand
+      side, separated by the <CODE>&gt;</CODE> character. The left-hand side
+      describes the source user ID or group ID that is allowed to run a
+      command, and the right-hand side describes the target ID that can be
+      inherited by user(s) described in the left-hand side of the rule.</P>
+      <P>Although <CODE>security.mac.do.rules</CODE> is <EM>roughly</EM>
+      analogous to OpenBSD's <CODE>doas.conf</CODE> file it currently cannot
+      express the same rules. For example, the doas.conf file lets you choose
+      which program can be executed and with what arguments where as mdo(1)
+      rules are focused purely on what id transitions are allowed.</P>
+      <P>Let's look at some examples of how to define rules:</P>
+      <PRE><CODE class=
+      "language-sh">root@freebsd# sysctl security.mac.do.rules="uid=$(id -u alice)&gt;uid=$(id -u bob)"
+root@freebsd# gid=$(getent group beatles | awk -F: '{print $3}')
+root@freebsd# sysctl security.mac.do.rules="gid=${gid}&gt;uid=$(id -u bob)"
+root@freebsd# sysctl security.mac.do.rules="uid=$(id -u alice)&gt;uid=0"
+root@freebsd# sysctl security.mac.do.rules=uid="$(id -u alice)&gt;any"
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI>"uid=$(id -u alice)&gt;uid=$(id -u bob)"<BR>
+        Permits user <CODE>alice</CODE> to execute commands as user
+        <CODE>bob</CODE>.</LI>
+        <LI>"gid=${gid}&gt;uid=$(id -u bob)"<BR>
+        Permits any member of the <CODE>beatles</CODE> group to execute
+        commands as user <CODE>bob</CODE>. The <CODE>gid</CODE> variable is
+        first set by looking up the <CODE>beatles</CODE> group ID.</LI>
+        <LI>"uid=$(id -u alice)&gt;uid=0"<BR>
+        Permits user <CODE>alice</CODE> to execute commands as the
+        <CODE>root</CODE> user (UID 0).</LI>
+        <LI>"uid=$(id -u alice)&gt;any"<BR>
+        Permits user <CODE>alice</CODE> to execute commands as <EM>any</EM>
+        other user on the system.<BR>
+        This could be risky.</LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>With the mac_do policy loaded and the relevant rules in place, alice
+      can now use the <A href="https://man.freebsd.org/man.cgi?mdo">mdo(1)</A>
+      utility to launch the weechat program as bob:</P>
+      <PRE><CODE class=
+      "language-sh">alice@freebsd$ mdo -u bob /usr/local/bin/weechat
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI>mdo -u bob /usr/local/bin/weechat<BR>
+        Executes the weechat program as the user "bob".</LI>
+      </UL>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

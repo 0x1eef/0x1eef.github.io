@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="An introduction to golang's flag module">
+  <META property="og:description" content=
+  "Documents how to use golang's flag module">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/an-introduction-to-golangs-flag-module">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post takes a look at one of the first modules I learned to use as
+      a Go programmer: <A href="https://pkg.go.dev/flag">the flag module</A>
+      from the Go standard library.</P>
+      <H2>Flags</H2>
+      <H4>Overview</H4>
+      <P>The <A href="https://pkg.go.dev/flag">flag module</A> provides a
+      library that is capable of parsing command-line options. A common pattern
+      is to define each command-line option as a package-local variable, with
+      one package-local variable per flag.</P>
+      <P>The flag module can be especially nice when it is combined with a
+      package-level <CODE>init</CODE> function that is run when a package is
+      initialized. This is the perfect place to initialize and parse our flags.
+      Let's materialize our idea into something concrete, with the
+      package-level <CODE>help</CODE> and <CODE>username</CODE> variables being
+      used to store our flag values:</P>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "flag"
+)
+
+var help bool
+var username string
+
+func init() {
+  flag.BoolVar(&amp;help, "h", false, "Show help")
+  flag.StringVar(&amp;username, "u", "", "Set username")
+  flag.Parse()
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <P>The <CODE>flag.BoolVar</CODE> and <CODE>flag.StringVar</CODE> function
+      binds a flag to a package-local variable. The first argument is a pointer
+      to the variable where we want to store a flag value, the second argument
+      is the flag, the third argument is a default value, and the fourth
+      argument describes the flag. Finally, we parse <CODE>os.Args</CODE> with
+      the call to <CODE>flag.Parse()</CODE> and this sets up our main method to
+      receive flag variables that have been populated.</P>
+      <H2>Main</H2>
+      <H4>Overview</H4>
+      <P>The previous example sets us up nicely to implement the
+      <CODE>main</CODE> function and receive the parsed flag options:</P>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "fmt"
+  "flag"
+  "os"
+)
+
+var help bool
+var username string
+
+func main() {
+  if help {
+    fmt.Printf("usage: %s\n", os.Args[0])
+  } else if len(username) &gt; 0 {
+    fmt.Printf("Hello, %s!", username)
+  } else {
+    fmt.Printf("Hello, anonymous")
+  }
+}
+
+func init() {
+  flag.BoolVar(&amp;help, "h", false, "Show help")
+  flag.StringVar(&amp;username, "u", "", "Set username")
+  flag.Parse()
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <P>The above sample first runs the <CODE>init</CODE> function, and parses
+      our flags into a set of package-level variables. By the time the
+      <CODE>main</CODE> function executes, the flag variables have been
+      initialized. We can then implement logic on top of our flag variables.
+      That's more or less it, this is a simple and idiomatic pattern for
+      parsing command line options in Go.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

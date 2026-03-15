@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to make HTTP requests in Go">
+  <META property="og:description" content=
+  "Documents how to make HTTP requests in Go">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-make-http-requests-in-go">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to make HTTP requests with the Go programming
+      language and its standard library.</P>
+      <H2>Background</H2>
+      <P>The Go programming language provides a rich standard library that
+      includes the <A href="https://pkg.go.dev/net/http">net/http</A> package
+      for the implementation of HTTP clients and servers.</P>
+      <P>This post focuses on how to make HTTP requests with the <A href=
+      "https://pkg.go.dev/net/http">net/http</A> package, and in particular it
+      focuses on a subset of functionality that is centered around
+      <CODE>http.NewRequest</CODE> and <CODE>http.DefaultClient.Do</CODE>.</P>
+      <P>The former creates a new request type and the latter sends the request
+      over the wire then returns a response. I prefer this combination of
+      methods because it provides full control over the request before it is
+      sent.</P>
+      <H2>Experiment</H2>
+      <H4>Overview</H4>
+      <P>The <CODE>http.NewRequest</CODE> method returns a new
+      <CODE>http.Request</CODE> type that represents a HTTP request. The
+      request object can be bound to a particular HTTP verb (eg GET), a set of
+      headers, and a request body (if applicable).</P>
+      <P>The request verb is given as the first argument, the URL as the second
+      argument, and an optional body as the third argument. The body is
+      expected to implement the <CODE>io.Reader</CODE> interface and in the
+      case of a GET request, the body is typically <CODE>nil</CODE>.</P>
+      <P>The request headers can be configured separately by modifying the
+      <CODE>req.Header</CODE> field after the request object has been created.
+      The example sets the <CODE>User-Agent</CODE> header. After the request
+      object is fully configured, it can be sent using the
+      <CODE>http.DefaultClient.Do</CODE> method, which takes the request object
+      as an argument and returns a response object:</P>
+      <PRE><CODE class="language-go">package main
+
+import (
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  req, err := http.NewRequest("GET", "https://clean.myip.wtf/json", nil)
+  if err != nil {
+    panic(err)
+  }
+  req.Header.Set("User-Agent", "my-cool-agent/1.0")
+
+  res, err := http.DefaultClient.Do(req)
+  if err != nil {
+    panic(err)
+  }
+  defer res.Body.Close()
+
+  body, err := io.ReadAll(res.Body)
+  if err != nil {
+    panic(err)
+  }
+  fmt.Println(string(body))
+}
+</CODE></PRE>
+      <H4>Explanation</H4>
+      <UL>
+        <LI>
+          <P><CODE>http.NewRequest("GET", "https://clean.myip.wtf/json",
+          nil)</CODE><BR>
+          This line creates a new request object for a GET request (no
+          body)</P>
+        </LI>
+        <LI>
+          <P><CODE>req.Header.Set("User-Agent", "my-cool-agent/1.0")</CODE><BR>
+          This line sets the 'User-Agent' header</P>
+        </LI>
+        <LI>
+          <P><CODE>http.DefaultClient.Do(req)</CODE><BR>
+          This line sends the HTTP request over the wire and returns a response
+          object</P>
+        </LI>
+        <LI>
+          <P><CODE>defer res.Body.Close()</CODE><BR>
+          This line ensures that the response body is closed after we are done
+          reading from it.</P>
+        </LI>
+        <LI>
+          <P><CODE>io.ReadAll(res.Body)</CODE><BR>
+          This line reads the entire response body into memory.</P>
+        </LI>
+        <LI>
+          <P><CODE>fmt.Println(string(body))</CODE><BR>
+          This line prints the response body as a string to the standard
+          output.</P>
+        </LI>
+      </UL>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

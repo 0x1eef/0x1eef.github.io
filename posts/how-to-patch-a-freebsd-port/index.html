@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to patch a FreeBSD port">
+  <META property="og:description" content=
+  "Documents how to patch a FreeBSD port">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-patch-a-freebsd-port">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post serves as a reminder for myself and other FreeBSD port
+      maintainers who sometimes have to patch a FreeBSD port. The process is
+      simple but sometimes easy to forget, and that's why I decided to document
+      the process.</P>
+      <H2>Background</H2>
+      <P>For the purposes of this post we're going to assume we have an
+      imaginary port <CODE>/usr/ports/devel/foo</CODE> that includes the
+      tarball <CODE>foo-v1.0.0.tgz</CODE>. The tarball includes the following C
+      program that we will want to patch, and our patch is going to return
+      <CODE>EXIT_SUCCESS</CODE> instead of <CODE>EXIT_FAILURE</CODE>:</P>
+      <PRE><CODE class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int
+main(void)
+{
+  fprintf(stderr, "i am a teapot");
+  return (EXIT_FAILURE);
+}
+</CODE></PRE>
+      <H2>Experiment</H2>
+      <P><STRONG>1. make extract</STRONG></P>
+      <P>The first step in the process is to extract the tarball into the
+      <CODE>work/</CODE> directory. This will provide us with the source code
+      that we want to patch. After this step we can expect the source code to
+      be available in <CODE>work/foo-v1.0.0/</CODE>, and our C program will be
+      available at <CODE>work/foo-v1.0.0/main.c</CODE>:</P>
+      <PRE><CODE class="language-sh">cd /usr/ports/devel/foo
+make extract
+</CODE></PRE>
+      <P><STRONG>2. cp</STRONG></P>
+      <P>The next step is to create a copy of the file we want to patch. The
+      copy should have the suffix <CODE>.orig</CODE> and placed alongside the
+      original file. We will eventually edit <CODE>main.c</CODE> and
+      <CODE>main.c.orig</CODE> will act as a reference point for the original
+      file when we create the patch:</P>
+      <PRE><CODE class="language-sh">cp main.c main.c.orig
+</CODE></PRE>
+      <P><STRONG>3. sed</STRONG></P>
+      <P>This might normally be done with a text editor but for the purposes of
+      this example we're going to use <CODE>sed</CODE> to patch the file in
+      place:</P>
+      <PRE><CODE class=
+      "language-sh">sed -i '' s|EXIT_FAILURE|EXIT_SUCCESS| main.c
+</CODE></PRE>
+      <P><STRONG>4. make makepatch</STRONG></P>
+      <P>We're almost there. This step will create a patch file in the
+      <CODE>files/</CODE> directory:</P>
+      <PRE><CODE class="language-sh">make makepatch
+</CODE></PRE>
+      <P><STRONG>5. make clean patch</STRONG></P>
+      <P>And finally, we can clean the working directory and apply our
+      patch:</P>
+      <PRE><CODE class="language-sh">make clean patch
+</CODE></PRE>
+      <H2>Conclusion</H2>
+      <P>Sometimes being able to patch a port can be the difference between
+      being being able to build a port or not, so it is useful to know how to
+      do it.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

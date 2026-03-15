@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>@0x1eef's personal website</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to build a hardenedBSD VM image">
+  <META property="og:description" content=
+  "Documents how to build a hardenedBSD VM image">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-build-a-hardenedbsd-vm-image">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY>
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A> <BUTTON class="theme-toggle hidden"
+      type="button" aria-label="Toggle dark mode" data-theme-toggle=
+      ""><SPAN class="theme-toggle-label" data-theme-label=
+      "">Theme</SPAN></BUTTON>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to build a <A href=
+      "https://hardenedbsd.org">hardenedBSD</A> virtual machine image that can
+      be used with popular virtual machine software. So far I have only tested
+      with <A href="https://virt-manager.org">virt-manager</A> but a working VM
+      image should theoretically set you up to deploy on a VPS as well.</P>
+      <H2>Background</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>The <A href="https://hardenedbsd.org/">hardenedBSD</A> project does
+      not currently provide official VM images but it is possible to build them
+      yourself from the source tree. We're going to focus on the 16-CURRENT
+      branch since the 15-STABLE branch <A href=
+      "https://git.hardenedbsd.org/hardenedbsd/HardenedBSD/-/commit/abbf59f480c55958567a3db132665441a79b0800">
+      lacks a commit</A> we need (at least at the time of writing).</P>
+      <P>Beyond that there is known bug on the 15-STABLE branch that prevents
+      <A href="https://hardenedbsd.org">hardenedBSD</A> from booting on
+      Microsoft's Hyper-V hypervisor. This might be a dealbreaker in certain
+      environments (eg GitHub actions), and the 16-CURRENT branch is not known
+      to have this bug.</P>
+      <H2>Phase #1</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>Before we start the process of producing virtual machine images we
+      have to buildworld, and buildkernel. We're interested in the artifacts
+      that are produced, so there's no need to run installworld or
+      installkernel here:</P>
+      <PRE><CODE>git clone https://git.hardenedbsd.org/hardenedbsd/hardenedbsd
+mdo -u root mv hardenedbsd /usr/src
+cd /usr/src
+mdo -u root make -j $(sysctl -n hw.ncpu) buildworld
+mdo -u root make -j $(sysctl -n hw.ncpu) buildkernel
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>git clone
+        https://git.hardenedbsd.org/hardenedbsd/hardenedbsd</CODE><BR>
+        Downloads the hardenedBSD source tree.</LI>
+        <LI><CODE>mdo -u root mv hardenedbsd /usr/src</CODE><BR>
+        Moves the source tree into place</LI>
+        <LI><CODE>cd /usr/src</CODE><BR>
+        Changes the current working directory</LI>
+        <LI><CODE>mdo -u root make -j $(sysctl -n hw.ncpu)
+        buildworld</CODE><BR>
+        Builds userland and produces artifacts</LI>
+        <LI><CODE>mdo -u root make -j $(sysctl -n hw.ncpu)
+        buildkernel</CODE><BR>
+        Builds kernel and produces artifacts</LI>
+      </UL>
+      <H2>Phase #2</H2>
+      <P><STRONG>Overview</STRONG></P>
+      <P>This is the interesting part where we build virtual machine images.
+      We're going to choose the 'raw' image format, and we're going to choose
+      the <CODE>ufs</CODE> filesystem, alongside some other options that I will
+      explain one by one:</P>
+      <PRE><CODE>cd release/
+export VMSIZE=80g
+export VMFORMATS=raw
+export VMFSLIST=ufs
+export TARGET_ARCH=amd64
+export NOPKGBASE=YES
+export WITH_VMIMAGES=YES
+export NO_ROOT=YES
+export WITHOUT_QEMU=YES
+make vm-image
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>cd release/</CODE><BR>
+        Enter <CODE>/usr/src/release/</CODE></LI>
+        <LI><CODE>export VMSIZE=80g</CODE><BR>
+        Allocate 80GB of (sparse) disk space. Adjust as needed.</LI>
+        <LI><CODE>export VMFORMATS=raw</CODE><BR>
+        Selects the 'raw' format (other options: qcow2). Adjust as needed.</LI>
+        <LI><CODE>export VMFSLIST=ufs</CODE><BR>
+        Selects the 'ufs' filesystem (other options: zfs). Adjust as
+        needed.</LI>
+        <LI><CODE>export TARGET_ARCH=amd64</CODE><BR>
+        Selects the amd64 architecture.</LI>
+        <LI><CODE>export NOPKGBASE=YES</CODE><BR>
+        Skips pkgbase.</LI>
+        <LI><CODE>export WITH_VMIMAGES=YES</CODE><BR>
+        Required to build vm images.</LI>
+        <LI><CODE>export NO_ROOT=YES</CODE><BR>
+        Required or build errors out.</LI>
+        <LI><CODE>export WITHOUT_QEMU=YES</CODE><BR>
+        Required or build errors out.</LI>
+        <LI><CODE>make vm-image</CODE><BR>
+        Builds the virtual machine image.</LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P>As long as the last step was successful, an image should be available
+      at <CODE>/usr/obj/usr/src/amd64.amd64/release/vm.ufs.raw</CODE> or a
+      similar path. The image will provide a stock installation of hardenedBSD.
+      The image can be modified with the help of tools like <A href=
+      "https://man.freebsd.org/mdconfig">mdconfig(8)</A> and <A href=
+      "https://man.freebsd.org/mount">mount(8)</A> but that's out of scope for
+      this post. See <A href=
+      "https://git.hardenedbsd.org/0x1eef/hardenedbsd-builder">hardenedbsd-builder</A>
+      for an example of a project that modifies an image in that way.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>
