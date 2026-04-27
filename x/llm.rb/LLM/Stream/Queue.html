@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Stream::Queue — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Stream::Queue";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (Q)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Stream.html" title=
+        "LLM::Stream (class)">Stream</A></SPAN></SPAN> » <SPAN class=
+        "title">Queue</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Stream::Queue</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Stream::Queue</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/stream/queue.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>A small queue for collecting streamed tool work. Values can be
+          immediate <SPAN class='object_link'><A href="../Function/Return.html"
+          title="LLM::Function::Return (class)">Function::Return</A></SPAN>
+          objects or concurrent handles returned by <SPAN class=
+          'object_link'><A href="../Function.html#spawn-instance_method" title=
+          "LLM::Function#spawn (method)">Function#spawn</A></SPAN>. Calling
+          #wait(strategy) resolves queued work and returns an array of
+          <SPAN class='object_link'><A href="../Function/Return.html" title=
+          "LLM::Function::Return (class)">Function::Return</A></SPAN>
+          values.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(stream)
+          ⇒ LLM::Stream::Queue</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#%3C%3C-instance_method"
+          title="#&lt;&lt; (instance method)">#<STRONG>&lt;&lt;</STRONG>(item)
+          ⇒ LLM::Stream::Queue</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Enqueue a function return or spawned
+            task.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#empty%3F-instance_method"
+          title="#empty? (instance method)">#<STRONG>empty?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when the queue is
+            empty.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#interrupt!-instance_method"
+          title="#interrupt! (instance method)">#<STRONG>interrupt!</STRONG> ⇒
+          nil</A> (also: #cancel!)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#wait-instance_method"
+          title="#wait (instance method)">#<STRONG>wait</STRONG>(strategy) ⇒
+          Array&lt;LLM::Function::Return&gt;</A> (also: #value)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Waits for queued work to finish and
+            returns function results.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(stream) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Stream::Queue (class)">LLM::Stream::Queue</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>stream</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Stream.html"
+              title=
+              "LLM::Stream (class)">LLM::Stream</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+13
+14
+15
+16</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream/queue.rb', line 13</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_stream'>stream</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@stream</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_stream'>stream</SPAN>
+  <SPAN class='ivar'>@items</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="&lt;&lt;-instance_method">
+          #<STRONG>&lt;&lt;</STRONG>(item) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Stream::Queue (class)">LLM::Stream::Queue</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Enqueue a function return or spawned task.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>item</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href=
+              "../Function/Return.html" title=
+              "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>,
+              <TT>Thread</TT>, <TT>Async::Task</TT>,
+              <TT>Fiber</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Stream::Queue (class)">LLM::Stream::Queue</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+22
+23
+24
+25</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream/queue.rb', line 22</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='op'>&lt;&lt;</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_item'>item</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@items</SPAN> <SPAN class=
+'op'>&lt;&lt;</SPAN> <SPAN class='id identifier rubyid_item'>item</SPAN>
+  <SPAN class='kw'>self</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="empty?-instance_method">
+          #<STRONG>empty?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when the queue is empty.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+30
+31
+32</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream/queue.rb', line 30</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_empty?'>empty?</SPAN>
+  <SPAN class='ivar'>@items</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_empty?'>empty?</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="interrupt!-instance_method">
+          #<STRONG>interrupt!</STRONG> ⇒ <TT>nil</TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'cancel!-instance_method'>cancel!</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38
+39</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream/queue.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_interrupt!'>interrupt!</SPAN>
+  <SPAN class='ivar'>@items</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:interrupt!</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="wait-instance_method">
+          #<STRONG>wait</STRONG>(strategy) ⇒ <TT>Array&lt;<SPAN class=
+          'object_link'><A href="../Function/Return.html" title=
+          "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN>&gt;</TT>
+          <SPAN class="aliases">Also known as: <SPAN class="names"><SPAN id=
+          'value-instance_method'>value</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Waits for queued work to finish and returns function
+              results.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>strategy</SPAN> <SPAN class=
+                'type'>(<TT>Symbol</TT>, <TT>Array&lt;Symbol&gt;</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Controls concurrency strategy, or lists the possible
+                  concurrency strategies to wait on:</P>
+                  <UL>
+                    <LI><CODE>:thread</CODE>: Use threads</LI>
+                    <LI><CODE>:task</CODE>: Use async tasks (requires async
+                    gem)</LI>
+                    <LI><CODE>:fiber</CODE>: Use raw fibers</LI>
+                    <LI><CODE>:ractor</CODE>: Use Ruby ractors (class-based
+                    tools only; MCP tools are not supported)</LI>
+                    <LI><CODE>[:thread, :ractor]</CODE>: Wait for any queued
+                    thread or ractor work, in the given order. This is useful
+                    when different tools were spawned with different
+                    concurrency strategies.</LI>
+                  </UL>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array&lt;<SPAN class=
+              'object_link'><A href="../Function/Return.html" title=
+              "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN>&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+55
+56
+57
+58
+59</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream/queue.rb', line 55</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_wait'>wait</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_strategy'>strategy</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_returns'>returns</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_tasks'>tasks</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='ivar'>@items</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_shift'>shift</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='ivar'>@items</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_length'>length</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_partition'>partition</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Function.html" title=
+"LLM::Function (class)">Function</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../Function/Return.html" title=
+"LLM::Function::Return (class)">Return</A></SPAN></SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN> <SPAN class=
+'rbrace'>}</SPAN>
+  <SPAN class='id identifier rubyid_results'>results</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_wait_tasks'>wait_tasks</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tasks'>tasks</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_strategy'>strategy</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_returns'>returns</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_concat'>concat</SPAN> <SPAN class=
+'id identifier rubyid_fire_hooks'>fire_hooks</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tasks'>tasks</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_results'>results</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:19 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

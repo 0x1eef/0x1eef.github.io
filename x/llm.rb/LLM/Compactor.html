@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Compactor — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Compactor";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (C)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Compactor</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Compactor</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Compactor</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/compactor.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P><SPAN class='object_link'><A href="" title=
+          "LLM::Compactor (class)">LLM::Compactor</A></SPAN> summarizes older
+          context messages into a smaller replacement message when a context
+          grows too large.</P>
+          <P>This work is directly inspired by the compaction approach
+          developed by General Intelligence Systems in <A href=
+          "https://github.com/general-intelligence-systems/brute">Brute</A>.</P>
+          <P>The compactor can also use a different model from the main context
+          by setting <CODE>model:</CODE> in the compactor config. Compaction
+          thresholds are opt-in: provide <CODE>message_threshold:</CODE> and/or
+          <CODE>token_threshold:</CODE> to enable policy- driven
+          compaction.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="DEFAULTS-constant" class="">DEFAULTS =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='lbrace'>{</SPAN>
+  <SPAN class='label'>retention_window:</SPAN> <SPAN class=
+'int'>8</SPAN><SPAN class='comma'>,</SPAN>
+  <SPAN class='label'>model:</SPAN> <SPAN class='kw'>nil</SPAN>
+<SPAN class='rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_freeze'>freeze</SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#config-instance_method"
+          title="#config (instance method)">#<STRONG>config</STRONG> ⇒
+          Hash</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(ctx,
+          config = {}) ⇒ Compactor</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of
+            Compactor.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#compact%3F-instance_method"
+          title="#compact? (instance method)">#<STRONG>compact?</STRONG>(prompt
+          = nil) ⇒ Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when the context should
+            be compacted.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#compact!-instance_method"
+          title="#compact! (instance method)">#<STRONG>compact!</STRONG>(prompt
+          = nil) ⇒ LLM::Message<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Summarize older messages and replace
+            them with a compact summary.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(ctx, config = {}) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Compactor (class)">Compactor</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of Compactor.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>config</SPAN> <SPAN class=
+              'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>{}</TT>)</EM></LI>
+            </UL>
+            <P class="tag_title">Options Hash (<TT>config</TT>):</P>
+            <UL class="option">
+              <LI>
+                <SPAN class="name">:token_threshold</SPAN> <SPAN class=
+                "type">(<TT>Integer</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Enables token-based compaction.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:message_threshold</SPAN> <SPAN class=
+                "type">(<TT>Integer</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Enables message-count-based compaction.</P>
+                </DIV>
+              </LI>
+              <LI><SPAN class="name">:retention_window</SPAN> <SPAN class=
+              "type">(<TT>Integer</TT>)</SPAN></LI>
+              <LI>
+                <SPAN class="name">:model</SPAN> <SPAN class=
+                "type">(<TT>String</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The model to use for the summarization request. Defaults
+                  to the current context model.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38
+39</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/compactor.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@ctx</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN>
+  <SPAN class='ivar'>@config</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="#DEFAULTS-constant" title=
+"LLM::Compactor::DEFAULTS (constant)">DEFAULTS</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge'>merge</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=""></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="config-instance_method">
+          #<STRONG>config</STRONG> ⇒ <TT>Hash</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+23
+24
+25</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/compactor.rb', line 23</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN>
+  <SPAN class='ivar'>@config</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="compact?-instance_method">
+          #<STRONG>compact?</STRONG>(prompt = nil) ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when the context should be compacted</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>prompt</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>)</SPAN>
+                <EM class="default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The next prompt or turn input</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+46
+47
+48
+49
+50
+51
+52
+53</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/compactor.rb', line 46</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_compact?'>compact?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class='kw'>false</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_functions'>functions</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_any?'>any?</SPAN> <SPAN class='op'>||</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='op'>*</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_grep'>grep</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Function.html" title=
+"LLM::Function (class)">Function</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Function/Return.html" title=
+"LLM::Function::Return (class)">Return</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_any?'>any?</SPAN>
+  <SPAN class='id identifier rubyid_messages'>messages</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_reject'>reject</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:system?</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class='kw'>true</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:message_threshold</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>&amp;&</SPAN> <SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_size'>size</SPAN> <SPAN class=
+'op'>&gt;</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:message_threshold</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+  <SPAN class='id identifier rubyid_usage'>usage</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_usage'>usage</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class='kw'>true</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:token_threshold</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>&amp;&</SPAN> <SPAN class=
+'id identifier rubyid_usage'>usage</SPAN> <SPAN class=
+'op'>&amp;&</SPAN> <SPAN class=
+'id identifier rubyid_usage'>usage</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_total_tokens'>total_tokens</SPAN> <SPAN class=
+'op'>&gt;</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:token_threshold</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+  <SPAN class='kw'>false</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="compact!-instance_method">
+          #<STRONG>compact!</STRONG>(prompt = nil) ⇒ <TT><SPAN class=
+          'object_link'><A href="Message.html" title=
+          "LLM::Message (class)">LLM::Message</A></SPAN></TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Summarize older messages and replace them with a compact
+              summary.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>prompt</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Object.html"
+                title="LLM::Object (class)">Object</A></SPAN></TT>)</SPAN>
+                <EM class="default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The next prompt or turn input</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Message.html" title=
+              "LLM::Message (class)">LLM::Message</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/compactor.rb', line 60</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_compact!'>compact!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class='kw'>nil</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_functions'>functions</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_any?'>any?</SPAN> <SPAN class='op'>||</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='op'>*</SPAN><SPAN class=
+'id identifier rubyid_prompt'>prompt</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_grep'>grep</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Function.html" title=
+"LLM::Function (class)">Function</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Function/Return.html" title=
+"LLM::Function::Return (class)">Return</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_any?'>any?</SPAN>
+  <SPAN class='id identifier rubyid_messages'>messages</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_reject'>reject</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:system?</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_retention_window'>retention_window</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:retention_window</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_size'>size</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_min'>min</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class='kw'>nil</SPAN> <SPAN class=
+'kw'>unless</SPAN> <SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_size'>size</SPAN> <SPAN class=
+'op'>&gt;</SPAN> <SPAN class=
+'id identifier rubyid_retention_window'>retention_window</SPAN>
+  <SPAN class='id identifier rubyid_stream'>stream</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:stream</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+  <SPAN class='id identifier rubyid_stream'>stream</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_on_compaction'>on_compaction</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='kw'>if</SPAN> <SPAN class='const'><SPAN class=
+'object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Stream.html" title=
+"LLM::Stream (class)">Stream</A></SPAN></SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='id identifier rubyid_stream'>stream</SPAN>
+  <SPAN class='id identifier rubyid_recent'>recent</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_retained_messages'>retained_messages</SPAN>
+  <SPAN class='id identifier rubyid_older'>older</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='int'>0</SPAN><SPAN class=
+'op'>...</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_size'>size</SPAN> <SPAN class='op'>-</SPAN> <SPAN class=
+'id identifier rubyid_recent'>recent</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_size'>size</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rbracket'>]</SPAN>
+  <SPAN class='id identifier rubyid_summary'>summary</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Message.html" title=
+"LLM::Message (class)">Message</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Message.html#initialize-instance_method" title=
+"LLM::Message#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_user_role'>user_role</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>[Previous conversation summary]\n\n</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_summarize'>summarize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_older'>older</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>compaction:</SPAN> <SPAN class=
+'kw'>true</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_replace'>replace</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class=
+'op'>*</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_take_while'>take_while</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:system?</SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_summary'>summary</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>*</SPAN><SPAN class=
+'id identifier rubyid_recent'>recent</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_stream'>stream</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_on_compaction_finish'>on_compaction_finish</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class='kw'>if</SPAN> <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html"
+title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Stream.html" title="LLM::Stream (class)">Stream</A></SPAN></SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='id identifier rubyid_stream'>stream</SPAN>
+  <SPAN class='id identifier rubyid_summary'>summary</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:18 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

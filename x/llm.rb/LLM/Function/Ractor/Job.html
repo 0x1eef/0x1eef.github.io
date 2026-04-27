@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Function::Ractor::Job — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Function::Ractor::Job";
+  relpath = '../../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../../_index.html">Index (J)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../../Function.html" title=
+        "LLM::Function (class)">Function</A></SPAN></SPAN> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../Ractor.html" title=
+        "LLM::Function::Ractor (module)">Ractor</A></SPAN></SPAN> »
+        <SPAN class="title">Job</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Function::Ractor::Job</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Function::Ractor::Job</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/function/ractor/job.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Function::Ractor::Job (class)">Job</A></SPAN> class manages
+          execution and mailbox coordination for a single ractor-backed
+          function call.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(mailbox,
+          runner_class, id, name, arguments) ⇒
+          LLM::Function::Ractor::Job</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#call-instance_method"
+          title="#call (instance method)">#<STRONG>call</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(mailbox, runner_class, id, name,
+          arguments) ⇒ <TT><SPAN class='object_link'><A href="" title=
+          "LLM::Function::Ractor::Job (class)">LLM::Function::Ractor::Job</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>mailbox</SPAN> <SPAN class=
+              'type'>(<TT>::Ractor</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>runner_class</SPAN> <SPAN class=
+              'type'>(<TT>Class</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>id</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>, <TT>nil</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>name</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>arguments</SPAN> <SPAN class=
+              'type'>(<TT>Hash</TT>, <TT><SPAN class='object_link'><A href=
+              "../Array.html" title=
+              "LLM::Function::Array (module)">Array</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+15
+16
+17
+18
+19
+20
+21</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/ractor/job.rb', line 15</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_mailbox'>mailbox</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_runner_class'>runner_class</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_arguments'>arguments</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@mailbox</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_mailbox'>mailbox</SPAN>
+  <SPAN class='ivar'>@runner_class</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_runner_class'>runner_class</SPAN>
+  <SPAN class='ivar'>@id</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_id'>id</SPAN>
+  <SPAN class='ivar'>@name</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN>
+  <SPAN class='ivar'>@arguments</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_arguments'>arguments</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="call-instance_method">
+          #<STRONG>call</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+25
+26
+27
+28</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/ractor/job.rb', line 25</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_call'>call</SPAN>
+  <SPAN class='id identifier rubyid_spawn'>spawn</SPAN>
+  <SPAN class='id identifier rubyid_wait'>wait</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:19 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Stream — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Stream";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (S)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">Stream</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Stream</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Stream</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/stream.rb<SPAN class="defines">,<BR>
+          lib/llm/stream/queue.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <DIV class="note notetag">
+            <STRONG>Note:</STRONG>
+            <DIV class='inline'>
+              <P>The <CODE>on_*</CODE> callbacks run inline with the streaming
+              parser. They therefore block streaming progress and should
+              generally return as quickly as possible.</P>
+            </DIV>
+          </DIV>
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Stream (class)">LLM::Stream</A></SPAN> class provides the
+          callback interface for streamed model output in llm.rb.</P>
+          <P>A stream object can be an instance of <SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Stream (class)">LLM::Stream</A></SPAN> or a subclass that
+          overrides the callbacks it needs. For basic streaming, llm.rb also
+          accepts any object that implements <CODE>#&lt;&lt;</CODE>.
+          <SPAN class='object_link'><A href="#queue-instance_method" title=
+          "LLM::Stream#queue (method)">#queue</A></SPAN> provides a small
+          helper for collecting asynchronous tool work started from a callback,
+          and <SPAN class='object_link'><A href=
+          "#tool_not_found-instance_method" title=
+          "LLM::Stream#tool_not_found (method)">#tool_not_found</A></SPAN>
+          returns an in-band tool error when a streamed tool cannot be
+          resolved.</P>
+          <P>The most common callback is <SPAN class='object_link'><A href=
+          "#on_content-instance_method" title=
+          "LLM::Stream#on_content (method)">#on_content</A></SPAN>, which also
+          maps to <SPAN class='object_link'><A href="#%3C%3C-instance_method"
+          title="LLM::Stream#&lt;&lt; (method)">#&lt;&lt;</A></SPAN>. Providers
+          may also call <SPAN class='object_link'><A href=
+          "#on_reasoning_content-instance_method" title=
+          "LLM::Stream#on_reasoning_content (method)">#on_reasoning_content</A></SPAN>
+          and <SPAN class='object_link'><A href="#on_tool_call-instance_method"
+          title="LLM::Stream#on_tool_call (method)">#on_tool_call</A></SPAN>
+          when that data is available. Runtime features such as context
+          compaction may also emit lifecycle callbacks like <SPAN class=
+          'object_link'><A href="#on_transform-instance_method" title=
+          "LLM::Stream#on_transform (method)">#on_transform</A></SPAN> or
+          <SPAN class='object_link'><A href="#on_compaction-instance_method"
+          title=
+          "LLM::Stream#on_compaction (method)">#on_compaction</A></SPAN>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="classes">Classes:</STRONG>
+      <SPAN class='object_link'><A href="Stream/Queue.html" title=
+      "LLM::Stream::Queue (class)">Queue</A></SPAN></P>
+      <H2>Public callbacks <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#on_content-instance_method"
+          title=
+          "#on_content (instance method)">#<STRONG>on_content</STRONG>(content)
+          ⇒ nil</A> (also: #&lt;&lt;)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called when visible assistant output
+            is streamed.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_reasoning_content-instance_method" title=
+          "#on_reasoning_content (instance method)">#<STRONG>on_reasoning_content</STRONG>(content)
+          ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called when reasoning output is
+            streamed separately from visible content.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_call-instance_method" title=
+          "#on_tool_call (instance method)">#<STRONG>on_tool_call</STRONG>(tool,
+          error) ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called when a streamed tool call has
+            been fully constructed.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_tool_return-instance_method" title=
+          "#on_tool_return (instance method)">#<STRONG>on_tool_return</STRONG>(tool,
+          result) ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called when queued streamed tool work
+            returns.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_transform-instance_method" title=
+          "#on_transform (instance method)">#<STRONG>on_transform</STRONG>(ctx,
+          transformer) ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called before a context transformer
+            rewrites a prompt.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_transform_finish-instance_method" title=
+          "#on_transform_finish (instance method)">#<STRONG>on_transform_finish</STRONG>(ctx,
+          transformer) ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called after a context transformer
+            finishes rewriting a prompt.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_compaction-instance_method" title=
+          "#on_compaction (instance method)">#<STRONG>on_compaction</STRONG>(ctx,
+          compactor) ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called before a context compaction
+            starts.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#on_compaction_finish-instance_method" title=
+          "#on_compaction_finish (instance method)">#<STRONG>on_compaction_finish</STRONG>(ctx,
+          compactor) ⇒ nil</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Called after a context compaction
+            finishes.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Error handlers <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#find_tool-instance_method"
+          title=
+          "#find_tool (instance method)">#<STRONG>find_tool</STRONG>(name) ⇒
+          LLM::Function<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Resolves a streamed tool call against
+            the current request tools first, then falls back to the global
+            function registry.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#tool_not_found-instance_method" title=
+          "#tool_not_found (instance method)">#<STRONG>tool_not_found</STRONG>(tool)
+          ⇒ LLM::Function::Return</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a function return describing
+            a streamed tool that could not be resolved.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#tools-instance_method"
+          title="#tools (instance method)">#<STRONG>tools</STRONG> ⇒
+          Array&lt;LLM::Function, LLM::Tool&gt;</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the tool definitions
+            available for the current streamed request.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#ctx-instance_method" title=
+          "#ctx (instance method)">#<STRONG>ctx</STRONG> ⇒
+          LLM::Context<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the current context, if one
+            was attached to the stream.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#queue-instance_method"
+          title="#queue (instance method)">#<STRONG>queue</STRONG> ⇒
+          LLM::Stream::Queue</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a lazily-initialized queue
+            for tool results or spawned work.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#wait-instance_method"
+          title="#wait (instance method)">#<STRONG>wait</STRONG>(strategy) ⇒
+          Array&lt;LLM::Function::Return&gt;</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Waits for queued tool work to finish
+            and returns function results.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#extra-instance_method"
+          title="#extra (instance method)">#<STRONG>extra</STRONG> ⇒
+          Hash</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns extra context associated with
+            the current streamed request.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="find_tool-instance_method">
+          #<STRONG>find_tool</STRONG>(name) ⇒ <TT><SPAN class=
+          'object_link'><A href="Function.html" title=
+          "LLM::Function (class)">LLM::Function</A></SPAN></TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Resolves a streamed tool call against the current request
+              tools first, then falls back to the global function registry.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>name</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Function.html" title=
+              "LLM::Function (class)">LLM::Function</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 183</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_find_tool'>find_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_tool'>tool</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_tools'>tools</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_find'>find</SPAN> <SPAN class='kw'>do</SPAN> <SPAN class=
+'op'>|</SPAN><SPAN class=
+'id identifier rubyid_candidate'>candidate</SPAN><SPAN class='op'>|</SPAN>
+    <SPAN class=
+'id identifier rubyid_candidate_name'>candidate_name</SPAN> <SPAN class=
+'op'>=</SPAN>
+      <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_candidate'>candidate</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:function</SPAN><SPAN class=
+'rparen'>)</SPAN>
+        <SPAN class=
+'id identifier rubyid_candidate'>candidate</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_function'>function</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_name'>name</SPAN>
+      <SPAN class='kw'>else</SPAN>
+        <SPAN class=
+'id identifier rubyid_candidate'>candidate</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_name'>name</SPAN>
+      <SPAN class='kw'>end</SPAN>
+    <SPAN class=
+'id identifier rubyid_candidate_name'>candidate_name</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_to_s'>to_s</SPAN> <SPAN class='op'>==</SPAN> <SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN>
+  <SPAN class='kw'>end</SPAN>
+  <SPAN class='id identifier rubyid_tool'>tool</SPAN><SPAN class=
+'op'>&amp;.</SPAN><SPAN class=
+'id identifier rubyid_then'>then</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:function</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'id identifier rubyid__1'>_1</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_function'>function</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN> <SPAN class=
+'rbrace'>}</SPAN> <SPAN class='op'>||</SPAN>
+    <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Function.html" title=
+"LLM::Function (class)">Function</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_find_by_name'><SPAN class=
+'object_link'><A href="Function/Registry.html#find_by_name-instance_method"
+title=
+"LLM::Function::Registry#find_by_name (method)">find_by_name</A></SPAN></SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_name'>name</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="ctx-instance_method">#<STRONG>ctx</STRONG>
+          ⇒ <TT><SPAN class='object_link'><A href="Context.html" title=
+          "LLM::Context (class)">LLM::Context</A></SPAN></TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the current context, if one was attached to the
+              stream.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Context.html" title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN>
+  <SPAN class='id identifier rubyid_extra'>extra</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:ctx</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="queue-instance_method">
+          #<STRONG>queue</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Stream/Queue.html" title=
+          "LLM::Stream::Queue (class)">LLM::Stream::Queue</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a lazily-initialized queue for tool results or spawned
+              work.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Stream/Queue.html" title=
+              "LLM::Stream::Queue (class)">LLM::Stream::Queue</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+43
+44
+45</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 43</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_queue'>queue</SPAN>
+  <SPAN class='ivar'>@queue</SPAN> <SPAN class='op'>||=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="Stream/Queue.html" title=
+"LLM::Stream::Queue (class)">Queue</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Stream/Queue.html#initialize-instance_method" title=
+"LLM::Stream::Queue#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="wait-instance_method">
+          #<STRONG>wait</STRONG>(strategy) ⇒ <TT>Array&lt;<SPAN class=
+          'object_link'><A href="Function/Return.html" title=
+          "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN>&gt;</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Waits for queued tool work to finish and returns function
+              results.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>strategy</SPAN> <SPAN class=
+                'type'>(<TT>Symbol</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The concurrency strategy to use</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array&lt;<SPAN class=
+              'object_link'><A href="Function/Return.html" title=
+              "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN>&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+52
+53
+54</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 52</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_wait'>wait</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_strategy'>strategy</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_queue'>queue</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_wait'>wait</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_strategy'>strategy</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_content-instance_method">
+          #<STRONG>on_content</STRONG>(content) ⇒ <TT>nil</TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          '&lt;&lt;-instance_method'>&lt;&lt;</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Called when visible assistant output is streamed.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>content</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A chunk of assistant-visible text.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+63
+64
+65</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 63</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_content'>on_content</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_reasoning_content-instance_method">
+          #<STRONG>on_reasoning_content</STRONG>(content) ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Called when reasoning output is streamed separately from
+              visible content.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>content</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>A chunk of reasoning text.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+73
+74
+75</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 73</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_reasoning_content'>on_reasoning_content</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_content'>content</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_call-instance_method">
+          #<STRONG>on_tool_call</STRONG>(tool, error) ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>A stream implementation may start tool execution here, for
+                  example by pushing <CODE>ctx.spawn(tool, :thread)</CODE>,
+                  <CODE>ctx.spawn(tool, :fiber)</CODE>, or
+                  <CODE>ctx.spawn(tool, :task)</CODE> onto <SPAN class=
+                  'object_link'><A href="#queue-instance_method" title=
+                  "LLM::Stream#queue (method)">#queue</A></SPAN>. Mixed
+                  strategies can also be selected per tool, such as
+                  <CODE>tool.mcp? ? ctx.spawn(tool, :task) : ctx.spawn(tool,
+                  :ractor)</CODE>. When a streamed tool cannot be resolved,
+                  <CODE>error</CODE> is passed as an <SPAN class=
+                  'object_link'><A href="Function/Return.html" title=
+                  "LLM::Function::Return (class)">Function::Return</A></SPAN>.
+                  It can be sent back to the model, allowing the tool-call path
+                  to recover and the session to continue. Streamed tool
+                  resolution now prefers the current request tools, so
+                  <SPAN class='object_link'><A href=
+                  "../LLM.html#function-class_method" title=
+                  "LLM.function (method)">LLM.function</A></SPAN>, MCP tools,
+                  bound tool instances, and normal <SPAN class=
+                  'object_link'><A href="Tool.html" title=
+                  "LLM::Tool (class)">LLM::Tool</A></SPAN> classes can all
+                  resolve through the same request-local path. The current
+                  <CODE>:ractor</CODE> mode is for class-based tools and does
+                  not support MCP tools.</P>
+                </DIV>
+              </DIV>
+              <P>Called when a streamed tool call has been fully
+              constructed.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>tool</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Function.html"
+                title=
+                "LLM::Function (class)">LLM::Function</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The parsed tool call.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>error</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "Function/Return.html" title=
+                "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>An in-band tool error for unresolved tool calls.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+97
+98
+99</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 97</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_call'>on_tool_call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tool'>tool</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_error'>error</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_tool_return-instance_method">
+          #<STRONG>on_tool_return</STRONG>(tool, result) ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>This callback runs when <SPAN class='object_link'><A href=
+                  "#wait-instance_method" title=
+                  "LLM::Stream#wait (method)">#wait</A></SPAN> resolves work
+                  that was queued from <SPAN class='object_link'><A href=
+                  "#on_tool_call-instance_method" title=
+                  "LLM::Stream#on_tool_call (method)">#on_tool_call</A></SPAN>,
+                  such as values returned by <CODE>ctx.spawn(tool,
+                  :thread)</CODE>, <CODE>ctx.spawn(tool, :fiber)</CODE>, or
+                  <CODE>ctx.spawn(tool, :task)</CODE>.</P>
+                </DIV>
+              </DIV>
+              <P>Called when queued streamed tool work returns.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>tool</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Function.html"
+                title=
+                "LLM::Function (class)">LLM::Function</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The tool that returned.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>result</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href=
+                "Function/Return.html" title=
+                "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The completed tool return.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+111
+112
+113</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 111</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_tool_return'>on_tool_return</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tool'>tool</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_result'>result</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_transform-instance_method">
+          #<STRONG>on_transform</STRONG>(ctx, transformer) ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Called before a context transformer rewrites a prompt.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>transformer</SPAN> <SPAN class=
+              'type'>(<TT>#call</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+120
+121
+122</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 120</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_transform'>on_transform</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_transformer'>transformer</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_transform_finish-instance_method">
+          #<STRONG>on_transform_finish</STRONG>(ctx, transformer) ⇒
+          <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Called after a context transformer finishes rewriting a
+              prompt.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>transformer</SPAN> <SPAN class=
+              'type'>(<TT>#call</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+129
+130
+131</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 129</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_transform_finish'>on_transform_finish</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_transformer'>transformer</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_compaction-instance_method">
+          #<STRONG>on_compaction</STRONG>(ctx, compactor) ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Called before a context compaction starts.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>compactor</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Compactor.html"
+              title=
+              "LLM::Compactor (class)">LLM::Compactor</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+138
+139
+140</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 138</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_compaction'>on_compaction</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_compactor'>compactor</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="on_compaction_finish-instance_method">
+          #<STRONG>on_compaction_finish</STRONG>(ctx, compactor) ⇒
+          <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Called after a context compaction finishes.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>compactor</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Compactor.html"
+              title=
+              "LLM::Compactor (class)">LLM::Compactor</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+147
+148
+149</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 147</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_on_compaction_finish'>on_compaction_finish</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_compactor'>compactor</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="tool_not_found-instance_method">
+          #<STRONG>tool_not_found</STRONG>(tool) ⇒ <TT><SPAN class=
+          'object_link'><A href="Function/Return.html" title=
+          "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <DIV class="note notetag">
+                <STRONG>Note:</STRONG>
+                <DIV class='inline'>
+                  <P>This is mainly useful as a fallback from <SPAN class=
+                  'object_link'><A href="#on_tool_call-instance_method" title=
+                  "LLM::Stream#on_tool_call (method)">#on_tool_call</A></SPAN>.
+                  It should be uncommon in normal use, since streamed tool
+                  callbacks only run for tools already defined in the
+                  context.</P>
+                </DIV>
+              </DIV>
+              <P>Returns a function return describing a streamed tool that
+              could not be resolved.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>tool</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Function.html"
+              title=
+              "LLM::Function (class)">LLM::Function</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Function/Return.html" title=
+              "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+163
+164
+165
+166
+167</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 163</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_tool_not_found'>tool_not_found</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tool'>tool</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Function.html" title=
+"LLM::Function (class)">Function</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Function/Return.html" title=
+"LLM::Function::Return (class)">Return</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Function.html#initialize-instance_method" title=
+"LLM::Function#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tool'>tool</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_id'>id</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_tool'>tool</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='lbrace'>{</SPAN>
+    <SPAN class='label'>error:</SPAN> <SPAN class='kw'>true</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>type:</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href=
+"../LLM.html#NoSuchToolError-constant" title=
+"LLM::NoSuchToolError (constant)">NoSuchToolError</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>message:</SPAN> <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>tool not found</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="tools-instance_method">
+          #<STRONG>tools</STRONG> ⇒ <TT>Array&lt;<SPAN class=
+          'object_link'><A href="Function.html" title=
+          "LLM::Function (class)">LLM::Function</A></SPAN>, <SPAN class=
+          'object_link'><A href="Tool.html" title=
+          "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the tool definitions available for the current
+              streamed request. This prefers request-local tools attached to
+              the stream and falls back to the current context defaults when
+              present.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array&lt;<SPAN class=
+              'object_link'><A href="Function.html" title=
+              "LLM::Function (class)">LLM::Function</A></SPAN>, <SPAN class=
+              'object_link'><A href="Tool.html" title=
+              "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+174
+175
+176</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 174</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN>
+  <SPAN class='id identifier rubyid_extra'>extra</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:tools</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>||</SPAN> <SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN><SPAN class='op'>&amp;.</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'op'>&amp;.</SPAN><SPAN class='id identifier rubyid_dig'>dig</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:tools</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='op'>||</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="extra-instance_method">
+          #<STRONG>extra</STRONG> ⇒ <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns extra context associated with the current streamed
+              request.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+29
+30
+31</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/stream.rb', line 29</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_extra'>extra</SPAN>
+  <SPAN class='ivar'>@extra</SPAN> <SPAN class='op'>||=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Object.html" title=
+"LLM::Object (class)">Object</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_from'>from</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:18 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

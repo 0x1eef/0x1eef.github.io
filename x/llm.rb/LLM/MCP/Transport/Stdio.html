@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::MCP::Transport::Stdio — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::MCP::Transport::Stdio";
+  relpath = '../../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../../_index.html">Index (S)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../../MCP.html" title=
+        "LLM::MCP (class)">MCP</A></SPAN></SPAN> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../Transport.html" title=
+        "LLM::MCP::Transport (module)">Transport</A></SPAN></SPAN> »
+        <SPAN class="title">Stdio</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::MCP::Transport::Stdio</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::MCP::Transport::Stdio</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/mcp/transport/stdio.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::MCP::Transport::Stdio (class)">LLM::MCP::Transport::Stdio</A></SPAN>
+          class provides a stdio transport for <SPAN class=
+          'object_link'><A href="../../MCP.html" title=
+          "LLM::MCP (class)">LLM::MCP</A></SPAN>. It sends JSON-RPC messages to
+          an MCP process over stdin and stdout and delegates process lifecycle
+          management to <SPAN class='object_link'><A href="../Command.html"
+          title="LLM::MCP::Command (class)">LLM::MCP::Command</A></SPAN>.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#write-instance_method"
+          title="#write (instance method)">#<STRONG>write</STRONG>(message) ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Writes a message to the MCP
+            process.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#start-instance_method"
+          title="#start (instance method)">#<STRONG>start</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Starts an MCP process over a stdio
+            transport.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#stop-instance_method"
+          title="#stop (instance method)">#<STRONG>stop</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Closes the connection to the MCP
+            process.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(command:)
+          ⇒ LLM::MCP::Transport::Stdio</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a new Stdio transport
+            instance.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#read_nonblock-instance_method" title=
+          "#read_nonblock (instance method)">#<STRONG>read_nonblock</STRONG> ⇒
+          Hash</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Reads a message from the MCP process
+            without blocking.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#wait-instance_method"
+          title="#wait (instance method)">#<STRONG>wait</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Waits for the command to
+            exit.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#persist!-instance_method"
+          title="#persist! (instance method)">#<STRONG>persist!</STRONG> ⇒
+          LLM::MCP::Transport::Stdio</A> (also: #persistent)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">This method is a no-op for stdio
+            transports.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(command:) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::MCP::Transport::Stdio (class)">LLM::MCP::Transport::Stdio</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new Stdio transport instance.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>command</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="../Command.html"
+                title=
+                "LLM::MCP::Command (class)">LLM::MCP::Command</A></SPAN></TT>)</SPAN>
+                —
+                <DIV class='inline'>
+                  <P>The command to run for the MCP process</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+15
+16
+17</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 15</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>command:</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='ivar'>@command</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_command'>command</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="write-instance_method">
+          #<STRONG>write</STRONG>(message) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Writes a message to the MCP process.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>message</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The message to write</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "../../Error.html" title=
+                "LLM::Error (class)">LLM::Error</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When the transport is not running</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 48</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_write'>write</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_alive?'>alive?</SPAN>
+    <SPAN class='id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_write'>write</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../../../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_json'><SPAN class=
+'object_link'><A href="../../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_dump'>dump</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_message'>message</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../MCP.html" title=
+"LLM::MCP (class)">MCP</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../MCP.html#Error-constant"
+title="LLM::MCP::Error (constant)">Error</A></SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>MCP transport is not running</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="start-instance_method">
+          #<STRONG>start</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Starts an MCP process over a stdio transport. This method is
+              non-blocking and returns immediately.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "../../Error.html" title=
+                "LLM::Error (class)">LLM::Error</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When the transport is already running</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+25
+26
+27
+28
+29
+30
+31</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 25</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_start'>start</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_alive?'>alive?</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../MCP.html" title=
+"LLM::MCP (class)">MCP</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../MCP.html#Error-constant"
+title="LLM::MCP::Error (constant)">Error</A></SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>MCP transport is already running</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_start'>start</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="stop-instance_method">
+          #<STRONG>stop</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Closes the connection to the MCP process. This method is
+              idempotent and can be called multiple times without error.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+37
+38
+39</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 37</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_stop'>stop</SPAN>
+  <SPAN class='id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_stop'>stop</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="read_nonblock-instance_method">
+          #<STRONG>read_nonblock</STRONG> ⇒ <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Reads a message from the MCP process without blocking.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The next message from the MCP process</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "../../Error.html" title=
+                "LLM::Error (class)">LLM::Error</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When the transport is not running</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='type'>(<TT>IO::EAGAINWaitReadable</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When no complete message is available to read</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+64
+65
+66
+67
+68
+69
+70</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 64</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_read_nonblock'>read_nonblock</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_alive?'>alive?</SPAN>
+    <SPAN class='const'><SPAN class='object_link'><A href="../../../LLM.html"
+title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_json'><SPAN class=
+'object_link'><A href="../../../LLM.html#json-class_method" title=
+"LLM.json (method)">json</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_load'>load</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_command'>command</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_read_nonblock'>read_nonblock</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../../../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../MCP.html" title=
+"LLM::MCP (class)">MCP</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../../MCP.html#Error-constant"
+title="LLM::MCP::Error (constant)">Error</A></SPAN></SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>MCP transport is not running</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="wait-instance_method">
+          #<STRONG>wait</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Waits for the command to exit. This method is blocking and
+              will return only after the process has exited.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+77
+78
+79</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 77</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_wait'>wait</SPAN>
+  <SPAN class='id identifier rubyid_command'>command</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_wait'>wait</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="persist!-instance_method">
+          #<STRONG>persist!</STRONG> ⇒ <TT><SPAN class='object_link'><A href=""
+          title=
+          "LLM::MCP::Transport::Stdio (class)">LLM::MCP::Transport::Stdio</A></SPAN></TT>
+          <SPAN class="aliases">Also known as: <SPAN class="names"><SPAN id=
+          'persistent-instance_method'>persistent</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>This method is a no-op for stdio transports</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::MCP::Transport::Stdio (class)">LLM::MCP::Transport::Stdio</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+84
+85
+86</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/transport/stdio.rb', line 84</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_persist!'>persist!</SPAN>
+  <SPAN class='kw'>self</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:19 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

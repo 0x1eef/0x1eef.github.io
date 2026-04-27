@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Module: LLM::ActiveRecord::ActsAsLLM::Utils — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::ActiveRecord::ActsAsLLM::Utils";
+  relpath = '../../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../../_index.html">Index (U)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../../ActiveRecord.html" title=
+        "LLM::ActiveRecord (module)">ActiveRecord</A></SPAN></SPAN> »
+        <SPAN class='title'><SPAN class='object_link'><A href=
+        "../ActsAsLLM.html" title=
+        "LLM::ActiveRecord::ActsAsLLM (module)">ActsAsLLM</A></SPAN></SPAN> »
+        <SPAN class="title">Utils</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Module: LLM::ActiveRecord::ActsAsLLM::Utils <SPAN class=
+      "private note title">Private</SPAN></H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/active_record/acts_as_llm.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P class="note private"><STRONG>This module is part of a private
+          API.</STRONG> You should avoid using this module if possible, as it
+          may be removed or be changed in the future.</P>
+          <P>Shared helper methods for the ORM wrapper.</P>
+          <P>These utilities keep persistence plumbing out of the wrapped
+          model's method namespace so the injected surface stays focused on the
+          runtime API itself.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Class Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#resolve_option-class_method" title=
+          "resolve_option (class method)">.<STRONG>resolve_option</STRONG>(obj,
+          option) ⇒ Object</A></SPAN> <SPAN class=
+          "private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Resolves a single configured option
+            against a model instance.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#resolve_options-class_method" title=
+          "resolve_options (class method)">.<STRONG>resolve_options</STRONG>(obj,
+          option, empty_hash) ⇒ Hash</A></SPAN> <SPAN class=
+          "private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Resolves hash-like wrapper options
+            against a model instance.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#serialize_context-class_method" title=
+          "serialize_context (class method)">.<STRONG>serialize_context</STRONG>(ctx,
+          format) ⇒ String, Hash</A></SPAN> <SPAN class=
+          "private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Serializes the runtime into the
+            configured storage format.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#columns-class_method"
+          title="columns (class method)">.<STRONG>columns</STRONG>(options) ⇒
+          Hash</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Maps wrapper options onto the
+            record's storage columns.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#save-class_method" title=
+          "save (class method)">.<STRONG>save</STRONG>(obj, ctx, options) ⇒
+          void</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Persists the runtime state and usage
+            columns back onto the record.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="class_method_details" class="method_details_list">
+        <H2>Class Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="resolve_option-class_method">
+          .<STRONG>resolve_option</STRONG>(obj, option) ⇒ <TT><SPAN class=
+          'object_link'><A href="../../Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Resolves a single configured option against a model
+              instance.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../../Object.html" title=
+              "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/active_record/acts_as_llm.rb', line 47</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_resolve_option'>resolve_option</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='const'>Proc</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_instance_exec'>instance_exec</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'id identifier rubyid_option'>option</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='const'>Symbol</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_send'>send</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_option'>option</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='const'>Hash</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_dup'>dup</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="resolve_options-class_method">
+          .<STRONG>resolve_options</STRONG>(obj, option, empty_hash) ⇒
+          <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Resolves hash-like wrapper options against a model
+              instance.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+59
+60
+61
+62
+63
+64</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/active_record/acts_as_llm.rb', line 59</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_resolve_options'>resolve_options</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_empty_hash'>empty_hash</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='const'>Proc</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='const'>Symbol</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='const'>Hash</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class=
+'id identifier rubyid_resolve_option'>resolve_option</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_option'>option</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class=
+'id identifier rubyid_empty_hash'>empty_hash</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_dup'>dup</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="serialize_context-class_method">
+          .<STRONG>serialize_context</STRONG>(ctx, format) ⇒ <TT>String</TT>,
+          <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Serializes the runtime into the configured storage format.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>,
+              <TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+69
+70
+71
+72
+73
+74
+75</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/active_record/acts_as_llm.rb', line 69</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_serialize_context'>serialize_context</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_format'>format</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>case</SPAN> <SPAN class=
+'id identifier rubyid_format'>format</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='symbol'>:string</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_json'>to_json</SPAN>
+  <SPAN class='kw'>when</SPAN> <SPAN class='symbol'>:json</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='symbol'>:jsonb</SPAN> <SPAN class=
+'kw'>then</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_h'>to_h</SPAN>
+  <SPAN class='kw'>else</SPAN> <SPAN class=
+'id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>ArgumentError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Unknown format: </SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_format'>format</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_inspect'>inspect</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="columns-class_method">
+          .<STRONG>columns</STRONG>(options) ⇒ <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Maps wrapper options onto the record's storage columns.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/active_record/acts_as_llm.rb', line 80</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_columns'>columns</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_usage_columns'>usage_columns</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:usage_columns</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+  <SPAN class='lbrace'>{</SPAN>
+    <SPAN class='label'>provider_column:</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:provider_column</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>model_column:</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:model_column</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>data_column:</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:data_column</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>input_tokens:</SPAN> <SPAN class=
+'id identifier rubyid_usage_columns'>usage_columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:input_tokens</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>output_tokens:</SPAN> <SPAN class=
+'id identifier rubyid_usage_columns'>usage_columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:output_tokens</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='label'>total_tokens:</SPAN> <SPAN class=
+'id identifier rubyid_usage_columns'>usage_columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:total_tokens</SPAN><SPAN class=
+'rbracket'>]</SPAN>
+  <SPAN class='rbrace'>}</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_freeze'>freeze</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="save-class_method">
+          .<STRONG>save</STRONG>(obj, ctx, options) ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Persists the runtime state and usage columns back onto the
+              record.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/active_record/acts_as_llm.rb', line 95</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_save'>save</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_columns'>columns</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_columns'>columns</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_assign_attributes'>assign_attributes</SPAN><SPAN class=
+'lparen'>(</SPAN>
+    <SPAN class='id identifier rubyid_columns'>columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:data_column</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_serialize_context'>serialize_context</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_options'>options</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:format</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='comma'>,</SPAN>
+    <SPAN class='id identifier rubyid_columns'>columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:input_tokens</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_usage'>usage</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_input_tokens'>input_tokens</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='id identifier rubyid_columns'>columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:output_tokens</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_usage'>usage</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_output_tokens'>output_tokens</SPAN><SPAN class=
+'comma'>,</SPAN>
+    <SPAN class='id identifier rubyid_columns'>columns</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:total_tokens</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>=&gt;</SPAN> <SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_usage'>usage</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_total_tokens'>total_tokens</SPAN>
+  <SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_obj'>obj</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_save!'>save!</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:17 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>How to build a platform of agents</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to build a platform of agents">
+  <META property="og:description" content=
+  "Documents how to build a platform of agents with llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-build-a-platform-of-agents">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY class="dark-mode">
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to build a platform of agents that can be
+      specialized and associated with a user. This pattern or technique is
+      powerful because a user can have their own personal agents, and those
+      agents can be specialized in different domains, such as day trading,
+      investing, and so on.</P>
+      <P>The idea is simple but empowering: instead of treating agents as
+      something outside the application, we can treat them as ordinary models
+      with state, tools, skills, and associations.</P>
+      <P>An optimized version of this pattern might use polymorphism, but the
+      intent of this post is to communicate the idea and not a perfect
+      implementation. The pattern is enabled by and really made possible thanks
+      to <A href="https://github.com/llmrb/llm.rb#readme">llm.rb</A> and in
+      fact it drives the design of the runtime's agent system.</P>
+      <H2>Migration</H2>
+      <P>The first step is to define a user table, and then two tables for our
+      specialized agents. In this example the user has many agents, but we keep
+      the schema simple by storing each concrete agent type in its own
+      table.</P>
+      <P>Each agent belongs to a user through <CODE>user_id</CODE>, and each
+      agent table stores the serialized agent state used by <A href=
+      "https://github.com/llmrb/llm.rb#readme">llm.rb</A>:</P>
+      <PRE><CODE class=
+      "language-ruby">class CreatePlatformOfAgents &lt; ActiveRecord::Migration[8.0]
+  def change
+    create_table :users do |t|
+      t.string :email, null: false
+      t.timestamps
+    end
+
+    add_index :users, :email, unique: true
+
+    create_table :daytraders do |t|
+      t.references :user, null: false, foreign_key: true
+      t.string :provider, null: false
+      t.string :model
+      t.text :data
+      t.integer :input_tokens
+      t.integer :output_tokens
+      t.integer :total_tokens
+      t.timestamps
+    end
+
+    create_table :stock_investors do |t|
+      t.references :user, null: false, foreign_key: true
+      t.string :provider, null: false
+      t.string :model
+      t.text :data
+      t.integer :input_tokens
+      t.integer :output_tokens
+      t.integer :total_tokens
+      t.timestamps
+    end
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>:users</CODE><BR>
+        Stores the owner of the agents. In this example a user can have many
+        agents.</LI>
+        <LI><CODE>:daytraders</CODE> and <CODE>:stock_investors</CODE><BR>
+        These are two different kinds of agents, each stored in its own
+        table.</LI>
+        <LI><CODE>:user_id</CODE><BR>
+        Associates each agent with a user.</LI>
+        <LI><CODE>:provider</CODE>, <CODE>:model</CODE>, and
+        <CODE>:data</CODE><BR>
+        These are the main columns used by llm.rb's ActiveRecord persistence
+        layer.</LI>
+        <LI><CODE>:input_tokens</CODE>, <CODE>:output_tokens</CODE>, and
+        <CODE>:total_tokens</CODE><BR>
+        Keeps token usage on the record.</LI>
+        <LI><CODE>:timestamps</CODE><BR>
+        Gives us the usual ActiveRecord created and updated timestamps.</LI>
+      </UL>
+      <H2>Daytrader</H2>
+      <P>The first agent in our platform is a day trader. The idea is simple:
+      this agent can trade on behalf of a user.</P>
+      <P>That is the part I want to emphasize. This is just an ActiveRecord
+      model, but it is also an agent with real capabilities. It can belong to a
+      user, it can fit into the rest of the application's data model, and it
+      can still have tools and skills that let it take meaningful action. In
+      other words, the agent does not have to live in some separate service or
+      outside runtime. It can live right alongside the rest of the models that
+      already describe the application.</P>
+      <PRE><CODE class="language-ruby">require "llm"
+require "net/http/persistent"
+require "active_record"
+require "llm/active_record"
+
+class User &lt; ApplicationRecord
+  has_many :daytraders, dependent: :destroy
+  has_many :stock_investors, dependent: :destroy
+
+  def agents
+    [*daytraders, *stock_investors]
+  end
+end
+
+class Daytrader &lt; ApplicationRecord
+  acts_as_agent provider: :set_provider
+  belongs_to :user
+
+  model "gpt-5.4-mini"
+  instructions "You are a day trader. You can watch the market and place trades for the user."
+  tools QuoteFeed, OrderEntry, PositionBook
+  skills "skills/daytrader/find_trade",
+         "skills/daytrader/enter_trade",
+         "skills/daytrader/exit_trade"
+  concurrency :thread
+
+  private
+
+  def set_provider
+    {key: ENV["#{provider.upcase}_SECRET"], persistent: true}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>has_many :daytraders</CODE> and <CODE>has_many
+        :stock_investors</CODE><BR>
+        Gives the user a normal association to each specialized agent
+        type.</LI>
+        <LI><CODE>def agents</CODE><BR>
+        Provides one place where both kinds of agents can be treated as a
+        single collection.</LI>
+        <LI><CODE>belongs_to :user</CODE><BR>
+        Associates each day trader agent with its owner.</LI>
+        <LI><CODE>tools QuoteFeed, OrderEntry, PositionBook</CODE><BR>
+        These are the local tools the agent can call to check prices, place
+        trades, and inspect positions.</LI>
+        <LI><CODE>skills "skills/daytrader/..."</CODE><BR>
+        These are reusable trading behaviors that can be shared across day
+        trader agents.</LI>
+        <LI><CODE>concurrency :thread</CODE><BR>
+        Lets the agent run tool work with threads.</LI>
+      </UL>
+      <H2>Stock Investor</H2>
+      <P>The second agent in our platform is a stock investor. The idea here is
+      just as simple: this agent can invest on behalf of a user.</P>
+      <P>The same pattern applies here too. This is still just an ActiveRecord
+      model, but now it represents a different kind of agent with a different
+      job. It can still belong to a user, still participate in the existing
+      associations of the application, and still be given tools and skills that
+      let it do real work. Once that idea clicks, it becomes easier to see how
+      almost any model in an application could be turned into an agent when
+      that makes sense for the domain.</P>
+      <PRE><CODE class="language-ruby">require "llm"
+require "net/http/persistent"
+require "active_record"
+require "llm/active_record"
+
+class StockInvestor &lt; ApplicationRecord
+  acts_as_agent provider: :set_provider
+  belongs_to :user
+
+  model "gpt-5.4-mini"
+  instructions "You are a stock investor. You can review companies and invest for the user over time."
+  tools FundamentalsFeed, PortfolioBook, OrderEntry
+  skills "skills/stock_investor/find_investment",
+         "skills/stock_investor/start_position",
+         "skills/stock_investor/rebalance"
+  concurrency :thread
+
+  private
+
+  def set_provider
+    {key: ENV["#{provider.upcase}_SECRET"], persistent: true}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>belongs_to :user</CODE><BR>
+        Associates each stock investor agent with its owner.</LI>
+        <LI><CODE>tools FundamentalsFeed, PortfolioBook, OrderEntry</CODE><BR>
+        These are the local tools the agent can call to review companies,
+        inspect the portfolio, and place orders.</LI>
+        <LI><CODE>skills "skills/stock_investor/..."</CODE><BR>
+        These are reusable investing behaviors that can be shared across stock
+        investor agents.</LI>
+        <LI><CODE>concurrency :thread</CODE><BR>
+        Lets the agent run tool work with threads.</LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P>The interesting part of this pattern is that the agents can be modeled
+      as part of the application itself. A user can have their own agents,
+      those agents can be specialized by domain, and their behavior can be
+      composed with tools and skills.</P>
+      <P>That makes it easier to build multi-agent systems, personalize
+      behavior per user, and keep the design close to the rest of the domain
+      model. With <A href="https://github.com/llmrb/llm.rb#readme">llm.rb</A>,
+      the runtime pieces stay small enough that the main work becomes
+      application design.</P>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>

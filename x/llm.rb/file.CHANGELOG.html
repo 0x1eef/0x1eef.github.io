@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="UTF-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>File: CHANGELOG — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "CHANGELOG";
+  relpath = '';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="file_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="_index.html">Index</A> » <SPAN class="title">File:
+        CHANGELOG</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <DIV id='filecontents'>
+        <H1 id="changelog">Changelog</H1>
+        <H2 id="unreleased">Unreleased</H2>
+        <P>Changes since <CODE>v5.4.0</CODE>.</P>
+        <H2 id="v5-4-0">v5.4.0</H2>
+        <P>Changes since <CODE>v5.3.0</CODE>.</P>
+        <P>This release expands tracer support around agentic execution. It
+        lets <CODE>LLM::Agent</CODE> define scoped tracers through the agent
+        DSL and fixes concurrent tool execution so those scoped tracers stay
+        attached when work crosses thread, task, fiber, and skill
+        boundaries.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI><STRONG>Add agent-scoped tracers</STRONG><BR>
+          Let <CODE>LLM::Agent</CODE> classes define <CODE>tracer ...</CODE> or
+          <CODE>tracer { ... }</CODE> so an agent can carry its own tracer
+          without replacing the provider's default tracer. The resolved tracer
+          is scoped to that agent's turns, tool loops, and pending tool access.
+          Available through the <CODE>acts_as_agent</CODE> and Sequel agent
+          plugin <CODE>tracer</CODE> DSL too.</LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI><STRONG>Preserve scoped tracers across concurrent tool
+          work</STRONG><BR>
+          Keep agent- and request-scoped tracers attached when tool execution
+          crosses <CODE>:thread</CODE>, <CODE>:task</CODE>, or
+          <CODE>:fiber</CODE> boundaries, including skill execution, so spawned
+          work does not fall back to the provider default tracer.</LI>
+        </UL>
+        <H2 id="v5-3-0">v5.3.0</H2>
+        <P>Changes since <CODE>v5.2.1</CODE>.</P>
+        <P>This release deepens llm.rb's request-rewriting and tool-definition
+        surface. It adds transformer lifecycle hooks to
+        <CODE>LLM::Stream</CODE> so UIs can surface work like PII scrubbing
+        before a request is sent, and it adds a more explicit OmniAI-style tool
+        DSL form with <CODE>parameter</CODE> plus separate
+        <CODE>required</CODE> declarations while keeping the older <CODE>param
+        ... required: true</CODE> style working.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Add transformer stream lifecycle hooks</STRONG><BR>
+            Add <CODE>on_transform</CODE> and <CODE>on_transform_finish</CODE>
+            to <CODE>LLM::Stream</CODE> so UIs can surface request rewriting
+            work such as PII scrubbing before a request is sent to the
+            model.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add a separate <CODE>required</CODE> tool DSL
+            form</STRONG><BR>
+            Add <CODE>parameter</CODE> as an alias of <CODE>param</CODE> and
+            support <CODE>required %i[...]</CODE> as a separate declaration,
+            inspired by OmniAI-style tools, while keeping the existing
+            <CODE>param ... required: true</CODE> form working too.</P>
+          </LI>
+        </UL>
+        <H2 id="v5-2-1">v5.2.1</H2>
+        <P>Changes since <CODE>v5.2.0</CODE>.</P>
+        <P>This release tightens the streamed queue fix from
+        <CODE>v5.2.0</CODE> for concurrent workloads. Request-local streams now
+        stay bound long enough for <CODE>wait</CODE> to drain queued work and
+        then clear cleanly so later waits fall back to the context's configured
+        stream.</P>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI><STRONG>Reset request-local streams after <CODE>wait</CODE>
+          drains queued work</STRONG><BR>
+          Keep per-call <CODE>stream:</CODE> bindings alive through
+          <CODE>LLM::Context#wait</CODE> so queued streamed tool work still
+          resolves correctly, then clear the request-local stream after the
+          wait completes to avoid leaking it into later turns.</LI>
+        </UL>
+        <H2 id="v5-2-0">v5.2.0</H2>
+        <P>Changes since <CODE>v5.1.0</CODE>.</P>
+        <P>This release adds current DeepSeek V4 support through refreshed
+        provider metadata, including <CODE>deepseek-v4-flash</CODE> and
+        <CODE>deepseek-v4-pro</CODE>, while fixing request-local queue handling
+        for concurrent streamed workloads so <CODE>wait</CODE> and interruption
+        use the active per-call stream correctly.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Add <CODE>LLM::MCP#run</CODE> for scoped MCP client
+            lifecycle</STRONG><BR>
+            Add <CODE>LLM::MCP#run</CODE> so MCP clients can be started for the
+            duration of a block and then stopped automatically, which
+            simplifies the usual <CODE>start</CODE>/<CODE>stop</CODE> pattern
+            in examples and application code.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Refresh provider model metadata</STRONG><BR>
+            Add current DeepSeek and OpenAI model metadata to
+            <CODE>data/</CODE> and update the Google Gemma model entry to match
+            the current provider naming.</P>
+          </LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Reject unsupported DeepSeek multimodal prompt objects
+            early</STRONG><BR>
+            Raise <CODE>LLM::PromptError</CODE> for <CODE>image_url</CODE>,
+            <CODE>local_file</CODE>, and <CODE>remote_file</CODE> in DeepSeek
+            chat requests instead of sending invalid OpenAI-compatible payloads
+            that the provider rejects at runtime.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Preserve DeepSeek reasoning content across tool
+            turns</STRONG><BR>
+            Replay <CODE>reasoning_content</CODE> when serializing prior
+            assistant messages for DeepSeek chat completions, so thinking-mode
+            tool calls can continue into follow-up requests without triggering
+            invalid request errors.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Default DeepSeek to
+            <CODE>deepseek-v4-flash</CODE></STRONG><BR>
+            Change <CODE>LLM::DeepSeek#default_model</CODE> to
+            <CODE>deepseek-v4-flash</CODE> so new contexts and default provider
+            usage align with the current preferred chat model.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Use per-call streams when waiting on streamed tool
+            work</STRONG><BR>
+            Track request-local streams bound through <CODE>talk(...,
+            stream:)</CODE> and <CODE>respond(..., stream:)</CODE> so
+            <CODE>LLM::Context#wait</CODE> and interruption-aware queue
+            handling use the active stream instead of falling back to pending
+            function spawning.</P>
+          </LI>
+        </UL>
+        <H2 id="v5-1-0">v5.1.0</H2>
+        <P>Changes since <CODE>v5.0.0</CODE>.</P>
+        <P>This release tightens streamed tool execution around the actual
+        request-local runtime state. It fixes streamed resolution of
+        per-request tools and makes that streamed path work cleanly with
+        <CODE>LLM.function(...)</CODE>, MCP tools, bound tool instances, and
+        normal tool classes.</P>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Resolve request-local tools during
+            streaming</STRONG><BR>
+            Resolve streamed tool calls through <CODE>LLM::Stream</CODE>
+            request-local tools before falling back to the global registry, so
+            per-request tools and bound tool instances work correctly during
+            streaming.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Support <CODE>LLM.function(...)</CODE> and MCP tools in
+            streamed tool resolution</STRONG><BR>
+            Let streamed tool resolution use the current request tool set, so
+            <CODE>LLM.function(...)</CODE>, MCP tools, bound tool instances,
+            and normal <CODE>LLM::Tool</CODE> classes all work through the same
+            streamed tool path.</P>
+          </LI>
+        </UL>
+        <H2 id="v5-0-0">v5.0.0</H2>
+        <P>Changes since <CODE>v4.23.0</CODE>.</P>
+        <P>This release expands llm.rb from an execution runtime into a more
+        explicit supervision and transformation runtime. It adds context-level
+        guards, transformers, and loop supervision through
+        <CODE>LLM::LoopGuard</CODE>, while deepening long-lived context
+        behavior through compaction, interruption hooks, and streamed
+        <CODE>ctx.spawn(...)</CODE> tool execution.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Make compactor thresholds explicit</STRONG><BR>
+            Require <CODE>message_threshold:</CODE> and
+            <CODE>token_threshold:</CODE> to be opted into explicitly, so
+            <CODE>LLM::Compactor</CODE> only compacts automatically when one of
+            those thresholds is configured. Context-window-derived token limits
+            can be computed by the caller when needed.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Allow assigning a compactor through
+            <CODE>LLM::Context</CODE></STRONG><BR>
+            Let <CODE>LLM::Context</CODE> accept <CODE>ctx.compactor =
+            ...</CODE> in addition to the constructor <CODE>compactor:</CODE>
+            option, so compactor config can be assigned or replaced after
+            context initialization.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Mark compaction summaries in message
+            metadata</STRONG><BR>
+            Mark compaction summaries with <CODE>extra[:compaction]</CODE> and
+            <CODE>LLM::Message#compaction?</CODE>, so applications can detect
+            or hide synthetic summary messages in conversation history.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add cooperative tool interruption hooks</STRONG><BR>
+            Let <CODE>ctx.interrupt!</CODE> notify queued tool work through
+            <CODE>on_interrupt</CODE>, so running tools can clean up
+            cooperatively when a context is cancelled.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add <CODE>LLM::Context</CODE> guards</STRONG><BR>
+            Add a new <CODE>guard</CODE> capability to
+            <CODE>LLM::Context</CODE> so execution can be supervised at the
+            runtime level. The built-in <CODE>LLM::LoopGuard</CODE> detects
+            repeated tool-call patterns and stops stuck agentic loops through
+            in-band <CODE>LLM::GuardError</CODE> returns.
+            <CODE>LLM::Agent</CODE> enables this guard by default.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add <CODE>LLM::Context</CODE> transformers</STRONG><BR>
+            Add a new <CODE>transformer</CODE> capability to
+            <CODE>LLM::Context</CODE> so prompts and params can be rewritten
+            before provider requests are sent. This makes it possible to apply
+            context-wide behaviors such as PII scrubbing or request-level param
+            injection without rewriting every <CODE>talk</CODE> and
+            <CODE>respond</CODE> call site.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-23-0">v4.23.0</H2>
+        <P>Changes since <CODE>v4.22.0</CODE>.</P>
+        <P>This release expands llm.rb's runtime surface for long-lived
+        contexts and stateful tools. It adds built-in context compaction
+        through <CODE>LLM::Compactor</CODE>, lets explicit <CODE>tools:</CODE>
+        arrays accept bound <CODE>LLM::Tool</CODE> instances, and fixes
+        OpenAI-compatible no-arg tool schemas for stricter providers such as
+        xAI.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Add <CODE>LLM::Compactor</CODE> for long-lived
+            contexts</STRONG><BR>
+            Add built-in context compaction through
+            <CODE>LLM::Compactor</CODE>, so older history can be summarized,
+            retained windows can stay bounded, compaction can run on its own
+            <CODE>model:</CODE>, thresholds can be configured explicitly, and
+            <CODE>LLM::Stream</CODE> can observe the lifecycle through
+            <CODE>on_compaction</CODE> and
+            <CODE>on_compaction_finish</CODE>.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Allow bound tool instances in explicit tool
+            lists</STRONG><BR>
+            Let explicit <CODE>tools:</CODE> arrays accept
+            <CODE>LLM::Tool</CODE> instances such as <CODE>MyTool.new(foo:
+            1)</CODE>, so tools can carry bound state without changing the
+            global tool registry model.</P>
+          </LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI><STRONG>Fix xAI/OpenAI-compatible no-arg tool
+          schemas</STRONG><BR>
+          Send an empty object schema for tools without declared parameters
+          instead of <CODE>null</CODE>, so stricter providers such as xAI
+          accept mixed tool sets that include no-arg tools.</LI>
+        </UL>
+        <H2 id="v4-22-0">v4.22.0</H2>
+        <P>Changes since <CODE>v4.21.0</CODE>.</P>
+        <P>This release deepens the runtime shape of llm.rb. It reduces
+        helper-method surface on persisted ORM models, expands real ORM
+        coverage, and makes skills behave more like bounded sub-agents with
+        inherited recent context and proper instruction injection.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Reduce ActiveRecord wrapper model surface</STRONG><BR>
+            Move helper methods such as option resolution, column mapping,
+            serialization, and persistence into <CODE>Utils</CODE> for the
+            ActiveRecord wrappers so wrapped models include fewer internal
+            helper methods.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Reduce Sequel wrapper model surface</STRONG><BR>
+            Move helper methods such as option resolution, column mapping,
+            serialization, and persistence into <CODE>Utils</CODE> for the
+            Sequel wrappers so wrapped models include fewer internal helper
+            methods.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Expand ORM integration coverage</STRONG><BR>
+            Add broader ActiveRecord and Sequel coverage for persisted context
+            and agent wrappers, including real SQLite-backed records and
+            cassette-backed OpenAI persistence paths.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Make skills inherit recent parent context</STRONG><BR>
+            Run <CODE>LLM::Skill</CODE> with a curated slice of recent parent
+            user and assistant messages, prefixed with <CODE>Recent
+            context:</CODE>, so skills behave more like task-scoped sub-agents
+            instead of instruction-only helpers.</P>
+          </LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Fix Sequel <CODE>plugin :agent</CODE> load
+            order</STRONG><BR>
+            Require the shared Sequel plugin support from
+            <CODE>LLM::Sequel::Agent</CODE> so <CODE>plugin :agent</CODE> can
+            load independently without raising <CODE>uninitialized constant
+            LLM::Sequel::Plugin</CODE>.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Make skill execution inherit parent context request
+            settings</STRONG><BR>
+            Run <CODE>LLM::Skill</CODE> through a parent
+            <CODE>LLM::Context</CODE> instead of a bare provider so nested
+            skill agents inherit context-level settings such as <CODE>mode:
+            :responses</CODE>, <CODE>store: false</CODE>, streaming, and other
+            request defaults, while still keeping skill-local tools and
+            avoiding parent schemas.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Keep agent instructions when history is
+            preseeded</STRONG><BR>
+            Inject <CODE>LLM::Agent</CODE> instructions once unless a system
+            message is already present, so agents and nested skills still get
+            their instructions when they start with inherited non-system
+            context.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-21-0">v4.21.0</H2>
+        <P>Changes since <CODE>v4.20.2</CODE>.</P>
+        <P>This release expands higher-level composition in llm.rb. It adds
+        Sequel agent persistence through <CODE>plugin :agent</CODE> and
+        introduces directory-backed skills that load from
+        <CODE>SKILL.md</CODE>, resolve named tools, and plug directly into
+        <CODE>LLM::Context</CODE> and <CODE>LLM::Agent</CODE>.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Add <CODE>plugin :agent</CODE> for Sequel
+            models</STRONG><BR>
+            Add Sequel support for <CODE>plugin :agent</CODE>, similar to
+            ActiveRecord's <CODE>acts_as_agent</CODE>, so models can wrap
+            <CODE>LLM::Agent</CODE> with built-in persistence.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Load directory-backed skills through
+            <CODE>LLM::Context</CODE> and <CODE>LLM::Agent</CODE></STRONG><BR>
+            Add <CODE>skills:</CODE> to <CODE>LLM::Context</CODE> and
+            <CODE>skills ...</CODE> to <CODE>LLM::Agent</CODE> so directories
+            with <CODE>SKILL.md</CODE> can be loaded, resolved into tools, and
+            run through the normal llm.rb tool path.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-20-2">v4.20.2</H2>
+        <P>Changes since <CODE>v4.20.1</CODE>.</P>
+        <P>This patch release improves runtime behavior around interruption and
+        mixed concurrency waits. It also rounds out response API uniformity for
+        Google completion responses.</P>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Expose Google completion response IDs through
+            <CODE>.id</CODE></STRONG><BR>
+            Add <CODE>LLM::Response#id</CODE> support to Google completion
+            responses so tracer and caller code can rely on the same API used
+            by other providers.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Track interrupt ownership on the active
+            request</STRONG><BR>
+            Bind <CODE>LLM::Context</CODE> interruption to the fiber running
+            <CODE>talk</CODE> or <CODE>respond</CODE> so
+            <CODE>interrupt!</CODE> works correctly when requests are started
+            outside the context's initialization fiber.</P>
+          </LI>
+        </UL>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI><STRONG>Allow mixed concurrency strategies in
+          <CODE>wait(...)</CODE></STRONG><BR>
+          Let <CODE>LLM::Context#wait</CODE>, <CODE>LLM::Stream#wait</CODE>,
+          and <CODE>LLM::Agent.concurrency</CODE> accept arrays such as
+          <CODE>[:thread, :ractor]</CODE> so mixed tool sets can wait on more
+          than one concurrency strategy.</LI>
+        </UL>
+        <H2 id="v4-20-1">v4.20.1</H2>
+        <P>Changes since <CODE>v4.20.0</CODE>.</P>
+        <P>This patch release fixes ORM option resolution in the Sequel and
+        ActiveRecord wrappers. Symbol-based <CODE>provider:</CODE> and
+        <CODE>context:</CODE> hooks now resolve correctly, and internal default
+        option constants are referenced explicitly instead of relying on nested
+        constant lookup.</P>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Fix symbol-based ORM option hooks for provider and
+            context hashes</STRONG><BR>
+            Make <CODE>provider:</CODE> and <CODE>context:</CODE> resolve
+            symbol hooks through the model in the Sequel plugin and
+            ActiveRecord wrappers instead of falling back to an empty hash.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Fix ORM wrapper constant lookup for option
+            defaults</STRONG><BR>
+            Qualify internal <CODE>EMPTY_HASH</CODE> / <CODE>DEFAULTS</CODE>
+            references in the Sequel plugin and ActiveRecord wrappers so option
+            resolution does not depend on nested constant lookup quirks.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-20-0">v4.20.0</H2>
+        <P>Changes since <CODE>v4.19.0</CODE>.</P>
+        <P>This release adds better support for tagged prompt content.
+        <CODE>LLM::Context</CODE> can now serialize and restore
+        <CODE>image_url</CODE>, <CODE>local_file</CODE>, and
+        <CODE>remote_file</CODE> content cleanly, and <CODE>LLM::Message</CODE>
+        now exposes helpers for inspecting tagged image and file
+        attachments.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Round-trip tagged prompt objects through
+            <CODE>LLM::Context</CODE></STRONG><BR>
+            Teach <CODE>LLM::Context</CODE> serialization and restore to
+            preserve <CODE>image_url</CODE>, <CODE>local_file</CODE>, and
+            <CODE>remote_file</CODE> content across <CODE>to_json</CODE> /
+            <CODE>restore</CODE>.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add attachment helpers to
+            <CODE>LLM::Message</CODE></STRONG><BR>
+            Add <CODE>image_url?</CODE>, <CODE>image_urls</CODE>,
+            <CODE>file?</CODE>, and <CODE>files</CODE> so callers can inspect
+            messages for tagged image and file content more directly.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-19-0">v4.19.0</H2>
+        <P>Changes since <CODE>v4.18.0</CODE>.</P>
+        <P>This release tightens the ActiveRecord and ORM integration layer. It
+        adds inline agent DSL blocks to <CODE>acts_as_agent</CODE> so agent
+        defaults can be defined where the wrapper is declared, and it exposes
+        the resolved provider through public <CODE>llm</CODE> methods on the
+        ActiveRecord and Sequel wrappers.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Make ORM provider access public through
+            <CODE>llm</CODE></STRONG><BR>
+            Expose the resolved provider on the Sequel plugin and the
+            ActiveRecord <CODE>acts_as_llm</CODE> / <CODE>acts_as_agent</CODE>
+            wrappers through a public <CODE>llm</CODE> method.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Allow inline agent DSL blocks in
+            <CODE>acts_as_agent</CODE></STRONG><BR>
+            Let ActiveRecord models configure <CODE>model</CODE>,
+            <CODE>tools</CODE>, <CODE>schema</CODE>, <CODE>instructions</CODE>,
+            and <CODE>concurrency</CODE> directly inside the
+            <CODE>acts_as_agent</CODE> declaration block.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-18-0">v4.18.0</H2>
+        <P>Changes since <CODE>v4.17.0</CODE>.</P>
+        <P>This release improves tracing and tool execution behavior across
+        llm.rb. It makes provider tracers default to the provider instance,
+        adds <CODE>LLM::Provider#with_tracer</CODE> for scoped overrides,
+        restores tool tracing for concurrent and streamed tool execution,
+        extends streamed tracing to MCP tools, and adds symbol-based ORM option
+        hooks alongside experimental ractor tool concurrency.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Make provider tracers default to the provider
+            instance</STRONG><BR>
+            Change <CODE>llm.tracer = ...</CODE> so it sets a provider default
+            tracer instead of relying on scoped fiber-local state alone. This
+            makes tracer configuration behave more predictably across normal
+            tasks, threads, and fibers that share the same provider
+            instance.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add <CODE>LLM::Provider#with_tracer</CODE> for scoped
+            overrides</STRONG><BR>
+            Add <CODE>with_tracer</CODE> as the opt-in escape hatch for
+            request- or turn-scoped tracer overrides. Use it when you want
+            temporary tracing on the current fiber without replacing the
+            provider's default tracer.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Trace concurrent tool calls outside ractors</STRONG><BR>
+            Make tool tracing fire correctly when functions run through
+            <CODE>:thread</CODE>, <CODE>:task</CODE>, or <CODE>:fiber</CODE>
+            concurrency. Experimental <CODE>:ractor</CODE> execution still does
+            not emit tool tracer events.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Trace streamed tool calls, including MCP
+            tools</STRONG><BR>
+            Bind stream metadata through <CODE>LLM::Stream#extra</CODE> so
+            streamed tool calls inherit tracer and model context before they
+            are handed to <CODE>on_tool_call</CODE>. This restores tool tracing
+            for streamed MCP and local tool execution.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Support symbol-based ORM option hooks</STRONG><BR>
+            Let <CODE>provider:</CODE>, <CODE>context:</CODE>, and
+            <CODE>tracer:</CODE> on the Sequel plugin and the ActiveRecord
+            <CODE>acts_as_llm</CODE> / <CODE>acts_as_agent</CODE> wrappers
+            resolve through model method names as well as procs.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add experimental ractor tool concurrency</STRONG><BR>
+            Add <CODE>:ractor</CODE> support to
+            <CODE>LLM::Function#spawn</CODE>,
+            <CODE>LLM::Function::Array#wait</CODE>,
+            <CODE>LLM::Stream#wait</CODE>, and
+            <CODE>LLM::Agent.concurrency</CODE> so class-based tools with
+            ractor-safe arguments and return values can run in Ruby ractors and
+            report their results back into the normal LLM tool-return path. MCP
+            tools are not supported by the current <CODE>:ractor</CODE> mode,
+            but mixed workloads can still branch on <CODE>tool.mcp?</CODE> and
+            choose a supported strategy per tool. <CODE>:ractor</CODE> is
+            especially useful for CPU-bound tools, while <CODE>:task</CODE>,
+            <CODE>:fiber</CODE>, or <CODE>:thread</CODE> may be a better fit
+            for I/O-bound work.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-17-0">v4.17.0</H2>
+        <P>Changes since <CODE>v4.16.1</CODE>.</P>
+        <P>This release expands agent support across llm.rb. It brings
+        <CODE>LLM::Agent</CODE> closer to <CODE>LLM::Context</CODE>, adds
+        configurable automatic tool concurrency including experimental ractor
+        support for class-based tools, extends persisted ORM wrappers with more
+        of the context runtime surface and tracer hooks, and introduces
+        built-in ActiveRecord agent persistence through
+        <CODE>acts_as_agent</CODE>.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Add configurable tool concurrency to
+            <CODE>LLM::Agent</CODE></STRONG><BR>
+            Add the class-level <CODE>concurrency</CODE> DSL to
+            <CODE>LLM::Agent</CODE> so automatic tool loops can run with
+            <CODE>:call</CODE>, <CODE>:thread</CODE>, <CODE>:task</CODE>,
+            <CODE>:fiber</CODE>, or experimental <CODE>:ractor</CODE> support
+            for class-based tools instead of always executing sequentially.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Bring <CODE>LLM::Agent</CODE> closer to
+            <CODE>LLM::Context</CODE></STRONG><BR>
+            Expand <CODE>LLM::Agent</CODE> so it exposes more of the same
+            runtime surface as <CODE>LLM::Context</CODE>, including returns,
+            interruption, mode, cost, context window, structured serialization,
+            and other context-backed helpers, while still auto-managing tool
+            loops.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Refresh agent docs and coverage</STRONG><BR>
+            Update the README and deep dive to explain the current role of
+            <CODE>LLM::Agent</CODE>, add examples that show automatic tool
+            execution and concurrency, and add focused specs for the expanded
+            agent surface and tool-loop behavior.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add ORM tracer hooks for persisted contexts</STRONG><BR>
+            Add <CODE>tracer:</CODE> to both the Sequel plugin and
+            <CODE>acts_as_llm</CODE> so models can resolve and assign tracers
+            onto the provider used by their persisted
+            <CODE>LLM::Context</CODE>.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Bring persisted ORM wrappers closer to
+            <CODE>LLM::Context</CODE></STRONG><BR>
+            Expand both the Sequel plugin and <CODE>acts_as_llm</CODE> so
+            record-backed contexts expose more of the same runtime surface as
+            <CODE>LLM::Context</CODE>, including mode, returns, interruption,
+            prompt helpers, file helpers, and tracer access.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add ActiveRecord agent persistence with
+            <CODE>acts_as_agent</CODE></STRONG><BR>
+            Add <CODE>acts_as_agent</CODE> for ActiveRecord models that should
+            wrap <CODE>LLM::Agent</CODE>, reusing the same record-backed
+            runtime shape as <CODE>acts_as_llm</CODE> while letting tool
+            execution be managed by the agent.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-16-1">v4.16.1</H2>
+        <P>Changes since <CODE>v4.16.0</CODE>.</P>
+        <P>This release tightens ORM persistence by removing an unnecessary
+        JSON round-trip when restoring structured <CODE>:json</CODE> and
+        <CODE>:jsonb</CODE> context payloads.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI><STRONG>Restore structured ORM payloads directly</STRONG><BR>
+          Teach <CODE>LLM::Context#restore</CODE> to accept parsed data
+          payloads and use that path from the ActiveRecord and Sequel
+          persistence wrappers for <CODE>format: :json</CODE> and
+          <CODE>:jsonb</CODE>, avoiding a redundant <CODE>Hash -&gt; JSON
+          string -&gt; Hash</CODE> round-trip on restore.</LI>
+        </UL>
+        <H2 id="v4-16-0">v4.16.0</H2>
+        <P>Changes since <CODE>v4.15.0</CODE>.</P>
+        <P>This release expands ORM support with built-in ActiveRecord
+        persistence and improves compatibility with OpenAI-compatible gateways,
+        proxies, and self-hosted servers that use non-standard API root
+        paths.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Support OpenAI-compatible base paths</STRONG><BR>
+            Add <CODE>base_path:</CODE> to provider configuration so
+            OpenAI-compatible endpoints can vary both host and API prefix. This
+            supports providers, proxies, and gateways that keep OpenAI request
+            shapes but use non-standard URL layouts such as DeepInfra's
+            <CODE>/v1/openai/...</CODE>.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add ActiveRecord context persistence with
+            <CODE>acts_as_llm</CODE></STRONG><BR>
+            Add a built-in ActiveRecord wrapper that mirrors the Sequel plugin
+            API so applications can persist <CODE>LLM::Context</CODE> state on
+            records with default columns, provider/context hooks,
+            validation-backed writes, and <CODE>format: :string</CODE>,
+            <CODE>:json</CODE>, or <CODE>:jsonb</CODE> storage.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-15-0">v4.15.0</H2>
+        <P>Changes since <CODE>v4.14.0</CODE>.</P>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Reduce OpenAI stream parser merge overhead</STRONG><BR>
+            Special-case the most common single-field deltas, streamline
+            incremental tool-call merging, and avoid repeated JSON parse
+            attempts until streamed tool arguments look complete.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Cache streaming callback capabilities in
+            parsers</STRONG><BR>
+            Cache callback support checks once at parser initialization time in
+            the OpenAI, OpenAI Responses, Anthropic, Google, and Ollama stream
+            parsers instead of repeating <CODE>respond_to?</CODE> checks on hot
+            streaming paths.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Reduce OpenAI Responses parser lookup
+            overhead</STRONG><BR>
+            Special-case the hot Responses API event paths and cache the
+            current output item and content part so streamed output text deltas
+            do less repeated nested lookup work.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Add a Sequel context persistence plugin</STRONG><BR>
+            Add <CODE>plugin :llm</CODE> for Sequel models so apps can persist
+            <CODE>LLM::Context</CODE> state with default columns and pass
+            provider setup through <CODE>provider:</CODE> when needed. The
+            plugin now also supports <CODE>format: :string</CODE>,
+            <CODE>:json</CODE>, or <CODE>:jsonb</CODE> for text and native JSON
+            storage when Sequel JSON typecasting is enabled.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Improve streaming parser performance</STRONG><BR>
+            In the local replay-based <CODE>stream_parser</CODE> benchmark
+            versus <CODE>v4.14.0</CODE> (median of 20 samples, 5000
+            iterations), plain Ruby is a small overall win: the generic
+            eventstream path is about 0.4% faster, the OpenAI stream parser is
+            about 0.5% faster, and the OpenAI Responses parser is about 1.6%
+            faster, with unchanged allocations. Under YJIT on the same
+            benchmark, the generic eventstream path is about 0.9% faster and
+            the OpenAI stream parser is about 0.4% faster, while the OpenAI
+            Responses parser is about 0.7% slower, also with unchanged
+            allocations.</P>
+          </LI>
+        </UL>
+        <P>Compared to <CODE>v4.13.0</CODE>, the larger <CODE>v4.14.0</CODE>
+        streaming gains still hold. The generic eventstream path remains
+        dramatically faster than <CODE>v4.13.0</CODE>, the OpenAI stream parser
+        remains modestly faster, and the OpenAI Responses parser is roughly
+        flat to slightly better depending on runtime. In other words, current
+        keeps the large eventstream win from <CODE>v4.14.0</CODE>, adds only
+        small incremental changes beyond that, and does not turn the
+        post-<CODE>v4.14.0</CODE> parser work into another large benchmark
+        jump.</P>
+        <H2 id="v4-14-0">v4.14.0</H2>
+        <P>Changes since <CODE>v4.13.0</CODE>.</P>
+        <P>This release adds request interruption for contexts, reworks
+        provider HTTP internals for lower-overhead streaming, and fixes MCP
+        clients so parallel tool calls can safely share one connection.</P>
+        <H3 id="add">Add</H3>
+        <UL>
+          <LI><STRONG>Add request interruption support</STRONG><BR>
+          Add <CODE>LLM::Context#interrupt!</CODE>,
+          <CODE>LLM::Context#cancel!</CODE>, and <CODE>LLM::Interrupt</CODE>
+          for interrupting in-flight provider requests, inspired by Go's
+          context cancellation.</LI>
+        </UL>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Rework provider HTTP transport internals</STRONG><BR>
+            Rework provider HTTP around
+            <CODE>LLM::Provider::Transport::HTTP</CODE> with explicit transient
+            and persistent transport handling.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Reduce SSE parser overhead</STRONG><BR>
+            Dispatch raw parsed values to registered visitors instead of
+            building an <CODE>Event</CODE> object for every streamed line.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Reduce provider streaming allocations</STRONG><BR>
+            Decode streamed provider payloads directly in
+            <CODE>LLM::Provider::Transport::HTTP</CODE> before handing them to
+            provider parsers, which cuts allocation churn and gives a smaller
+            streaming speed bump.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Reduce generic SSE parser allocations</STRONG><BR>
+            Keep unread event-stream buffer data in place until compaction is
+            worthwhile, which lowers allocation churn in the remaining generic
+            SSE path.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Improve streaming parser performance</STRONG><BR>
+            In the local replay-based <CODE>stream_parser</CODE> benchmark
+            versus <CODE>v4.13.0</CODE> (median of 20 samples, 5000
+            iterations): Plain Ruby: the generic eventstream path is about 53%
+            faster with about 32% fewer allocations, the OpenAI stream parser
+            is about 11% faster with about 4% fewer allocations, and the OpenAI
+            Responses parser is about 3% faster with unchanged allocations.
+            YJIT on the current parser benchmark harness: the current tree is
+            about 26% faster than non-YJIT on the generic eventstream path,
+            about 18% faster on the OpenAI stream parser, and about 16% faster
+            on the OpenAI Responses parser, with allocations unchanged.</P>
+          </LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>
+            <P><STRONG>Support parallel MCP tool calls on one
+            client</STRONG><BR>
+            Route MCP responses by JSON-RPC id so concurrent tool calls can
+            share one client and transport without mismatching replies.</P>
+          </LI>
+          <LI>
+            <P><STRONG>Use explicit MCP non-blocking read errors</STRONG><BR>
+            Use <CODE>IO::EAGAINWaitReadable</CODE> while continuing to retry
+            on <CODE>IO::WaitReadable</CODE>.</P>
+          </LI>
+        </UL>
+        <H2 id="v4-13-0">v4.13.0</H2>
+        <P>Changes since <CODE>v4.12.0</CODE>.</P>
+        <P>This release expands MCP prompt support, improves reasoning support
+        in the OpenAI Responses API, and refreshes the docs around llm.rb's
+        runtime model, contexts, and advanced workflows.</P>
+        <H3 id="add">Add</H3>
+        <UL>
+          <LI>Add <CODE>LLM::MCP#prompts</CODE> and
+          <CODE>LLM::MCP#find_prompt</CODE> for MCP prompt support.</LI>
+        </UL>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>Rework the README around llm.rb as a runtime for AI systems.</LI>
+          <LI>Add a dedicated deep dive guide for providers, contexts,
+          persistence, tools, agents, MCP, tracing, multimodal prompts, and
+          retrieval.</LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <P>All of these fixes apply to MCP:</P>
+        <UL>
+          <LI>fix(mcp): raise <CODE>LLM::MCP::MismatchError</CODE> on
+          mismatched response ids.</LI>
+          <LI>fix(mcp): normalize prompt message content while preserving the
+          original payload.</LI>
+        </UL>
+        <P>All of these fixes apply to OpenAI's Responses API:</P>
+        <UL>
+          <LI>fix(openai): emit <CODE>on_reasoning_content</CODE> for streamed
+          reasoning summaries.</LI>
+          <LI>fix(openai): skip <CODE>previous_response_id</CODE> on
+          <CODE>store: false</CODE> follow-up calls.</LI>
+          <LI>fix(openai): fall back to an empty object schema for tools
+          without params.</LI>
+          <LI>fix(openai): preserve original tool-call payloads on re-sent
+          assistant tool messages.</LI>
+          <LI>fix(openai): emit <CODE>output_text</CODE> for assistant-authored
+          response content.</LI>
+          <LI>fix(openai): return <CODE>nil</CODE> for
+          <CODE>system_fingerprint</CODE> on normalized response objects.</LI>
+        </UL>
+        <H2 id="v4-12-0">v4.12.0</H2>
+        <P>Changes since <CODE>v4.11.1</CODE>.</P>
+        <P>This release expands advanced streaming and MCP execution while
+        reframing llm.rb more clearly as a system integration layer for LLMs,
+        tools, MCP sources, and application APIs.</P>
+        <H3 id="add">Add</H3>
+        <UL>
+          <LI>Add <CODE>persistent</CODE> as an alias for <CODE>persist!</CODE>
+          on providers and MCP transports.</LI>
+          <LI>Add <CODE>LLM::Stream#on_tool_return</CODE> for observing
+          completed streamed tool work.</LI>
+          <LI>Add <CODE>LLM::Function::Return#error?</CODE>.</LI>
+        </UL>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>Expect advanced streaming callbacks to use
+          <CODE>LLM::Stream</CODE> subclasses instead of duck-typing them onto
+          arbitrary objects. Basic <CODE>#&lt;&lt;</CODE> streaming remains
+          supported.</LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>Fix Anthropic tools without params by always emitting
+          <CODE>input_schema</CODE>.</LI>
+          <LI>Fix Anthropic tool-only responses to still produce an assistant
+          message.</LI>
+          <LI>Fix Anthropic tool results to use the <CODE>user</CODE>
+          role.</LI>
+          <LI>Fix Anthropic tool input normalization.</LI>
+        </UL>
+        <H2 id="v4-11-1">v4.11.1</H2>
+        <P>Changes since <CODE>v4.11.0</CODE>.</P>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>Cast OpenTelemetry tool-related values to strings.<BR>
+          Otherwise they're rejected by opentelemetry-sdk as invalid
+          attributes.</LI>
+        </UL>
+        <H2 id="v4-11-0">v4.11.0</H2>
+        <P>Changes since <CODE>v4.10.0</CODE>.</P>
+        <H3 id="add">Add</H3>
+        <UL>
+          <LI>Add <CODE>LLM::Stream</CODE> for richer streaming callbacks,
+          including <CODE>on_content</CODE>, <CODE>on_reasoning_content</CODE>,
+          and <CODE>on_tool_call</CODE> for concurrent tool execution.</LI>
+          <LI>Add <CODE>LLM::Stream#wait</CODE> as a shortcut for
+          <CODE>queue.wait</CODE>.</LI>
+          <LI>Add <CODE>LLM::Context#wait</CODE> as a shortcut for the
+          configured stream's <CODE>wait</CODE>.</LI>
+          <LI>Add <CODE>LLM::Context#call(:functions)</CODE> as a shortcut for
+          <CODE>functions.call</CODE>.</LI>
+          <LI>Add <CODE>LLM::Function.registry</CODE> and enhanced support for
+          MCP tools in <CODE>LLM::Tool.registry</CODE> for tool resolution
+          during streaming.</LI>
+          <LI>Add normalized <CODE>LLM::Response</CODE> for OpenAI Responses,
+          providing <CODE>content</CODE>, <CODE>content!</CODE>,
+          <CODE>messages</CODE> / <CODE>choices</CODE>, <CODE>usage</CODE>, and
+          <CODE>reasoning_content</CODE>.</LI>
+          <LI>Add <CODE>mode: :responses</CODE> to <CODE>LLM::Context</CODE>
+          for routing <CODE>talk</CODE> through the Responses API.</LI>
+          <LI>Add <CODE>LLM::Context#returns</CODE> for collecting pending tool
+          returns from the context.</LI>
+          <LI>Add persistent HTTP connection pooling for repeated MCP tool
+          calls via <CODE>LLM.mcp(http: ...).persist!</CODE>.</LI>
+          <LI>Add explicit MCP transport constructors via
+          <CODE>LLM::MCP.stdio(...)</CODE> and
+          <CODE>LLM::MCP.http(...)</CODE>.</LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>Fix Google tool-call handling by synthesizing stable ids when
+          Gemini does not provide a direct tool-call id.</LI>
+        </UL>
+        <H2 id="v4-10-0">v4.10.0</H2>
+        <P>Changes since <CODE>v4.9.0</CODE>.</P>
+        <H3 id="add">Add</H3>
+        <UL>
+          <LI>Add HTTP transport for MCP with
+          <CODE>LLM::MCP::Transport::HTTP</CODE> for remote servers</LI>
+          <LI>Add JSON Schema union types (<CODE>any_of</CODE>,
+          <CODE>all_of</CODE>, <CODE>one_of</CODE>) with parser
+          integration</LI>
+          <LI>Add JSON Schema type array union support (e.g., <CODE>"type":
+          ["object", "null"]</CODE>)</LI>
+          <LI>Add JSON Schema type inference from <CODE>const</CODE>,
+          <CODE>enum</CODE>, or <CODE>default</CODE> fields</LI>
+        </UL>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>Update <CODE>LLM::MCP</CODE> constructor for exclusive
+          <CODE>http:</CODE> or <CODE>stdio:</CODE> transport</LI>
+          <LI>Update <CODE>LLM::MCP</CODE> documentation for HTTP transport
+          support</LI>
+        </UL>
+        <H2 id="v4-9-0">v4.9.0</H2>
+        <P>Changes since <CODE>v4.8.0</CODE>.</P>
+        <H3 id="add">Add</H3>
+        <UL>
+          <LI>Add fiber-based concurrency with
+          <CODE>LLM::Function::FiberGroup</CODE> and
+          <CODE>LLM::Function::TaskGroup</CODE> classes for lightweight async
+          execution.</LI>
+          <LI>Add <CODE>:thread</CODE>, <CODE>:task</CODE>, and
+          <CODE>:fiber</CODE> strategy parameter to
+          <CODE>LLM::Function#spawn</CODE> for explicit concurrency
+          control.</LI>
+          <LI>Add stdio MCP client support, including remote tool discovery and
+          invocation through <CODE>LLM.mcp</CODE>, <CODE>LLM::Context</CODE>,
+          and existing function/tool APIs.</LI>
+          <LI>Add model registry support via <CODE>LLM::Registry</CODE>,
+          including model metadata lookup, pricing, modalities, limits, and
+          cost estimation.</LI>
+          <LI>Add context access to a model context window via
+          <CODE>LLM::Context#context_window</CODE>.</LI>
+          <LI>Add tracking of defined tools in the tool registry.</LI>
+          <LI>Add <CODE>LLM::Schema::Enum</CODE>, enabling
+          <CODE>Enum[...]</CODE> as a schema/tool parameter type.</LI>
+          <LI>Add top-level Anthropic system instruction support using
+          Anthropic's provider-specific request format.</LI>
+          <LI>Add richer tracing hooks and extra metadata support for
+          LangSmith/OpenTelemetry-style traces.</LI>
+          <LI>Add rack/websocket and Relay-related example work, including
+          MCP-focused examples.</LI>
+          <LI>Add concurrent tool execution with
+          <CODE>LLM::Function#spawn</CODE>, <CODE>LLM::Function::Array</CODE>
+          (<CODE>call</CODE>, <CODE>wait</CODE>, <CODE>spawn</CODE>), and
+          <CODE>LLM::Function::ThreadGroup</CODE>.</LI>
+          <LI>Add <CODE>LLM::Function::ThreadGroup#alive?</CODE> method for
+          non-blocking monitoring of concurrent tool execution.</LI>
+          <LI>Add <CODE>LLM::Function::ThreadGroup#value</CODE> alias for
+          <CODE>ThreadGroup#wait</CODE> for consistency with Ruby's
+          <CODE>Thread#value</CODE>.</LI>
+        </UL>
+        <H3 id="change">Change</H3>
+        <UL>
+          <LI>Rename <CODE>LLM::Session</CODE> to <CODE>LLM::Context</CODE>
+          throughout the codebase to better reflect the concept of a stateful
+          interaction environment.</LI>
+          <LI>Rename <CODE>LLM::Gemini</CODE> to <CODE>LLM::Google</CODE> to
+          better reflect provider naming.</LI>
+          <LI>Standardize model objects across providers around a smaller
+          common interface.</LI>
+          <LI>Switch registry cost internals from <CODE>LLM::Estimate</CODE> to
+          <CODE>LLM::Cost</CODE>.</LI>
+          <LI>Update image generation defaults so OpenAI and xAI consistently
+          return base64-encoded image data by default.</LI>
+          <LI>Update <CODE>LLM::Bot</CODE> deprecation warning from v5.0 to
+          v6.0, giving users more time to migrate to
+          <CODE>LLM::Context</CODE>.</LI>
+          <LI>Rework the README and screencast documentation to better cover
+          MCP, registry, contexts, prompts, concurrency, providers, and example
+          flow.</LI>
+          <LI>Expand the README with architecture, production, and provider
+          guidance while improving readability and example ordering.</LI>
+        </UL>
+        <H3 id="fix">Fix</H3>
+        <UL>
+          <LI>Fix local schema <CODE>$ref</CODE> resolution in
+          <CODE>LLM::Schema::Parser</CODE>.</LI>
+          <LI>Fix multiple MCP issues around stdio env handling, request IDs,
+          registry interaction, tool registration, and filtering of MCP tools
+          from the standard tool registry.</LI>
+          <LI>Fix stream parsing issues, including chunk-splitting bugs and
+          safer handling of streamed error responses.</LI>
+          <LI>Fix prompt handling across contexts, agents, and provider
+          adapters so prompt turns remain consistent in history and
+          completions.</LI>
+          <LI>Fix several tool/context issues, including function return
+          wrapping, tool lookup after deserialization, unnamed subclass
+          filtering, and thread-safety around tool registry mutations.</LI>
+          <LI>Fix Google tool-call handling to preserve
+          <CODE>thoughtSignature</CODE>.</LI>
+          <LI>Fix <CODE>LLM::Tracer::Logger</CODE> argument handling.</LI>
+          <LI>Fix packaging/docs issues such as registry files in the gemspec
+          and stale provider docs.</LI>
+          <LI>Fix Google provider handling of <CODE>nil</CODE> function IDs
+          during context deserialization.</LI>
+          <LI>Fix MCP stdio transport by increasing poll timeout for better
+          reliability.</LI>
+          <LI>Fix Google provider to properly cast non-Hash tool results into
+          Hash format for API compatibility.</LI>
+          <LI>Fix schema parser to support recursive normalization of
+          <CODE>Array</CODE>, <CODE>LLM::Object</CODE>, and nested
+          structures.</LI>
+          <LI>Fix DeepSeek provider to tolerate malformed tool arguments.</LI>
+          <LI>Fix <CODE>LLM::Function::TaskGroup#alive?</CODE> to properly
+          delegate to <CODE>Async::Task#alive?</CODE>.</LI>
+          <LI>Fix various RuboCop errors across the codebase.</LI>
+          <LI>Fix DeepSeek provider to handle JSON that might be valid but
+          unexpected.</LI>
+        </UL>
+        <H3 id="notes">Notes</H3>
+        <P>Notable merged work in this range includes:</P>
+        <UL>
+          <LI><CODE>feat(function): add fiber-based concurrency for async
+          environments (#64)</CODE></LI>
+          <LI><CODE>feat(mcp): add stdio MCP support (#134)</CODE></LI>
+          <LI><CODE>Add LLM::Registry + cost support (#133)</CODE></LI>
+          <LI><CODE>Consistent model objects across providers
+          (#131)</CODE></LI>
+          <LI><CODE>Add rack + websocket example (#130)</CODE></LI>
+          <LI><CODE>feat(gemspec): add changelog URI (#136)</CODE></LI>
+          <LI><CODE>feat(function): alias ThreadGroup#wait as ThreadGroup#value
+          (#62)</CODE></LI>
+          <LI>README and screencast refresh across <CODE>#66</CODE>,
+          <CODE>#67</CODE>, <CODE>#68</CODE>, <CODE>#71</CODE>, and
+          <CODE>#72</CODE></LI>
+          <LI><CODE>chore(bot): update deprecation warning from v5.0 to
+          v6.0</CODE></LI>
+          <LI><CODE>fix(deepseek): tolerate malformed tool
+          arguments</CODE></LI>
+          <LI><CODE>refactor(context): Rename Session as Context
+          (#70)</CODE></LI>
+        </UL>
+        <P>Comparison base:</P>
+        <UL>
+          <LI>Latest tag: <CODE>v4.8.0</CODE>
+          (<CODE>6468f2426ee125823b7ae43b4af507b125f96ffc</CODE>)</LI>
+          <LI>HEAD used for this changelog:
+          <CODE>915c48da6fda9bef1554ff613947a6ce26d382e3</CODE></LI>
+        </UL>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:17 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

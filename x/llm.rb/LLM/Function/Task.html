@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Function::Task — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Function::Task";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (T)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../Function.html" title=
+        "LLM::Function (class)">Function</A></SPAN></SPAN> » <SPAN class=
+        "title">Task</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Function::Task</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Function::Task</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/function/task.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Function::Task (class)">Task</A></SPAN> class wraps a single
+          concurrent function call and provides a small, uniform interface
+          across threads, fibers, and async tasks.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#task-instance_method"
+          title="#task (instance method)">#<STRONG>task</STRONG> ⇒
+          Object</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#function-instance_method"
+          title="#function (instance method)">#<STRONG>function</STRONG> ⇒
+          LLM::Function<SUP>?</SUP></A></SPAN> <SPAN class=
+          "note title readonly">readonly</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(task,
+          function = nil) ⇒ LLM::Function::Task</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#alive%3F-instance_method"
+          title="#alive? (instance method)">#<STRONG>alive?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#interrupt!-instance_method"
+          title="#interrupt! (instance method)">#<STRONG>interrupt!</STRONG> ⇒
+          nil</A> (also: #cancel!)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#wait-instance_method"
+          title="#wait (instance method)">#<STRONG>wait</STRONG> ⇒
+          LLM::Function::Return</A> (also: #value)</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(task, function = nil) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Function::Task (class)">LLM::Function::Task</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>task</SPAN> <SPAN class=
+              'type'>(<TT>Thread</TT>, <TT>Fiber</TT>, <TT>Async::Task</TT>,
+              <TT><SPAN class='object_link'><A href="Ractor.html" title=
+              "LLM::Function::Ractor (module)">Ractor</A></SPAN></TT>,
+              <TT><SPAN class='object_link'><A href="Ractor/Task.html" title=
+              "LLM::Function::Ractor::Task (class)">LLM::Function::Ractor::Task</A></SPAN></TT>)</SPAN></LI>
+              <LI><SPAN class='name'>function</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="../Function.html"
+              title="LLM::Function (class)">LLM::Function</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>nil</TT>)</EM></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+20
+21
+22
+23</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/task.rb', line 20</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_task'>task</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_function'>function</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@task</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_task'>task</SPAN>
+  <SPAN class='ivar'>@function</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_function'>function</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=""></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="task-instance_method">
+          #<STRONG>task</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "../Object.html" title="LLM::Object (class)">Object</A></SPAN></TT>
+          <SPAN class="extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Object.html" title=
+              "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+10
+11
+12</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/task.rb', line 10</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_task'>task</SPAN>
+  <SPAN class='ivar'>@task</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="function-instance_method">
+          #<STRONG>function</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "../Function.html" title=
+          "LLM::Function (class)">LLM::Function</A></SPAN></TT><SUP>?</SUP>
+          <SPAN class="extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../Function.html" title=
+              "LLM::Function (class)">LLM::Function</A></SPAN></TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+14
+15
+16</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/task.rb', line 14</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_function'>function</SPAN>
+  <SPAN class='ivar'>@function</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="alive?-instance_method">
+          #<STRONG>alive?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+27
+28
+29
+30</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/task.rb', line 27</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_alive?'>alive?</SPAN>
+  <SPAN class='kw'>return</SPAN> <SPAN class=
+'id identifier rubyid_task'>task</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_alive?'>alive?</SPAN> <SPAN class='kw'>if</SPAN> <SPAN class='id identifier rubyid_task'>task</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='symbol'>:alive?</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>false</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="interrupt!-instance_method">
+          #<STRONG>interrupt!</STRONG> ⇒ <TT>nil</TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'cancel!-instance_method'>cancel!</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+34
+35
+36
+37</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/task.rb', line 34</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_interrupt!'>interrupt!</SPAN>
+  <SPAN class='id identifier rubyid_function'>function</SPAN><SPAN class=
+'op'>&amp;.</SPAN><SPAN class=
+'id identifier rubyid_interrupt!'>interrupt!</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="wait-instance_method">
+          #<STRONG>wait</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Return.html" title=
+          "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>
+          <SPAN class="aliases">Also known as: <SPAN class="names"><SPAN id=
+          'value-instance_method'>value</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Return.html" title=
+              "LLM::Function::Return (class)">LLM::Function::Return</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/function/task.rb', line 42</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_wait'>wait</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class='const'>Thread</SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='id identifier rubyid_task'>task</SPAN>
+    <SPAN class='id identifier rubyid_task'>task</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_value'>value</SPAN>
+  <SPAN class='kw'>elsif</SPAN> <SPAN class='const'>Fiber</SPAN> <SPAN class=
+'op'>===</SPAN> <SPAN class='id identifier rubyid_task'>task</SPAN>
+    <SPAN class='id identifier rubyid_task'>task</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_resume'>resume</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class='id identifier rubyid_task'>task</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_alive?'>alive?</SPAN>
+    <SPAN class='id identifier rubyid_task'>task</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_value'>value</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_task'>task</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_wait'>wait</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:19 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

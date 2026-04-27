@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Provider::Transport::HTTP — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Provider::Transport::HTTP";
+  relpath = '../../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../../_index.html">Index (H)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../../Provider.html" title=
+        "LLM::Provider (class)">Provider</A></SPAN></SPAN> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../Transport.html" title=
+        "LLM::Provider::Transport (module)">Transport</A></SPAN></SPAN> »
+        <SPAN class="title">HTTP</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Provider::Transport::HTTP <SPAN class=
+      "private note title">Private</SPAN></H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Provider::Transport::HTTP</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Includes:</DT>
+          <DD><SPAN class='object_link'><A href="HTTP/Interruptible.html"
+          title="LLM::Provider::Transport::HTTP::Interruptible (module)">Interruptible</A></SPAN></DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/provider/transport/http.rb<SPAN class="defines">,<BR>
+          lib/llm/provider/transport/http/execution.rb,<BR>
+          lib/llm/provider/transport/http/interruptible.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P class="note private"><STRONG>This class is part of a private
+          API.</STRONG> You should avoid using this class if possible, as it
+          may be removed or be changed in the future.</P>
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::Provider::Transport::HTTP (class)">LLM::Provider::Transport::HTTP</A></SPAN>
+          class manages HTTP connections for <SPAN class='object_link'><A href=
+          "../../Provider.html" title=
+          "LLM::Provider (class)">LLM::Provider</A></SPAN>. It handles
+          transient and persistent clients, tracks active requests by owner,
+          and interrupts in-flight requests when needed.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="modules">Modules:</STRONG>
+      <SPAN class='object_link'><A href="HTTP/Execution.html" title=
+      "LLM::Provider::Transport::HTTP::Execution (module)">Execution</A></SPAN>,
+      <SPAN class='object_link'><A href="HTTP/Interruptible.html" title=
+      "LLM::Provider::Transport::HTTP::Interruptible (module)">Interruptible</A></SPAN></P>
+      <H2>Constant Summary</H2>
+      <H3 class="inherited">Constants included from <SPAN class=
+      'object_link'><A href="HTTP/Interruptible.html" title=
+      "LLM::Provider::Transport::HTTP::Interruptible (module)">Interruptible</A></SPAN></H3>
+      <P class="inherited"><SPAN class='object_link'><A href=
+      "HTTP/Interruptible.html#INTERRUPT_ERRORS-constant" title=
+      "LLM::Provider::Transport::HTTP::Interruptible::INTERRUPT_ERRORS (constant)">
+      Interruptible::INTERRUPT_ERRORS</A></SPAN></P>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#inspect-instance_method"
+          title="#inspect (instance method)">#<STRONG>inspect</STRONG> ⇒
+          String</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#interrupt!-instance_method"
+          title=
+          "#interrupt! (instance method)">#<STRONG>interrupt!</STRONG>(owner) ⇒
+          nil</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Interrupt an active request, if
+            any.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#interrupted%3F-instance_method" title=
+          "#interrupted? (instance method)">#<STRONG>interrupted?</STRONG>(owner)
+          ⇒ Boolean<SUP>?</SUP></A></SPAN> <SPAN class=
+          "private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns whether an execution owner
+            was interrupted.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#request_owner-instance_method" title=
+          "#request_owner (instance method)">#<STRONG>request_owner</STRONG> ⇒
+          Fiber</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the current request
+            owner.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#persist!-instance_method"
+          title="#persist! (instance method)">#<STRONG>persist!</STRONG> ⇒
+          LLM::Provider::Transport::HTTP</A> (also: #persistent)</SPAN>
+          <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Configures the transport to use a
+            persistent HTTP connection pool.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#persistent%3F-instance_method" title=
+          "#persistent? (instance method)">#<STRONG>persistent?</STRONG> ⇒
+          Boolean</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#request-instance_method"
+          title="#request (instance method)">#<STRONG>request</STRONG>(request,
+          owner:) {|http| ... } ⇒ Object</A></SPAN> <SPAN class=
+          "private note title">private</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Performs a request on the current
+            HTTP transport.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(host:,
+          port:, timeout:, ssl:, persistent: false) ⇒
+          LLM::Provider::Transport::HTTP</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN> <SPAN class=
+          "private note title">private</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(host:, port:, timeout:, ssl:,
+          persistent: false) ⇒ <TT><SPAN class='object_link'><A href="" title=
+          "LLM::Provider::Transport::HTTP (class)">LLM::Provider::Transport::HTTP</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>host</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>port</SPAN> <SPAN class=
+              'type'>(<TT>Integer</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>timeout</SPAN> <SPAN class=
+              'type'>(<TT>Integer</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>ssl</SPAN> <SPAN class=
+              'type'>(<TT>Boolean</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>persistent</SPAN> <SPAN class=
+              'type'>(<TT>Boolean</TT>)</SPAN> <EM class="default">(defaults
+              to: <TT>false</TT>)</EM></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+25
+26
+27
+28
+29
+30
+31
+32
+33</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 25</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>host:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>port:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>timeout:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>ssl:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>persistent:</SPAN> <SPAN class=
+'kw'>false</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@host</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_host'>host</SPAN>
+  <SPAN class='ivar'>@port</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_port'>port</SPAN>
+  <SPAN class='ivar'>@timeout</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_timeout'>timeout</SPAN>
+  <SPAN class='ivar'>@ssl</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_ssl'>ssl</SPAN>
+  <SPAN class='ivar'>@base_uri</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'>URI</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_ssl'>ssl</SPAN> <SPAN class='op'>?</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>https</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> <SPAN class='op'>:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>http</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class=
+'tstring_content'>://</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_host'>host</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>:</SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_port'>port</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'>/</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@persistent_client</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_persistent'>persistent</SPAN> <SPAN class=
+'op'>?</SPAN> <SPAN class=
+'id identifier rubyid_persistent_client'>persistent_client</SPAN> <SPAN class=
+'op'>:</SPAN> <SPAN class='kw'>nil</SPAN>
+  <SPAN class='ivar'>@monitor</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'>Monitor</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_new'>new</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="inspect-instance_method">
+          #<STRONG>inspect</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+94
+95
+96</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 94</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_inspect'>inspect</SPAN>
+  <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>#&lt;</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'kw'>self</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_class'>class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>:0x</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_object_id'>object_id</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='int'>16</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'> @persistent=</SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class='id identifier rubyid_persistent?'>persistent?</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class='tstring_content'>&gt;</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="interrupt!-instance_method">
+          #<STRONG>interrupt!</STRONG>(owner) ⇒ <TT>nil</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Interrupt an active request, if any.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>owner</SPAN> <SPAN class=
+              'type'>(<TT>Fiber</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+39
+40
+41</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 39</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_interrupt!'>interrupt!</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_owner'>owner</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>super</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="interrupted?-instance_method">
+          #<STRONG>interrupted?</STRONG>(owner) ⇒
+          <TT>Boolean</TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Returns whether an execution owner was interrupted.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>owner</SPAN> <SPAN class=
+              'type'>(<TT>Fiber</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>,
+              <TT>nil</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+47
+48
+49</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 47</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_interrupted?'>interrupted?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_owner'>owner</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>super</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="request_owner-instance_method">
+          #<STRONG>request_owner</STRONG> ⇒ <TT>Fiber</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Returns the current request owner.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Fiber</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+54
+55
+56</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 54</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_request_owner'>request_owner</SPAN>
+  <SPAN class='const'>Fiber</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_current'>current</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="persist!-instance_method">
+          #<STRONG>persist!</STRONG> ⇒ <TT><SPAN class='object_link'><A href=""
+          title=
+          "LLM::Provider::Transport::HTTP (class)">LLM::Provider::Transport::HTTP</A></SPAN></TT>
+          <SPAN class="aliases">Also known as: <SPAN class="names"><SPAN id=
+          'persistent-instance_method'>persistent</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Configures the transport to use a persistent HTTP connection
+              pool.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Provider::Transport::HTTP (class)">LLM::Provider::Transport::HTTP</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_persist!'>persist!</SPAN>
+  <SPAN class='id identifier rubyid_client'>client</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_persistent_client'>persistent_client</SPAN>
+  <SPAN class='id identifier rubyid_lock'>lock</SPAN> <SPAN class=
+'kw'>do</SPAN>
+    <SPAN class='ivar'>@persistent_client</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_client'>client</SPAN>
+    <SPAN class='kw'>self</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="persistent?-instance_method">
+          #<STRONG>persistent?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+72
+73
+74</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 72</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_persistent?'>persistent?</SPAN>
+  <SPAN class='op'>!</SPAN><SPAN class=
+'id identifier rubyid_persistent_client'>persistent_client</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_nil?'>nil?</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="request-instance_method">
+          #<STRONG>request</STRONG>(request, owner:) {|http| ... } ⇒
+          <TT><SPAN class='object_link'><A href="../../Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+              <P>Performs a request on the current HTTP transport.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>request</SPAN> <SPAN class=
+              'type'>(<TT>Net::HTTPRequest</TT>)</SPAN></LI>
+              <LI><SPAN class='name'>owner</SPAN> <SPAN class=
+              'type'>(<TT>Fiber</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Yield Parameters:</P>
+            <UL class="yieldparam">
+              <LI><SPAN class='name'>http</SPAN> <SPAN class=
+              'type'>(<TT>Net::HTTP</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "../../Object.html" title=
+              "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+82
+83
+84
+85
+86
+87
+88
+89
+90</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/provider/transport/http.rb', line 82</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_request'>request</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_request'>request</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>owner:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_persistent?'>persistent?</SPAN>
+    <SPAN class=
+'id identifier rubyid_request_persistent'>request_persistent</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_request'>request</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_owner'>owner</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class=
+'id identifier rubyid_request_transient'>request_transient</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_request'>request</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_owner'>owner</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>ensure</SPAN>
+  <SPAN class=
+'id identifier rubyid_clear_request'>clear_request</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_owner'>owner</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:20 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

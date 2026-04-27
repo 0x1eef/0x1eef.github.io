@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::Skill — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::Skill";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (S)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class="title">Skill</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::Skill</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::Skill</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/skill.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P><SPAN class='object_link'><A href="" title=
+          "LLM::Skill (class)">LLM::Skill</A></SPAN> represents a
+          directory-backed packaged capability. A skill directory must contain
+          a <CODE>SKILL.md</CODE> file with YAML frontmatter. Skills can expose
+          themselves as normal <SPAN class='object_link'><A href="Tool.html"
+          title="LLM::Tool (class)">LLM::Tool</A></SPAN> classes through
+          <SPAN class='object_link'><A href="#to_tool-instance_method" title=
+          "LLM::Skill#to_tool (method)">#to_tool</A></SPAN>. This keeps skills
+          on the same execution path as local tools.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#path-instance_method"
+          title="#path (instance method)">#<STRONG>path</STRONG> ⇒
+          String</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the skill
+            directory.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#name-instance_method"
+          title="#name (instance method)">#<STRONG>name</STRONG> ⇒
+          String</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the skill name.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#description-instance_method" title=
+          "#description (instance method)">#<STRONG>description</STRONG> ⇒
+          String</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the skill
+            description.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#instructions-instance_method" title=
+          "#instructions (instance method)">#<STRONG>instructions</STRONG> ⇒
+          String</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the skill
+            instructions.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#frontmatter-instance_method" title=
+          "#frontmatter (instance method)">#<STRONG>frontmatter</STRONG> ⇒
+          LLM::Object</A></SPAN> <SPAN class=
+          "note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the skill
+            frontmatter.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#tools-instance_method"
+          title="#tools (instance method)">#<STRONG>tools</STRONG> ⇒
+          Array&lt;Class&lt;LLM::Tool&gt;&gt;</A></SPAN> <SPAN class=
+          "note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the skill tools.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Class Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#load-class_method" title=
+          "load (class method)">.<STRONG>load</STRONG>(path) ⇒
+          LLM::Skill</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Load a skill from a
+            directory.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(path) ⇒
+          LLM::Skill</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#load!-instance_method"
+          title="#load! (instance method)">#<STRONG>load!</STRONG> ⇒
+          LLM::Skill</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Load and parse the skill.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#call-instance_method"
+          title="#call (instance method)">#<STRONG>call</STRONG>(ctx) ⇒
+          Hash</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Execute the skill by wrapping it in a
+            small agent with the skill instructions.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#to_tool-instance_method"
+          title="#to_tool (instance method)">#<STRONG>to_tool</STRONG>(ctx) ⇒
+          Class&lt;LLM::Tool&gt;</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Expose the skill as a normal
+            LLM::Tool.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(path) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::Skill (class)">LLM::Skill</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion"></DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>path</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The path to a directory</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+52
+53
+54
+55
+56
+57
+58
+59</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 52</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_path'>path</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@path</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_path'>path</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_to_s'>to_s</SPAN>
+  <SPAN class='ivar'>@name</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'op'>::</SPAN><SPAN class='const'>File</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_basename'>basename</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='ivar'>@path</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@description</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>Skill: </SPAN><SPAN class='embexpr_beg'>#{</SPAN><SPAN class=
+'ivar'>@name</SPAN><SPAN class='embexpr_end'>}</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='ivar'>@instructions</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='ivar'>@frontmatter</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Object.html" title=
+"LLM::Object (class)">Object</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_from'>from</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='lbrace'>{</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@tools</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'lbracket'>[</SPAN><SPAN class='rbracket'>]</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=""></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="path-instance_method">
+          #<STRONG>path</STRONG> ⇒ <TT>String</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the skill directory.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+21
+22
+23</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 21</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_path'>path</SPAN>
+  <SPAN class='ivar'>@path</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="name-instance_method">
+          #<STRONG>name</STRONG> ⇒ <TT>String</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the skill name.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+26
+27
+28</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 26</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_name'>name</SPAN>
+  <SPAN class='ivar'>@name</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="description-instance_method">
+          #<STRONG>description</STRONG> ⇒ <TT>String</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the skill description.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+31
+32
+33</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 31</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_description'>description</SPAN>
+  <SPAN class='ivar'>@description</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="instructions-instance_method">
+          #<STRONG>instructions</STRONG> ⇒ <TT>String</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the skill instructions.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+36
+37
+38</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 36</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_instructions'>instructions</SPAN>
+  <SPAN class='ivar'>@instructions</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="frontmatter-instance_method">
+          #<STRONG>frontmatter</STRONG> ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">LLM::Object</A></SPAN></TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the skill frontmatter.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Object.html" title=
+              "LLM::Object (class)">LLM::Object</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+41
+42
+43</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 41</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_frontmatter'>frontmatter</SPAN>
+  <SPAN class='ivar'>@frontmatter</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="tools-instance_method">
+          #<STRONG>tools</STRONG> ⇒ <TT>Array&lt;Class&lt;<SPAN class=
+          'object_link'><A href="Tool.html" title=
+          "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;&gt;</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the skill tools.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array&lt;Class&lt;<SPAN class=
+              'object_link'><A href="Tool.html" title=
+              "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+46
+47
+48</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 46</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN>
+  <SPAN class='ivar'>@tools</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="class_method_details" class="method_details_list">
+        <H2>Class Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="load-class_method">
+          .<STRONG>load</STRONG>(path) ⇒ <TT><SPAN class='object_link'><A href=
+          "" title="LLM::Skill (class)">LLM::Skill</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Load a skill from a directory.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>path</SPAN> <SPAN class=
+              'type'>(<TT>String</TT>, <TT>Pathname</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Skill (class)">LLM::Skill</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+14
+15
+16</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 14</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_load'>load</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_path'>path</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_path'>path</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_tap'>tap</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class='symbol'>:load!</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="load!-instance_method">
+          #<STRONG>load!</STRONG> ⇒ <TT><SPAN class='object_link'><A href=""
+          title="LLM::Skill (class)">LLM::Skill</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Load and parse the skill.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title=
+              "LLM::Skill (class)">LLM::Skill</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+64
+65
+66
+67
+68</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 64</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_load!'>load!</SPAN>
+  <SPAN class='id identifier rubyid_path'>path</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='op'>::</SPAN><SPAN class=
+'const'>File</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_join'>join</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='ivar'>@path</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>SKILL.md</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_parse'>parse</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'>File</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_read'>read</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_path'>path</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>self</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="call-instance_method">
+          #<STRONG>call</STRONG>(ctx) ⇒ <TT>Hash</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Execute the skill by wrapping it in a small agent with the
+              skill instructions. The context is bound explicitly by the caller
+              so the nested agent can inherit context-level behavior such as
+              streaming.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Hash</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 76</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_instructions'>instructions</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_tracer'>tracer</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_instructions'>instructions</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_tools'>tools</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_tracer'>tracer</SPAN>
+  <SPAN class='id identifier rubyid_params'>params</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_merge'>merge</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>mode:</SPAN> <SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_mode'>mode</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_reject'>reject</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class=
+'symbol'>:tools</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'symbol'>:schema</SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_include?'>include?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='rbrace'>}</SPAN>
+  <SPAN class='id identifier rubyid_agent'>agent</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'>Class</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"Agent.html" title="LLM::Agent (class)">Agent</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='kw'>do</SPAN>
+    <SPAN class=
+'id identifier rubyid_instructions'>instructions</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_instructions'>instructions</SPAN><SPAN class=
+'rparen'>)</SPAN>
+    <SPAN class='id identifier rubyid_tools'>tools</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>*</SPAN><SPAN class=
+'id identifier rubyid_tools'>tools</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='id identifier rubyid_tracer'>tracer</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_tracer'>tracer</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_new'>new</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_ctx'>ctx</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_llm'>llm</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_agent'>agent</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_messages'>messages</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_concat'>concat</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_messages_for'>messages_for</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_agent'>agent</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_talk'>talk</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>Solve the user's query.</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='lbrace'>{</SPAN><SPAN class='label'>content:</SPAN> <SPAN class=
+'id identifier rubyid_res'>res</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_content'>content</SPAN><SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="to_tool-instance_method">
+          #<STRONG>to_tool</STRONG>(ctx) ⇒ <TT>Class&lt;<SPAN class=
+          'object_link'><A href="Tool.html" title=
+          "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Expose the skill as a normal LLM::Tool. The context is bound
+              explicitly when the tool class is built.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Class&lt;<SPAN class=
+              'object_link'><A href="Tool.html" title=
+              "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/skill.rb', line 94</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_to_tool'>to_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_skill'>skill</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>self</SPAN>
+  <SPAN class='const'>Class</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_new'>new</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Tool.html" title=
+"LLM::Tool (class)">Tool</A></SPAN></SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='kw'>do</SPAN>
+    <SPAN class='id identifier rubyid_name'>name</SPAN> <SPAN class=
+'id identifier rubyid_skill'>skill</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_name'>name</SPAN>
+    <SPAN class=
+'id identifier rubyid_description'>description</SPAN> <SPAN class=
+'id identifier rubyid_skill'>skill</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_description'>description</SPAN>
+    <SPAN class=
+'id identifier rubyid_attr_accessor'>attr_accessor</SPAN> <SPAN class=
+'symbol'>:tracer</SPAN>
+
+    <SPAN class=
+'id identifier rubyid_define_method'>define_method</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:call</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='kw'>do</SPAN>
+      <SPAN class='id identifier rubyid_skill'>skill</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_call'>call</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='kw'>end</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:18 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

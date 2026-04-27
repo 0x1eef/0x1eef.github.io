@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::MCP — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::MCP";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (M)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class="title">MCP</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::MCP</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::MCP</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/mcp.rb<SPAN class="defines">,<BR>
+          lib/llm/mcp/rpc.rb,<BR>
+          lib/llm/mcp/pipe.rb,<BR>
+          lib/llm/mcp/error.rb,<BR>
+          lib/llm/mcp/router.rb,<BR>
+          lib/llm/mcp/command.rb,<BR>
+          lib/llm/mcp/mailbox.rb</SPAN></DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::MCP (class)">LLM::MCP</A></SPAN> class provides access to
+          servers that implement the Model Context Protocol. MCP defines a
+          standard way for clients and servers to exchange capabilities such as
+          tools, prompts, resources, and other structured interactions.</P>
+          <P>In llm.rb, <SPAN class='object_link'><A href="" title=
+          "LLM::MCP (class)">LLM::MCP</A></SPAN> currently supports stdio and
+          HTTP transports and focuses on discovering tools that can be used
+          through <SPAN class='object_link'><A href="Context.html" title=
+          "LLM::Context (class)">LLM::Context</A></SPAN> and <SPAN class=
+          'object_link'><A href="Agent.html" title=
+          "LLM::Agent (class)">LLM::Agent</A></SPAN>.</P>
+          <P>An MCP client is stateful. Coordinate lifecycle operations such as
+          <SPAN class='object_link'><A href="#start-instance_method" title=
+          "LLM::MCP#start (method)">#start</A></SPAN> and <SPAN class=
+          'object_link'><A href="#stop-instance_method" title=
+          "LLM::MCP#stop (method)">#stop</A></SPAN>; request methods can be
+          issued concurrently and responses are matched by JSON-RPC id.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="modules">Modules:</STRONG>
+      <SPAN class='object_link'><A href="MCP/Transport.html" title=
+      "LLM::MCP::Transport (module)">Transport</A></SPAN> <STRONG class=
+      "classes">Classes:</STRONG> <SPAN class='object_link'><A href=
+      "MCP/Command.html" title="LLM::MCP::Command (class)">Command</A></SPAN>,
+      <SPAN class='object_link'><A href="MCP/Mailbox.html" title=
+      "LLM::MCP::Mailbox (class)">Mailbox</A></SPAN>, <SPAN class=
+      'object_link'><A href="MCP/Pipe.html" title=
+      "LLM::MCP::Pipe (class)">Pipe</A></SPAN>, <SPAN class=
+      'object_link'><A href="MCP/Router.html" title=
+      "LLM::MCP::Router (class)">Router</A></SPAN></P>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="Error-constant" class="">Error =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'>Class</SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_new'>new</SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='const'><SPAN class=
+          'object_link'><A href="../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "Error.html" title=
+          "LLM::Error (class)">Error</A></SPAN></SPAN><SPAN class=
+          'rparen'>)</SPAN> <SPAN class='kw'>do</SPAN>
+  <SPAN class=
+'id identifier rubyid_attr_reader'>attr_reader</SPAN> <SPAN class='symbol'>:code</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='symbol'>:data</SPAN>
+
+  <SPAN class='comment'>##
+</SPAN>  <SPAN class='comment'># @param [Hash] response
+</SPAN>  <SPAN class=
+'comment'>#  The full response from the MCP process, including the error object
+</SPAN>  <SPAN class='comment'># @return [LLM::MCP::Error]
+</SPAN>  <SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_from'>from</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>response:</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='id identifier rubyid_error'>error</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class=
+'id identifier rubyid_response'>response</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_fetch'>fetch</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>error</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>*</SPAN><SPAN class=
+'id identifier rubyid_error'>error</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_values_at'>values_at</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>message</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>code</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>data</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+
+  <SPAN class='comment'>##
+</SPAN>  <SPAN class='comment'># @param [String] message
+</SPAN>  <SPAN class='comment'>#  The error message
+</SPAN>  <SPAN class='comment'># @param [Integer] code
+</SPAN>  <SPAN class='comment'>#  The error code
+</SPAN>  <SPAN class='comment'># @param [Object] data
+</SPAN>  <SPAN class=
+'comment'>#  Additional error data provided by the MCP process
+</SPAN>  <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_code'>code</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_data'>data</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='kw'>super</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='ivar'>@code</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_code'>code</SPAN>
+    <SPAN class='ivar'>@data</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_data'>data</SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+        </DD>
+        <DT id="MismatchError-constant" class="">MismatchError =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'>Class</SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_new'>new</SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='const'><SPAN class=
+          'object_link'><A href="#Error-constant" title=
+          "LLM::MCP::Error (constant)">Error</A></SPAN></SPAN><SPAN class=
+          'rparen'>)</SPAN> <SPAN class='kw'>do</SPAN>
+  <SPAN class='comment'>##
+</SPAN>  <SPAN class='comment'># @return [Integer, String]
+</SPAN>  <SPAN class='comment'>#  The request id the client was waiting for
+</SPAN>  <SPAN class=
+'id identifier rubyid_attr_reader'>attr_reader</SPAN> <SPAN class=
+'symbol'>:expected_id</SPAN>
+
+  <SPAN class='comment'>##
+</SPAN>  <SPAN class='comment'># @return [Integer, String]
+</SPAN>  <SPAN class='comment'>#  The response id received from the server
+</SPAN>  <SPAN class=
+'id identifier rubyid_attr_reader'>attr_reader</SPAN> <SPAN class=
+'symbol'>:actual_id</SPAN>
+
+  <SPAN class='comment'>##
+</SPAN>  <SPAN class='comment'># @param [Integer, String] expected_id
+</SPAN>  <SPAN class='comment'>#  The request id the client was waiting for
+</SPAN>  <SPAN class='comment'># @param [Integer, String] actual_id
+</SPAN>  <SPAN class=
+'comment'>#  The response id received from the server instead
+</SPAN>  <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>expected_id:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>actual_id:</SPAN><SPAN class=
+'rparen'>)</SPAN>
+    <SPAN class='ivar'>@expected_id</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_expected_id'>expected_id</SPAN>
+    <SPAN class='ivar'>@actual_id</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_actual_id'>actual_id</SPAN>
+    <SPAN class='kw'>super</SPAN><SPAN class='lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+
+  <SPAN class='comment'>##
+</SPAN>  <SPAN class='comment'># @return [String]
+</SPAN>  <SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_message'>message</SPAN>
+    <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>mismatched MCP response id </SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_actual_id'>actual_id</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_inspect'>inspect</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_content'> </SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN> \
+    <SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>while waiting for </SPAN><SPAN class=
+'embexpr_beg'>#{</SPAN><SPAN class=
+'id identifier rubyid_expected_id'>expected_id</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_inspect'>inspect</SPAN><SPAN class=
+'embexpr_end'>}</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+        </DD>
+        <DT id="TimeoutError-constant" class="">TimeoutError =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'>Class</SPAN><SPAN class=
+          'period'>.</SPAN><SPAN class=
+          'id identifier rubyid_new'>new</SPAN><SPAN class=
+          'lparen'>(</SPAN><SPAN class='const'><SPAN class=
+          'object_link'><A href="#Error-constant" title=
+          "LLM::MCP::Error (constant)">Error</A></SPAN></SPAN><SPAN class=
+          'rparen'>)</SPAN></PRE>
+        </DD>
+        <DT id="clients-classvariable" class="">@@clients =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='lbrace'>{</SPAN><SPAN class=
+          'rbrace'>}</SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Class Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#stdio-class_method" title=
+          "stdio (class method)">.<STRONG>stdio</STRONG>(llm = nil, **stdio) ⇒
+          LLM::MCP</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Builds an MCP client that uses the
+            stdio transport.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#http-class_method" title=
+          "http (class method)">.<STRONG>http</STRONG>(llm = nil, **http) ⇒
+          LLM::MCP</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Builds an MCP client that uses the
+            HTTP transport.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#clients-class_method"
+          title="clients (class method)">.<STRONG>clients</STRONG> ⇒
+          Object</A></SPAN> <SPAN class="private note title">private</SPAN>
+          <DIV class='inline'></DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#call_tool-instance_method"
+          title=
+          "#call_tool (instance method)">#<STRONG>call_tool</STRONG>(name,
+          arguments = {}) ⇒ Object</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Calls a tool by name with the given
+            arguments.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(llm =
+          nil, stdio: nil, http: nil, timeout: 30) ⇒ LLM::MCP</A></SPAN>
+          <SPAN class="note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new MCP instance.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#start-instance_method"
+          title="#start (instance method)">#<STRONG>start</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Starts the MCP process.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#stop-instance_method"
+          title="#stop (instance method)">#<STRONG>stop</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Stops the MCP process.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#run-instance_method" title=
+          "#run (instance method)">#<STRONG>run</STRONG> { ... } ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Starts the MCP client for the
+            duration of a block and then stops it.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#persist!-instance_method"
+          title="#persist! (instance method)">#<STRONG>persist!</STRONG> ⇒
+          LLM::MCP</A> (also: #persistent)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Configures an HTTP MCP transport to
+            use a persistent connection pool via the optional dependency
+            <A href=
+            "https://github.com/drbrain/net-http-persistent">Net::HTTP::Persistent</A>.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#tools-instance_method"
+          title="#tools (instance method)">#<STRONG>tools</STRONG> ⇒
+          Array&lt;Class&lt;LLM::Tool&gt;&gt;</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the tools provided by the MCP
+            process.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#prompts-instance_method"
+          title="#prompts (instance method)">#<STRONG>prompts</STRONG> ⇒
+          Array&lt;LLM::Object&gt;</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the prompts provided by the
+            MCP process.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#find_prompt-instance_method" title=
+          "#find_prompt (instance method)">#<STRONG>find_prompt</STRONG>(name:,
+          arguments: nil) ⇒ LLM::Object</A> (also: #get_prompt)</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a prompt by name.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(llm = nil, stdio: nil, http: nil,
+          timeout: 30) ⇒ <TT><SPAN class='object_link'><A href="" title=
+          "LLM::MCP (class)">LLM::MCP</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns A new MCP instance.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>llm</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Provider.html"
+                title="LLM::Provider (class)">LLM::Provider</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The provider to use for MCP transports that need one</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>stdio</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>, <TT>nil</TT>)</SPAN> <EM class=
+                "default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The configuration for the stdio transport</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>http</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>, <TT>nil</TT>)</SPAN> <EM class=
+                "default">(defaults to: <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The configuration for the HTTP transport</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>timeout</SPAN> <SPAN class=
+                'type'>(<TT>Integer</TT>)</SPAN> <EM class="default">(defaults
+                to: <TT>30</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The maximum amount of time to wait when reading from an
+                  MCP process</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Options Hash (<TT>stdio:</TT>):</P>
+            <UL class="option">
+              <LI>
+                <SPAN class="name">:argv</SPAN> <SPAN class=
+                "type">(<TT>Array&lt;String&gt;</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The command to run for the MCP process</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:env</SPAN> <SPAN class=
+                "type">(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The environment variables to set for the MCP process</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:cwd</SPAN> <SPAN class=
+                "type">(<TT>String</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The working directory for the MCP process</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Options Hash (<TT>http:</TT>):</P>
+            <UL class="option">
+              <LI>
+                <SPAN class="name">:url</SPAN> <SPAN class=
+                "type">(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The URL for the MCP HTTP endpoint</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:headers</SPAN> <SPAN class=
+                "type">(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Extra headers for requests</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 74</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>stdio:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>http:</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>timeout:</SPAN> <SPAN class=
+'int'>30</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@llm</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_llm'>llm</SPAN>
+  <SPAN class='ivar'>@timeout</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_timeout'>timeout</SPAN>
+  <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_stdio'>stdio</SPAN> <SPAN class=
+'op'>&amp;&</SPAN> <SPAN class='id identifier rubyid_http'>http</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>ArgumentError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>stdio and http are mutually exclusive</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>elsif</SPAN> <SPAN class=
+'id identifier rubyid_stdio'>stdio</SPAN>
+    <SPAN class='ivar'>@command</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="MCP/Command.html" title=
+"LLM::MCP::Command (class)">Command</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="MCP/Command.html#initialize-instance_method" title=
+"LLM::MCP::Command#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_stdio'>stdio</SPAN><SPAN class='rparen'>)</SPAN>
+    <SPAN class='ivar'>@transport</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="MCP/Transport.html" title=
+"LLM::MCP::Transport (module)">Transport</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"MCP/Transport/Stdio.html" title=
+"LLM::MCP::Transport::Stdio (class)">Stdio</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="MCP/Transport/Stdio.html#initialize-instance_method"
+title=
+"LLM::MCP::Transport::Stdio#initialize (method)">new</A></SPAN></SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>command:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>elsif</SPAN> <SPAN class=
+'id identifier rubyid_http'>http</SPAN>
+    <SPAN class='ivar'>@transport</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="MCP/Transport.html" title=
+"LLM::MCP::Transport (module)">Transport</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"MCP/Transport/HTTP.html" title=
+"LLM::MCP::Transport::HTTP (class)">HTTP</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="MCP/Transport/HTTP.html#initialize-instance_method"
+title=
+"LLM::MCP::Transport::HTTP#initialize (method)">new</A></SPAN></SPAN><SPAN class='lparen'>(</SPAN><SPAN class='op'>**</SPAN><SPAN class='id identifier rubyid_http'>http</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='label'>timeout:</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>else</SPAN>
+    <SPAN class='id identifier rubyid_raise'>raise</SPAN> <SPAN class=
+'const'>ArgumentError</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>stdio or http is required</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN>
+  <SPAN class='kw'>end</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="class_method_details" class="method_details_list">
+        <H2>Class Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="stdio-class_method">
+          .<STRONG>stdio</STRONG>(llm = nil, **stdio) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::MCP (class)">LLM::MCP</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Builds an MCP client that uses the stdio transport.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>llm</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Provider.html"
+                title="LLM::Provider (class)">LLM::Provider</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>An instance of LLM::Provider. Optional.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>stdio</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The stdio transport configuration</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title="LLM::MCP (class)">LLM::MCP</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+41
+42
+43</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 41</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_stdio'>stdio</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class=
+'id identifier rubyid_stdio'>stdio</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>stdio:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="http-class_method">
+          .<STRONG>http</STRONG>(llm = nil, **http) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::MCP (class)">LLM::MCP</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Builds an MCP client that uses the HTTP transport.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>llm</SPAN> <SPAN class=
+                'type'>(<TT><SPAN class='object_link'><A href="Provider.html"
+                title="LLM::Provider (class)">LLM::Provider</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>An instance of LLM::Provider. Optional.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>http</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The HTTP transport configuration</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title="LLM::MCP (class)">LLM::MCP</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+52
+53
+54</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 52</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_http'>http</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='kw'>nil</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='op'>**</SPAN><SPAN class='id identifier rubyid_http'>http</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_new'>new</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_llm'>llm</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>http:</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="clients-class_method">
+          .<STRONG>clients</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "Object.html" title="LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note private"><STRONG>This method is part of a private
+              API.</STRONG> You should avoid using this method if possible, as
+              it may be removed or be changed in the future.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+32</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 32</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='kw'>self</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_clients'>clients</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='cvar'>@@clients</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="call_tool-instance_method">
+          #<STRONG>call_tool</STRONG>(name, arguments = {}) ⇒ <TT><SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">Object</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Calls a tool by name with the given arguments</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The name of the tool to call</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>arguments</SPAN> <SPAN class=
+                'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>{}</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The arguments to pass to the tool</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+                "Object.html" title=
+                "LLM::Object (class)">Object</A></SPAN></TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The result of the tool call</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+175
+176
+177
+178</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 175</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_call_tool'>call_tool</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_name'>name</SPAN><SPAN class='comma'>,</SPAN> <SPAN class='id identifier rubyid_arguments'>arguments</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>tools/call</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>name:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>arguments:</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_adapt_tool_result'>adapt_tool_result</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="start-instance_method">
+          #<STRONG>start</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Starts the MCP process.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+92
+93
+94
+95
+96</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 92</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_start'>start</SPAN>
+  <SPAN class='id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_start'>start</SPAN>
+  <SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>initialize</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>clientInfo:</SPAN> <SPAN class=
+'lbrace'>{</SPAN><SPAN class='label'>name:</SPAN> <SPAN class=
+'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>llm.rb</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>version:</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html#VERSION-constant" title=
+"LLM::VERSION (constant)">VERSION</A></SPAN></SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>notifications/initialized</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="stop-instance_method">
+          #<STRONG>stop</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Stops the MCP process.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+101
+102
+103
+104</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 101</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_stop'>stop</SPAN>
+  <SPAN class='id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_stop'>stop</SPAN>
+  <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="run-instance_method">#<STRONG>run</STRONG>
+          { ... } ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Starts the MCP client for the duration of a block and then
+              stops it.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Yields:</P>
+            <UL class="yield">
+              <LI>
+                <DIV class='inline'>
+                  <P>Runs with the MCP client started</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT>LocalJumpError</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When called without a block</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='type'>(<TT>StandardError</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Propagates errors raised by <SPAN class=
+                  'object_link'><A href="#start-instance_method" title=
+                  "LLM::MCP#start (method)">#start</A></SPAN>, the block
+                  itself, or <SPAN class='object_link'><A href=
+                  "#stop-instance_method" title=
+                  "LLM::MCP#stop (method)">#stop</A></SPAN></P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+114
+115
+116
+117
+118
+119</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 114</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_run'>run</SPAN>
+  <SPAN class='id identifier rubyid_start'>start</SPAN>
+  <SPAN class='kw'>yield</SPAN>
+<SPAN class='kw'>ensure</SPAN>
+  <SPAN class='id identifier rubyid_stop'>stop</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="persist!-instance_method">
+          #<STRONG>persist!</STRONG> ⇒ <TT><SPAN class='object_link'><A href=""
+          title="LLM::MCP (class)">LLM::MCP</A></SPAN></TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'persistent-instance_method'>persistent</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Configures an HTTP MCP transport to use a persistent
+              connection pool via the optional dependency <A href=
+              "https://github.com/drbrain/net-http-persistent">Net::HTTP::Persistent</A></P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <DIV class="examples">
+              <P class="tag_title">Examples:</P>
+              <PRE class="example code"><CODE><SPAN class=
+              'id identifier rubyid_mcp'>mcp</SPAN> <SPAN class=
+              'op'>=</SPAN> <SPAN class='const'><SPAN class=
+              'object_link'><A href="../LLM.html" title=
+              "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_mcp'><SPAN class='object_link'><A href=
+              "../LLM.html#mcp-class_method" title=
+              "LLM.mcp (method)">mcp</A></SPAN></SPAN><SPAN class=
+              'lparen'>(</SPAN><SPAN class='label'>http:</SPAN> <SPAN class=
+              'lbrace'>{</SPAN><SPAN class='label'>url:</SPAN> <SPAN class=
+              'tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class=
+              'tstring_content'>https://example.com/mcp</SPAN><SPAN class=
+              'tstring_end'>"</SPAN></SPAN><SPAN class=
+              'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN><SPAN class=
+              'period'>.</SPAN><SPAN class=
+              'id identifier rubyid_persistent'>persistent</SPAN>
+<SPAN class='comment'># do something with 'mcp'</SPAN></CODE></PRE>
+            </DIV>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=""
+              title="LLM::MCP (class)">LLM::MCP</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+128
+129
+130
+131</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 128</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_persist!'>persist!</SPAN>
+  <SPAN class='id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_persist!'>persist!</SPAN>
+  <SPAN class='kw'>self</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="tools-instance_method">
+          #<STRONG>tools</STRONG> ⇒ <TT>Array&lt;Class&lt;<SPAN class=
+          'object_link'><A href="Tool.html" title=
+          "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;&gt;</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the tools provided by the MCP process.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array&lt;Class&lt;<SPAN class=
+              'object_link'><A href="Tool.html" title=
+              "LLM::Tool (class)">LLM::Tool</A></SPAN>&gt;&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+137
+138
+139
+140</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 137</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_tools'>tools</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>tools/list</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>tools</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_map'>map</SPAN> <SPAN class=
+'lbrace'>{</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"../LLM.html" title="LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href="Tool.html"
+title="LLM::Tool (class)">Tool</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_mcp'><SPAN class=
+'object_link'><A href="Tool.html#mcp-class_method" title=
+"LLM::Tool.mcp (method)">mcp</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='kw'>self</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='id identifier rubyid__1'>_1</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='rbrace'>}</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="prompts-instance_method">
+          #<STRONG>prompts</STRONG> ⇒ <TT>Array&lt;<SPAN class=
+          'object_link'><A href="Object.html" title=
+          "LLM::Object (class)">LLM::Object</A></SPAN>&gt;</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the prompts provided by the MCP process.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Array&lt;<SPAN class=
+              'object_link'><A href="Object.html" title=
+              "LLM::Object (class)">LLM::Object</A></SPAN>&gt;</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+145
+146
+147
+148</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 145</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_prompts'>prompts</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>prompts/list</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Object.html" title=
+"LLM::Object (class)">Object</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_from'>from</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class='tstring'><SPAN class='tstring_beg'>"</SPAN><SPAN class='tstring_content'>prompts</SPAN><SPAN class='tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="find_prompt-instance_method">
+          #<STRONG>find_prompt</STRONG>(name:, arguments: nil) ⇒
+          <TT><SPAN class='object_link'><A href="Object.html" title=
+          "LLM::Object (class)">LLM::Object</A></SPAN></TT> <SPAN class=
+          "aliases">Also known as: <SPAN class="names"><SPAN id=
+          'get_prompt-instance_method'>get_prompt</SPAN></SPAN></SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a prompt by name.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI>
+                <SPAN class='name'>name</SPAN> <SPAN class=
+                'type'>(<TT>String</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>The prompt name</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class='name'>arguments</SPAN> <SPAN class=
+                'type'>(<TT>Hash&lt;String, String&gt;</TT>,
+                <TT>nil</TT>)</SPAN> <EM class="default">(defaults to:
+                <TT>nil</TT>)</EM> —
+                <DIV class='inline'>
+                  <P>The prompt arguments</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT><SPAN class='object_link'><A href=
+              "Object.html" title=
+              "LLM::Object (class)">LLM::Object</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp.rb', line 155</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_find_prompt'>find_prompt</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='label'>name:</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>arguments:</SPAN> <SPAN class=
+'kw'>nil</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_params'>params</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'label'>name:</SPAN><SPAN class='rbrace'>}</SPAN>
+  <SPAN class='id identifier rubyid_params'>params</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='symbol'>:arguments</SPAN><SPAN class=
+'rbracket'>]</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_arguments'>arguments</SPAN> <SPAN class=
+'kw'>if</SPAN> <SPAN class='id identifier rubyid_arguments'>arguments</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_transport'>transport</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class=
+'tstring_content'>prompts/get</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'id identifier rubyid_params'>params</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>messages</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbracket'>[</SPAN><SPAN class=
+'op'>*</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>messages</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_map'>map</SPAN> <SPAN class='kw'>do</SPAN> <SPAN class=
+'op'>|</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class='op'>|</SPAN>
+    <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Message.html" title=
+"LLM::Message (class)">Message</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class='id identifier rubyid_new'><SPAN class=
+'object_link'><A href="Message.html#initialize-instance_method" title=
+"LLM::Message#initialize (method)">new</A></SPAN></SPAN><SPAN class=
+'lparen'>(</SPAN>
+      <SPAN class='id identifier rubyid_message'>message</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>role</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'comma'>,</SPAN>
+      <SPAN class=
+'id identifier rubyid_adapt_content'>adapt_content</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>content</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rparen'>)</SPAN><SPAN class='comma'>,</SPAN>
+      <SPAN class='lbrace'>{</SPAN><SPAN class=
+'label'>original_content:</SPAN> <SPAN class=
+'id identifier rubyid_message'>message</SPAN><SPAN class=
+'lbracket'>[</SPAN><SPAN class='tstring'><SPAN class=
+'tstring_beg'>"</SPAN><SPAN class='tstring_content'>content</SPAN><SPAN class=
+'tstring_end'>"</SPAN></SPAN><SPAN class='rbracket'>]</SPAN><SPAN class=
+'rbrace'>}</SPAN>
+    <SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>end</SPAN>
+  <SPAN class='const'><SPAN class='object_link'><A href="../LLM.html" title=
+"LLM (module)">LLM</A></SPAN></SPAN><SPAN class='op'>::</SPAN><SPAN class=
+'const'><SPAN class='object_link'><A href="Object.html" title=
+"LLM::Object (class)">Object</A></SPAN></SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_from'>from</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_res'>res</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:17 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::MCP::Pipe — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::MCP::Pipe";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (P)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../MCP.html" title=
+        "LLM::MCP (class)">MCP</A></SPAN></SPAN> » <SPAN class=
+        "title">Pipe</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::MCP::Pipe</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::MCP::Pipe</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/mcp/pipe.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>The <SPAN class='object_link'><A href="" title=
+          "LLM::MCP::Pipe (class)">LLM::MCP::Pipe</A></SPAN> class wraps a pair
+          of IO objects created by IO.pipe. It is used by <SPAN class=
+          'object_link'><A href="Transport/Stdio.html" title=
+          "LLM::MCP::Transport::Stdio (class)">LLM::MCP::Transport::Stdio</A></SPAN>
+          to manage the stdin, stdout, and stderr streams of an MCP process
+          through one small interface.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#r-instance_method" title=
+          "#r (instance method)">#<STRONG>r</STRONG> ⇒ IO</A></SPAN>
+          <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the reader.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#w-instance_method" title=
+          "#w (instance method)">#<STRONG>w</STRONG> ⇒ IO</A></SPAN>
+          <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the writer.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#close_writer-instance_method" title=
+          "#close_writer (instance method)">#<STRONG>close_writer</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Closes the writer.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#read_nonblock-instance_method" title=
+          "#read_nonblock (instance method)">#<STRONG>read_nonblock</STRONG> ⇒
+          String</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Reads from the reader end without
+            blocking.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#write-instance_method"
+          title="#write (instance method)">#<STRONG>write</STRONG> ⇒
+          Integer</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Writes to the writer.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#flush-instance_method"
+          title="#flush (instance method)">#<STRONG>flush</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Flushes the writer.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#closed%3F-instance_method"
+          title="#closed? (instance method)">#<STRONG>closed?</STRONG> ⇒
+          Boolean</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns true when both ends are
+            closed.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#close-instance_method"
+          title="#close (instance method)">#<STRONG>close</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Closes both ends of the
+            pipe.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#close_reader-instance_method" title=
+          "#close_reader (instance method)">#<STRONG>close_reader</STRONG> ⇒
+          void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Closes the reader.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title="#initialize (instance method)">#<STRONG>initialize</STRONG> ⇒
+          LLM::MCP::Pipe</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns a new pipe.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG> ⇒ <TT><SPAN class='object_link'><A href=
+          "" title="LLM::MCP::Pipe (class)">LLM::MCP::Pipe</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new pipe.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+24
+25
+26</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 24</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN>
+  <SPAN class='ivar'>@r</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'ivar'>@w</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'const'>IO</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_pipe'>pipe</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=""></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="r-instance_method">
+          #<STRONG>r</STRONG> ⇒ <TT>IO</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the reader</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>IO</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the reader</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+14
+15
+16</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 14</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_r'>r</SPAN>
+  <SPAN class='ivar'>@r</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV><SPAN id=""></SPAN>
+        <DIV class="method_details">
+          <H3 class="signature" id="w-instance_method">#<STRONG>w</STRONG> ⇒
+          <TT>IO</TT> <SPAN class="extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the writer</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>IO</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns the writer</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+19
+20
+21</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 19</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class='id identifier rubyid_w'>w</SPAN>
+  <SPAN class='ivar'>@w</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="close_writer-instance_method">
+          #<STRONG>close_writer</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Closes the writer.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+77
+78
+79
+80</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 77</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_close_writer'>close_writer</SPAN>
+  <SPAN class='ivar'>@w</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_close'>close</SPAN>
+<SPAN class='kw'>rescue</SPAN> <SPAN class='const'>IOError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="read_nonblock-instance_method">
+          #<STRONG>read_nonblock</STRONG> ⇒ <TT>String</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Reads from the reader end without blocking.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>String</TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Raises:</P>
+            <UL class="raise">
+              <LI>
+                <SPAN class='type'>(<TT>IO::EAGAINWaitReadable</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>When no data is available to read</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+33
+34
+35</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 33</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_read_nonblock'>read_nonblock</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@r</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_read_nonblock'>read_nonblock</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="write-instance_method">
+          #<STRONG>write</STRONG> ⇒ <TT>Integer</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Writes to the writer.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Integer</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+40
+41
+42</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 40</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_write'>write</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@w</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_write'>write</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>...</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="flush-instance_method">
+          #<STRONG>flush</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Flushes the writer.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+47
+48
+49</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 47</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_flush'>flush</SPAN>
+  <SPAN class='ivar'>@w</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_flush'>flush</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="closed?-instance_method">
+          #<STRONG>closed?</STRONG> ⇒ <TT>Boolean</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns true when both ends are closed.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Boolean</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+54
+55
+56</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 54</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_closed?'>closed?</SPAN>
+  <SPAN class='lbracket'>[</SPAN><SPAN class='ivar'>@r</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='ivar'>@w</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_all?'>all?</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:closed?</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="close-instance_method">
+          #<STRONG>close</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Closes both ends of the pipe.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+61
+62
+63
+64</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 61</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_close'>close</SPAN>
+  <SPAN class='lbracket'>[</SPAN><SPAN class='ivar'>@r</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='ivar'>@w</SPAN><SPAN class=
+'rbracket'>]</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_each'>each</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'symbol'>:close</SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>rescue</SPAN> <SPAN class='const'>IOError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <DIV class="method_details">
+          <H3 class="signature" id="close_reader-instance_method">
+          #<STRONG>close_reader</STRONG> ⇒ <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Closes the reader.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags"></DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+69
+70
+71
+72</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/mcp/pipe.rb', line 69</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_close_reader'>close_reader</SPAN>
+  <SPAN class='ivar'>@r</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_close'>close</SPAN>
+<SPAN class='kw'>rescue</SPAN> <SPAN class='const'>IOError</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:18 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

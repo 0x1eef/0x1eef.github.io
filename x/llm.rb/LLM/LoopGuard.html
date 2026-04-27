@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Class: LLM::LoopGuard — Documentation by YARD 0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::LoopGuard";
+  relpath = '../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src="../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../_index.html">Index (L)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class=
+        "title">LoopGuard</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Class: LLM::LoopGuard</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Inherits:</DT>
+          <DD>
+            <SPAN class="inheritName">Object</SPAN>
+            <UL class="fullTree">
+              <LI>Object</LI>
+              <LI class="next">LLM::LoopGuard</LI>
+            </UL><A href="#" class="inheritanceTree">show all</A>
+          </DD>
+        </DL>
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/loop_guard.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P><SPAN class='object_link'><A href="" title=
+          "LLM::LoopGuard (class)">LLM::LoopGuard</A></SPAN> is the built-in
+          implementation of llm.rb's <CODE>guard</CODE> capability.</P>
+          <P>A guard is a context-level supervisor for agentic execution. It
+          can inspect the current runtime state and return a warning string
+          when pending tool work should be blocked before the loop keeps
+          going.</P>
+          <P><SPAN class='object_link'><A href="" title=
+          "LLM::LoopGuard (class)">LLM::LoopGuard</A></SPAN> detects when a
+          context is repeating the same tool-call pattern instead of making
+          progress. It is directly inspired by General Intelligence Systems'
+          Brute runtime and its doom-loop detection approach.</P>
+          <P>The public interface is intentionally small:</P>
+          <UL>
+            <LI><CODE>call(ctx)</CODE> returns <CODE>nil</CODE> when no
+            intervention is needed</LI>
+            <LI><CODE>call(ctx)</CODE> returns a warning string when pending
+            tool execution should be blocked</LI>
+          </UL>
+          <P><SPAN class='object_link'><A href="Context.html" title=
+          "LLM::Context (class)">LLM::Context</A></SPAN> can use that warning
+          to return in-band <SPAN class='object_link'><A href=
+          "../LLM.html#GuardError-constant" title=
+          "LLM::GuardError (constant)">LLM::GuardError</A></SPAN> tool errors,
+          and <SPAN class='object_link'><A href="Agent.html" title=
+          "LLM::Agent (class)">LLM::Agent</A></SPAN> enables this guard by
+          default through its wrapped context.</P>
+          <P>Brute is MIT licensed. The relevant license grant is:</P>
+          <P>Permission is hereby granted, free of charge, to any person
+          obtaining a copy of this software and associated documentation files
+          (the "Software"), to deal in the Software without restriction,
+          including without limitation the rights to use, copy, modify, merge,
+          publish, distribute, sublicense, and/or sell copies of the Software,
+          and to permit persons to whom the Software is furnished to do so.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="DEFAULT_THRESHOLD-constant" class="">DEFAULT_THRESHOLD =</DT>
+        <DD>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>The default number of repeated tool-call patterns required
+              before the guard intervenes.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Integer</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+        </DD>
+        <DD>
+          <PRE class="code"><SPAN class='int'>3</SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Attribute Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#threshold-instance_method"
+          title="#threshold (instance method)">#<STRONG>threshold</STRONG> ⇒
+          Integer</A></SPAN> <SPAN class="note title readonly">readonly</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Returns the repetition
+            threshold.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#initialize-instance_method"
+          title=
+          "#initialize (instance method)">#<STRONG>initialize</STRONG>(config =
+          {}) ⇒ LoopGuard</A></SPAN> <SPAN class=
+          "note title constructor">constructor</SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">A new instance of
+            LoopGuard.</SPAN></P>
+          </DIV>
+        </LI>
+        <LI class="public">
+          <SPAN class="summary_signature"><A href="#call-instance_method"
+          title="#call (instance method)">#<STRONG>call</STRONG>(ctx) ⇒
+          String<SUP>?</SUP></A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Checks the current context for
+            repeated tool-call patterns.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="constructor_details" class="method_details_list">
+        <H2>Constructor Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="initialize-instance_method">
+          #<STRONG>initialize</STRONG>(config = {}) ⇒ <TT><SPAN class=
+          'object_link'><A href="" title=
+          "LLM::LoopGuard (class)">LoopGuard</A></SPAN></TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns a new instance of LoopGuard.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>config</SPAN> <SPAN class=
+              'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>{}</TT>)</EM></LI>
+            </UL>
+            <P class="tag_title">Options Hash (<TT>config</TT>):</P>
+            <UL class="option">
+              <LI>
+                <SPAN class="name">:threshold</SPAN> <SPAN class=
+                "type">(<TT>Integer</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>How many repeated tool-call patterns must appear at the
+                  tail of the sequence before the guard returns a warning.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+50
+51
+52</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/loop_guard.rb', line 50</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_initialize'>initialize</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_config'>config</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='lbrace'>{</SPAN><SPAN class=
+'rbrace'>}</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='ivar'>@threshold</SPAN> <SPAN class='op'>=</SPAN> <SPAN class=
+'id identifier rubyid_config'>config</SPAN><SPAN class=
+'period'>.</SPAN><SPAN class=
+'id identifier rubyid_fetch'>fetch</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='symbol'>:threshold</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"#DEFAULT_THRESHOLD-constant" title=
+"LLM::LoopGuard::DEFAULT_THRESHOLD (constant)">DEFAULT_THRESHOLD</A></SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_attr_details" class="attr_details">
+        <H2>Instance Attribute Details</H2><SPAN id=""></SPAN>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="threshold-instance_method">
+          #<STRONG>threshold</STRONG> ⇒ <TT>Integer</TT> <SPAN class=
+          "extras">(readonly)</SPAN></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Returns the repetition threshold.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI><SPAN class='type'>(<TT>Integer</TT>)</SPAN></LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+43
+44
+45</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/loop_guard.rb', line 43</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_threshold'>threshold</SPAN>
+  <SPAN class='ivar'>@threshold</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="call-instance_method">
+          #<STRONG>call</STRONG>(ctx) ⇒ <TT>String</TT><SUP>?</SUP></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P>Checks the current context for repeated tool-call
+              patterns.</P>
+              <P>This method inspects assistant tool calls only. It reduces
+              each call to a <CODE>[tool_name, arguments]</CODE> signature and
+              checks whether the tail of the sequence is repeating.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>ctx</SPAN> <SPAN class=
+              'type'>(<TT><SPAN class='object_link'><A href="Context.html"
+              title=
+              "LLM::Context (class)">LLM::Context</A></SPAN></TT>)</SPAN></LI>
+            </UL>
+            <P class="tag_title">Returns:</P>
+            <UL class="return">
+              <LI>
+                <SPAN class='type'>(<TT>String</TT>, <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Returns a warning string when pending tool execution
+                  should be blocked, or <CODE>nil</CODE> when execution should
+                  continue.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+65
+66
+67
+68</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/loop_guard.rb', line 65</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_call'>call</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class=
+'rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_repetitions'>repetitions</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='id identifier rubyid_detect'>detect</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_ctx'>ctx</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_messages'>messages</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_to_a'>to_a</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_repetitions'>repetitions</SPAN> <SPAN class='op'>?</SPAN> <SPAN class='id identifier rubyid_warning'>warning</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_repetitions'>repetitions</SPAN><SPAN class='rparen'>)</SPAN> <SPAN class='op'>:</SPAN> <SPAN class='kw'>nil</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:18 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

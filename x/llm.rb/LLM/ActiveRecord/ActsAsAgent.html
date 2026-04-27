@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <META charset="utf-8">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+  <TITLE>Module: LLM::ActiveRecord::ActsAsAgent — Documentation by YARD
+  0.9.36</TITLE>
+  <LINK rel="stylesheet" href="../../css/style.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/common.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/main.css" type="text/css">
+  <LINK rel="stylesheet" href="../../css/rouge.css" type="text/css">
+  <SCRIPT type="text/javascript">
+  pathId = "LLM::ActiveRecord::ActsAsAgent";
+  relpath = '../../';
+  </SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/jquery.js"></SCRIPT>
+  <SCRIPT type="text/javascript" charset="utf-8" src=
+  "../../js/app.js"></SCRIPT>
+</HEAD>
+<BODY>
+  <DIV class="nav_wrap">
+    <IFRAME id="nav" src="../../class_list.html?1" name="nav"></IFRAME>
+    <DIV id="resizer"></DIV>
+  </DIV>
+  <DIV id="main" tabindex="-1">
+    <DIV id="header">
+      <DIV id="menu">
+        <A href="../../_index.html">Index (A)</A> » <SPAN class=
+        'title'><SPAN class='object_link'><A href="../../LLM.html" title=
+        "LLM (module)">LLM</A></SPAN></SPAN> » <SPAN class='title'><SPAN class=
+        'object_link'><A href="../ActiveRecord.html" title=
+        "LLM::ActiveRecord (module)">ActiveRecord</A></SPAN></SPAN> »
+        <SPAN class="title">ActsAsAgent</SPAN>
+      </DIV>
+      <DIV id="search">
+        <A class="full_list_link" id="class_list_link" href=
+        "../../class_list.html"><SVG width="24" height="24">
+        <RECT x="0" y="4" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="12" width="24" height="4" rx="1" ry="1"></RECT>
+        <RECT x="0" y="20" width="24" height="4" rx="1" ry="1">
+        </RECT></SVG></A>
+      </DIV>
+      <DIV class="clear"></DIV>
+    </DIV>
+    <DIV id="content">
+      <H1>Module: LLM::ActiveRecord::ActsAsAgent</H1>
+      <DIV class="box_info">
+        <DL>
+          <DT>Defined in:</DT>
+          <DD>lib/llm/active_record/acts_as_agent.rb</DD>
+        </DL>
+      </DIV>
+      <H2>Overview</H2>
+      <DIV class="docstring">
+        <DIV class="discussion">
+          <P>ActiveRecord integration for persisting <SPAN class=
+          'object_link'><A href="../Agent.html" title=
+          "LLM::Agent (class)">LLM::Agent</A></SPAN> state.</P>
+          <P>This wrapper reuses the same record-backed runtime surface as
+          <SPAN class='object_link'><A href="ActsAsLLM.html" title=
+          "LLM::ActiveRecord::ActsAsLLM (module)">ActsAsLLM</A></SPAN>, but
+          builds an <SPAN class='object_link'><A href="../Agent.html" title=
+          "LLM::Agent (class)">LLM::Agent</A></SPAN> instead of an <SPAN class=
+          'object_link'><A href="../Context.html" title=
+          "LLM::Context (class)">LLM::Context</A></SPAN>. Agent defaults such
+          as model, tools, schema, instructions, and concurrency are configured
+          on the model class and forwarded to an internal agent subclass.</P>
+        </DIV>
+      </DIV>
+      <DIV class="tags"></DIV>
+      <H2>Defined Under Namespace</H2>
+      <P class="children"><STRONG class="modules">Modules:</STRONG>
+      <SPAN class='object_link'><A href="ActsAsAgent/ClassMethods.html" title=
+      "LLM::ActiveRecord::ActsAsAgent::ClassMethods (module)">ClassMethods</A></SPAN>,
+      <SPAN class='object_link'><A href="ActsAsAgent/Hooks.html" title=
+      "LLM::ActiveRecord::ActsAsAgent::Hooks (module)">Hooks</A></SPAN>,
+      <SPAN class='object_link'><A href="ActsAsAgent/InstanceMethods.html"
+      title=
+      "LLM::ActiveRecord::ActsAsAgent::InstanceMethods (module)">InstanceMethods</A></SPAN></P>
+      <H2>Constant Summary <SMALL><A href="#" class=
+      "constants_summary_toggle">collapse</A></SMALL></H2>
+      <DL class="constants">
+        <DT id="EMPTY_HASH-constant" class="">EMPTY_HASH =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'><SPAN class=
+          'object_link'><A href="../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "../ActiveRecord.html" title=
+          "LLM::ActiveRecord (module)">ActiveRecord</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html" title=
+          "LLM::ActiveRecord::ActsAsLLM (module)">ActsAsLLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html#EMPTY_HASH-constant" title=
+          "LLM::ActiveRecord::ActsAsLLM::EMPTY_HASH (constant)">EMPTY_HASH</A></SPAN></SPAN></PRE>
+        </DD>
+        <DT id="DEFAULT_USAGE_COLUMNS-constant" class="">DEFAULT_USAGE_COLUMNS
+        =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'><SPAN class=
+          'object_link'><A href="../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "../ActiveRecord.html" title=
+          "LLM::ActiveRecord (module)">ActiveRecord</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html" title=
+          "LLM::ActiveRecord::ActsAsLLM (module)">ActsAsLLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html#DEFAULT_USAGE_COLUMNS-constant" title=
+          "LLM::ActiveRecord::ActsAsLLM::DEFAULT_USAGE_COLUMNS (constant)">DEFAULT_USAGE_COLUMNS</A></SPAN></SPAN></PRE>
+        </DD>
+        <DT id="DEFAULTS-constant" class="">DEFAULTS =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'><SPAN class=
+          'object_link'><A href="../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "../ActiveRecord.html" title=
+          "LLM::ActiveRecord (module)">ActiveRecord</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html" title=
+          "LLM::ActiveRecord::ActsAsLLM (module)">ActsAsLLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html#DEFAULTS-constant" title=
+          "LLM::ActiveRecord::ActsAsLLM::DEFAULTS (constant)">DEFAULTS</A></SPAN></SPAN></PRE>
+        </DD>
+        <DT id="Utils-constant" class="">Utils =</DT>
+        <DD>
+          <PRE class="code"><SPAN class='const'><SPAN class=
+          'object_link'><A href="../../LLM.html" title=
+          "LLM (module)">LLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "../ActiveRecord.html" title=
+          "LLM::ActiveRecord (module)">ActiveRecord</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM.html" title=
+          "LLM::ActiveRecord::ActsAsLLM (module)">ActsAsLLM</A></SPAN></SPAN><SPAN class=
+          'op'>::</SPAN><SPAN class='const'><SPAN class='object_link'><A href=
+          "ActsAsLLM/Utils.html" title=
+          "LLM::ActiveRecord::ActsAsLLM::Utils (module)">Utils</A></SPAN></SPAN></PRE>
+        </DD>
+      </DL>
+      <H2>Instance Method Summary <SMALL><A href="#" class=
+      "summary_toggle">collapse</A></SMALL></H2>
+      <UL class="summary">
+        <LI class="public">
+          <SPAN class="summary_signature"><A href=
+          "#acts_as_agent-instance_method" title=
+          "#acts_as_agent (instance method)">#<STRONG>acts_as_agent</STRONG>(options
+          = EMPTY_HASH) { ... } ⇒ void</A></SPAN>
+          <DIV class='inline'>
+            <P><SPAN class="summary_desc">Installs the
+            <CODE>acts_as_agent</CODE> wrapper on an ActiveRecord
+            model.</SPAN></P>
+          </DIV>
+        </LI>
+      </UL>
+      <DIV id="instance_method_details" class="method_details_list">
+        <H2>Instance Method Details</H2>
+        <DIV class="method_details first">
+          <H3 class="signature first" id="acts_as_agent-instance_method">
+          #<STRONG>acts_as_agent</STRONG>(options = EMPTY_HASH) { ... } ⇒
+          <TT>void</TT></H3>
+          <DIV class="docstring">
+            <DIV class="discussion">
+              <P class="note returns_void">This method returns an undefined
+              value.</P>
+              <P>Installs the <CODE>acts_as_agent</CODE> wrapper on an
+              ActiveRecord model.</P>
+            </DIV>
+          </DIV>
+          <DIV class="tags">
+            <P class="tag_title">Parameters:</P>
+            <UL class="param">
+              <LI><SPAN class='name'>options</SPAN> <SPAN class=
+              'type'>(<TT>Hash</TT>)</SPAN> <EM class="default">(defaults to:
+              <TT>EMPTY_HASH</TT>)</EM></LI>
+            </UL>
+            <P class="tag_title">Options Hash (<TT>options</TT>):</P>
+            <UL class="option">
+              <LI>
+                <SPAN class="name">:format</SPAN> <SPAN class=
+                "type">(<TT>Symbol</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Storage format for the serialized agent state. Use
+                  <CODE>:string</CODE> for text columns, or <CODE>:json</CODE>
+                  / <CODE>:jsonb</CODE> for structured JSON columns with
+                  ActiveRecord JSON typecasting enabled.</P>
+                </DIV>
+              </LI>
+              <LI>
+                <SPAN class="name">:tracer</SPAN> <SPAN class=
+                "type">(<TT>Proc</TT>, <TT>Symbol</TT>, <TT><SPAN class=
+                'object_link'><A href="../Tracer.html" title=
+                "LLM::Tracer (class)">LLM::Tracer</A></SPAN></TT>,
+                <TT>nil</TT>)</SPAN> —
+                <DIV class='inline'>
+                  <P>Optional tracer, method name, or proc that resolves to one
+                  and is assigned through <CODE>llm.tracer = ...</CODE> on the
+                  resolved provider.</P>
+                </DIV>
+              </LI>
+            </UL>
+            <P class="tag_title">Yields:</P>
+            <UL class="yield">
+              <LI>
+                <DIV class='inline'>
+                  <P>Evaluated in the model class after the wrapper is
+                  installed, so agent DSL methods such as <CODE>model</CODE>,
+                  <CODE>tools</CODE>, <CODE>schema</CODE>,
+                  <CODE>instructions</CODE>, and <CODE>concurrency</CODE> can
+                  be configured inline.</P>
+                </DIV>
+              </LI>
+            </UL>
+          </DIV>
+          <TABLE class="source_code">
+            <TR>
+              <TD>
+                <PRE class="lines">
+
+
+85
+86
+87
+88
+89
+90
+91
+92</PRE>
+              </TD>
+              <TD>
+                <PRE class="code"><SPAN class=
+                "info file"># File 'lib/llm/active_record/acts_as_agent.rb', line 85</SPAN>
+
+<SPAN class='kw'>def</SPAN> <SPAN class=
+'id identifier rubyid_acts_as_agent'>acts_as_agent</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class=
+'id identifier rubyid_options'>options</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"#EMPTY_HASH-constant" title=
+"LLM::ActiveRecord::ActsAsAgent::EMPTY_HASH (constant)">EMPTY_HASH</A></SPAN></SPAN><SPAN class='comma'>,</SPAN> <SPAN class='op'>&</SPAN><SPAN class='id identifier rubyid_block'>block</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='id identifier rubyid_options'>options</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"#DEFAULTS-constant" title=
+"LLM::ActiveRecord::ActsAsAgent::DEFAULTS (constant)">DEFAULTS</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_options'>options</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_usage_columns'>usage_columns</SPAN> <SPAN class=
+'op'>=</SPAN> <SPAN class='const'><SPAN class='object_link'><A href=
+"#DEFAULT_USAGE_COLUMNS-constant" title=
+"LLM::ActiveRecord::ActsAsAgent::DEFAULT_USAGE_COLUMNS (constant)">DEFAULT_USAGE_COLUMNS</A></SPAN></SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='id identifier rubyid_options'>options</SPAN><SPAN class='lbracket'>[</SPAN><SPAN class='symbol'>:usage_columns</SPAN><SPAN class='rbracket'>]</SPAN> <SPAN class='op'>||</SPAN> <SPAN class='const'><SPAN class='object_link'><A href="#EMPTY_HASH-constant"
+title=
+"LLM::ActiveRecord::ActsAsAgent::EMPTY_HASH (constant)">EMPTY_HASH</A></SPAN></SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class=
+'id identifier rubyid_class_attribute'>class_attribute</SPAN> <SPAN class=
+'symbol'>:llm_plugin_options</SPAN><SPAN class='comma'>,</SPAN> <SPAN class=
+'label'>instance_accessor:</SPAN> <SPAN class='kw'>false</SPAN><SPAN class=
+'comma'>,</SPAN> <SPAN class='label'>default:</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="#DEFAULTS-constant" title=
+"LLM::ActiveRecord::ActsAsAgent::DEFAULTS (constant)">DEFAULTS</A></SPAN></SPAN> <SPAN class='kw'>unless</SPAN> <SPAN class='id identifier rubyid_respond_to?'>respond_to?</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='symbol'>:llm_plugin_options</SPAN><SPAN class='rparen'>)</SPAN>
+  <SPAN class='kw'>self</SPAN><SPAN class='period'>.</SPAN><SPAN class=
+'id identifier rubyid_llm_plugin_options'>llm_plugin_options</SPAN> <SPAN class='op'>=</SPAN> <SPAN class='id identifier rubyid_options'>options</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_merge'>merge</SPAN><SPAN class='lparen'>(</SPAN><SPAN class='label'>usage_columns:</SPAN> <SPAN class='id identifier rubyid_usage_columns'>usage_columns</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_freeze'>freeze</SPAN><SPAN class='rparen'>)</SPAN><SPAN class='period'>.</SPAN><SPAN class='id identifier rubyid_freeze'>freeze</SPAN>
+  <SPAN class='id identifier rubyid_extend'>extend</SPAN> <SPAN class=
+'const'><SPAN class='object_link'><A href="ActsAsAgent/Hooks.html" title=
+"LLM::ActiveRecord::ActsAsAgent::Hooks (module)">Hooks</A></SPAN></SPAN>
+  <SPAN class='id identifier rubyid_class_exec'>class_exec</SPAN><SPAN class=
+'lparen'>(</SPAN><SPAN class='op'>&</SPAN><SPAN class=
+'id identifier rubyid_block'>block</SPAN><SPAN class=
+'rparen'>)</SPAN> <SPAN class='kw'>if</SPAN> <SPAN class=
+'id identifier rubyid_block'>block</SPAN>
+<SPAN class='kw'>end</SPAN></PRE>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+    <DIV id="footer">
+      Generated on Mon Apr 27 07:44:17 2026 by <A href="https://yardoc.org"
+      title="Yay! A Ruby Documentation Tool" target="_parent">yard</A> 0.9.36
+      (ruby-3.4.5).
+    </DIV>
+  </DIV>
+</BODY>
+</HTML>

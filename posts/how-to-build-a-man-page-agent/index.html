@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>How to build a man page agent</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to build a man page agent">
+  <META property="og:description" content=
+  "Documents how to build a man page agent with llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-build-a-man-page-agent">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY class="dark-mode">
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to build an agent that is specialized in
+      answering queries from man pages. It will show how <STRONG>any Sequel or
+      ActiveRecord model can become an agent</STRONG>, and how to extend an
+      agents capabilities with local tools. We will implement one agent, and
+      two tools: a man page reader, and a man page searcher (an interface to
+      <CODE>apropos</CODE>). The agent will then be equipped to answer queries
+      and then use our tools to find the answer.</P>
+      <P>This post is made possible by <A href=
+      "https://github.com/llmrb/llm.rb">llm.rb</A> - the most capable ruby AI
+      runtime that exists today.</P>
+      <H2>Migration</H2>
+      <P>The first step is a boring one but neccessary for this example, we
+      have to define the table where an agent can be stored. The agent is
+      serialized into the <CODE>data</CODE> column, this can be changed to
+      <CODE>jsonb</CODE> for better performance where supported, but for
+      simplicity we'll use a text column:</P>
+      <PRE><CODE class="language-ruby">create_table :agents do
+  primary_key :id
+  String :provider, null: false
+  String :model
+  String :data, text: true
+  Integer :input_tokens
+  Integer :output_tokens
+  Integer :total_tokens
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>:provider</CODE>, <CODE>:model</CODE>, and
+        <CODE>:data</CODE><BR>
+        These are the main columns used by llm.rb's Sequel persistence
+        layer.</LI>
+        <LI><CODE>:input_tokens</CODE>, <CODE>:output_tokens</CODE>, and
+        <CODE>:total_tokens</CODE><BR>
+        Keeps token usage on the record.</LI>
+      </UL>
+      <H2>Agent</H2>
+      <P>Our agent will be equipped with two tools, instructions, a model, and
+      a concurrency model for tool execution. This example will execute each
+      tool in a separate thread but it could also be executed sequentially,
+      with fibers, with async-task, or with ractors (experimental):</P>
+      <PRE><CODE class="language-ruby">require "llm"
+require "net/http/persistent"
+require "sequel"
+require "sequel/plugins/llm"
+
+class Agent &lt; Sequel::Model
+  plugin :agent, provider: :set_provider
+
+  model "gpt-5.4-mini"
+  instructions "Answer questions by searching and reading local UNIX man pages."
+  tools Apropos, Man
+  concurrency :thread
+
+  private
+
+  def set_provider
+    {key: ENV["#{provider.upcase}_SECRET"], persistent: true}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>plugin :agent, provider: :set_provider</CODE><BR>
+        Persists <CODE>LLM::Agent</CODE> state on the model.</LI>
+        <LI><CODE>tools Apropos, Man</CODE><BR>
+        These are the two tools the model can call.</LI>
+        <LI><CODE>concurrency :thread</CODE><BR>
+        Lets the agent run tool work with threads.</LI>
+      </UL>
+      <H2>Tools</H2>
+      <H3>Apropos</H3>
+      <PRE><CODE class="language-ruby">require "open3"
+
+class Apropos &lt; LLM::Tool
+  name "apropos"
+  description "Search the local man page database for commands related to a topic"
+  param :query, String, "Search terms for apropos", required: true
+
+  def call(query:)
+    output, = Open3.capture2("apropos", query)
+    matches = output.lines.map(&amp;:chomp).reject(&amp;:empty?).first(10)
+    {query:, matches:}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>param :query, String, ...</CODE><BR>
+        Defines the input for the tool.</LI>
+        <LI><CODE>Open3.capture2("apropos", query)</CODE><BR>
+        Runs <CODE>apropos</CODE> without going through a shell.</LI>
+        <LI><CODE>first(10)</CODE><BR>
+        Returns the first few matches.</LI>
+      </UL>
+      <H3>Man</H3>
+      <PRE><CODE class="language-ruby">require "open3"
+
+class Man &lt; LLM::Tool
+  name "man"
+  description "Read a local man page and return its plain text contents"
+  param :page, String, "The man page to read, such as ls or printf", required: true
+  param :section, String, "Optional man page section, such as 1 or 5", optional: true
+
+  def call(page:, section: nil)
+    env = {"MANPAGER" =&gt; "cat", "PAGER" =&gt; "cat", "MANWIDTH" =&gt; "80"}
+    output, = Open3.capture2(env, "man", *[section, page].compact)
+    text = output.gsub(/\x08./, "").strip
+    {page:, section:, content: text[0, 12_000]}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>param :page</CODE> and <CODE>param :section</CODE><BR>
+        Lets the model ask for a page directly, or narrow it to a section.</LI>
+        <LI><CODE>env = {"MANPAGER" =&gt; "cat", ...}</CODE><BR>
+        Forces plain text output instead of opening a pager.</LI>
+        <LI><CODE>*[section, page].compact</CODE><BR>
+        Skips <CODE>section</CODE> when it is not given.</LI>
+        <LI><CODE>text[0, 12_000]</CODE><BR>
+        Returns a bounded slice of the page.</LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P>With everything in place we can rejoice in our hard work and reap the
+      benefits. About this example: these questions might seem ordinary, but
+      the important piece to realize is that the answer is sourced from our
+      local tools, and not from the model's training data.</P>
+      <P>The other important piece to recognize is that the agent in this case
+      is a source of knowledge, but it could also be a source of action. Tools
+      can do anything your imagination can come up with, and with <A href=
+      "https://github.com/llmrb/llm.rb">llm.rb</A> you can focus on building
+      cool stuff and let the runtime handle the complexity of LLM interactions,
+      tool execution, and agent state management.</P>
+      <P>Last but not least, I used Sequel in this post because I support
+      ecosystem diversity but <A href=
+      "https://github.com/llmrb/llm.rb">llm.rb</A> also has builtin support for
+      ActiveRecord and the equivalent can be achieved with almost the same
+      code:</P>
+      <PRE><CODE class="language-ruby">##
+# Create our agent
+agent = Agent.create(provider: "openai", model: "gpt-5.4-mini")
+
+##
+# First question - persists automatically
+puts agent.talk("How do I extract a tar archive?").content
+
+##
+# Second question - persists automatically
+puts agent.talk("What about gzipped tar archives?").content
+
+##
+# Third question - persists automatically
+puts agent.talk("How do I block incoming traffic with pf.conf?").content
+</CODE></PRE><BR>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>
