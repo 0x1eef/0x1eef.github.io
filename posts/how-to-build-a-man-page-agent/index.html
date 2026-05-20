@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+  <META name="generator" content=
+  "HTML Tidy for HTML5 for FreeBSD version 5.8.0">
+  <TITLE>How to build a man page agent</TITLE>
+  <META charset="utf-8">
+  <META name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <LINK rel="icon" sizes="16x16" href="/images/favicon-16x16.png">
+  <LINK rel="icon" sizes="32x32" href="/images/favicon-32x32.png">
+  <LINK rel="icon" sizes="48x48" href="/images/favicon-48x48.png">
+  <LINK rel="icon" sizes="64x64" href="/images/favicon-64x64.png">
+  <LINK rel="icon" sizes="128x128" href="/images/favicon-128x128.png">
+  <LINK rel="icon" sizes="256x256" href="/images/favicon-256x256.png">
+  <LINK rel="stylesheet" href="/css/main.css">
+  <SCRIPT src="/js/prism.js" async></SCRIPT>
+  <LINK rel="stylesheet" href="/css/prism/light.css">
+  <LINK rel="stylesheet" href="/css/prism/tomorrownight.css">
+  <META property="og:type" content="article">
+  <META property="og:title" content="How to build a man page agent">
+  <META property="og:description" content=
+  "Documents how to build a man page agent with llm.rb">
+  <META property="og:url" content=
+  "https://0x1eef.github.io/posts/how-to-build-a-man-page-agent">
+  <META property="og:image" content="https://0x1eef.github.io/images/og.png">
+  <META property="og:image:type" content="image/png">
+  <META property="og:image:width" content="512">
+  <META property="og:image:height" content="512">
+</HEAD>
+<BODY class="dark-mode">
+  <HEADER class="main-header">
+    <NAV class="nav-inner">
+      <A href="/" class="nav-logo-link"><IMG src="/images/og.png" alt=
+      "Leaf Logo" class="nav-logo"></A>
+    </NAV>
+  </HEADER>
+  <MAIN>
+    <DIV>
+      <H2>About</H2>
+      <P>This post documents how to build an agent that is specialized in
+      answering queries from man pages. For this example we will implement one
+      agent and two tools: a man page reader, and a man page searcher built on
+      <CODE>apropos</CODE>. The agent will be supported by the builtin
+      ActiveRecord support provided by <A href=
+      "https://github.com/llmrb/llm.rb#readme">llm.rb</A>.</P>
+      <H2>Migration</H2>
+      <P>The first step is to define the table where the agent can be stored.
+      For this case the built-in persistence contract is just one
+      <CODE>data</CODE> column. This can be changed to <CODE>jsonb</CODE> where
+      supported, but for simplicity we will use a text column:</P>
+      <PRE><CODE class="language-ruby">create_table :agents do |t|
+  t.text :data
+  t.timestamps
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>:data</CODE><BR>
+        Stores the serialized agent runtime.</LI>
+        <LI><CODE>:timestamps</CODE><BR>
+        Gives us the usual ActiveRecord created and updated timestamps.</LI>
+      </UL>
+      <H2>Agent</H2>
+      <P>The agent is implemented as an ActiveRecord model. It has
+      instructions, a model, two tools, and a concurrency setting for tool
+      execution:</P>
+      <PRE><CODE class="language-ruby">require "llm"
+require "active_record"
+require "llm/active_record"
+
+class Agent &lt; ApplicationRecord
+  acts_as_agent provider: :set_provider do
+    model "gpt-5.4-mini"
+    instructions "Answer questions from local UNIX man pages."
+    tools Apropos, Man
+    concurrency :thread
+  end
+
+  private
+
+  def set_provider
+    LLM.openai(key: ENV["OPENAI_SECRET"], persistent: true)
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>acts_as_agent provider: :set_provider</CODE><BR>
+        Persists <CODE>LLM::Agent</CODE> state on the model and lets the record
+        resolve its own provider.</LI>
+        <LI><CODE>model "gpt-5.4-mini"</CODE> and <CODE>instructions
+        "..."</CODE><BR>
+        Define the default model and system instructions for the agent.</LI>
+        <LI><CODE>tools Apropos, Man</CODE><BR>
+        These are the two local tools the agent can call.</LI>
+        <LI><CODE>concurrency :thread</CODE><BR>
+        Runs tool work with threads.</LI>
+      </UL>
+      <H2>Tools</H2>
+      <H3>Apropos</H3>
+      <PRE><CODE class="language-ruby">require "shellwords"
+
+class Apropos &lt; LLM::Tool
+  name "apropos"
+  description "Search the man page index"
+  parameter :query, String, "Query to search"
+  required %i[query]
+
+  def call(query:)
+    output = `apropos #{query.shellescape}`
+    matches = output.lines.map(&amp;:chomp).reject(&amp;:empty?).first(10)
+    {query:, matches:}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>parameter :query, String, ...</CODE><BR>
+        Defines the query input for the tool.</LI>
+        <LI><CODE>required %i[query]</CODE><BR>
+        Makes the query required.</LI>
+        <LI><CODE>`apropos #{query.shellescape}`</CODE><BR>
+        Runs <CODE>apropos</CODE> and escapes the query before it reaches the
+        shell.</LI>
+        <LI><CODE>first(10)</CODE><BR>
+        Returns the first few matches.</LI>
+      </UL>
+      <H3>Man</H3>
+      <PRE><CODE class="language-ruby">require "shellwords"
+
+class Man &lt; LLM::Tool
+  name "man"
+  description "Read a man page"
+  parameter :page, String, "The man page to read, such as ls or printf"
+  parameter :section, String, "The man page section, such as 1 or 5"
+  required %i[page]
+
+  def call(page:, section: nil)
+    args = [section, page].compact.map(&amp;:shellescape).join(" ")
+    output = `MANPAGER=cat PAGER=cat MANWIDTH=80 man #{args}`
+    text = output.gsub(/\x08./, "").strip
+    {page:, section:, content: text[0, 12_000]}
+  end
+end
+</CODE></PRE><BR>
+      <P><STRONG>Explanation</STRONG></P>
+      <UL>
+        <LI><CODE>parameter :page</CODE> and <CODE>parameter
+        :section</CODE><BR>
+        Defines the page input and the optional section input.</LI>
+        <LI><CODE>required %i[page]</CODE><BR>
+        Makes the page required.</LI>
+        <LI><CODE>`MANPAGER=cat PAGER=cat MANWIDTH=80 man #{args}`</CODE><BR>
+        Forces plain text output instead of opening a pager.</LI>
+        <LI><CODE>compact.map(&amp;:shellescape).join(" ")</CODE><BR>
+        Skips <CODE>section</CODE> when it is not given and escapes each
+        argument.</LI>
+        <LI><CODE>output.gsub(/\x08./, "").strip</CODE><BR>
+        Removes the backspace sequences that <CODE>man</CODE> sometimes uses
+        for formatting, then trims the result.</LI>
+        <LI><CODE>text[0, 12_000]</CODE><BR>
+        Returns a bounded slice of the page.</LI>
+      </UL>
+      <H2>Conclusion</H2>
+      <P>The example is small, but the pattern scales well. In this case the
+      agent answers questions from local man pages instead of relying only on
+      model training data.</P>
+      <P>That is what makes it useful. Once the model can search and read from
+      a local source of truth, the same approach can be applied to other things
+      like internal docs, config files, or logs.</P>
+      <P>The other useful part is that the agent is just a model with state and
+      capabilities. In this post those capabilities are read-only, but the same
+      pattern also works for agents that take action.</P>
+      <P>The other nice part is that the code stays small. The model owns the
+      serialized runtime state, and the rest is ordinary ActiveRecord code:</P>
+      <PRE><CODE class="language-ruby">##
+# Create our agent
+agent = Agent.create!
+
+##
+# First question - persists automatically
+puts agent.talk("How do I extract a tar archive?").content
+
+##
+# Second question - persists automatically
+puts agent.talk("What about gzipped tar archives?").content
+
+##
+# Third question - persists automatically
+puts agent.talk("How do I block incoming traffic with pf.conf?").content
+</CODE></PRE><BR>
+    </DIV>
+  </MAIN>
+  <SCRIPT src="/js/main.js"></SCRIPT>
+</BODY>
+</HTML>
